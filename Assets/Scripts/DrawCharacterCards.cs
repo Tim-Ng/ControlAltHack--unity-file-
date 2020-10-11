@@ -4,7 +4,7 @@ using System.Diagnostics;
 using System.Security.Principal;
 using UnityEngine;
 
-public class Draw : MonoBehaviour
+public class DrawCharacterCards : MonoBehaviour
 {
     public GameObject PlayerArea1;
     public GameObject OponentArea1;

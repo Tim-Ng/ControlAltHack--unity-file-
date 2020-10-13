@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -25,8 +26,11 @@ public class CharacterCardDispaly : MonoBehaviour
     public Image image_special;
     public Image artwork_back;
     public Image artwork_front;
-    
-    
+
+    public GameObject InfoSide;
+    public GameObject FrontSide;
+
+
     void Start()
     {
         character_card_name.text = CharCard.character_card_name;
@@ -46,5 +50,7 @@ public class CharacterCardDispaly : MonoBehaviour
         artwork_front.sprite = CharCard.artwork_front;
 
     }
+    
+  
 
 }

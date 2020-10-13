@@ -1,29 +1,33 @@
-﻿using System.Collections;
+﻿using JetBrains.Annotations;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
 
-public class popupcardwindow : MonoBehaviour
+public class popupcardwindow : MonoBehaviour 
 {
-    private GameObject panel;
-    public GameObject CardInfo;
-    public Sprite imageSprite;
-    
+    public GameObject CharactercardOBJ;
+    public CharacterCardDispaly CharactercardUI;
+    public GameObject PopUpCard;
+    public GameObject SelectChar;
 
     private void Start()
     {
-        panel= GameObject.Find("/MainGameStart/Game Interface/Panel");
-        CardInfo = GameObject.Find("/MainGameStart/Game Interface/Panel/CardInfo");
+        PopUpCard.SetActive(true);
     }
-    public void clickOn()
+    public void openCharacterCard(CharCardScript input_CharacterCard)
     {
-        panel.SetActive(true);
-        CardInfo.gameObject.GetComponent<Image>().sprite = imageSprite;
+        CharactercardOBJ.SetActive(true);
+        SelectChar.SetActive(true);
+        CharactercardUI.CharCard = input_CharacterCard;
+        CharactercardUI.InfoSide.SetActive(true);
     }
-    public void clickExit()
+    public void closePopup()
     {
-        panel.SetActive(false);
-        CardInfo.gameObject.GetComponent<Image>().sprite = null;
+        PopUpCard.SetActive(false);
+        CharactercardOBJ.SetActive(false);
+        SelectChar.SetActive(false);
+        CharactercardUI.InfoSide.SetActive(false);
     }
-
 }

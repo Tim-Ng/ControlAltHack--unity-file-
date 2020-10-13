@@ -24,6 +24,4 @@ public class CharCardScript : ScriptableObject
 
     public string special;
     public Sprite image_special;
-
-
 }

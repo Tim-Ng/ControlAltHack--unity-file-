@@ -16,9 +16,8 @@ public class CardButtons : MonoBehaviour
     }
     public void clickOnChar()
     {
-        
         PopUp.SetActive(true);
         CharCardInfo = myParent.CharCard;
-        popUpScript.openCharacterCard(CharCardInfo);
+        popUpScript.openCharacterCard(CharCardInfo,true);
     }
 }

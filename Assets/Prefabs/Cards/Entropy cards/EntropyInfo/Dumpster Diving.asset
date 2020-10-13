@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c656b47cbb5953f45b33ef0efdd11c87, type: 3}
+  m_Name: Dumpster Diving
+  m_EditorClassIdentifier: 
+  Title: DUMPSTER DIVING
+  discription: You don't mind getting dirty.You're happy to dig through a company's
+    garbage to look for un-shredded specs,documentation,and inter-office memos.This
+    time the client's guards are vigilant.Rent a garbage truck,then go through your
+    haul off-site.
+  Cost: 4000
+  usage: Play this card during a Mission. All your Hardware Hacking rolls for the
+    Mission are Automatic successes. Discard this card after use.
+  artwork_info: {fileID: 0}

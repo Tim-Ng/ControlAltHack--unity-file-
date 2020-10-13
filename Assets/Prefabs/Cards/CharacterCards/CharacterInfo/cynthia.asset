@@ -28,3 +28,4 @@ MonoBehaviour:
     of $2K)
   special: 
   image_special: {fileID: 0}
+  image_Avertar: {fileID: 21300000, guid: 288d7eae232ba0743b8af7d49f3c0ead, type: 3}

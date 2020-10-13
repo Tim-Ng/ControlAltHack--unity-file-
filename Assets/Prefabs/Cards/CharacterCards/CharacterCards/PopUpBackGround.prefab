@@ -694,6 +694,38 @@ PrefabInstance:
       propertyPath: m_Name
       value: CharcterCardTemplate
       objectReference: {fileID: 0}
+    - target: {fileID: 5072119685896848741, guid: 858540b55ce847a4c9765e75b4278d35, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 81.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 5072119685896848741, guid: 858540b55ce847a4c9765e75b4278d35, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 102.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5072119686373990686, guid: 858540b55ce847a4c9765e75b4278d35, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 81.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 5072119686373990686, guid: 858540b55ce847a4c9765e75b4278d35, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 53.899986
+      objectReference: {fileID: 0}
+    - target: {fileID: 5072119686980351061, guid: 858540b55ce847a4c9765e75b4278d35, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 81.90001
+      objectReference: {fileID: 0}
+    - target: {fileID: 5072119686980351061, guid: 858540b55ce847a4c9765e75b4278d35, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 4.5999794
+      objectReference: {fileID: 0}
+    - target: {fileID: 5072119687239341934, guid: 858540b55ce847a4c9765e75b4278d35, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 81.90001
+      objectReference: {fileID: 0}
+    - target: {fileID: 5072119687239341934, guid: 858540b55ce847a4c9765e75b4278d35, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -45
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 858540b55ce847a4c9765e75b4278d35, type: 3}
 --- !u!1 &8750945378438602930 stripped

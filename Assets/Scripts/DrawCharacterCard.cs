@@ -40,9 +40,9 @@ public class DrawCharacterCard : MonoBehaviour
     {
         for (var i = 0; i < 3; i++)
         {
-            x =Random.Range(0, cardsInfo.Count);
+            x =Random.Range(0, (cardsInfo.Count-1));
             GameObject characterPlayerCard1 = Instantiate(cardTemplate, transform.position, Quaternion.identity);
-            characterPlayerCard1.GetComponent<CharacterCardDispaly>().CharCard = CharCard1;
+            characterPlayerCard1.GetComponent<CharacterCardDispaly>().CharCard = cardsInfo[x];
             characterPlayerCard1.GetComponent<CharacterCardDispaly>().FrontSide.SetActive(true);
             characterPlayerCard1.gameObject.transform.localScale += new Vector3(-0.75f, -0.75f, 0);
             characterPlayerCard1.transform.SetParent(PlayerArea.transform, false);

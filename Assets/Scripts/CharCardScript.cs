@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New CArd",menuName ="CharacterCard")]
+[CreateAssetMenu(fileName = "New Card",menuName ="CharacterCard")]
 public class CharCardScript : ScriptableObject
 {
     public string character_card_name;
@@ -24,4 +24,5 @@ public class CharCardScript : ScriptableObject
 
     public string special;
     public Sprite image_special;
+    public Sprite image_Avertar;
 }

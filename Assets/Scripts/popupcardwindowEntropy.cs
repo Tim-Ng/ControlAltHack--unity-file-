@@ -26,12 +26,14 @@ public class popupcardwindowEntropy : MonoBehaviour
         Start();
         pop_input_Entropy = input_EntropyCard;
         EntropyDisplayUI.entropyData = pop_input_Entropy;
+        playCardButtonOBJ.SetActive(true);
         EntropyDisplayUI.InfoSide.SetActive(true);
         EntropyDisplayUI.FrontSide.SetActive(false);
     }
     public void closePopup()
     {
         PopUpCard.SetActive(false);
+        playCardButtonOBJ.SetActive(false);
         EntropyDisplayUI.InfoSide.SetActive(false);
     }
     public EntropyCardScript GetEntropyCardScript()

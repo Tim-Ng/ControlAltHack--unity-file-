@@ -6768,6 +6768,7 @@ GameObject:
   - component: {fileID: 1889712594}
   - component: {fileID: 1889712593}
   - component: {fileID: 1889712592}
+  - component: {fileID: 1889712595}
   m_Layer: 0
   m_Name: Play Card
   m_TagString: Untagged
@@ -6837,7 +6838,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1889712593}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1889712595}
+        m_TargetAssemblyTypeName: play_card_button, Assembly-CSharp
+        m_MethodName: when_clicked
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1889712593
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6876,6 +6889,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1889712590}
   m_CullTransparentMesh: 0
+--- !u!114 &1889712595
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1889712590}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4bf2f990ac0b00a478c274feaba66fcf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  play_button: {fileID: 1889712590}
+  parent: {fileID: 873606098}
+  childOBJ_parent: {fileID: 2874756393525619206}
+  PopUpEntropy: {fileID: 755170888}
 --- !u!1 &1901628778
 GameObject:
   m_ObjectHideFlags: 0

@@ -2,17 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CardButtons : MonoBehaviour
+public class CharCardButtons : MonoBehaviour
 {
     public GameObject cardFront;
     public CharacterCardDispaly myParent;
-    public GameObject PopUp;
-    private popupcardwindow popUpScript;
+    private GameObject PopUp;
+    private popupcardwindowChar popUpScript;
     private CharCardScript CharCardInfo;
     private void Start()
     {
-        PopUp = GameObject.Find("/MainGame/Game Interface/PopUpBackGround");
-        popUpScript = PopUp.GetComponent<popupcardwindow>();
+        PopUp = GameObject.Find("/MainGame/Game Interface/PopUpBackGroundChar");
+        popUpScript = PopUp.GetComponent<popupcardwindowChar>();
     }
     public void clickOnChar()
     {

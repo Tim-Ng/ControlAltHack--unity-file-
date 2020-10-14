@@ -6,9 +6,10 @@ using UnityEngine.Video;
 public class selectCharacterCard : MonoBehaviour
 {
     public UserInfoScript user_input_info;
-    public popupcardwindow Popup;
+    public popupcardwindowChar Popup;
     public GameObject clone_to_delete;
     public GameObject select_button;
+    public DrawEntropyCard entropyCard;
 
     public void clickOn()
     {
@@ -18,6 +19,8 @@ public class selectCharacterCard : MonoBehaviour
         {
             Destroy(child.gameObject);
         }
+
         Popup.closePopup();
+        entropyCard.distribute_entropycard(5);
     }
 }

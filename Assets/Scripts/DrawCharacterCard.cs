@@ -8,11 +8,6 @@ using UnityEngine.UI;
 public class DrawCharacterCard : MonoBehaviour
 {
     public GameObject PlayerArea;
-    public GameObject OponentArea1;
-    public GameObject OponentArea2;
-    public GameObject OponentArea3;
-    public GameObject OponentArea4;
-    public GameObject OponentArea5;
     public GameObject cardTemplate;
     public CharCardScript CharCard1;
     public GameObject button;
@@ -49,6 +44,5 @@ public class DrawCharacterCard : MonoBehaviour
             //cardsInfo.Remove(cardsInfo[x]);
         }
         button.SetActive(false);
-
     }
 }

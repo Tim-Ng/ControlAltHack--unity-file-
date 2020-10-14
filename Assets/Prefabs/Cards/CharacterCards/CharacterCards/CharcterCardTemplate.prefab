@@ -481,7 +481,7 @@ GameObject:
   - component: {fileID: 5072119685754737959}
   - component: {fileID: 5072119685754737958}
   - component: {fileID: 1644883257400101222}
-  - component: {fileID: 2186932479881006567}
+  - component: {fileID: 6708172327431346137}
   m_Layer: 0
   m_Name: FrontSide
   m_TagString: Untagged
@@ -589,8 +589,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2186932479881006567}
-        m_TargetAssemblyTypeName: CardButtons, Assembly-CSharp
+      - m_Target: {fileID: 6708172327431346137}
+        m_TargetAssemblyTypeName: CharCardButtons, Assembly-CSharp
         m_MethodName: clickOnChar
         m_Mode: 1
         m_Arguments:
@@ -601,7 +601,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &2186932479881006567
+--- !u!114 &6708172327431346137
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -610,12 +610,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 5072119685754737960}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 522051fdf21b435448fb31a3b037bf75, type: 3}
+  m_Script: {fileID: 11500000, guid: 8f71dec888a9c9445b6fdf1a3698fd6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   cardFront: {fileID: 5072119685754737960}
   myParent: {fileID: 5072119685807109905}
-  PopUp: {fileID: 0}
 --- !u!1 &5072119685793202043
 GameObject:
   m_ObjectHideFlags: 0

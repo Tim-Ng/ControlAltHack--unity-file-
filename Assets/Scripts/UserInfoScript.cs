@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class UserInfoScript : MonoBehaviour
 {
-    public popupcardwindow PopUp;
+    public popupcardwindowChar PopUp;
     public CharCardScript chosed_character;
     private string user_name;
     public Text usernameOBJ;

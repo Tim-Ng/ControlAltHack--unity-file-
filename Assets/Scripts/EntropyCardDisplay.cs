@@ -12,6 +12,8 @@ public class EntropyCardDisplay : MonoBehaviour
     public Text usage;
 
     public Image artwork_info;
+    public GameObject InfoSide;
+    public GameObject FrontSide;
 
     void Start()
     {

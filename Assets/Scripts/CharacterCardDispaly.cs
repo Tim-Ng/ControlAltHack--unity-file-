@@ -24,6 +24,7 @@ public class CharacterCardDispaly : MonoBehaviour
 
 
     public Image image_special;
+    public Image image_character_info;
     public Image artwork_back;
     public Image artwork_front;
 
@@ -45,6 +46,8 @@ public class CharacterCardDispaly : MonoBehaviour
         input_kitchen.text = CharCard.input_kitchen.ToString();
         input_software.text = CharCard.input_software.ToString();
         input_special.text = CharCard.input_special.ToString();
+
+        image_character_info.sprite = CharCard.char_info;
 
         artwork_back.sprite = CharCard.artwork_back;
         artwork_front.sprite = CharCard.artwork_front;

@@ -602,6 +602,7 @@ MonoBehaviour:
   Cost: {fileID: 1272443880706097625}
   usage: {fileID: 1272443881677179603}
   artwork_info: {fileID: 2637827695659379916}
+  artwork_background: {fileID: 2637827695486844980}
   InfoSide: {fileID: 2637827695659379954}
   FrontSide: {fileID: 2637827695486844986}
 --- !u!1 &2637827695486844986
@@ -664,7 +665,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.6603774, g: 0.16693753, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -811,7 +812,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.9528302, g: 0.25749916, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

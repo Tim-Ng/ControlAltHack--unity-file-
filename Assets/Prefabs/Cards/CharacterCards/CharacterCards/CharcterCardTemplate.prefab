@@ -452,7 +452,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -529,7 +529,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -911,8 +911,9 @@ MonoBehaviour:
   ad_disadvantages: {fileID: 5072119686367480019}
   special: {fileID: 5072119686639408148}
   image_special: {fileID: 5072119685913810885}
-  artwork_back: {fileID: 5072119685797066963}
-  artwork_front: {fileID: 5072119685754737958}
+  image_character_info: {fileID: 5072119685797066963}
+  artwork_back: {fileID: 5072119685754737958}
+  artwork_front: {fileID: 5072119685591726558}
   InfoSide: {fileID: 5072119685591726560}
   FrontSide: {fileID: 5072119685754737960}
 --- !u!1 &5072119685811042476

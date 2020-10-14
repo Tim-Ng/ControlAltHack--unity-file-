@@ -11,6 +11,7 @@ public class EntropyCardScript : ScriptableObject
     public string usage;
 
     public Sprite artwork_info;
+    public Sprite artwork_back;
 
     
 }

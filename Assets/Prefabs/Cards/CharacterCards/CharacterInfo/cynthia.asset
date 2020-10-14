@@ -14,8 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   character_card_name: CYNTHIA
   discription: 
-  artwork_back: {fileID: 0}
-  artwork_front: {fileID: 0}
+  artwork_back: {fileID: 21300000, guid: 56365aedcebae124a9cbdd7375b95ad7, type: 3}
+  artwork_front: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  char_info: {fileID: 21300000, guid: 56365aedcebae124a9cbdd7375b95ad7, type: 3}
   input_hardware: 11
   input_cryptanalysis: 12
   input_network: 12
@@ -27,5 +28,5 @@ MonoBehaviour:
   ad_disadvantages: She normaly gets only $1K at the beginning of each round (instead
     of $2K)
   special: 
-  image_special: {fileID: 0}
+  image_special: {fileID: 21300000, guid: 56365aedcebae124a9cbdd7375b95ad7, type: 3}
   image_Avertar: {fileID: 21300000, guid: 288d7eae232ba0743b8af7d49f3c0ead, type: 3}

@@ -12,6 +12,7 @@ public class EntropyCardDisplay : MonoBehaviour
     public Text usage;
 
     public Image artwork_info;
+    public Image artwork_background;
     public GameObject InfoSide;
     public GameObject FrontSide;
 
@@ -23,5 +24,6 @@ public class EntropyCardDisplay : MonoBehaviour
         Cost.text = entropyData.Cost.ToString();
 
         artwork_info.sprite = entropyData.artwork_info;
+        artwork_background.sprite = entropyData.artwork_back;
     }
 }

@@ -16,6 +16,7 @@ MonoBehaviour:
   MissonTitle: Baby, You Can Fly My Plane
   MissionDiscription: The U.S. goberment asked you to improve the security system
     for their unmanned aeral vehicles (UAVs)
+  Newb_job: 1
   first_mission: {fileID: 0}
   skill_name_1: SOFTWARE WIZARD
   fist_change_hardnum: 0

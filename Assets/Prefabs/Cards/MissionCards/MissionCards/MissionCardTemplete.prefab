@@ -1349,7 +1349,7 @@ GameObject:
   - component: {fileID: 4159284579579515752}
   - component: {fileID: 4159284579579515767}
   m_Layer: 0
-  m_Name: Text
+  m_Name: MissonText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2192,6 +2192,7 @@ MonoBehaviour:
   artwork_front_info: {fileID: 4159284580416411224}
   task_discription1: {fileID: 4159284579062422253}
   task_discription2: {fileID: 4159284579596888184}
+  Newb_job: {fileID: 4159284579579515767}
 --- !u!1 &4159284580416411238
 GameObject:
   m_ObjectHideFlags: 0

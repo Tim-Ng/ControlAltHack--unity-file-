@@ -11,7 +11,7 @@ public class popupcardwindowEntropy : MonoBehaviour
     private EntropyCardScript pop_input_Entropy;
     public GameObject playCardButtonOBJ;
     public Button playCardButton;
-    private bool canPlay = true;
+    private bool canPlay = false;
 
     private void Start()
     {

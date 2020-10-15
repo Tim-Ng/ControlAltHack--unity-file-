@@ -20,4 +20,8 @@ public class EntropyCardButton : MonoBehaviour
         EntroyScript = myParent.entropyData;
         popUpScript.openEntropyCard(EntroyScript);
     }
+    public void clickToFlip()
+    {
+        cardFront.SetActive(false);
+    }
 }

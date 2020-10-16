@@ -325,6 +325,11 @@ MonoBehaviour:
   join_input: {fileID: 1681414927}
   host_input: {fileID: 2101885298}
   message: {fileID: 1495962419}
+  loading_text: {fileID: 433313827}
+  TurnHost: {fileID: 350806609}
+  TurnJoin: {fileID: 946628241}
+  loading_OBJ: {fileID: 433313825}
+  messageOBJ: {fileID: 1495962417}
   join_button: {fileID: 1180223374}
   host_button: {fileID: 1370058194}
 --- !u!1 &350806609
@@ -416,12 +421,12 @@ GameObject:
   - component: {fileID: 433313828}
   - component: {fileID: 433313827}
   m_Layer: 0
-  m_Name: ConnectScreen
+  m_Name: loadingText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &433313826
 RectTransform:
   m_ObjectHideFlags: 0
@@ -438,8 +443,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -101}
-  m_SizeDelta: {x: 452.04654, y: 84.58212}
+  m_AnchoredPosition: {x: 0.00021362, y: 2.5334}
+  m_SizeDelta: {x: 888.50037, y: 59.76892}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &433313827
 MonoBehaviour:
@@ -463,12 +468,12 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 14
+    m_FontSize: 50
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
-    m_MaxSize: 40
-    m_Alignment: 0
+    m_MinSize: 0
+    m_MaxSize: 50
+    m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
@@ -970,7 +975,7 @@ GameObject:
   - component: {fileID: 1495962420}
   - component: {fileID: 1495962419}
   m_Layer: 0
-  m_Name: Text
+  m_Name: Message
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

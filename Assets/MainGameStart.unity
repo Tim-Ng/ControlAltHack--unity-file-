@@ -874,6 +874,7 @@ GameObject:
   - component: {fileID: 277830162}
   - component: {fileID: 277830161}
   - component: {fileID: 277830160}
+  - component: {fileID: 277830163}
   m_Layer: 0
   m_Name: Game Interface
   m_TagString: Untagged
@@ -937,9 +938,9 @@ MonoBehaviour:
   m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 469}
+  m_ReferenceResolution: {x: 1000, y: 400}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0.63
+  m_MatchWidthOrHeight: 0.57
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -965,6 +966,27 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!114 &277830163
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 277830158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 334fb79772c35944088e8d124db76fd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startButtonOBJ: {fileID: 5132570365836124971}
+  player_username: {fileID: 655703978}
+  opponent1_username: {fileID: 1302560670}
+  opponent2_username: {fileID: 660637765}
+  opponent3_username: {fileID: 1043619466}
+  opponent4_username: {fileID: 1234587975}
+  opponent5_username: {fileID: 12445371}
+  Roomtext: {fileID: 289626136}
+  startTest: {fileID: 3898166831161906844}
 --- !u!1 &289626134
 GameObject:
   m_ObjectHideFlags: 0
@@ -6016,6 +6038,18 @@ MonoBehaviour:
       - m_Target: {fileID: 3898166831161906844}
         m_TargetAssemblyTypeName: DrawCharacterCard, Assembly-CSharp
         m_MethodName: OnClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 277830163}
+        m_TargetAssemblyTypeName: Main_Game_before_start, Assembly-CSharp
+        m_MethodName: CallRemoteMethod
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

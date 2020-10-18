@@ -13,18 +13,14 @@ namespace MainMenu
     {
         [SerializeField] private TMP_InputField nameInputFeild = null;
         [SerializeField] private Button continueButton = null;
-
         private const string PlayerPrefsNameKey = "PlayerName";
-
+        private String nickName;
         private void Start()
         {
             PhotonNetwork.ConnectUsingSettings();
             SetUpInputFeild();
         }
-        public override void OnConnectedToMaster()
-        {
-            Debug.Log("We are now connected to " + PhotonNetwork.CloudRegion + "sever!");
-        }
+        public string getNickNameSet() { return nickName; }
         private void SetUpInputFeild()
         {
             if (!PlayerPrefs.HasKey(PlayerPrefsNameKey)) { return; }
@@ -40,7 +36,7 @@ namespace MainMenu
         public void SavePlayerName()
         {
             string playerName = nameInputFeild.text;
-            PhotonNetwork.NickName = playerName;
+            
             PlayerPrefs.SetString(PlayerPrefsNameKey, playerName);
             SceneManager.LoadScene("Host_Join", LoadSceneMode.Single);
         }

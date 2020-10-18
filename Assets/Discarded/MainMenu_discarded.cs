@@ -1,5 +1,6 @@
 ﻿using Photon.Pun;
 using Photon.Realtime;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -87,6 +88,11 @@ namespace MainMenu
                 Debug.Log("Match is ready to begin");
                 PhotonNetwork.LoadLevel("Scene_Login_Username");
             }
+        }
+
+        public static implicit operator MainMenu(Main_Menu v)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -11,19 +11,17 @@ namespace MainMenu
 {
     public class Main_Menu : MonoBehaviourPunCallbacks
     {
-        [SerializeField] private TMP_InputField join_input = null, host_input = null;
+        public static MainMenu mainmenu;
+        [SerializeField] private TMP_InputField join_input = null, host_input = null, nameInputFeild = null;
         [SerializeField] private Text message;
         public Text loading_text;
-        public GameObject TurnHost, TurnJoin, loading_OBJ, messageOBJ,ChangeNickNameButton;
-        public Button join_button, host_button;
+        public GameObject TurnHost, TurnJoin, loading_OBJ, messageOBJ, ChangeNickNameButton;
+        public Button join_button, host_button, continueButton;
         public static MainMenu instance;
         private const string GameVersion = "0.1"; //not the same will not connect together 
         private const int MaxPlayersPerRoom = 6;
-        [SerializeField] private PlayerUsernameInput input_name;
-        public override void OnConnectedToMaster()
-        {
-            Debug.Log("We are now connected to " + PhotonNetwork.CloudRegion + "sever!");
-        }
+        private const string PlayerPrefsNameKey = "PlayerName";
+        public GameObject OBJUserName, OBJHostJoin;
         private void Awake()
         {
             PhotonNetwork.AutomaticallySyncScene = true;
@@ -31,9 +29,22 @@ namespace MainMenu
         }
         void Start()
         {
+            OBJHostJoin.SetActive(false);
+            OBJUserName.SetActive(true);
+            PhotonNetwork.ConnectUsingSettings();
+            PhotonNetwork.GameVersion = GameVersion;
+            SetUpInputFeild();
+        }
+        public override void OnConnectedToMaster()
+        {
+            Debug.Log("We are now connected to " + PhotonNetwork.CloudRegion + "sever!");
+        }
+        public void callHostJoin()
+        {
+            OBJHostJoin.SetActive(true);
+            OBJUserName.SetActive(false);
             checkInputJoin();
             checkInputHost();
-            PhotonNetwork.NickName = input_name.getNickNameSet();
             PhotonNetwork.GameVersion = GameVersion;
             if (string.IsNullOrEmpty(PhotonNetwork.NickName))
             {
@@ -42,6 +53,30 @@ namespace MainMenu
             }
             message.text = "Hi " + PhotonNetwork.NickName;
         }
+        //input name start
+        private void SetUpInputFeild()
+        {
+            if (!PlayerPrefs.HasKey(PlayerPrefsNameKey)) { return; }
+            string defultName = PlayerPrefs.GetString(PlayerPrefsNameKey);
+            nameInputFeild.text = defultName;
+            SetPlayerName(defultName);
+        }
+
+        public void SetPlayerName(string name)
+        {
+            continueButton.interactable = !string.IsNullOrEmpty(nameInputFeild.text);
+        }
+        public void SavePlayerName()
+        {
+            string playerName = nameInputFeild.text;
+            PhotonNetwork.NickName = playerName;
+            PlayerPrefs.SetString(PlayerPrefsNameKey, playerName);
+            callHostJoin();
+        }
+
+        //input name end
+
+
         /// Host functions starts
         public void clickOnHostButton()
         {
@@ -66,24 +101,20 @@ namespace MainMenu
             loading_text.text = "Room Named \"" + PhotonNetwork.CurrentRoom.Name + "\" is created...";
         }
 
-
-            /*Debug.Log("Created room: " + PhotonNetwork.CurrentRoom.Name);
-            loading_text.text = "Room Named \"" + PhotonNetwork.CurrentRoom.Name + "\" failed to create";
+        public override void OnCreateRoomFailed(short returnCode, string message)
+        {
+            Debug.Log("Created room failed " );
+            loading_text.text = "Room failed to create";
             loading_text.text = "The room name has already exsist or the server has issue please try agian...";
-            host_input = null;
+            host_input.text = null;
             TurnHost.SetActive(true);
             TurnJoin.SetActive(true);
-            loading_OBJ.SetActive(false); */
+            loading_OBJ.SetActive(false);
+        }
         /// Host functions end 
 
         /// Join functions starts
-        public void JoinRoom(string roomName)
-        {
-            Debug.Log("Joining Room...");
-            loading_text.text = "Joining Room Named \"" + join_input.text + "\" ";
-            PhotonNetwork.JoinRoom(roomName);
-        }
-        public void clickOnJoinButton() 
+        public void clickOnJoinButton()
         {
             ChangeNickNameButton.SetActive(false);
             TurnHost.SetActive(false);
@@ -92,6 +123,12 @@ namespace MainMenu
             JoinRoom(join_input.text);
         }
         public void checkInputJoin() => join_button.interactable = !string.IsNullOrEmpty(join_input.text);
+        public void JoinRoom(string roomName)
+        {
+            Debug.Log("Joining Room...");
+            loading_text.text = "Joining Room Named \"" + join_input.text + "\" ";
+            PhotonNetwork.JoinRoom(roomName);
+        }
         public override void OnJoinedRoom()
         {
             Debug.Log("Client successfully joined a room");
@@ -99,13 +136,11 @@ namespace MainMenu
             if (playerCount != MaxPlayersPerRoom)
             {
                 loading_text.text = "Joined Room named \"" + PhotonNetwork.CurrentRoom.Name + "\" ";
-                PhotonNetwork.LoadLevel(2);
+                PhotonNetwork.LoadLevel(1);
                 Debug.Log("Client is waiting for an opponent");
             }
             else
             {
-                //waitingStatusText.text = "Opponent Found";
-                SceneManager.LoadScene("OtherSceneName", LoadSceneMode.Additive);
                 Debug.Log("Matching is ready to begin");
                 join_input.text = null;
                 TurnHost.SetActive(true);
@@ -113,9 +148,8 @@ namespace MainMenu
                 loading_OBJ.SetActive(false);
             }
         }
-        public override void OnJoinRandomFailed(short returnCode, string message)
-        {
-            base.OnJoinRandomFailed(returnCode, message);
+        public override void OnJoinRoomFailed(short returnCode, string message)
+        { 
             Debug.Log("Room is not found");
             loading_text.text = "There are no room with the name \"" + join_input.text + "\" currently being hosted";
             join_input.text = null;
@@ -123,7 +157,7 @@ namespace MainMenu
             TurnJoin.SetActive(true);
             loading_OBJ.SetActive(false);
         }
-        
+
         /// Join functions ends 
         public override void OnPlayerEnteredRoom(Player newPlayer)
         {
@@ -145,9 +179,8 @@ namespace MainMenu
         }
         public void onClickChageName()
         {
-            PhotonNetwork.LoadLevel(0);
+            OBJHostJoin.SetActive(false);
+            OBJUserName.SetActive(true);
         }
-
-        
     }
 }

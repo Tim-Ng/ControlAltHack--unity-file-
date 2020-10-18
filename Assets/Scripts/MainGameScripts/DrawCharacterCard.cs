@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Photon.Pun;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Security.Principal;
@@ -11,12 +12,14 @@ public class DrawCharacterCard : MonoBehaviour
     public GameObject cardTemplate;
     public CharCardScript CharCard1;
     public GameObject button;
+    private PhotonView pv;
     private int x;
 
     List<CharCardScript> cardsInfo = new List<CharCardScript>();
 
     void Start()
     {
+        pv = GetComponent<PhotonView>();
         cardsInfo.Add(CharCard1);
         /*cardsInfo.Add(CharCard2);
         cardsInfo.Add(CharCard3);
@@ -30,12 +33,20 @@ public class DrawCharacterCard : MonoBehaviour
         cardsInfo.Add(CharCard11);
         cardsInfo.Add(CharCard12);*/
     }
-
+    
     public void OnClick()
+    {
+        if (pv.IsMine)
+        {
+            pv.RPC("Drawcard",RpcTarget.All);
+        }
+    }
+    [PunRPC]
+    public void Drawcard()
     {
         for (var i = 0; i < 3; i++)
         {
-            x =Random.Range(0, (cardsInfo.Count-1));
+            x = Random.Range(0, (cardsInfo.Count - 1));
             GameObject characterPlayerCard1 = Instantiate(cardTemplate, transform.position, Quaternion.identity);
             characterPlayerCard1.GetComponent<CharacterCardDispaly>().CharCard = cardsInfo[x];
             characterPlayerCard1.GetComponent<CharacterCardDispaly>().FrontSide.SetActive(true);

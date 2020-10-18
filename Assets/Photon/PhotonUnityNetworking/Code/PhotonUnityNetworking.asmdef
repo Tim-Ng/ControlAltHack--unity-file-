@@ -3,17 +3,8 @@
     "references": [
         "PhotonRealtime"
     ],
+    "optionalUnityReferences": [],
     "includePlatforms": [],
-    "excludePlatforms": [
-        "Android",
-        "iOS",
-        "WindowsStandalone64"
-    ],
-    "allowUnsafeCode": false,
-    "overrideReferences": false,
-    "precompiledReferences": [],
-    "autoReferenced": true,
-    "defineConstraints": [],
-    "versionDefines": [],
-    "noEngineReferences": false
+    "excludePlatforms": [],
+    "allowUnsafeCode": false
 }

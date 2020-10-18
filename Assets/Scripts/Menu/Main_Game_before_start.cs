@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Photon.Realtime;
 using UnityEngine.PlayerLoop;
+using UnityEngine.SceneManagement;
 
 public class Main_Game_before_start : MonoBehaviourPunCallbacks
 {
@@ -18,6 +19,7 @@ public class Main_Game_before_start : MonoBehaviourPunCallbacks
             startButtonOBJ.SetActive(true);
         Roomtext.text = PhotonNetwork.CurrentRoom.Name;
         player_username.text = PhotonNetwork.NickName;
+
     }
 
     /*private void OnPlayerEnteredRoom(Photon.Realtime.Player newPlayer)

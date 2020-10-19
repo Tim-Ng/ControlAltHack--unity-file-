@@ -38,7 +38,7 @@ public class DrawCharacterCard : MonoBehaviour
     {
         if (pv.IsMine)
         {
-            pv.RPC("Drawcard",RpcTarget.All);
+            pv.RPC("Drawcard",RpcTarget.AllBufferedViaServer);
         }
     }
     [PunRPC]

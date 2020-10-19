@@ -31,8 +31,11 @@ namespace MainMenu
         {
             OBJHostJoin.SetActive(false);
             OBJUserName.SetActive(true);
-            PhotonNetwork.ConnectUsingSettings();
-            PhotonNetwork.GameVersion = GameVersion;
+            if (!PhotonNetwork.IsConnectedAndReady)
+            {
+                PhotonNetwork.ConnectUsingSettings();
+                PhotonNetwork.GameVersion = GameVersion;
+            }
             SetUpInputFeild();
         }
         public override void OnConnectedToMaster()
@@ -43,6 +46,7 @@ namespace MainMenu
         {
             OBJHostJoin.SetActive(true);
             OBJUserName.SetActive(false);
+            ChangeNickNameButton.SetActive(false);
             checkInputJoin();
             checkInputHost();
             PhotonNetwork.GameVersion = GameVersion;
@@ -80,13 +84,17 @@ namespace MainMenu
         /// Host functions starts
         public void clickOnHostButton()
         {
+            if (!PhotonNetwork.IsConnectedAndReady)
+            {
+                return;
+            }
             TurnHost.SetActive(false);
             TurnJoin.SetActive(false);
             loading_OBJ.SetActive(true);
             ChangeNickNameButton.SetActive(false);
             CreateRoom(host_input.text);
         }
-        public void checkInputHost() => host_button.interactable = !string.IsNullOrEmpty(host_input.text); // will send to create room
+        public void checkInputHost() =>host_button.interactable = !string.IsNullOrEmpty(host_input.text); // will send to create room
 
         public void CreateRoom(string roomName)  // create room 
         {
@@ -110,12 +118,17 @@ namespace MainMenu
             TurnHost.SetActive(true);
             TurnJoin.SetActive(true);
             loading_OBJ.SetActive(false);
+            ChangeNickNameButton.SetActive(true);
         }
         /// Host functions end 
 
         /// Join functions starts
         public void clickOnJoinButton()
         {
+            if (!PhotonNetwork.IsConnectedAndReady)
+            {
+                return;
+            }
             ChangeNickNameButton.SetActive(false);
             TurnHost.SetActive(false);
             TurnJoin.SetActive(false);
@@ -181,6 +194,7 @@ namespace MainMenu
         {
             OBJHostJoin.SetActive(false);
             OBJUserName.SetActive(true);
+            ChangeNickNameButton.SetActive(true);
         }
     }
 }

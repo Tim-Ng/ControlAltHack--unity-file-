@@ -45,10 +45,6 @@ public class DrawEntropyCard : MonoBehaviour
     }
 
     //keep checking opponent amount
-    private void Update()
-    {
-        
-    }
 
     public void setOponentArea1_card(int amount)
     {

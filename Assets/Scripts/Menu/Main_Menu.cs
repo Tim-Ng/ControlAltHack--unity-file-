@@ -21,6 +21,7 @@ namespace MainMenu
         private const string GameVersion = "0.1"; //not the same will not connect together 
         private const int MaxPlayersPerRoom = 6;
         private const string PlayerPrefsNameKey = "PlayerName";
+        private bool turnOnButtons=false;
         public GameObject OBJUserName, OBJHostJoin;
         private void Awake()
         {
@@ -31,7 +32,7 @@ namespace MainMenu
         {
             OBJHostJoin.SetActive(false);
             OBJUserName.SetActive(true);
-            if (!PhotonNetwork.IsConnectedAndReady)
+            if (!PhotonNetwork.IsConnected)
             {
                 PhotonNetwork.ConnectUsingSettings();
                 PhotonNetwork.GameVersion = GameVersion;
@@ -41,6 +42,9 @@ namespace MainMenu
         public override void OnConnectedToMaster()
         {
             Debug.Log("We are now connected to " + PhotonNetwork.CloudRegion + "sever!");
+            turnOnButtons = true;
+            checkInputJoin();
+            checkInputHost();
         }
         public void callHostJoin()
         {
@@ -84,17 +88,13 @@ namespace MainMenu
         /// Host functions starts
         public void clickOnHostButton()
         {
-            if (!PhotonNetwork.IsConnectedAndReady)
-            {
-                return;
-            }
             TurnHost.SetActive(false);
             TurnJoin.SetActive(false);
             loading_OBJ.SetActive(true);
             ChangeNickNameButton.SetActive(false);
             CreateRoom(host_input.text);
         }
-        public void checkInputHost() =>host_button.interactable = !string.IsNullOrEmpty(host_input.text); // will send to create room
+        public void checkInputHost() =>host_button.interactable = !string.IsNullOrEmpty(host_input.text) && turnOnButtons; // will send to create room
 
         public void CreateRoom(string roomName)  // create room 
         {
@@ -125,17 +125,14 @@ namespace MainMenu
         /// Join functions starts
         public void clickOnJoinButton()
         {
-            if (!PhotonNetwork.IsConnectedAndReady)
-            {
-                return;
-            }
-            ChangeNickNameButton.SetActive(false);
-            TurnHost.SetActive(false);
-            TurnJoin.SetActive(false);
-            loading_OBJ.SetActive(true);
-            JoinRoom(join_input.text);
+                ChangeNickNameButton.SetActive(false);
+                TurnHost.SetActive(false);
+                TurnJoin.SetActive(false);
+                loading_OBJ.SetActive(true);
+                JoinRoom(join_input.text);
+                
         }
-        public void checkInputJoin() => join_button.interactable = !string.IsNullOrEmpty(join_input.text);
+        public void checkInputJoin() => join_button.interactable = !string.IsNullOrEmpty(join_input.text) && turnOnButtons;
         public void JoinRoom(string roomName)
         {
             Debug.Log("Joining Room...");

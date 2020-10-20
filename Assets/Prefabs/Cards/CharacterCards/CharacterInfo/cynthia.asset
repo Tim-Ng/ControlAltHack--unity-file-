@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7ee4e8c837f58f4eb3ecbed4eaf342c, type: 3}
   m_Name: cynthia
   m_EditorClassIdentifier: 
+  character_code: 1
   character_card_name: CYNTHIA
   discription: 
   artwork_back: {fileID: 21300000, guid: 56365aedcebae124a9cbdd7375b95ad7, type: 3}

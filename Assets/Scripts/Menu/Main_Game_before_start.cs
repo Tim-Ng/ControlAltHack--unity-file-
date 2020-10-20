@@ -15,9 +15,8 @@ public class Main_Game_before_start : MonoBehaviourPunCallbacks
     [SerializeField] private GameObject startButtonOBJ=null;
     public Text player_username,opponent1_username, opponent2_username, opponent3_username, opponent4_username, opponent5_username,Roomtext;
     public Text amount_of_people;
-    private int minmum_amount_of_people = 2; 
-    public Button Start_Button;
-    List<string> playerNames = new List<string> ();
+    private int minmum_amount_of_people = 2;  // minimum amount of players
+    public Button Start_Button,Leave_Button;
     List<Text> textOtherPlayers = new List<Text> ();
     private PhotonView PV;
 
@@ -53,15 +52,14 @@ public class Main_Game_before_start : MonoBehaviourPunCallbacks
         {
             textOtherPlayers[j].text = "Waiting for Player ";
         }
-        Debug.Log("A player entered in put name and recount numbuer of people");
+        Debug.Log("A player entered in put name and recount of people");
         foreach (Player otherplayer in PhotonNetwork.PlayerListOthers)
         {
-
             textOtherPlayers[i].text = otherplayer.NickName;
             i++;
         }
-        Start_Button.interactable = !((i+1) < minmum_amount_of_people);
-        amount_of_people.text = (i+1).ToString() + "/6";
+        Start_Button.interactable = !(PhotonNetwork.CurrentRoom.PlayerCount<minmum_amount_of_people);
+        amount_of_people.text = (PhotonNetwork.CurrentRoom.PlayerCount).ToString() + "/6";
     }
     public override void OnPlayerLeftRoom(Player otherPlayer)
     {

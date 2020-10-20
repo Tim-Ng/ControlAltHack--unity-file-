@@ -5,6 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Card",menuName ="CharacterCard")]
 public class CharCardScript : ScriptableObject
 {
+    public string character_code;
     public string character_card_name;
     public string discription;
 

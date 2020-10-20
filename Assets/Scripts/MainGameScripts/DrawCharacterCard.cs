@@ -24,19 +24,18 @@ public class DrawCharacterCard : MonoBehaviour
     public DrawEntropyCard entropyCard;
 
     public Image avertarUser,avertarPlayer1 , avertarPlayer2, avertarPlayer3, avertarPlayer4, avertarPlayer5;
-    public popupcardwindowChar PopUp;
-    public Button avertar_allow_click;
     public Sprite defultImage;
     private CharCardScript chosed_character_user, chosed_character_player1=null, chosed_character_player2 = null, chosed_character_player3 = null, chosed_character_player4 = null, chosed_character_player5 = null;
+    public Button userAvertarButton, Player1AvertarButton, Player2AvertarButton, Player3AvertarButton, Player4AvertarButton, Player5AvertarButton;
     private List<CharCardScript> cardsInfoDraw = new List<CharCardScript>();
     private List<CharCardScript> cardsInfo = new List<CharCardScript>();
     private List<CharCardScript> otherPlayerCharacterInfo = new List<CharCardScript>();
     private List<Image> otherPlayerAvertar = new List<Image>();
+    private List<Button> otherAvertarPlayerButton = new List<Button>();
     void Start()
     {
         pv = GetComponent<PhotonView>();
         putCharCardsInList();
-        avertar_allow_click.enabled = false;
     }
     private void putCharCardsInList()
     {
@@ -70,6 +69,16 @@ public class DrawCharacterCard : MonoBehaviour
         otherPlayerAvertar.Add(avertarPlayer3);
         otherPlayerAvertar.Add(avertarPlayer4);
         otherPlayerAvertar.Add(avertarPlayer5);
+        otherAvertarPlayerButton.Add(Player1AvertarButton);
+        otherAvertarPlayerButton.Add(Player2AvertarButton);
+        otherAvertarPlayerButton.Add(Player3AvertarButton);
+        otherAvertarPlayerButton.Add(Player4AvertarButton);
+        otherAvertarPlayerButton.Add(Player5AvertarButton);
+        foreach (Button which in otherAvertarPlayerButton)
+        {
+            which.interactable = false;
+        }
+        userAvertarButton.interactable = false;
     }
 
     public void OnClickTodrawCard()
@@ -101,16 +110,16 @@ public class DrawCharacterCard : MonoBehaviour
     }
     public void clickOnSelectCard()
     {
-        pv.RPC("SetCharacterInfo", RpcTarget.Others, PopUp.GetCharCardScript().character_code, PhotonNetwork.LocalPlayer);
+        pv.RPC("SetCharacterInfo", RpcTarget.Others, Popup.GetCharCardScript().character_code, PhotonNetwork.LocalPlayer);
         select_button.SetActive(false);
         foreach (Transform child in clone_to_delete.transform)
         {
             Destroy(child.gameObject);
         }
-        chosed_character_user = PopUp.GetCharCardScript();
+        chosed_character_user = Popup.GetCharCardScript();
         avertarUser.sprite = chosed_character_user.image_Avertar;
-        avertar_allow_click.enabled = true;
-        PopUp.closePopup();
+        userAvertarButton.interactable = true;
+        Popup.closePopup();
         entropyCard.distribute_entropycard(5);
     }
     [PunRPC]
@@ -147,8 +156,28 @@ public class DrawCharacterCard : MonoBehaviour
             {
                 otherPlayerCharacterInfo[i] = charScript;
                 otherPlayerAvertar[i].sprite = otherPlayerCharacterInfo[i].image_Avertar;
+                otherAvertarPlayerButton[i].interactable = true;
             }
         }
         
     }
+
+    public void PopUpCharacterInfo(int i)
+    {
+        if ((i != 5))
+        {
+            Popup.openCharacterCard(otherPlayerCharacterInfo[i], false);
+        }
+        else
+        {
+            Popup.openCharacterCard(chosed_character_user, false);
+        }
+    }
+    public void clickAvertarPlayer1() => PopUpCharacterInfo(0);
+    public void clickAvertarPlayer2() => PopUpCharacterInfo(1);
+    public void clickAvertarPlayer3() => PopUpCharacterInfo(2);
+    public void clickAvertarPlayer4() => PopUpCharacterInfo(3);
+    public void clickAvertarPlayer5() => PopUpCharacterInfo(4);
+    public void clickAvertarPlayerUser() => PopUpCharacterInfo(5);
+
 }

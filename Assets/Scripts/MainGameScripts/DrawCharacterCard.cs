@@ -237,7 +237,6 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
         }
         
     }
-
     public void PopUpCharacterInfo(int i)
     {
         if ((i != 5))

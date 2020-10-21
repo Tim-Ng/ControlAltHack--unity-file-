@@ -41,7 +41,7 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
     private RaiseEventOptions AllOtherThanMePeopleOptions = new RaiseEventOptions()
     {
         CachingOption = EventCaching.DoNotCache,
-        Receivers = ReceiverGroup.All
+        Receivers = ReceiverGroup.Others
     };
     public enum PhotonEventCode
     {

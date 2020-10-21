@@ -518,8 +518,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba3fec1b1978a804fba497164fbb29a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AvartarImage: {fileID: 49473032}
-  Avertar: {fileID: 1445510706}
 --- !u!222 &49473037
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1337,7 +1335,6 @@ GameObject:
   - component: {fileID: 277830161}
   - component: {fileID: 277830160}
   - component: {fileID: 277830163}
-  - component: {fileID: 277830164}
   m_Layer: 0
   m_Name: Game Interface
   m_TagString: Untagged
@@ -1360,8 +1357,8 @@ RectTransform:
   - {fileID: 370182161}
   - {fileID: 986124133}
   - {fileID: 7013831139203301677}
-  - {fileID: 755170887}
   - {fileID: 1052135754}
+  - {fileID: 755170887}
   m_Father: {fileID: 674881415}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1453,28 +1450,6 @@ MonoBehaviour:
   amount_of_people: {fileID: 854439822}
   Start_Button: {fileID: 4334109394784263526}
   Leave_Button: {fileID: 1819265644}
---- !u!114 &277830164
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 277830158}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObservedComponentsFoldoutOpen: 1
-  Group: 0
-  prefixField: -1
-  observableSearch: 2
-  Synchronization: 3
-  OwnershipTransfer: 0
-  ObservedComponents: []
-  viewIdField: 2
-  InstantiationId: 0
-  isRuntimeInstantiated: 0
 --- !u!1 &284181117
 GameObject:
   m_ObjectHideFlags: 0
@@ -2733,7 +2708,6 @@ GameObject:
   m_Component:
   - component: {fileID: 499456408}
   - component: {fileID: 499456407}
-  - component: {fileID: 499456409}
   m_Layer: 0
   m_Name: StartGameController
   m_TagString: Untagged
@@ -2758,7 +2732,6 @@ MonoBehaviour:
   CharCard1: {fileID: 11400000, guid: 4c5ef7c2f745cf346a6b5fe1edbca454, type: 2}
   StartGameButtonOBJ: {fileID: 5132570365836124971}
   LeaveRoomButton: {fileID: 1819265644}
-  user_input_info: {fileID: 1445510706}
   Popup: {fileID: 239906617}
   clone_to_delete: {fileID: 2874756393525619206}
   select_button: {fileID: 1930564560636632510}
@@ -2769,7 +2742,6 @@ MonoBehaviour:
   avertarPlayer3: {fileID: 1599095789}
   avertarPlayer4: {fileID: 1855348864}
   avertarPlayer5: {fileID: 1835776288}
-  avertar_allow_click: {fileID: 49473035}
   defultImage: {fileID: 21300000, guid: 6bfbda08105f1494492e4da121f53126, type: 3}
   userAvertarButton: {fileID: 49473035}
   Player1AvertarButton: {fileID: 558337286}
@@ -2791,28 +2763,6 @@ Transform:
   m_Father: {fileID: 277830159}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &499456409
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 499456406}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObservedComponentsFoldoutOpen: 0
-  Group: 0
-  prefixField: -1
-  observableSearch: 2
-  Synchronization: 3
-  OwnershipTransfer: 0
-  ObservedComponents: []
-  viewIdField: 1
-  InstantiationId: 0
-  isRuntimeInstantiated: 0
 --- !u!1 &558337282
 GameObject:
   m_ObjectHideFlags: 0
@@ -5688,7 +5638,7 @@ RectTransform:
   - {fileID: 1855246178}
   - {fileID: 191410437}
   m_Father: {fileID: 277830159}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -7175,11 +7125,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0c5b210070a002488d16a353fd011c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PopUp: {fileID: 239906617}
-  chosed_character: {fileID: 0}
-  usernameOBJ: {fileID: 655703978}
-  AvartarImage: {fileID: 49473034}
-  allow_click: {fileID: 49473035}
 --- !u!1 &1509883942
 GameObject:
   m_ObjectHideFlags: 0
@@ -10588,7 +10533,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4474021401403421374, guid: 5fd9301e663e40145b062de0287463a8, type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4474021401403421374, guid: 5fd9301e663e40145b062de0287463a8, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

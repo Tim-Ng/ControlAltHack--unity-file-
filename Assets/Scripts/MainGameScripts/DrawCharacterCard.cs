@@ -1,42 +1,97 @@
-﻿using Photon.Pun;
+﻿using ExitGames.Client.Photon;
+using Photon.Pun;
 using Photon.Pun.UtilityScripts;
 using Photon.Realtime;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Principal;
+using TMPro;
+using TMPro.EditorUtilities;
 using UnityEngine;
 using UnityEngine.UI;
+public class DrawCharacterCard : MonoBehaviourPunCallbacks
 
-public class DrawCharacterCard : MonoBehaviour
 {
     public GameObject PlayerArea;
     public GameObject cardTemplate;
     [SerializeField] private CharCardScript CharCard1;
     public GameObject StartGameButtonOBJ;
-    private PhotonView pv;
     private int x;
     public Button LeaveRoomButton;
 
-    public UserInfoScript user_input_info;
     public popupcardwindowChar Popup;
     public GameObject clone_to_delete;
     public GameObject select_button;
     public DrawEntropyCard entropyCard;
 
-    public Image avertarUser,avertarPlayer1 , avertarPlayer2, avertarPlayer3, avertarPlayer4, avertarPlayer5;
+    public Image avertarUser, avertarPlayer1, avertarPlayer2, avertarPlayer3, avertarPlayer4, avertarPlayer5;
     public Sprite defultImage;
-    private CharCardScript chosed_character_user, chosed_character_player1=null, chosed_character_player2 = null, chosed_character_player3 = null, chosed_character_player4 = null, chosed_character_player5 = null;
+    private CharCardScript chosed_character_user, chosed_character_player1 = null, chosed_character_player2 = null, chosed_character_player3 = null, chosed_character_player4 = null, chosed_character_player5 = null;
     public Button userAvertarButton, Player1AvertarButton, Player2AvertarButton, Player3AvertarButton, Player4AvertarButton, Player5AvertarButton;
     private List<CharCardScript> cardsInfoDraw = new List<CharCardScript>();
     private List<CharCardScript> cardsInfo = new List<CharCardScript>();
     private List<CharCardScript> otherPlayerCharacterInfo = new List<CharCardScript>();
     private List<Image> otherPlayerAvertar = new List<Image>();
     private List<Button> otherAvertarPlayerButton = new List<Button>();
+    private int number_of_players,number_of_character_cards;
+
+    [SerializeField] private TMP_InputField numberOfRounds_input = null, numberOfCredAhead_input = null;
+    public static int[] GameProperties = { 0, 0 };
+
+    private RaiseEventOptions AllOtherThanMePeopleOptions = new RaiseEventOptions()
+    {
+        CachingOption = EventCaching.DoNotCache,
+        Receivers = ReceiverGroup.All
+    };
+    public enum PhotonEventCode
+    {
+        LeaveButton = 0,
+        DrawCharCards = 1,
+        SelectChar = 2,
+        RemoveCharCard = 3
+    }
     void Start()
     {
-        pv = GetComponent<PhotonView>();
         putCharCardsInList();
     }
+    private void OnEnable()
+    {
+        Debug.Log("Listen to event");
+        PhotonNetwork.NetworkingClient.EventReceived += NetworkingClient_EventReceived;
+        Debug.Log("Event heard");
+    }
+    private void OnDisable()
+    {
+        PhotonNetwork.NetworkingClient.EventReceived -= NetworkingClient_EventReceived;
+        Debug.Log("Event Ended");
+    }
+
+    private void NetworkingClient_EventReceived(EventData obj)
+    {
+        if (obj.Code == (byte)PhotonEventCode.LeaveButton)
+        {
+            noleave();
+        }
+        else if (obj.Code == (byte)PhotonEventCode.DrawCharCards)
+        {
+            object[] num_cards = (object[])obj.CustomData;
+            int int_num_cards = (int)num_cards[0];
+            Drawcard(int_num_cards);
+        }
+        else if (obj.Code == (byte)PhotonEventCode.RemoveCharCard)
+        {
+            object[] carddata = (object[])obj.CustomData;
+            string datacode = (string)carddata[0];
+            RemoveThisCard(datacode);
+        }
+        else if (obj.Code == (byte)PhotonEventCode.SelectChar)
+        {
+            object[] characterInfo = (object[])obj.CustomData;
+            SetCharacterInfo((string) characterInfo[0],(Player)characterInfo[1]);
+        }
+    }
+
     private void putCharCardsInList()
     {
         Debug.Log("Input Character card into list");
@@ -80,37 +135,52 @@ public class DrawCharacterCard : MonoBehaviour
         }
         userAvertarButton.interactable = false;
     }
-
     public void OnClickTodrawCard()
     {
-        if (pv.IsMine)
+        StartGameButtonOBJ.SetActive(false);
+        if ((numberOfRounds_input.text).All(char.IsDigit))
+            GameProperties[0] = int.Parse(numberOfRounds_input.text);
+        else
+            GameProperties[0] = 0;
+        if ((numberOfCredAhead_input.text).All(char.IsDigit))
+            GameProperties[1] = int.Parse(numberOfCredAhead_input.text);
+        else
+            GameProperties[1] = 0;
+        number_of_players = PhotonNetwork.CountOfPlayersInRooms;
+
+        PhotonNetwork.CurrentRoom.IsVisible = false;
+        PhotonNetwork.CurrentRoom.IsOpen = false;
+        Debug.Log("Send to all draw character");
+        if (number_of_players == 6)
         {
-            pv.RPC("noleave", RpcTarget.All);
-            PhotonNetwork.CurrentRoom.IsVisible = false;
-            PhotonNetwork.CurrentRoom.IsOpen = false;
-            pv.RPC("Drawcard",RpcTarget.AllBufferedViaServer);
+            number_of_character_cards = 2;
         }
-    }
-    [PunRPC]
-    private void noleave() => LeaveRoomButton.interactable = false; 
-    [PunRPC]
-    public void Drawcard()
-    {
-        for (var i = 0; i < 3; i++)
+        else
         {
-            x = Random.Range(0, (cardsInfo.Count - 1));
+            number_of_character_cards = 3;
+        }
+        Drawcard(number_of_character_cards);
+        object[] num_of_cards = new object[] { number_of_character_cards  };
+        PhotonNetwork.RaiseEvent((byte)PhotonEventCode.DrawCharCards, num_of_cards, AllOtherThanMePeopleOptions, SendOptions.SendUnreliable);
+    }
+    private void noleave() => LeaveRoomButton.interactable = false; 
+    public void Drawcard(int y)
+    {
+        for (var i = 0; i < y; i++)
+        {
+            x = Random.Range(0, (cardsInfoDraw.Count - 1));
             GameObject characterPlayerCard1 = Instantiate(cardTemplate, transform.position, Quaternion.identity);
-            characterPlayerCard1.GetComponent<CharacterCardDispaly>().CharCard = cardsInfo[x];
+            characterPlayerCard1.GetComponent<CharacterCardDispaly>().CharCard = cardsInfoDraw[x];
             characterPlayerCard1.GetComponent<CharacterCardDispaly>().FrontSide.SetActive(true);
             characterPlayerCard1.gameObject.transform.localScale += new Vector3(-0.75f, -0.75f, 0);
             characterPlayerCard1.transform.SetParent(PlayerArea.transform, false);
-            //pv.RPC("RemoveThisCard", RpcTarget.All,cardsInfo[x].character_code);
+            object[] data = new object[] {y };
+            /*PhotonNetwork.RaiseEvent((byte)PhotonEventCode.RemoveCharCard, cardsInfoDraw[x].character_code, AllPeopleOptions, SendOptions.SendUnreliable);*/
         }
-        StartGameButtonOBJ.SetActive(false);
+        
     }
     public void clickOnSelectCard()
     {
-        pv.RPC("SetCharacterInfo", RpcTarget.Others, Popup.GetCharCardScript().character_code, PhotonNetwork.LocalPlayer);
         select_button.SetActive(false);
         foreach (Transform child in clone_to_delete.transform)
         {
@@ -120,9 +190,10 @@ public class DrawCharacterCard : MonoBehaviour
         avertarUser.sprite = chosed_character_user.image_Avertar;
         userAvertarButton.interactable = true;
         Popup.closePopup();
+        object[] dataSelectCard = new object[] { chosed_character_user.character_code , PhotonNetwork.LocalPlayer};
+        PhotonNetwork.RaiseEvent((byte)PhotonEventCode.SelectChar, dataSelectCard, AllOtherThanMePeopleOptions, SendOptions.SendUnreliable);
         entropyCard.distribute_entropycard(5);
     }
-    [PunRPC]
     public void RemoveThisCard(string cardID)
     { 
         foreach (CharCardScript checkCard in cardsInfo)
@@ -134,7 +205,6 @@ public class DrawCharacterCard : MonoBehaviour
             }
         }
     }
-    [PunRPC]
     public void SetCharacterInfo(string character_code, Player sendingPlayer)
     {
         int i = 0;
@@ -179,5 +249,6 @@ public class DrawCharacterCard : MonoBehaviour
     public void clickAvertarPlayer4() => PopUpCharacterInfo(3);
     public void clickAvertarPlayer5() => PopUpCharacterInfo(4);
     public void clickAvertarPlayerUser() => PopUpCharacterInfo(5);
+
 
 }

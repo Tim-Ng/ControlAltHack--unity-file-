@@ -1,13 +1,9 @@
 ﻿using Photon.Pun;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Photon.Realtime;
-using UnityEngine.PlayerLoop;
-using UnityEngine.SceneManagement;
-using System.Runtime.CompilerServices;
-using System;
+using ExitGames.Client.Photon;
 
 
 public class Main_Game_before_start : MonoBehaviourPunCallbacks
@@ -18,8 +14,16 @@ public class Main_Game_before_start : MonoBehaviourPunCallbacks
     private int minmum_amount_of_people = 2;  // minimum amount of players
     public Button Start_Button,Leave_Button;
     List<Text> textOtherPlayers = new List<Text> ();
-    private PhotonView PV;
-
+    private RaiseEventOptions AllOtherThanMePeopleOptions = new RaiseEventOptions()
+    {
+        CachingOption = EventCaching.DoNotCache,
+        Receivers = ReceiverGroup.All
+    };
+    public enum PhotonEventCode
+    {
+        UpdatePlayer_event = 0,
+    }
+    
 
     private void Start()
     {
@@ -28,12 +32,29 @@ public class Main_Game_before_start : MonoBehaviourPunCallbacks
         textOtherPlayers.Add(opponent3_username);
         textOtherPlayers.Add(opponent4_username);
         textOtherPlayers.Add(opponent5_username);
-        PV = GetComponent<PhotonView>();
         startButtonOBJ.SetActive(false);
         allow_Master_client();
         Roomtext.text = PhotonNetwork.CurrentRoom.Name;
         player_username.text = PhotonNetwork.NickName;
-        PV.RPC("UpdateName", RpcTarget.All);
+        PhotonNetwork.RaiseEvent((byte)PhotonEventCode.UpdatePlayer_event, null, AllOtherThanMePeopleOptions, SendOptions.SendUnreliable);
+    }
+    private void OnEnable()
+    {
+        Debug.Log("Listen to event");
+        PhotonNetwork.NetworkingClient.EventReceived += NetworkingClient_EventReceived;
+        Debug.Log("Event heard");
+    }
+    private void OnDisable()
+    {
+        PhotonNetwork.NetworkingClient.EventReceived -= NetworkingClient_EventReceived;
+        Debug.Log("Event Ended");
+    }
+    private void NetworkingClient_EventReceived(EventData obj)
+    {
+        if (obj.Code == (byte)PhotonEventCode.UpdatePlayer_event)
+        {
+            UpdateName();
+        }
     }
     private void allow_Master_client()
     {
@@ -74,10 +95,6 @@ public class Main_Game_before_start : MonoBehaviourPunCallbacks
     }
     public void clickOnLeaveGame()
     {
-        if (PhotonNetwork.IsMasterClient)
-        {
-            
-        }
         PhotonNetwork.LeaveRoom();
     }
     public override void OnLeftRoom()

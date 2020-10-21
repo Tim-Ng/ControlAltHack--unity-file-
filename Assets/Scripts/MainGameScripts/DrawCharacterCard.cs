@@ -7,7 +7,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Principal;
 using TMPro;
-using TMPro.EditorUtilities;
 using UnityEngine;
 using UnityEngine.UI;
 public class DrawCharacterCard : MonoBehaviourPunCallbacks
@@ -138,14 +137,21 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
     public void OnClickTodrawCard()
     {
         StartGameButtonOBJ.SetActive(false);
-        if ((numberOfRounds_input.text).All(char.IsDigit))
-            GameProperties[0] = int.Parse(numberOfRounds_input.text);
-        else
-            GameProperties[0] = 0;
-        if ((numberOfCredAhead_input.text).All(char.IsDigit))
-            GameProperties[1] = int.Parse(numberOfCredAhead_input.text);
-        else
-            GameProperties[1] = 0;
+        if (!(numberOfRounds_input == null))
+        {
+            if ((numberOfRounds_input.text).All(char.IsDigit))
+                GameProperties[0] = int.Parse(numberOfRounds_input.text);
+            else
+                GameProperties[0] = 0;
+        }
+        if (!(numberOfCredAhead_input == null))
+        {
+            if ((numberOfCredAhead_input.text).All(char.IsDigit))
+                GameProperties[1] = int.Parse(numberOfCredAhead_input.text);
+            else
+                GameProperties[1] = 0;
+        }
+        
         number_of_players = PhotonNetwork.CountOfPlayersInRooms;
 
         PhotonNetwork.CurrentRoom.IsVisible = false;

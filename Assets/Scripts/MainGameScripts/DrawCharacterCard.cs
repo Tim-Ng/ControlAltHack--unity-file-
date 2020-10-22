@@ -9,6 +9,8 @@ using System.Security.Principal;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using WebSocketSharp;
+
 public class DrawCharacterCard : MonoBehaviourPunCallbacks
 
 {
@@ -43,6 +45,11 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
         CachingOption = EventCaching.DoNotCache,
         Receivers = ReceiverGroup.Others
     };
+    private RaiseEventOptions AllPeople = new RaiseEventOptions()
+    {
+        CachingOption = EventCaching.DoNotCache,
+        Receivers = ReceiverGroup.All
+    };
     public enum PhotonEventCode
     {
         LeaveButton = 0,
@@ -74,9 +81,8 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
         }
         else if (obj.Code == (byte)PhotonEventCode.DrawCharCards)
         {
-            object[] num_cards = (object[])obj.CustomData;
-            int int_num_cards = (int)num_cards[0];
-            Drawcard(int_num_cards);
+            countNumCharCards();
+            Drawcard(number_of_character_cards);
         }
         else if (obj.Code == (byte)PhotonEventCode.RemoveCharCard)
         {
@@ -134,17 +140,29 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
         }
         userAvertarButton.interactable = false;
     }
+    public void countNumCharCards()
+    {
+        if (number_of_players == 6)
+        {
+            number_of_character_cards = 2;
+        }
+        else
+        {
+            number_of_character_cards = 3;
+        }
+    }
     public void OnClickTodrawCard()
     {
         StartGameButtonOBJ.SetActive(false);
-        if (!(numberOfRounds_input == null))
+        PhotonNetwork.RaiseEvent((byte)PhotonEventCode.DrawCharCards, null, AllPeople , SendOptions.SendUnreliable);
+        if (!(string.IsNullOrEmpty(numberOfRounds_input.text)))
         {
             if ((numberOfRounds_input.text).All(char.IsDigit))
                 GameProperties[0] = int.Parse(numberOfRounds_input.text);
             else
                 GameProperties[0] = 0;
         }
-        if (!(numberOfCredAhead_input == null))
+        if (!(string.IsNullOrEmpty(numberOfCredAhead_input.text))) 
         {
             if ((numberOfCredAhead_input.text).All(char.IsDigit))
                 GameProperties[1] = int.Parse(numberOfCredAhead_input.text);
@@ -157,17 +175,9 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
         PhotonNetwork.CurrentRoom.IsVisible = false;
         PhotonNetwork.CurrentRoom.IsOpen = false;
         Debug.Log("Send to all draw character");
-        if (number_of_players == 6)
-        {
-            number_of_character_cards = 2;
-        }
-        else
-        {
-            number_of_character_cards = 3;
-        }
         Drawcard(number_of_character_cards);
         object[] num_of_cards = new object[] { number_of_character_cards  };
-        PhotonNetwork.RaiseEvent((byte)PhotonEventCode.DrawCharCards, num_of_cards, AllOtherThanMePeopleOptions, SendOptions.SendUnreliable);
+        PhotonNetwork.RaiseEvent((byte)PhotonEventCode.LeaveButton, num_of_cards, AllOtherThanMePeopleOptions, SendOptions.SendUnreliable);
     }
     private void noleave() => LeaveRoomButton.interactable = false; 
     public void Drawcard(int y)

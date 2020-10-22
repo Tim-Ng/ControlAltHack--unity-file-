@@ -15,15 +15,6 @@ public class Main_Game_before_start : MonoBehaviourPunCallbacks
     public Button Start_Button,Leave_Button;
     List<Text> textOtherPlayers = new List<Text> ();
     private PhotonView pv;
-    private RaiseEventOptions AllOtherThanMePeopleOptions = new RaiseEventOptions()
-    {
-        CachingOption = EventCaching.DoNotCache,
-        Receivers = ReceiverGroup.All
-    };
-    public enum PhotonEventCode
-    {
-        UpdatePlayer_event = 4,
-    }
     private void Start()
     {
         textOtherPlayers.Add(opponent1_username);

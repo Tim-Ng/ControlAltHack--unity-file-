@@ -142,12 +142,15 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
     }
     public void countNumCharCards()
     {
+        number_of_players = PhotonNetwork.CurrentRoom.PlayerCount;
         if (number_of_players == 6)
         {
+            Debug.Log("Number of players is 6 , distributing 2 cards");
             number_of_character_cards = 2;
         }
         else
         {
+            Debug.Log("Number of players is "+ number_of_players+ ", distributing 2 cards");
             number_of_character_cards = 3;
         }
     }

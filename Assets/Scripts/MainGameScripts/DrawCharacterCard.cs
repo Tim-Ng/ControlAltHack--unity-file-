@@ -43,12 +43,12 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
     private RaiseEventOptions AllOtherThanMePeopleOptions = new RaiseEventOptions()
     {
         CachingOption = EventCaching.DoNotCache,
-        Receivers = ReceiverGroup.Others
+        Receivers = ReceiverGroup.Others,
     };
     private RaiseEventOptions AllPeople = new RaiseEventOptions()
     {
         CachingOption = EventCaching.DoNotCache,
-        Receivers = ReceiverGroup.All
+        Receivers = ReceiverGroup.All,
     };
     public enum PhotonEventCode
     {
@@ -81,6 +81,7 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
         }
         else if (obj.Code == (byte)PhotonEventCode.DrawCharCards)
         {
+            Debug.Log("DrawCard event");
             countNumCharCards();
             Drawcard(number_of_character_cards);
         }
@@ -150,7 +151,7 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
         }
         else
         {
-            Debug.Log("Number of players is "+ number_of_players+ ", distributing 2 cards");
+            Debug.Log("Number of players is "+ number_of_players+ ", distributing 3 cards");
             number_of_character_cards = 3;
         }
     }
@@ -178,9 +179,7 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
         PhotonNetwork.CurrentRoom.IsVisible = false;
         PhotonNetwork.CurrentRoom.IsOpen = false;
         Debug.Log("Send to all draw character");
-        Drawcard(number_of_character_cards);
-        object[] num_of_cards = new object[] { number_of_character_cards  };
-        PhotonNetwork.RaiseEvent((byte)PhotonEventCode.LeaveButton, num_of_cards, AllOtherThanMePeopleOptions, SendOptions.SendUnreliable);
+        PhotonNetwork.RaiseEvent((byte)PhotonEventCode.LeaveButton, null, AllPeople, SendOptions.SendUnreliable);
     }
     private void noleave() => LeaveRoomButton.interactable = false; 
     public void Drawcard(int y)

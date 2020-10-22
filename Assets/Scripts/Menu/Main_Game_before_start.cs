@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Photon.Realtime;
 using ExitGames.Client.Photon;
-
+using UnityEngine.SceneManagement;
 
 public class Main_Game_before_start : MonoBehaviourPunCallbacks
 {
@@ -14,6 +14,7 @@ public class Main_Game_before_start : MonoBehaviourPunCallbacks
     private int minmum_amount_of_people = 2;  // minimum amount of players
     public Button Start_Button,Leave_Button;
     List<Text> textOtherPlayers = new List<Text> ();
+    private PhotonView pv;
     private RaiseEventOptions AllOtherThanMePeopleOptions = new RaiseEventOptions()
     {
         CachingOption = EventCaching.DoNotCache,
@@ -21,10 +22,8 @@ public class Main_Game_before_start : MonoBehaviourPunCallbacks
     };
     public enum PhotonEventCode
     {
-        UpdatePlayer_event = 0,
+        UpdatePlayer_event = 4,
     }
-    
-
     private void Start()
     {
         textOtherPlayers.Add(opponent1_username);
@@ -36,25 +35,9 @@ public class Main_Game_before_start : MonoBehaviourPunCallbacks
         allow_Master_client();
         Roomtext.text = PhotonNetwork.CurrentRoom.Name;
         player_username.text = PhotonNetwork.NickName;
-        PhotonNetwork.RaiseEvent((byte)PhotonEventCode.UpdatePlayer_event, null, AllOtherThanMePeopleOptions, SendOptions.SendUnreliable);
-    }
-    private void OnEnable()
-    {
-        Debug.Log("Listen to event");
-        PhotonNetwork.NetworkingClient.EventReceived += NetworkingClient_EventReceived;
-        Debug.Log("Event heard");
-    }
-    private void OnDisable()
-    {
-        PhotonNetwork.NetworkingClient.EventReceived -= NetworkingClient_EventReceived;
-        Debug.Log("Event Ended");
-    }
-    private void NetworkingClient_EventReceived(EventData obj)
-    {
-        if (obj.Code == (byte)PhotonEventCode.UpdatePlayer_event)
-        {
-            UpdateName();
-        }
+        Leave_Button.enabled = true;
+        pv = GetComponent<PhotonView>();
+        pv.RPC("UpdateName", RpcTarget.All);
     }
     private void allow_Master_client()
     {
@@ -93,13 +76,15 @@ public class Main_Game_before_start : MonoBehaviourPunCallbacks
         Debug.Log(otherPlayer.NickName + " has left room");
         UpdateName();
     }
-    public void clickOnLeaveGame()
-    {
-        PhotonNetwork.LeaveRoom();
-    }
     public override void OnLeftRoom()
     {
-        Debug.Log("Player Left room");
+        Debug.Log("Changing scene");
         PhotonNetwork.LoadLevel(0);
     }
+    public void clickOnLeaveGame()
+    { 
+        PhotonNetwork.LeaveRoom();
+        Debug.Log("PlayerLeftRoom... loading scene");
+    }
+    
 }

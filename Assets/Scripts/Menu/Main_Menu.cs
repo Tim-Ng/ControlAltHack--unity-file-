@@ -13,7 +13,7 @@ namespace MainMenu
     {
         public static MainMenu mainmenu;
         [SerializeField] private TMP_InputField join_input = null, host_input = null, nameInputFeild = null;
-        [SerializeField] private Text message;
+        [SerializeField] private Text message=null;
         public Text loading_text;
         public GameObject TurnHost, TurnJoin, loading_OBJ, messageOBJ, ChangeNickNameButton;
         public Button join_button, host_button, continueButton;
@@ -143,20 +143,15 @@ namespace MainMenu
         {
             Debug.Log("Client successfully joined a room");
             int playerCount = PhotonNetwork.CurrentRoom.PlayerCount;
-            if (playerCount != MaxPlayersPerRoom)
-            {
-                loading_text.text = "Joined Room named \"" + PhotonNetwork.CurrentRoom.Name + "\" ";
-                PhotonNetwork.LoadLevel(1);
-                Debug.Log("Client is waiting for an opponent");
-            }
-            else
-            {
-                Debug.Log("Matching is ready to begin");
-                join_input.text = null;
-                TurnHost.SetActive(true);
-                TurnJoin.SetActive(true);
-                loading_OBJ.SetActive(false);
-            }
+            loading_text.text = "Joined Room named \"" + PhotonNetwork.CurrentRoom.Name + "\" ";
+            PhotonNetwork.LoadLevel(1);
+            Debug.Log("Client is waiting for an opponent");
+            Debug.Log("Matching is ready to begin");
+            join_input.text = null;
+            TurnHost.SetActive(true);
+            TurnJoin.SetActive(true);
+            loading_OBJ.SetActive(false);
+
         }
         public override void OnJoinRoomFailed(short returnCode, string message)
         { 

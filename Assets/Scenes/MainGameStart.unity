@@ -320,7 +320,6 @@ GameObject:
   - component: {fileID: 49473037}
   - component: {fileID: 49473034}
   - component: {fileID: 49473035}
-  - component: {fileID: 49473036}
   m_Layer: 5
   m_Name: 'AvartarPlayer '
   m_TagString: Untagged
@@ -432,18 +431,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &49473036
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 49473032}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba3fec1b1978a804fba497164fbb29a8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!222 &49473037
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1837,6 +1824,14 @@ MonoBehaviour:
   Player5AvertarButton: {fileID: 1835776290}
   numberOfRounds_input: {fileID: 2144033323}
   numberOfCredAhead_input: {fileID: 1463081183}
+  TurnNumber: 0
+  PlayerIdToMakeThisTurn: 0
+  MyPoints: 0
+  opponent1Points: 0
+  opponent2Points: 0
+  opponent3Points: 0
+  opponent4Points: 0
+  opponent5Points: 0
 --- !u!4 &499456408
 Transform:
   m_ObjectHideFlags: 0
@@ -8700,7 +8695,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4474021401403421374, guid: 5fd9301e663e40145b062de0287463a8, type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4474021401403421374, guid: 5fd9301e663e40145b062de0287463a8, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

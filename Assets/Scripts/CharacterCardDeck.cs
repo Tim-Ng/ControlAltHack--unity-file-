@@ -18,6 +18,7 @@ public class CharacterCardDeck : MonoBehaviour
         cardsInfo.Add(CharCard7);
         cardsInfo.Add(CharCard8);
         cardsInfo.Add(CharCard9);
+        cardsInfo.Add(CharCard10);
         cardsInfo.Add(CharCard11);
         cardsInfo.Add(CharCard12);
         cardsInfo.Add(CharCard13);

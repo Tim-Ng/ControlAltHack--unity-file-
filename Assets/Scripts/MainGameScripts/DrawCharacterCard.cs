@@ -4,9 +4,11 @@ using Photon.Pun.UtilityScripts;
 using Photon.Realtime;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Security.Principal;
+using System.Threading;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -17,7 +19,7 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
 {
     public GameObject PlayerArea;
     public GameObject cardTemplate;
-    [SerializeField] private CharacterCardDeck cardDeck;
+    [SerializeField] private CharacterCardDeck cardDeck=null;
     public GameObject StartGameButtonOBJ;
     private int x;
     public Button LeaveRoomButton;
@@ -52,10 +54,26 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
     public enum PhotonEventCode
     {
         LeaveButton = 0,
-        DrawCharCards = 1,
+        ChangePlayer = 1,
         SelectChar = 2,
         RemoveCharCard = 3
     }
+
+    public int TurnNumber = 0;
+    public int PlayerIdToMakeThisTurn;
+    public bool IsMyTurn
+    {
+        get
+        {
+            return this.PlayerIdToMakeThisTurn == PhotonNetwork.LocalPlayer.ActorNumber;
+        }
+    }
+    public byte MyPoints = 0;
+    public byte opponent1Points = 0;
+    public byte opponent2Points = 0;
+    public byte opponent3Points = 0;
+    public byte opponent4Points = 0;
+    public byte opponent5Points = 0;
     void Start()
     {
         putCharCardsInList();
@@ -78,11 +96,10 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
         {
             noleave();
         }
-        else if (obj.Code == (byte)PhotonEventCode.DrawCharCards)
+        else if (obj.Code == (byte)PhotonEventCode.ChangePlayer)
         {
-            Debug.Log("DrawCard event");
-            countNumCharCards();
-            Drawcard(number_of_character_cards);
+            object[] carddata = (object[])obj.CustomData;
+            PlayerIdToMakeThisTurn = (int)carddata[0];
         }
         else if (obj.Code == (byte)PhotonEventCode.RemoveCharCard)
         {
@@ -93,7 +110,7 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
         else if (obj.Code == (byte)PhotonEventCode.SelectChar)
         {
             object[] characterInfo = (object[])obj.CustomData;
-            SetCharacterInfo((int) characterInfo[0],(Player)characterInfo[1]);
+            SetCharacterInfo((int)characterInfo[0], (Player)characterInfo[1]);
         }
     }
 
@@ -128,6 +145,15 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
         }
         userAvertarButton.interactable = false;
     }
+    void Update()
+    {
+        if (IsMyTurn && TurnNumber == 0) //this is only the first turn
+        {
+            Debug.Log("My turn to draw card");
+            countNumCharCards();
+            Drawcard(number_of_character_cards);
+        }
+    }
     public void countNumCharCards()
     {
         number_of_players = PhotonNetwork.CurrentRoom.PlayerCount;
@@ -138,14 +164,13 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
         }
         else
         {
-            Debug.Log("Number of players is "+ number_of_players+ ", distributing 3 cards");
+            Debug.Log("Number of players is " + number_of_players + ", distributing 3 cards");
             number_of_character_cards = 3;
         }
     }
     public void OnClickTodrawCard()
     {
         StartGameButtonOBJ.SetActive(false);
-        PhotonNetwork.RaiseEvent((byte)PhotonEventCode.DrawCharCards, null, AllPeople , SendOptions.SendUnreliable);
         if (!(string.IsNullOrEmpty(numberOfRounds_input.text)))
         {
             if ((numberOfRounds_input.text).All(char.IsDigit))
@@ -153,22 +178,23 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
             else
                 GameProperties[0] = 0;
         }
-        if (!(string.IsNullOrEmpty(numberOfCredAhead_input.text))) 
+        if (!(string.IsNullOrEmpty(numberOfCredAhead_input.text)))
         {
             if ((numberOfCredAhead_input.text).All(char.IsDigit))
                 GameProperties[1] = int.Parse(numberOfCredAhead_input.text);
             else
                 GameProperties[1] = 0;
         }
-        
+
         number_of_players = PhotonNetwork.CountOfPlayersInRooms;
 
         PhotonNetwork.CurrentRoom.IsVisible = false;
         PhotonNetwork.CurrentRoom.IsOpen = false;
         Debug.Log("Send to all draw character");
-        PhotonNetwork.RaiseEvent((byte)PhotonEventCode.LeaveButton, null, AllPeople, SendOptions.SendUnreliable);
+        setPlayerStart(PhotonNetwork.LocalPlayer.ActorNumber); // as only master can click on this button 
+
     }
-    private void noleave() => LeaveRoomButton.interactable = false; 
+    private void noleave() => LeaveRoomButton.interactable = false;
     public void Drawcard(int y)
     {
         for (var i = 0; i < y; i++)
@@ -181,10 +207,12 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
             characterPlayerCard1.GetComponent<CharacterCardDispaly>().FrontSide.SetActive(true);
             characterPlayerCard1.gameObject.transform.localScale += new Vector3(-0.75f, -0.75f, 0);
             characterPlayerCard1.transform.SetParent(PlayerArea.transform, false);
-            //object[] data1 = new object[] { cardsInfoDraw[x].character_code };
-            /*PhotonNetwork.RaiseEvent((byte)PhotonEventCode.RemoveCharCard, data1, AllPeople, SendOptions.SendUnreliable);*/
+            object[] data = new object[] { cardsInfoDraw[x].character_code};
+            PhotonNetwork.RaiseEvent((byte)PhotonEventCode.RemoveCharCard, data, AllOtherThanMePeopleOptions, SendOptions.SendReliable);
+            RemoveThisCard(cardsInfoDraw[x].character_code);
         }
-
+        Debug.Log("Got pass to here");
+        EndTurn();
     }
     public void clickOnSelectCard()
     {
@@ -197,20 +225,22 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
         avertarUser.sprite = chosed_character_user.image_Avertar;
         userAvertarButton.interactable = true;
         Popup.closePopup();
-        object[] dataSelectCard = new object[] { chosed_character_user.character_code , PhotonNetwork.LocalPlayer};
-        PhotonNetwork.RaiseEvent((byte)PhotonEventCode.SelectChar, dataSelectCard, AllOtherThanMePeopleOptions, SendOptions.SendUnreliable);
+        object[] dataSelectCard = new object[] { chosed_character_user.character_code, PhotonNetwork.LocalPlayer };
+        PhotonNetwork.RaiseEvent((byte)PhotonEventCode.SelectChar, dataSelectCard, AllOtherThanMePeopleOptions, SendOptions.SendReliable);
         entropyCard.distribute_entropycard(5);
     }
     public void RemoveThisCard(int cardID)
-    { 
+    {
         foreach (CharCardScript checkCard in cardDeck.getCharDeck())
         {
             if (cardID == checkCard.character_code)
             {
                 cardsInfoDraw.Remove(checkCard);
-                Debug.Log ("Card ID :" + cardID + " is removed");
+                Debug.Log("Card ID :" + cardID + " is removed");
+                break;
             }
         }
+        Debug.Log("Number of cards left in deck " + cardsInfoDraw.Count);
     }
     public void SetCharacterInfo(int character_code, Player sendingPlayer)
     {
@@ -225,7 +255,7 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
         }
 
     }
-    public void setOtherPlayer(int i,int charcode)
+    public void setOtherPlayer(int i, int charcode)
     {
         foreach (CharCardScript charScript in cardDeck.getCharDeck())
         {
@@ -236,7 +266,7 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
                 otherAvertarPlayerButton[i].interactable = true;
             }
         }
-        
+
     }
     public void PopUpCharacterInfo(int i)
     {
@@ -256,5 +286,62 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
     public void clickAvertarPlayer5() => PopUpCharacterInfo(4);
     public void clickAvertarPlayerUser() => PopUpCharacterInfo(5);
 
+    public Player NextOpponent
+    {
+        get
+        {
 
+            Player opp = PhotonNetwork.LocalPlayer.GetNext();
+            //Debug.Log("you: " + this.LocalPlayer.ToString() + " other: " + opp.ToString());
+            return opp;
+        }
+    }
+    public void HandoverTurnToNextPlayer()
+    {
+        if (PhotonNetwork.LocalPlayer != null)
+        {
+            Player nextPlayer = PhotonNetwork.LocalPlayer.GetNextFor(this.PlayerIdToMakeThisTurn);
+            if (nextPlayer.ActorNumber == 1 ){
+                TurnNumber = 1;
+            }
+            else if (nextPlayer != null)
+            {
+                this.PlayerIdToMakeThisTurn = nextPlayer.ActorNumber;
+                object[] data = new object[] { PlayerIdToMakeThisTurn };
+                PhotonNetwork.RaiseEvent((byte)PhotonEventCode.ChangePlayer, data, AllPeople, SendOptions.SendReliable);
+                return;
+            }
+            else
+                return;
+        }
+
+        this.PlayerIdToMakeThisTurn = 0;
+    }
+
+    public void setPlayerStart(int ActorNumber)
+    {
+        this.PlayerIdToMakeThisTurn = ActorNumber;
+    }
+    public void EndTurn()
+    {
+        Debug.Log("Ending turn");
+        if (PhotonNetwork.CurrentRoom == null)
+        {
+            Debug.Log("Left room while waiting for end of turn. Skip end of turn.");
+            return;
+        }
+        else
+        {
+            Debug.Log("Ending turn for player: " + PlayerIdToMakeThisTurn);
+            HandoverTurnToNextPlayer();
+            if (PlayerIdToMakeThisTurn > 0)
+            {
+                Player opponent = PhotonNetwork.CurrentRoom.Players[PlayerIdToMakeThisTurn];
+                if (opponent.IsInactive)
+                {
+                    // TODO: show some hint that the other is not active and wait time will be longer!
+                }
+            }
+        }
+    }
 }

@@ -33,7 +33,10 @@ public class CharacterCardDispaly : MonoBehaviour
     public GameObject InfoSide;
     public GameObject FrontSide;
 
-
+    public void setUpdate()
+    {
+        Start();
+    }
     void Start()
     {
         character_card_name.text = CharCard.character_card_name;

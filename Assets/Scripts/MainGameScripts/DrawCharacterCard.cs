@@ -174,15 +174,17 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
         for (var i = 0; i < y; i++)
         {
             x = Random.Range(0, cardsInfoDraw.Count);
+            Debug.Log("Random Number this loop is:" + x);
             GameObject characterPlayerCard1 = Instantiate(cardTemplate, transform.position, Quaternion.identity);
+            characterPlayerCard1.name = cardsInfoDraw[x].character_card_name;
             characterPlayerCard1.GetComponent<CharacterCardDispaly>().CharCard = cardsInfoDraw[x];
             characterPlayerCard1.GetComponent<CharacterCardDispaly>().FrontSide.SetActive(true);
             characterPlayerCard1.gameObject.transform.localScale += new Vector3(-0.75f, -0.75f, 0);
             characterPlayerCard1.transform.SetParent(PlayerArea.transform, false);
-            object[] data = new object[] { cardsInfoDraw[x].character_code};
-            /*PhotonNetwork.RaiseEvent((byte)PhotonEventCode.RemoveCharCard, data, AllPeople, SendOptions.SendUnreliable);*/
+            //object[] data1 = new object[] { cardsInfoDraw[x].character_code };
+            /*PhotonNetwork.RaiseEvent((byte)PhotonEventCode.RemoveCharCard, data1, AllPeople, SendOptions.SendUnreliable);*/
         }
-        
+
     }
     public void clickOnSelectCard()
     {

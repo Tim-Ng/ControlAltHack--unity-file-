@@ -34,6 +34,7 @@ public class popupcardwindowChar : MonoBehaviour
             SelectChar.SetActive(false);
         }
         CharactercardUI.CharCard = pop_input_CharacterCard;
+        CharactercardUI.setUpdate();
         CharactercardUI.FrontSide.SetActive(false);
         CharactercardUI.InfoSide.SetActive(true);
     }

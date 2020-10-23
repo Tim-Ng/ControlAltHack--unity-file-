@@ -22,6 +22,12 @@ public class MissionCardScript : ScriptableObject
     public int second_change_hardnum;
     public string task_discription2;
 
+    public bool hasThirdMission;
+    public Sprite third_mission;
+    public string skill_name_3;
+    public int third_change_hardnum;
+    public string task_discription3;
+
     public int success_amount_hacker_cread;
     public string other_success_things;
     public int other_success_how_much;

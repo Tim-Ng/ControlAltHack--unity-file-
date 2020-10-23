@@ -13,10 +13,14 @@ public class MissionCardDisplay : MonoBehaviour
     public Text skill_name_1;
     public Text fist_change_hardnum;
 
-
     public Image second_mission;
     public Text skill_name_2;
     public Text second_change_hardnum;
+
+    public GameObject third_mission_obj;
+    public Image third_mission;
+    public Text skill_name_3;
+    public Text third_change_hardnum;
 
     public Text success_amount_hacker_cread;
     public Text success_discription;
@@ -29,10 +33,12 @@ public class MissionCardDisplay : MonoBehaviour
 
     public Text task_discription1;
     public Text task_discription2;
+    public Text task_discription3;
     public Text Newb_job;
 
     private void Start()
     {
+        third_mission_obj.SetActive(false);
         MissonTitle.text = mission_script.MissonTitle;
         MissionDiscription.text = mission_script.MissionDiscription;
 
@@ -58,6 +64,15 @@ public class MissionCardDisplay : MonoBehaviour
         if (mission_script.Newb_job)
         {
             Newb_job.text = "NEWB JOB";
+        }
+
+        if (mission_script.hasThirdMission)
+        {
+            third_mission_obj.SetActive(true);
+            third_mission.sprite = mission_script.third_mission;
+            skill_name_3.text = mission_script.skill_name_3;
+            third_change_hardnum.text = mission_script.third_change_hardnum.ToString();
+            task_discription3.text = mission_script.task_discription3;
         }
 
     }

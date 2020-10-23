@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23145ec63dfdfe4ba9b38bc3cdca8bc, type: 3}
+  m_Name: Knock Knock
+  m_EditorClassIdentifier: 
+  Mission_code: M05
+  MissonTitle: Knock Knock
+  MissionDiscription: Who's there? The FBI comes knocking on your door with evidence
+    suggesting that you were trying to break into a military network
+  Newb_job: 1
+  first_mission: {fileID: 0}
+  skill_name_1: Network Ninja
+  fist_change_hardnum: 0
+  task_discription1: Someone must have been using your wireless network for illegal
+    activities. Go through the logs and show that some other computer was on your
+    network during the time of the attack.
+  second_mission: {fileID: 0}
+  skill_name_2: 
+  second_change_hardnum: 0
+  task_discription2: 
+  success_amount_hacker_cread: 0
+  other_success_things: Draw an Entropy Card
+  other_success_how_much: 0
+  success_discription: Someone else WAS on your network, hacking military systems
+    and streaming infomercials??
+  failure_amount_hacker_cread: -2
+  other_failure_things: 
+  other_failure_how_much: 0
+  failure_discription: The misunderstanding will take a long time to clear up.
+  artwork_back: {fileID: 0}
+  artwork_front_info: {fileID: 0}

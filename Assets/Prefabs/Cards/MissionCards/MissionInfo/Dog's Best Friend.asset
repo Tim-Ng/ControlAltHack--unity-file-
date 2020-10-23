@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23145ec63dfdfe4ba9b38bc3cdca8bc, type: 3}
+  m_Name: Dog's Best Friend
+  m_EditorClassIdentifier: 
+  Mission_code: M04
+  MissonTitle: Dog's Best Friend
+  MissionDiscription: Your pet loves a friendly game of chase. Luckily, you happen
+    to have a robotic vacuum cleaner and you've been wanting to give it some mods.
+  Newb_job: 0
+  first_mission: {fileID: 0}
+  skill_name_1: Hardware Hacking
+  fist_change_hardnum: 0
+  task_discription1: Do some rewiring to give your robot friend some webcame eyes.
+  second_mission: {fileID: 0}
+  skill_name_2: Software Wizardry
+  second_change_hardnum: -1
+  task_discription2: With a bit of coding magic, the robot can keep your pet entertained
+    for hours
+  success_amount_hacker_cread: 2
+  other_success_things: 
+  other_success_how_much: 0
+  success_discription: 
+  failure_amount_hacker_cread: -2
+  other_failure_things: 
+  other_failure_how_much: 0
+  failure_discription: 
+  artwork_back: {fileID: 0}
+  artwork_front_info: {fileID: 0}

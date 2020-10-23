@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23145ec63dfdfe4ba9b38bc3cdca8bc, type: 3}
+  m_Name: You Walk Among Them
+  m_EditorClassIdentifier: 
+  Mission_code: M07
+  MissonTitle: You Walk Among Them
+  MissionDiscription: Men in black suits hire you for an audit. The target? Files
+    on a password-protected computer...behind a locked door...in an unlisted facility...in
+    Roswell, New Mexico.
+  Newb_job: 0
+  first_mission: {fileID: 0}
+  skill_name_1: Lockpicking
+  fist_change_hardnum: 0
+  task_discription1: How quickly can you pick that lock? The security guard is almost
+    done with her round.
+  second_mission: {fileID: 0}
+  skill_name_2: Cryptanalysis
+  second_change_hardnum: 0
+  task_discription2: Maybe the password is "1947", "password1" or "changename"? Or
+    is it written on a sticky note attached to the monitor?
+  success_amount_hacker_cread: 1
+  other_success_things: Draw an Entropy Card
+  other_success_how_much: 0
+  success_discription: 
+  failure_amount_hacker_cread: -1
+  other_failure_things: 
+  other_failure_how_much: 0
+  failure_discription: 
+  artwork_back: {fileID: 0}
+  artwork_front_info: {fileID: 0}

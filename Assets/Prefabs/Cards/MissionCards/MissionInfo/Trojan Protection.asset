@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23145ec63dfdfe4ba9b38bc3cdca8bc, type: 3}
+  m_Name: Trojan Protection
+  m_EditorClassIdentifier: 
+  Mission_code: M06
+  MissonTitle: Trojan Protection
+  MissionDiscription: Supertronics wants to verify that no "extra features" are added
+    to its hardware during the overseas manufacturing process. Features like letting
+    attackers in via an electronic backdoor.
+  Newb_job: 0
+  first_mission: {fileID: 0}
+  skill_name_1: Social Engineering
+  fist_change_hardnum: -3
+  task_discription1: Interview factory workers and study the manufacturing pipeline
+    to figure out where it could be sabotaged. (You're working through a translator
+    which makes the job harder than usual.)
+  second_mission: {fileID: 0}
+  skill_name_2: Hardware Hacking
+  second_change_hardnum: 1
+  task_discription2: Help Supertronics spot check manufactured circuit boards for
+    any electronics Trojan Horses.
+  success_amount_hacker_cread: 1
+  other_success_things: Draw an Entropy Card
+  other_success_how_much: 0
+  success_discription: 
+  failure_amount_hacker_cread: -2
+  other_failure_things: 
+  other_failure_how_much: 0
+  failure_discription: 
+  artwork_back: {fileID: 0}
+  artwork_front_info: {fileID: 0}

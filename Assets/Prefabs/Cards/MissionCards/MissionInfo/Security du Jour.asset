@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23145ec63dfdfe4ba9b38bc3cdca8bc, type: 3}
+  m_Name: Security du Jour
+  m_EditorClassIdentifier: 
+  Mission_code: M03
+  MissonTitle: Security du Jour
+  MissionDiscription: Technology standards may not ensure top quality, but hats off
+    to them for raising the bar. Provide feedback on a new proposal for international
+    data security standards
+  Newb_job: 0
+  first_mission: {fileID: 0}
+  skill_name_1: Cryptanalysis
+  fist_change_hardnum: 0
+  task_discription1: Make sure that the proposed protocol is secure. There's no such
+    thing as an 'A' for effort when it comes to security.
+  second_mission: {fileID: 0}
+  skill_name_2: Social Engineering
+  second_change_hardnum: 0
+  task_discription2: Draft a cogent and compelling argument for your suggested improvements.
+  success_amount_hacker_cread: 1
+  other_success_things: 
+  other_success_how_much: 0
+  success_discription: 
+  failure_amount_hacker_cread: -1
+  other_failure_things: 
+  other_failure_how_much: 0
+  failure_discription: 
+  artwork_back: {fileID: 0}
+  artwork_front_info: {fileID: 0}

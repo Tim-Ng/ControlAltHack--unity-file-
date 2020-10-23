@@ -19,7 +19,8 @@ public class DrawEntropyCard : MonoBehaviour
     public GameObject dummy_entropy_card;
 
     //inputmultiple cards
-    public EntropyCardScript entropycard1;
+    public EntropyCardScript entropycardBag1;
+    public EntropyCardScript entropycardLigting1;
     private List<EntropyCardScript> entropycards = new List<EntropyCardScript>(); 
 
 
@@ -28,13 +29,14 @@ public class DrawEntropyCard : MonoBehaviour
     private void Start()
     {
         //add all cards to a list here
-        entropycards.Add(entropycard1);
+        entropycards.Add(entropycardBag1);
+        entropycards.Add(entropycardLigting1);
     }
     public void distribute_entropycard(int how_many)
     {
         for (var i = 0; i < how_many; i++)
         {
-            x = Random.Range(0, (entropycards.Count - 1));
+            x = Random.Range(0, (entropycards.Count));
             GameObject entropyCard = Instantiate(EntropycardTemplate, transform.position, Quaternion.identity);
             entropyCard.GetComponent<EntropyCardDisplay>().entropyData = entropycards[x];
             entropyCard.GetComponent<EntropyCardDisplay>().FrontSide.SetActive(true);

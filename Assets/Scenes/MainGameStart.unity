@@ -306,7 +306,8 @@ MonoBehaviour:
   OponentArea5: {fileID: 454367831}
   OponentArea5cards: 0
   dummy_entropy_card: {fileID: 0}
-  entropycard1: {fileID: 11400000, guid: 92e1ccfb82d94094aa4b332577410c77, type: 2}
+  entropycardBag1: {fileID: 11400000, guid: 92e1ccfb82d94094aa4b332577410c77, type: 2}
+  entropycardLigting1: {fileID: 11400000, guid: b97fc565cba198b439cda576d5abbec3, type: 2}
 --- !u!1 &49473032
 GameObject:
   m_ObjectHideFlags: 0
@@ -8699,7 +8700,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4474021401403421374, guid: 5fd9301e663e40145b062de0287463a8, type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4474021401403421374, guid: 5fd9301e663e40145b062de0287463a8, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

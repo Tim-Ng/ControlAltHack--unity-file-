@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7ee4e8c837f58f4eb3ecbed4eaf342c, type: 3}
+  m_Name: miro
+  m_EditorClassIdentifier: 
+  character_code: 6
+  character_card_name: MIRO
+  discription: As an avid soccer player, Miro knows that there's more than one way
+    to approach a goal...although it sometimes requires a little fancy footwork.
+  artwork_back: {fileID: 0}
+  artwork_front: {fileID: 0}
+  char_info: {fileID: 0}
+  input_hardware: 9
+  input_cryptanalysis: 11
+  input_network: 11
+  input_socal: 12
+  input_kitchen: 10
+  input_software: 11
+  ad_disadvantages: By discarding two cards from his hand, he can substitute any
+    skill (except Forensics or Barista) for Hardware Hacking.This substitution only
+    applies to only one task.
+  special: FORENSICS
+  input_special: 12
+  image_special: {fileID: 0}
+  special2: BARISTA
+  input_special2: 12
+  image_special2: {fileID: 0}
+  image_Avertar: {fileID: 0}

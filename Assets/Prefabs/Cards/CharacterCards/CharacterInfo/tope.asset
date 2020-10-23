@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7ee4e8c837f58f4eb3ecbed4eaf342c, type: 3}
+  m_Name: tope
+  m_EditorClassIdentifier: 
+  character_code: 15
+  character_card_name: TOPE
+  discription: Tope  is a passionate about music as he is about elegant code. He
+    has regular gigs playing the acoustic guitar at local lounges.
+  artwork_back: {fileID: 0}
+  artwork_front: {fileID: 0}
+  char_info: {fileID: 0}
+  input_hardware: 11
+  input_cryptanalysis: 9
+  input_network: 11
+  input_socal: 11
+  input_kitchen: 10
+  input_software: 11
+  ad_disadvantages: He normally gets $3K at the begining of each round (instead of
+    $2k).
+  special: BARISTA
+  input_special: 12
+  image_special: {fileID: 0}
+  special2: 
+  input_special2: 0
+  image_special2: {fileID: 0}
+  image_Avertar: {fileID: 0}

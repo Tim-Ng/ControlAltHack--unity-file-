@@ -5,6 +5,7 @@ using Photon.Realtime;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Security.Principal;
 using TMPro;
 using UnityEngine;
@@ -16,7 +17,7 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
 {
     public GameObject PlayerArea;
     public GameObject cardTemplate;
-    [SerializeField] private CharCardScript CharCard1;
+    [SerializeField] private CharacterCardDeck cardDeck;
     public GameObject StartGameButtonOBJ;
     private int x;
     public Button LeaveRoomButton;
@@ -28,15 +29,13 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
 
     public Image avertarUser, avertarPlayer1, avertarPlayer2, avertarPlayer3, avertarPlayer4, avertarPlayer5;
     public Sprite defultImage;
-    private CharCardScript chosed_character_user, chosed_character_player1 = null, chosed_character_player2 = null, chosed_character_player3 = null, chosed_character_player4 = null, chosed_character_player5 = null;
+    private CharCardScript chosed_character_user = null, chosed_character_player1 = null, chosed_character_player2 = null, chosed_character_player3 = null, chosed_character_player4 = null, chosed_character_player5 = null;
     public Button userAvertarButton, Player1AvertarButton, Player2AvertarButton, Player3AvertarButton, Player4AvertarButton, Player5AvertarButton;
     private List<CharCardScript> cardsInfoDraw = new List<CharCardScript>();
-    private List<CharCardScript> cardsInfo = new List<CharCardScript>();
     private List<CharCardScript> otherPlayerCharacterInfo = new List<CharCardScript>();
     private List<Image> otherPlayerAvertar = new List<Image>();
     private List<Button> otherAvertarPlayerButton = new List<Button>();
-    private int number_of_players,number_of_character_cards;
-
+    private int number_of_players, number_of_character_cards;
     [SerializeField] private TMP_InputField numberOfRounds_input = null, numberOfCredAhead_input = null;
     public static int[] GameProperties = { 0, 0 };
 
@@ -48,7 +47,7 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
     private RaiseEventOptions AllPeople = new RaiseEventOptions()
     {
         CachingOption = EventCaching.DoNotCache,
-        Receivers = ReceiverGroup.All,
+        Receivers = ReceiverGroup.All
     };
     public enum PhotonEventCode
     {
@@ -88,32 +87,20 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
         else if (obj.Code == (byte)PhotonEventCode.RemoveCharCard)
         {
             object[] carddata = (object[])obj.CustomData;
-            string datacode = (string)carddata[0];
+            int datacode = (int)carddata[0];
             RemoveThisCard(datacode);
         }
         else if (obj.Code == (byte)PhotonEventCode.SelectChar)
         {
             object[] characterInfo = (object[])obj.CustomData;
-            SetCharacterInfo((string) characterInfo[0],(Player)characterInfo[1]);
+            SetCharacterInfo((int) characterInfo[0],(Player)characterInfo[1]);
         }
     }
 
     private void putCharCardsInList()
     {
         Debug.Log("Input Character card into list");
-        cardsInfo.Add(CharCard1);
-        /*cardsInfo.Add(CharCard2);
-        cardsInfo.Add(CharCard3);
-        cardsInfo.Add(CharCard4);
-        cardsInfo.Add(CharCard5);
-        cardsInfo.Add(CharCard6);
-        cardsInfo.Add(CharCard7);
-        cardsInfo.Add(CharCard8);
-        cardsInfo.Add(CharCard9);
-        cardsInfo.Add(CharCard10);
-        cardsInfo.Add(CharCard11);
-        cardsInfo.Add(CharCard12);*/
-        cardsInfoDraw = cardsInfo;
+        cardsInfoDraw = cardDeck.getCharDeck();
         otherPlayerCharacterInfo.Add(chosed_character_player1);
         otherPlayerCharacterInfo.Add(chosed_character_player2);
         otherPlayerCharacterInfo.Add(chosed_character_player3);
@@ -186,14 +173,14 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
     {
         for (var i = 0; i < y; i++)
         {
-            x = Random.Range(0, (cardsInfoDraw.Count - 1));
+            x = Random.Range(0, cardsInfoDraw.Count);
             GameObject characterPlayerCard1 = Instantiate(cardTemplate, transform.position, Quaternion.identity);
             characterPlayerCard1.GetComponent<CharacterCardDispaly>().CharCard = cardsInfoDraw[x];
             characterPlayerCard1.GetComponent<CharacterCardDispaly>().FrontSide.SetActive(true);
             characterPlayerCard1.gameObject.transform.localScale += new Vector3(-0.75f, -0.75f, 0);
             characterPlayerCard1.transform.SetParent(PlayerArea.transform, false);
-            object[] data = new object[] {y };
-            /*PhotonNetwork.RaiseEvent((byte)PhotonEventCode.RemoveCharCard, cardsInfoDraw[x].character_code, AllPeopleOptions, SendOptions.SendUnreliable);*/
+            object[] data = new object[] { cardsInfoDraw[x].character_code};
+            /*PhotonNetwork.RaiseEvent((byte)PhotonEventCode.RemoveCharCard, data, AllPeople, SendOptions.SendUnreliable);*/
         }
         
     }
@@ -212,9 +199,9 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
         PhotonNetwork.RaiseEvent((byte)PhotonEventCode.SelectChar, dataSelectCard, AllOtherThanMePeopleOptions, SendOptions.SendUnreliable);
         entropyCard.distribute_entropycard(5);
     }
-    public void RemoveThisCard(string cardID)
+    public void RemoveThisCard(int cardID)
     { 
-        foreach (CharCardScript checkCard in cardsInfo)
+        foreach (CharCardScript checkCard in cardDeck.getCharDeck())
         {
             if (cardID == checkCard.character_code)
             {
@@ -223,7 +210,7 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
             }
         }
     }
-    public void SetCharacterInfo(string character_code, Player sendingPlayer)
+    public void SetCharacterInfo(int character_code, Player sendingPlayer)
     {
         int i = 0;
         foreach (Player whichplayer in PhotonNetwork.PlayerListOthers)
@@ -236,9 +223,9 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
         }
 
     }
-    public void setOtherPlayer(int i,string charcode)
+    public void setOtherPlayer(int i,int charcode)
     {
-        foreach (CharCardScript charScript in cardsInfo)
+        foreach (CharCardScript charScript in cardDeck.getCharDeck())
         {
             if (charScript.character_code == charcode)
             {

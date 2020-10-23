@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7ee4e8c837f58f4eb3ecbed4eaf342c, type: 3}
+  m_Name: karl
+  m_EditorClassIdentifier: 
+  character_code: 2
+  character_card_name: KARL
+  discription: Karl may spend most of his time staring at machine code, but he's
+    also naturally charismatic. Given the right training, he'd be a genius at programming
+    people, too.
+  artwork_back: {fileID: 0}
+  artwork_front: {fileID: 0}
+  char_info: {fileID: 0}
+  input_hardware: 13
+  input_cryptanalysis: 11
+  input_network: 10
+  input_socal: 9
+  input_kitchen: 10
+  input_software: 13
+  ad_disadvantages: If he has "Bag of Tricks:Acting Class" purchased and in play,
+    he will automatically succeed at all Social Engineering rolls.
+  special: FORENSICS
+  input_special: 12
+  image_special: {fileID: 0}
+  special2: 
+  input_special2: 0
+  image_special2: {fileID: 0}
+  image_Avertar: {fileID: 0}

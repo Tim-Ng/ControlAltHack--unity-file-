@@ -1,39 +1,62 @@
-﻿using System.Collections;
+﻿using ExitGames.Client.Photon;
+using Photon.Pun;
+using Photon.Realtime;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DrawEntropyCard : MonoBehaviour
+public class DrawEntropyCard : MonoBehaviourPunCallbacks
 {
     public GameObject EntropycardTemplate;
-    public GameObject PlayerArea;
-    public GameObject OponentArea1;
-    public int OponentArea1_cards;
-    public GameObject OponentArea2;
-    public int OponentArea2_cards;
-    public GameObject OponentArea3;
-    public int OponentArea3_cards;
-    public GameObject OponentArea4;
-    public int OponentArea4_cards;
-    public GameObject OponentArea5;
-    public int OponentArea5cards;
-    public GameObject dummy_entropy_card;
-
+    public EntropyCardDeck entropyCardDeck;
+    public GameObject UserArea;
+    public DrawCharacterCard drawCharacterCard;
     //inputmultiple cards
-    public EntropyCardScript entropycardBag1;
-    public EntropyCardScript entropycardLigting1;
-    private List<EntropyCardScript> entropycards = new List<EntropyCardScript>(); 
-
-
     private int x;
-
+    private List<EntropyCardScript> entropycards = new List<EntropyCardScript>();
+    private RaiseEventOptions AllOtherThanMePeopleOptions = new RaiseEventOptions()
+    {
+        CachingOption = EventCaching.DoNotCache,
+        Receivers = ReceiverGroup.Others,
+    };
+    private RaiseEventOptions AllPeople = new RaiseEventOptions()
+    {
+        CachingOption = EventCaching.DoNotCache,
+        Receivers = ReceiverGroup.All
+    };
+    public enum PhotonEventCode
+    {
+        removeEntropycardFromdeck = 7, 
+    }
+    private void OnEnable()
+    {
+        Debug.Log("Listen to event");
+        PhotonNetwork.NetworkingClient.EventReceived += NetworkingClient_EventReceived;
+        Debug.Log("Event heard");
+    }
+    private void OnDisable()
+    {
+        PhotonNetwork.NetworkingClient.EventReceived -= NetworkingClient_EventReceived;
+        Debug.Log("Event Ended");
+    }
+    private void NetworkingClient_EventReceived(EventData obj)
+    {
+        if (obj.Code == (byte)PhotonEventCode.removeEntropycardFromdeck)
+        {
+            object[] carddata = (object[])obj.CustomData;
+            int datacode = (int)carddata[0];
+            RemoveThisCard(datacode);
+        }
+        
+    }
     private void Start()
     {
         //add all cards to a list here
-        entropycards.Add(entropycardBag1);
-        entropycards.Add(entropycardLigting1);
+        entropycards = entropyCardDeck.getentropyCards();
     }
     public void distribute_entropycard(int how_many)
     {
+        Debug.Log("Drawing card");
         for (var i = 0; i < how_many; i++)
         {
             x = Random.Range(0, (entropycards.Count));
@@ -41,31 +64,25 @@ public class DrawEntropyCard : MonoBehaviour
             entropyCard.GetComponent<EntropyCardDisplay>().entropyData = entropycards[x];
             entropyCard.GetComponent<EntropyCardDisplay>().FrontSide.SetActive(true);
             entropyCard.gameObject.transform.localScale += new Vector3(-0.75f, -0.75f, 0);
-            entropyCard.transform.SetParent(PlayerArea.transform, false);
-            //entropycards.Remove(entropycards[x]);
+            entropyCard.transform.SetParent(UserArea.transform, false);
+            object[] data = new object[] { entropycards[x].EntropyCardID };
+            PhotonNetwork.RaiseEvent((byte)PhotonEventCode.removeEntropycardFromdeck, data, AllPeople, SendOptions.SendReliable);
         }
+    }
+    public void RemoveThisCard(int cardID)
+    {
+        foreach (EntropyCardScript entropyscripts in entropycards)
+        {
+            if (cardID == entropyscripts.EntropyCardID)
+            {
+                entropycards.Remove(entropyscripts);
+                Debug.Log("Card ID :" + cardID + " is removed");
+                break;
+            }
+        }
+        Debug.Log("Number of cards left in deck " + entropycards.Count);
     }
 
     //keep checking opponent amount
 
-    public void setOponentArea1_card(int amount)
-    {
-        OponentArea1_cards = amount;
-    }
-    public void setOponentArea2_card(int amount)
-    {
-        OponentArea1_cards = amount;
-    }
-    public void setOponentArea3_card(int amount)
-    {
-        OponentArea1_cards = amount;
-    }
-    public void setOponentArea4_card(int amount)
-    {
-        OponentArea1_cards = amount;
-    }
-    public void setOponentArea5_card(int amount)
-    {
-        OponentArea1_cards = amount;
-    }
 }

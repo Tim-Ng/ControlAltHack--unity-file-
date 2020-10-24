@@ -281,33 +281,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 12445369}
   m_CullTransparentMesh: 0
---- !u!114 &15904720
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 986124132}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a825db9377bbf384d9bd711aead525f6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  EntropycardTemplate: {fileID: 2637827694901813762, guid: b656f8f691cab4144ae149c7d25bd3c4, type: 3}
-  PlayerArea: {fileID: 2874756393525619206}
-  OponentArea1: {fileID: 1091872374}
-  OponentArea1_cards: 0
-  OponentArea2: {fileID: 1675681454}
-  OponentArea2_cards: 0
-  OponentArea3: {fileID: 1576077610}
-  OponentArea3_cards: 0
-  OponentArea4: {fileID: 2125455815}
-  OponentArea4_cards: 0
-  OponentArea5: {fileID: 454367831}
-  OponentArea5cards: 0
-  dummy_entropy_card: {fileID: 0}
-  entropycardBag1: {fileID: 11400000, guid: 92e1ccfb82d94094aa4b332577410c77, type: 2}
-  entropycardLigting1: {fileID: 11400000, guid: b97fc565cba198b439cda576d5abbec3, type: 2}
 --- !u!1 &49473032
 GameObject:
   m_ObjectHideFlags: 0
@@ -1781,8 +1754,10 @@ GameObject:
   - component: {fileID: 499456408}
   - component: {fileID: 499456407}
   - component: {fileID: 499456409}
+  - component: {fileID: 499456411}
+  - component: {fileID: 499456410}
   m_Layer: 0
-  m_Name: SetNameAvertarCharcter
+  m_Name: MainScript
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1808,7 +1783,7 @@ MonoBehaviour:
   Popup: {fileID: 239906617}
   clone_to_delete: {fileID: 2874756393525619206}
   select_button: {fileID: 1940780710}
-  entropyCard: {fileID: 15904720}
+  entropyCard: {fileID: 499456411}
   avertarUser: {fileID: 49473034}
   avertarPlayer1: {fileID: 558337284}
   avertarPlayer2: {fileID: 1509883944}
@@ -1874,6 +1849,45 @@ MonoBehaviour:
   CharCard14: {fileID: 11400000, guid: dc34aeada38398c4b855877eac0b9f81, type: 2}
   CharCard15: {fileID: 11400000, guid: cf91e5964cae48a468858d879564dc63, type: 2}
   CharCard16: {fileID: 11400000, guid: b83b1298135b63343a8fcb174f5551ca, type: 2}
+--- !u!114 &499456410
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 499456406}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe2bb2cc6695c7c44b1477e8c5b6d20e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  entropyCardScript1: {fileID: 11400000, guid: d8d80ab5d3156754fbaf1d35c25179f7, type: 2}
+  entropyCardScript2: {fileID: 11400000, guid: 92e1ccfb82d94094aa4b332577410c77, type: 2}
+  entropyCardScript3: {fileID: 11400000, guid: 3ebdbaccb1c1ff748975ae03341f9185, type: 2}
+  entropyCardScript4: {fileID: 11400000, guid: f9a5a4556e1ec0045b1d1b888c7ff950, type: 2}
+  entropyCardScript5: {fileID: 11400000, guid: f552fb23e1efeba45b07e9f25fa4c9c8, type: 2}
+  entropyCardScript6: {fileID: 11400000, guid: e394fdcac5368254a8dc11ed7294d62e, type: 2}
+  entropyCardScript7: {fileID: 11400000, guid: 5aa53755d8f48b24da58e803717dd179, type: 2}
+  entropyCardScript8: {fileID: 11400000, guid: b76f8cada96f5ce42b83735f0f28971e, type: 2}
+  entropyCardScript9: {fileID: 11400000, guid: f9a367a3f23f08e4898b528a8e754fb7, type: 2}
+  entropyCardScript10: {fileID: 11400000, guid: 11dd5550818fb2147b0173845c505379, type: 2}
+  entropyCardScript11: {fileID: 11400000, guid: b97fc565cba198b439cda576d5abbec3, type: 2}
+--- !u!114 &499456411
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 499456406}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a825db9377bbf384d9bd711aead525f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EntropycardTemplate: {fileID: 2637827694901813762, guid: b656f8f691cab4144ae149c7d25bd3c4, type: 3}
+  entropyCardDeck: {fileID: 499456410}
+  UserArea: {fileID: 2874756393525619206}
+  drawCharacterCard: {fileID: 499456407}
 --- !u!1 &558337282
 GameObject:
   m_ObjectHideFlags: 0
@@ -4126,7 +4140,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 986124133}
-  - component: {fileID: 15904720}
   m_Layer: 0
   m_Name: UserAreas
   m_TagString: Untagged

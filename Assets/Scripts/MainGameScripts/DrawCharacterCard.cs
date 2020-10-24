@@ -10,6 +10,7 @@ using System.Runtime.CompilerServices;
 using System.Security.Principal;
 using System.Threading;
 using TMPro;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 using WebSocketSharp;
@@ -42,6 +43,7 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
     public static int[] GameProperties = { 0, 0 };
 
     private int ActorNumberOfStartPlayer; // player that start the turn
+    private int NumDoneSelectChar = 0;
     private RaiseEventOptions AllOtherThanMePeopleOptions = new RaiseEventOptions()
     {
         CachingOption = EventCaching.DoNotCache,
@@ -60,6 +62,7 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
         RemoveCharCard = 3,
         EventSetPlayerThatStart=4,
         TurnChanged =5,
+        CheckAllDoneChar=6,
     }
 
     public int TurnNumber = 0;
@@ -104,15 +107,7 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
         {
             object[] carddata = (object[])obj.CustomData;
             PlayerIdToMakeThisTurn = (int)carddata[0];
-            if ((TurnNumber == 0) && IsMyTurn)
-            {
-                countNumCharCards();
-                Drawcard(number_of_character_cards);
-            }
-            else
-            {
-                //draw entropycard 
-            }
+            checkWhichFunctionToRun();
         }
         else if (obj.Code == (byte)PhotonEventCode.RemoveCharCard)
         {
@@ -134,8 +129,14 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
             object[] carddata = (object[])obj.CustomData;
             TurnNumber = (int)carddata[0];
         }
+        else if (obj.Code == (byte)PhotonEventCode.CheckAllDoneChar)
+        {
+            Debug.Log("A player is done selecting character");
+            NumDoneSelectChar += 1;
+            Debug.Log(NumDoneSelectChar);
+            checkWhichFunctionToRun();
+        }
     }
-
     private void putCharCardsInList()
     {
         Debug.Log("Input Character card into list");
@@ -208,6 +209,7 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
             characterPlayerCard1.gameObject.transform.localScale += new Vector3(-0.75f, -0.75f, 0);
             characterPlayerCard1.transform.SetParent(PlayerArea.transform, false);
             object[] data = new object[] { cardsInfoDraw[x].character_code };
+            PhotonNetwork.RaiseEvent((byte)PhotonEventCode.RemoveCharCard, data, AllPeople, SendOptions.SendReliable);
         }
         Debug.Log("Got pass to here");
         EndTurn();
@@ -227,13 +229,13 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
         Popup.closePopup();
         object[] dataSelectCard = new object[] { chosed_character_user.character_code, PhotonNetwork.LocalPlayer };
         PhotonNetwork.RaiseEvent((byte)PhotonEventCode.SelectChar, dataSelectCard, AllOtherThanMePeopleOptions, SendOptions.SendReliable);
-        entropyCard.distribute_entropycard(5);
+        PhotonNetwork.RaiseEvent((byte)PhotonEventCode.CheckAllDoneChar, null, AllPeople, SendOptions.SendReliable);
     }
 
     //to remove this card from the deck for everyone so that we don't get the same character
     public void RemoveThisCard(int cardID)
     {
-        foreach (CharCardScript checkCard in cardDeck.getCharDeck())
+        foreach (CharCardScript checkCard in cardsInfoDraw)
         {
             if (cardID == checkCard.character_code)
             {
@@ -376,7 +378,7 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
     }
     // Check the number of players and distribute the number of character cards accordingly 
     public void countNumCharCards()
-    { 
+    {
         number_of_players = PhotonNetwork.CurrentRoom.PlayerCount;
         if (number_of_players == 6)
         {
@@ -387,6 +389,23 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
         {
             Debug.Log("Number of players is " + number_of_players + ", distributing 3 cards");
             number_of_character_cards = 3;
+        }
+    }
+    public void checkWhichFunctionToRun()
+    {
+        if ((TurnNumber == 0) && IsMyTurn)
+        {
+            countNumCharCards();
+            Drawcard(number_of_character_cards);
+        }
+        else if ((TurnNumber == 1) && IsMyTurn )
+        {
+            if (NumDoneSelectChar == PhotonNetwork.CurrentRoom.PlayerCount)
+            {
+                Debug.Log("Entropy Draw");
+                entropyCard.distribute_entropycard(5);
+                EndTurn();
+            }
         }
     }
 }

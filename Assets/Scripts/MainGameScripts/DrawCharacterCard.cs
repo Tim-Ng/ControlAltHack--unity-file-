@@ -41,6 +41,7 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
     [SerializeField] private TMP_InputField numberOfRounds_input = null, numberOfCredAhead_input = null;
     public static int[] GameProperties = { 0, 0 };
 
+    private int ActorNumberOfStartPlayer; // player that start the turn
     private RaiseEventOptions AllOtherThanMePeopleOptions = new RaiseEventOptions()
     {
         CachingOption = EventCaching.DoNotCache,
@@ -54,9 +55,11 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
     public enum PhotonEventCode
     {
         LeaveButton = 0,
-        ChangePlayer = 1,
+        UpdateTurnPlayer = 1,
         SelectChar = 2,
-        RemoveCharCard = 3
+        RemoveCharCard = 3,
+        EventSetPlayerThatStart=4,
+        TurnChanged =5,
     }
 
     public int TurnNumber = 0;
@@ -96,10 +99,19 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
         {
             noleave();
         }
-        else if (obj.Code == (byte)PhotonEventCode.ChangePlayer)
+        else if (obj.Code == (byte)PhotonEventCode.UpdateTurnPlayer)
         {
             object[] carddata = (object[])obj.CustomData;
             PlayerIdToMakeThisTurn = (int)carddata[0];
+            if ((TurnNumber == 0) && IsMyTurn)
+            {
+                countNumCharCards();
+                Drawcard(number_of_character_cards);
+            }
+            else
+            {
+                //draw entropycard 
+            }
         }
         else if (obj.Code == (byte)PhotonEventCode.RemoveCharCard)
         {
@@ -111,6 +123,15 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
         {
             object[] characterInfo = (object[])obj.CustomData;
             SetCharacterInfo((int)characterInfo[0], (Player)characterInfo[1]);
+        }
+        else if (obj.Code == (byte)PhotonEventCode.EventSetPlayerThatStart){
+            object[] carddata = (object[])obj.CustomData;
+            ActorNumberOfStartPlayer = (int)carddata[0];
+        }
+        else if (obj.Code == (byte)PhotonEventCode.TurnChanged)
+        {
+            object[] carddata = (object[])obj.CustomData;
+            TurnNumber = (int)carddata[0];
         }
     }
 
@@ -145,29 +166,7 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
         }
         userAvertarButton.interactable = false;
     }
-    void Update()
-    {
-        if (IsMyTurn && TurnNumber == 0) //this is only the first turn
-        {
-            Debug.Log("My turn to draw card");
-            countNumCharCards();
-            Drawcard(number_of_character_cards);
-        }
-    }
-    public void countNumCharCards()
-    {
-        number_of_players = PhotonNetwork.CurrentRoom.PlayerCount;
-        if (number_of_players == 6)
-        {
-            Debug.Log("Number of players is 6 , distributing 2 cards");
-            number_of_character_cards = 2;
-        }
-        else
-        {
-            Debug.Log("Number of players is " + number_of_players + ", distributing 3 cards");
-            number_of_character_cards = 3;
-        }
-    }
+    // when host click on the start button;
     public void OnClickTodrawCard()
     {
         StartGameButtonOBJ.SetActive(false);
@@ -185,16 +184,16 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
             else
                 GameProperties[1] = 0;
         }
-
-        number_of_players = PhotonNetwork.CountOfPlayersInRooms;
-
         PhotonNetwork.CurrentRoom.IsVisible = false;
         PhotonNetwork.CurrentRoom.IsOpen = false;
         Debug.Log("Send to all draw character");
-        setPlayerStart(PhotonNetwork.LocalPlayer.ActorNumber); // as only master can click on this button 
+        PhotonNetwork.RaiseEvent((byte)PhotonEventCode.LeaveButton, null, AllPeople, SendOptions.SendReliable);
+        checkTurn();
 
     }
     private void noleave() => LeaveRoomButton.interactable = false;
+
+    //Distribute card accordingly 
     public void Drawcard(int y)
     {
         for (var i = 0; i < y; i++)
@@ -207,13 +206,13 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
             characterPlayerCard1.GetComponent<CharacterCardDispaly>().FrontSide.SetActive(true);
             characterPlayerCard1.gameObject.transform.localScale += new Vector3(-0.75f, -0.75f, 0);
             characterPlayerCard1.transform.SetParent(PlayerArea.transform, false);
-            object[] data = new object[] { cardsInfoDraw[x].character_code};
-            PhotonNetwork.RaiseEvent((byte)PhotonEventCode.RemoveCharCard, data, AllOtherThanMePeopleOptions, SendOptions.SendReliable);
-            RemoveThisCard(cardsInfoDraw[x].character_code);
+            object[] data = new object[] { cardsInfoDraw[x].character_code };
         }
         Debug.Log("Got pass to here");
         EndTurn();
     }
+
+    //when the local player picked on a character
     public void clickOnSelectCard()
     {
         select_button.SetActive(false);
@@ -229,6 +228,8 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
         PhotonNetwork.RaiseEvent((byte)PhotonEventCode.SelectChar, dataSelectCard, AllOtherThanMePeopleOptions, SendOptions.SendReliable);
         entropyCard.distribute_entropycard(5);
     }
+
+    //to remove this card from the deck for everyone so that we don't get the same character
     public void RemoveThisCard(int cardID)
     {
         foreach (CharCardScript checkCard in cardDeck.getCharDeck())
@@ -242,6 +243,8 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
         }
         Debug.Log("Number of cards left in deck " + cardsInfoDraw.Count);
     }
+
+    //find which player selected the card in your point of view 
     public void SetCharacterInfo(int character_code, Player sendingPlayer)
     {
         int i = 0;
@@ -255,6 +258,8 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
         }
 
     }
+
+    //then set information of the card and the avertar in the allocated space 
     public void setOtherPlayer(int i, int charcode)
     {
         foreach (CharCardScript charScript in cardDeck.getCharDeck())
@@ -268,6 +273,9 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
         }
 
     }
+
+
+    // when the avertar is click 
     public void PopUpCharacterInfo(int i)
     {
         if ((i != 5))
@@ -279,6 +287,8 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
             Popup.openCharacterCard(chosed_character_user, false);
         }
     }
+
+    //all of the different avertars user and the opponents 
     public void clickAvertarPlayer1() => PopUpCharacterInfo(0);
     public void clickAvertarPlayer2() => PopUpCharacterInfo(1);
     public void clickAvertarPlayer3() => PopUpCharacterInfo(2);
@@ -286,6 +296,7 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
     public void clickAvertarPlayer5() => PopUpCharacterInfo(4);
     public void clickAvertarPlayerUser() => PopUpCharacterInfo(5);
 
+    // find the next player after you
     public Player NextOpponent
     {
         get
@@ -296,19 +307,24 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
             return opp;
         }
     }
+
+    //hading over the turn to the next player
     public void HandoverTurnToNextPlayer()
     {
         if (PhotonNetwork.LocalPlayer != null)
         {
             Player nextPlayer = PhotonNetwork.LocalPlayer.GetNextFor(this.PlayerIdToMakeThisTurn);
-            if (nextPlayer.ActorNumber == 1 ){
-                TurnNumber = 1;
+            if (nextPlayer.ActorNumber == ActorNumberOfStartPlayer ){
+                TurnNumber += 1;
+                object[] turndata = new object[] { TurnNumber };
+                PhotonNetwork.RaiseEvent((byte)PhotonEventCode.TurnChanged, turndata, AllOtherThanMePeopleOptions, SendOptions.SendReliable);
+                checkTurn();
             }
             else if (nextPlayer != null)
             {
                 this.PlayerIdToMakeThisTurn = nextPlayer.ActorNumber;
-                object[] data = new object[] { PlayerIdToMakeThisTurn };
-                PhotonNetwork.RaiseEvent((byte)PhotonEventCode.ChangePlayer, data, AllPeople, SendOptions.SendReliable);
+                object[] dataSelectCard = new object[] { PlayerIdToMakeThisTurn  };
+                PhotonNetwork.RaiseEvent((byte)PhotonEventCode.UpdateTurnPlayer, dataSelectCard, AllOtherThanMePeopleOptions, SendOptions.SendReliable);
                 return;
             }
             else
@@ -316,11 +332,6 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
         }
 
         this.PlayerIdToMakeThisTurn = 0;
-    }
-
-    public void setPlayerStart(int ActorNumber)
-    {
-        this.PlayerIdToMakeThisTurn = ActorNumber;
     }
     public void EndTurn()
     {
@@ -342,6 +353,39 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
                     // TODO: show some hint that the other is not active and wait time will be longer!
                 }
             }
+        }
+    }
+    public void checkTurn()
+    {
+        if (TurnNumber == 0 || TurnNumber == 1)
+        {
+            Debug.Log("Checking turn");
+            // when the game first start the player will be set to the master 
+            PlayerIdToMakeThisTurn = PhotonNetwork.MasterClient.ActorNumber;
+            ActorNumberOfStartPlayer = PlayerIdToMakeThisTurn;
+            object[] dataPlayerStart = new object[] { PlayerIdToMakeThisTurn };
+            object[] dataHoldPlayerStart = new object[] { ActorNumberOfStartPlayer };
+            PhotonNetwork.RaiseEvent((byte)PhotonEventCode.UpdateTurnPlayer, dataPlayerStart, AllPeople, SendOptions.SendReliable);
+            PhotonNetwork.RaiseEvent((byte)PhotonEventCode.EventSetPlayerThatStart, dataHoldPlayerStart, AllPeople, SendOptions.SendReliable);
+        }
+        else if (TurnNumber > 1)
+        {
+            
+        }
+    }
+    // Check the number of players and distribute the number of character cards accordingly 
+    public void countNumCharCards()
+    { 
+        number_of_players = PhotonNetwork.CurrentRoom.PlayerCount;
+        if (number_of_players == 6)
+        {
+            Debug.Log("Number of players is 6 , distributing 2 cards");
+            number_of_character_cards = 2;
+        }
+        else
+        {
+            Debug.Log("Number of players is " + number_of_players + ", distributing 3 cards");
+            number_of_character_cards = 3;
         }
     }
 }

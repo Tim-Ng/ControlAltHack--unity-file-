@@ -12,10 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c656b47cbb5953f45b33ef0efdd11c87, type: 3}
   m_Name: Lockpicking Toolchest
   m_EditorClassIdentifier: 
+  EntropyCardID: 4
+  IsBagOfTricks: 1
+  IsLigthingStrikes: 0
   Title: LOCKPICKING TOOLCHEST
   discription: Pick gun, bump key, impression kit...hook, half diamond, and snake
     rake picks...who knew that there were so many types of lockpicking tools?
-  Cost: 1000
-  usage: Once per turn, you may reroll a failed Lockpicking roll.
   artwork_info: {fileID: 0}
   artwork_back: {fileID: 0}
+  Cost: 1000
+  usage: Once per turn, you may reroll a failed Lockpicking roll.
+  use_usage: 0
+  UseSucFailLighting: 0
+  Success: 
+  Failure: 
+  minus_how_much_cred: 0
+  RollVSWhich: 

@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c656b47cbb5953f45b33ef0efdd11c87, type: 3}
   m_Name: Dumpster Diving
   m_EditorClassIdentifier: 
+  EntropyCardID: 2
   IsBagOfTricks: 1
   IsLigthingStrikes: 0
   Title: DUMPSTER DIVING
@@ -24,8 +25,9 @@ MonoBehaviour:
   Cost: 4000
   usage: Play this card during a Mission. All your Hardware Hacking rolls for the
     Mission are Automatic successes. Discard this card after use.
+  use_usage: 1
   UseSucFailLighting: 0
   Success: 
   Failure: 
   minus_how_much_cred: 0
-  use_usage: 1
+  RollVSWhich: 

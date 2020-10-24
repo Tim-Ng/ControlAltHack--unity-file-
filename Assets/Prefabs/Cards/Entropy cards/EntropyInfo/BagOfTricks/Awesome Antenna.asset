@@ -12,12 +12,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c656b47cbb5953f45b33ef0efdd11c87, type: 3}
   m_Name: Awesome Antenna
   m_EditorClassIdentifier: 
+  EntropyCardID: 1
+  IsBagOfTricks: 1
+  IsLigthingStrikes: 0
   Title: AWESOME ANTENNA
   discription: No sir, that's not a directional WiFi antenna on my car. I'm not going
     to join your wireless network from the parking lot. I'm just listening to the
     radio and eating a sandwich.
+  artwork_info: {fileID: 0}
+  artwork_back: {fileID: 0}
   Cost: 1000
   usage: Once per turn, you may re-roll a failed Network Ninja roll. If you fail
     this second roll, you must discard this card.
-  artwork_info: {fileID: 0}
-  artwork_back: {fileID: 0}
+  use_usage: 0
+  UseSucFailLighting: 0
+  Success: 
+  Failure: 
+  minus_how_much_cred: 0
+  RollVSWhich: 

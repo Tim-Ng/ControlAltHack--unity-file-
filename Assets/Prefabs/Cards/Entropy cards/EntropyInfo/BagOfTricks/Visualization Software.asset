@@ -12,10 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c656b47cbb5953f45b33ef0efdd11c87, type: 3}
   m_Name: Visualization Software
   m_EditorClassIdentifier: 
+  EntropyCardID: 10
+  IsBagOfTricks: 1
+  IsLigthingStrikes: 0
   Title: VISUALIZATION SOFTWARE
   discription: It can be overwhelming to go through all those network logs by hand.
     It's easier to see communication patterns when the data is graphed out.
-  Cost: 1000
-  usage: +1 Network Ninja
   artwork_info: {fileID: 0}
   artwork_back: {fileID: 0}
+  Cost: 1000
+  usage: +1 Network Ninja
+  use_usage: 0
+  UseSucFailLighting: 0
+  Success: 
+  Failure: 
+  minus_how_much_cred: 0
+  RollVSWhich: 

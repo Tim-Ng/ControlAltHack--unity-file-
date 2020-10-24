@@ -12,10 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c656b47cbb5953f45b33ef0efdd11c87, type: 3}
   m_Name: Party of the Year
   m_EditorClassIdentifier: 
+  EntropyCardID: 7
+  IsBagOfTricks: 1
+  IsLigthingStrikes: 0
   Title: PARTY OF THE YEAR
   discription: Chocolate fountain, open bar, and a hovering chandelier. You throw
     the best parties, and everybody who's anybody is there
-  Cost: 1000
-  usage: Automatically turns any failed Connections roll into a success
   artwork_info: {fileID: 0}
   artwork_back: {fileID: 0}
+  Cost: 1000
+  usage: Automatically turns any failed Connections roll into a success
+  use_usage: 0
+  UseSucFailLighting: 0
+  Success: 
+  Failure: 
+  minus_how_much_cred: 0
+  RollVSWhich: 

@@ -12,9 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c656b47cbb5953f45b33ef0efdd11c87, type: 3}
   m_Name: Outstanding Oscilloscope
   m_EditorClassIdentifier: 
+  EntropyCardID: 6
+  IsBagOfTricks: 1
+  IsLigthingStrikes: 0
   Title: OUTSTANDING OSCILLOSCOPE
   discription: Now with 3x as many buttons as the leading brand!
-  Cost: 8000
-  usage: +2 Hardware Hacking
   artwork_info: {fileID: 0}
   artwork_back: {fileID: 0}
+  Cost: 8000
+  usage: +2 Hardware Hacking
+  use_usage: 0
+  UseSucFailLighting: 0
+  Success: 
+  Failure: 
+  minus_how_much_cred: 0
+  RollVSWhich: 

@@ -5,6 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Card", menuName = "EntropyCard")]
 public class EntropyCardScript : ScriptableObject
 {
+    public int EntropyCardID;
     public bool IsBagOfTricks;
     public bool IsLigthingStrikes;
     public string Title;

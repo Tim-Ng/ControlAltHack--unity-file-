@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c656b47cbb5953f45b33ef0efdd11c87, type: 3}
   m_Name: Got a Date
   m_EditorClassIdentifier: 
+  EntropyCardID: 11
   IsBagOfTricks: 0
   IsLigthingStrikes: 1
   Title: Got a Date

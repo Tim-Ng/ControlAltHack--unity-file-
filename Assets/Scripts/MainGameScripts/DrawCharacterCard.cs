@@ -81,6 +81,7 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
     {
         putCharCardsInList();
     }
+
     private void OnEnable()
     {
         Debug.Log("Listen to event");

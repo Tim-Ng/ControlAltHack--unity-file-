@@ -1,8 +1,10 @@
 ﻿using ExitGames.Client.Photon;
 using Photon.Pun;
 using Photon.Realtime;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 
 public class DrawEntropyCard : MonoBehaviourPunCallbacks
@@ -59,7 +61,8 @@ public class DrawEntropyCard : MonoBehaviourPunCallbacks
         Debug.Log("Drawing card");
         for (var i = 0; i < how_many; i++)
         {
-            x = Random.Range(0, (entropycards.Count));
+            System.Random rand = new System.Random((int)DateTime.Now.Ticks);
+            x = rand.Next(0, (entropycards.Count));
             GameObject entropyCard = Instantiate(EntropycardTemplate, transform.position, Quaternion.identity);
             entropyCard.GetComponent<EntropyCardDisplay>().entropyData = entropycards[x];
             entropyCard.GetComponent<EntropyCardDisplay>().FrontSide.SetActive(true);
@@ -68,6 +71,7 @@ public class DrawEntropyCard : MonoBehaviourPunCallbacks
             object[] data = new object[] { entropycards[x].EntropyCardID };
             PhotonNetwork.RaiseEvent((byte)PhotonEventCode.removeEntropycardFromdeck, data, AllOtherThanMePeopleOptions, SendOptions.SendReliable); // as this is not fast enough 
             RemoveThisCard(entropycards[x].EntropyCardID); //so this is used
+            Thread.Sleep(175);
         }
     }
     public void RemoveThisCard(int cardID)

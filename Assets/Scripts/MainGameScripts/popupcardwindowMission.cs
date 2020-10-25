@@ -14,7 +14,7 @@ public class popupcardwindowMission : MonoBehaviour
     public GameObject AttendOrNot;
     public GameObject selectMissionCard;
     public GameObject UserMissionCardArea;
-
+    private bool cardselected = false;
     private void Start()
     {
         PopUpCard.SetActive(true);
@@ -24,7 +24,7 @@ public class popupcardwindowMission : MonoBehaviour
         Start();
         pop_input_mission = input_MissionCard;
         pop_input_character = input_charCard;
-        if (input_charCard.character_code == 9)
+        if (input_charCard.character_code == 9 && !(cardselected))
         {
             AttendOrNot.SetActive(false);
             selectMissionCard.SetActive(true);
@@ -56,12 +56,13 @@ public class popupcardwindowMission : MonoBehaviour
     {
         foreach (Transform child in UserMissionCardArea.transform)
         {
-            if (!(child.GetComponent<MissionCardScript>() == pop_input_mission))
+            if (!(child.GetComponent<MissionCardDisplay>().mission_script == pop_input_mission))
             {
                 Destroy(child.gameObject);
             }
         }
         AttendOrNot.SetActive(true);
         selectMissionCard.SetActive(false);
+        cardselected = true;
     }
 }

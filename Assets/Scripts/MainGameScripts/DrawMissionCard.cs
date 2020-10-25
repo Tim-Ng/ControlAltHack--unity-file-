@@ -1,6 +1,7 @@
 ﻿using ExitGames.Client.Photon;
 using Photon.Pun;
 using Photon.Realtime;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
@@ -65,7 +66,8 @@ public class DrawMissionCard : MonoBehaviour
     {
         for (var i = 0; i < how_many; i++)
         {
-            int x = Random.Range(0, (missionCardToDraw.Count));
+            System.Random rand = new System.Random((int)DateTime.Now.Ticks);
+            int x = rand.Next(0, (missionCardToDraw.Count));
             GameObject entropyCard = Instantiate(MissioncardTemplate, transform.position, Quaternion.identity);
             entropyCard.GetComponent<MissionCardDisplay>().mission_script = missionCardToDraw[x];
             entropyCard.GetComponent<MissionCardDisplay>().FrontSide.SetActive(true);
@@ -74,7 +76,7 @@ public class DrawMissionCard : MonoBehaviour
             object[] data = new object[] { missionCardToDraw[x].Mission_code };
             RemoveThisCard(missionCardToDraw[x].Mission_code);
             PhotonNetwork.RaiseEvent((byte)PhotonEventCode.removeEntropycardFromdeck, data, AllOtherThanMePeopleOptions, SendOptions.SendReliable); // as this is not fast enough
-            Thread.Sleep(125);
+            Thread.Sleep(175);
         }
     }
     public void RemoveThisCard(string cardID)

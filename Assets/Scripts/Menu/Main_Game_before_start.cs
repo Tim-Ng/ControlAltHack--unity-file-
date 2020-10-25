@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Photon.Realtime;
-using ExitGames.Client.Photon;
-using UnityEngine.SceneManagement;
 
 public class Main_Game_before_start : MonoBehaviourPunCallbacks
 {

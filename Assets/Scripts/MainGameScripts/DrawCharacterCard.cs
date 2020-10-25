@@ -1,19 +1,13 @@
 ﻿using ExitGames.Client.Photon;
 using Photon.Pun;
-using Photon.Pun.UtilityScripts;
 using Photon.Realtime;
-using System.Collections;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel.Design;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Security.Principal;
 using System.Threading;
 using TMPro;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
-using WebSocketSharp;
 
 public class DrawCharacterCard : MonoBehaviourPunCallbacks
 
@@ -45,6 +39,7 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
     public DrawMissionCard drawMissionCard;
     private int ActorNumberOfStartPlayer; // player that start the turn
     private int NumDoneSelectChar = 0;
+
     private RaiseEventOptions AllOtherThanMePeopleOptions = new RaiseEventOptions()
     {
         CachingOption = EventCaching.DoNotCache,
@@ -201,7 +196,8 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
     {
         for (var i = 0; i < y; i++)
         {
-            x = Random.Range(0, cardsInfoDraw.Count);
+            System.Random rand = new System.Random((int)DateTime.Now.Ticks);
+            x = rand.Next(0, cardsInfoDraw.Count);
             Debug.Log("Random Number this loop is:" + x);
             GameObject characterPlayerCard1 = Instantiate(cardTemplate, transform.position, Quaternion.identity);
             characterPlayerCard1.name = cardsInfoDraw[x].character_card_name;
@@ -211,7 +207,7 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
             characterPlayerCard1.transform.SetParent(PlayerArea.transform, false);
             object[] data = new object[] { cardsInfoDraw[x].character_code };
             PhotonNetwork.RaiseEvent((byte)PhotonEventCode.RemoveCharCard, data, AllPeople, SendOptions.SendReliable);
-            Thread.Sleep(125);
+            Thread.Sleep(175);
         }
         Debug.Log("Got pass to here");
     }
@@ -426,4 +422,5 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
         }
         return null;
     }
+    
 }

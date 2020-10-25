@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
+using System.Threading;
 
 namespace MainMenu
 {
@@ -101,19 +102,23 @@ namespace MainMenu
             RoomOptions roomOptions = new RoomOptions();
             roomOptions.MaxPlayers = MaxPlayersPerRoom;
             loading_text.text = "Creating Room Named \"" + host_input.text + "\" ";
+            Thread.Sleep(500);
             PhotonNetwork.CreateRoom(host_input.text, roomOptions, null);
         }
         public override void OnCreatedRoom()
         {
             Debug.Log("Created room: " + PhotonNetwork.CurrentRoom.Name);
             loading_text.text = "Room Named \"" + PhotonNetwork.CurrentRoom.Name + "\" is created...";
+            Thread.Sleep(500);
         }
 
         public override void OnCreateRoomFailed(short returnCode, string message)
         {
             Debug.Log("Created room failed " );
             loading_text.text = "Room failed to create";
+            Thread.Sleep(500);
             loading_text.text = "The room name has already exsist or the server has issue please try agian...";
+            Thread.Sleep(500);
             host_input.text = null;
             TurnHost.SetActive(true);
             TurnJoin.SetActive(true);
@@ -137,6 +142,7 @@ namespace MainMenu
         {
             Debug.Log("Joining Room...");
             loading_text.text = "Joining Room Named \"" + join_input.text + "\" ";
+            Thread.Sleep(500);
             PhotonNetwork.JoinRoom(roomName);
         }
         public override void OnJoinedRoom()
@@ -144,6 +150,7 @@ namespace MainMenu
             Debug.Log("Client successfully joined a room");
             int playerCount = PhotonNetwork.CurrentRoom.PlayerCount;
             loading_text.text = "Joined Room named \"" + PhotonNetwork.CurrentRoom.Name + "\" ";
+            Thread.Sleep(500);
             PhotonNetwork.LoadLevel(1);
             Debug.Log("Client is waiting for an opponent");
             Debug.Log("Matching is ready to begin");
@@ -157,6 +164,7 @@ namespace MainMenu
         { 
             Debug.Log("Room is not found");
             loading_text.text = "There are no room with the name \"" + join_input.text + "\" currently being hosted";
+            Thread.Sleep(500);
             join_input.text = null;
             TurnHost.SetActive(true);
             TurnJoin.SetActive(true);

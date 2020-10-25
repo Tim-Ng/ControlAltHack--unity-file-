@@ -1844,10 +1844,10 @@ MonoBehaviour:
   CharCard6: {fileID: 11400000, guid: da35e71693cb9ef40a45eed7924923ae, type: 2}
   CharCard7: {fileID: 11400000, guid: 7c9e06eb27258a84ea51a3186330264f, type: 2}
   CharCard8: {fileID: 11400000, guid: a00e2a6e488aa884c9ff94e59ab5d153, type: 2}
-  CharCard9: {fileID: 11400000, guid: 89dde07a289ba6c449251d3ab9645f9f, type: 2}
+  CharCard9: {fileID: 11400000, guid: 21cfb79073e39144c942c2e9bc3fe5e1, type: 2}
   CharCard10: {fileID: 11400000, guid: 3e074ab6b4e7041458acbf3482a229d3, type: 2}
   CharCard11: {fileID: 11400000, guid: e3decc9f108207044b2f0e627d19bcad, type: 2}
-  CharCard12: {fileID: 11400000, guid: c3a63c406e0f3d540ac8be5d9a069ac2, type: 2}
+  CharCard12: {fileID: 11400000, guid: 89dde07a289ba6c449251d3ab9645f9f, type: 2}
   CharCard13: {fileID: 11400000, guid: c16eaae1ceec7104589e70a1e307f24c, type: 2}
   CharCard14: {fileID: 11400000, guid: dc34aeada38398c4b855877eac0b9f81, type: 2}
   CharCard15: {fileID: 11400000, guid: cf91e5964cae48a468858d879564dc63, type: 2}
@@ -4234,7 +4234,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 951383672}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7013831139461939040}
+        m_TargetAssemblyTypeName: popupcardwindowMission, Assembly-CSharp
+        m_MethodName: clickOnSelectMission
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &951383672
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4761,8 +4773,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 54.02296, y: 0}
-  m_SizeDelta: {x: 126.63466, y: 128.96397}
+  m_AnchoredPosition: {x: 46.8, y: 0}
+  m_SizeDelta: {x: 141.13542, y: 128.96397}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1074838379
 MonoBehaviour:
@@ -4786,8 +4798,8 @@ MonoBehaviour:
   m_StartAxis: 0
   m_CellSize: {x: 120, y: 177}
   m_Spacing: {x: -60, y: 10}
-  m_Constraint: 0
-  m_ConstraintCount: 2
+  m_Constraint: 2
+  m_ConstraintCount: 1
 --- !u!114 &1074838380
 MonoBehaviour:
   m_ObjectHideFlags: 0

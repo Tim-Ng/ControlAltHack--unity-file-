@@ -66,9 +66,9 @@ public class DrawEntropyCard : MonoBehaviourPunCallbacks
             entropyCard.gameObject.transform.localScale += new Vector3(-0.75f, -0.75f, 0);
             entropyCard.transform.SetParent(UserArea.transform, false);
             object[] data = new object[] { entropycards[x].EntropyCardID };
-            PhotonNetwork.RaiseEvent((byte)PhotonEventCode.removeEntropycardFromdeck, data, AllPeople, SendOptions.SendReliable);
+            PhotonNetwork.RaiseEvent((byte)PhotonEventCode.removeEntropycardFromdeck, data, AllOtherThanMePeopleOptions, SendOptions.SendReliable); // as this is not fast enough 
+            RemoveThisCard(entropycards[x].EntropyCardID); //so this is used
         }
-        //drawCharacterCard.EndTurn(); 
     }
     public void RemoveThisCard(int cardID)
     {

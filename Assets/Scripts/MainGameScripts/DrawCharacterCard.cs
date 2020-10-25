@@ -118,10 +118,7 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
         else if (obj.Code == (byte)PhotonEventCode.SelectChar)
         {
             object[] characterInfo = (object[])obj.CustomData;
-            int characterID = (int)characterInfo[0];
-            Player sending = (Player)characterInfo[1];
-            Debug.Log(sending.NickName + " setting this cardID :" + characterID);
-            SetCharacterInfo(characterID , sending);
+            SetCharacterInfo((int)characterInfo[0], (Player)characterInfo[1]);
         }
         else if (obj.Code == (byte)PhotonEventCode.EventSetPlayerThatStart){
             object[] carddata = (object[])obj.CustomData;
@@ -192,7 +189,7 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
         PhotonNetwork.CurrentRoom.IsVisible = false;
         PhotonNetwork.CurrentRoom.IsOpen = false;
         Debug.Log("Send to all draw character");
-        PhotonNetwork.RaiseEvent((byte)PhotonEventCode.LeaveButton, null, AllPeople, SendOptions.SendReliable);
+        PhotonNetwork.RaiseEvent((byte)PhotonEventCode.LeaveButton, null, AllPeople, SendOptions.SendReliable); 
         checkTurn();
 
     }

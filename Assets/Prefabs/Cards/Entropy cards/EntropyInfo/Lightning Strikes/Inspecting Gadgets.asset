@@ -10,23 +10,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c656b47cbb5953f45b33ef0efdd11c87, type: 3}
-  m_Name: Got a Date
+  m_Name: Inspecting Gadgets
   m_EditorClassIdentifier: 
-  EntropyCardID: 11
+  EntropyCardID: 12
   IsBagOfTricks: 0
   IsLigthingStrikes: 1
   IsSharedFate: 0
   IsExtensiveExperience: 0
-  Title: Got a Date
-  discription: You met someone charming! Get a last-minute reservation for tonight's
-    date at that amazing Thai place.
+  Title: Inspecting Gadgets
+  discription: The company got a new 3D printer, and you can't concentrate on your
+    work until you modify it to print with molten chocolate instead of plastic.
   artwork_info: {fileID: 0}
-  artwork_back: {fileID: 21300000, guid: aaca80ad1425f37409d6651696bb3f85, type: 3}
+  artwork_back: {fileID: 0}
   Cost: 0
   usage: 
   use_usage: 0
   UseSucFailLighting: 1
-  Success: Continue with your Mission.
-  Failure: immediately.Continue with your Mission
-  minus_how_much_cred: 1
-  RollVSWhich: Social Engineering
+  Success: Continue with your Mission
+  Failure: You fail your MIssion
+  minus_how_much_cred: 0
+  RollVSWhich: Hardware Hacking

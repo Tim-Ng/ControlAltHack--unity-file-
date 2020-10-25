@@ -1,0 +1,46 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23145ec63dfdfe4ba9b38bc3cdca8bc, type: 3}
+  m_Name: Network Triage
+  m_EditorClassIdentifier: 
+  Mission_code: M21
+  MissonTitle: Network Triage
+  MissionDiscription: White hallways, fluorescent lights, and the smell of disinfectants...
+    the local hospital IT staff hires you for an audit.
+  Newb_job: 0
+  first_mission: {fileID: 0}
+  skill_name_1: Network Ninja
+  fist_change_hardnum: 0
+  task_discription1: Analyze network traffic for suspicious activity.
+  second_mission: {fileID: 0}
+  skill_name_2: Search FU
+  second_change_hardnum: 0
+  task_discription2: This pattern of network activity is tickling somehting in your
+    memory...what was it again?
+  hasThirdMission: 0
+  third_mission: {fileID: 0}
+  skill_name_3: 
+  third_change_hardnum: 0
+  task_discription3: 
+  success_amount_hacker_cread: 1
+  other_success_things: 
+  other_success_how_much: 0
+  success_discription: Now you remember, this looks like a virus that was making
+    the rounds five years ago. The hospital's infected MRI machine runs an unpatched
+    operating system; no one was targeting it ut even random crashes can be serious
+    bad news.
+  failure_amount_hacker_cread: -1
+  failure_discription: 
+  other_failure_things: 
+  other_failure_how_much: 0
+  artwork_back: {fileID: 0}
+  artwork_front_info: {fileID: 0}

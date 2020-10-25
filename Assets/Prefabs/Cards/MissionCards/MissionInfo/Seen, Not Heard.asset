@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23145ec63dfdfe4ba9b38bc3cdca8bc, type: 3}
+  m_Name: Seen, Not Heard
+  m_EditorClassIdentifier: 
+  Mission_code: M34
+  MissonTitle: Seen, Not Heard
+  MissionDiscription: What better way to spend the afternoon than trying to hack
+    your neighbor's (wireless) entertainment system?
+  Newb_job: 0
+  first_mission: {fileID: 0}
+  skill_name_1: Hardware Hacking
+  fist_change_hardnum: 0
+  task_discription1: Conveniently, you hve the same entertainment system. Take it
+    apart and figure out how the proprietary wireless protocol works.
+  second_mission: {fileID: 0}
+  skill_name_2: Network Ninja
+  second_change_hardnum: 0
+  task_discription2: Make sure that next time she has a movie night, her speakers
+    get "accidentally" muted.
+  hasThirdMission: 0
+  third_mission: {fileID: 0}
+  skill_name_3: 
+  third_change_hardnum: 0
+  task_discription3: 
+  success_amount_hacker_cread: 1
+  other_success_things: 
+  other_success_how_much: 0
+  success_discription: Payback for when she hacked your sprinklers during a croquet
+    game. The friendly rivalry continues.
+  failure_amount_hacker_cread: -1
+  failure_discription: 
+  other_failure_things: 
+  other_failure_how_much: 0
+  artwork_back: {fileID: 0}
+  artwork_front_info: {fileID: 0}

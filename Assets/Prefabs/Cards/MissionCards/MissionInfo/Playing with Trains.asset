@@ -1,0 +1,44 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23145ec63dfdfe4ba9b38bc3cdca8bc, type: 3}
+  m_Name: Playing with Trains
+  m_EditorClassIdentifier: 
+  Mission_code: M23
+  MissonTitle: Playing with Trains
+  MissionDiscription: Suspicious activity has been logged at the local train depot.
+  Newb_job: 0
+  first_mission: {fileID: 0}
+  skill_name_1: Forensics
+  fist_change_hardnum: 0
+  task_discription1: Looks like someone's been trying to chat up every computer on
+    the network. That's a bit too promiscuous to be legit.
+  second_mission: {fileID: 0}
+  skill_name_2: Software Wizardry
+  second_change_hardnum: 0
+  task_discription2: You find a vulnerability that would let someone bypass the login
+    process and control the train switches over the Internet. Patch the bug!
+  hasThirdMission: 0
+  third_mission: {fileID: 0}
+  skill_name_3: 
+  third_change_hardnum: 0
+  task_discription3: 
+  success_amount_hacker_cread: 1
+  other_success_things: 
+  other_success_how_much: 0
+  success_discription: The attacker didn't get lucky...but it's still good that the
+    company has now decided to practice safe networking..
+  failure_amount_hacker_cread: -1
+  failure_discription: 
+  other_failure_things: 
+  other_failure_how_much: 0
+  artwork_back: {fileID: 0}
+  artwork_front_info: {fileID: 0}

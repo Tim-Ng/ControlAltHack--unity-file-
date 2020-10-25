@@ -1,0 +1,44 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23145ec63dfdfe4ba9b38bc3cdca8bc, type: 3}
+  m_Name: '[CENSORED]'
+  m_EditorClassIdentifier: 
+  Mission_code: M17
+  MissonTitle: '[CENSORED]'
+  MissionDiscription: The US State Department sponsors a competition to help people
+    in other countries access the web without restriction.
+  Newb_job: 0
+  first_mission: {fileID: 0}
+  skill_name_1: 'Network Ninja '
+  fist_change_hardnum: 0
+  task_discription1: Design a protocol to help circumvent Internet censorship. Why
+    shouldn't people be able to read or write political blogs?
+  second_mission: {fileID: 0}
+  skill_name_2: Software Wizardry
+  second_change_hardnum: 0
+  task_discription2: Write easy-to-use software implementing your protocol.
+  hasThirdMission: 1
+  third_mission: {fileID: 0}
+  skill_name_3: Cryptanalysis
+  third_change_hardnum: 0
+  task_discription3: Steganography is like cryptography, right? Can you prevent an
+    opponent from even figuring out when someone is using your software?
+  success_amount_hacker_cread: 2
+  other_success_things: draw an Entropy Card
+  other_success_how_much: 0
+  success_discription: It's a cat-and-mouse game, but this round is yours.
+  failure_amount_hacker_cread: -1
+  failure_discription: 
+  other_failure_things: Discard 2 Entropy Cards
+  other_failure_how_much: 0
+  artwork_back: {fileID: 0}
+  artwork_front_info: {fileID: 0}

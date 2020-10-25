@@ -1,0 +1,44 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23145ec63dfdfe4ba9b38bc3cdca8bc, type: 3}
+  m_Name: You Don't Know Where That's Been!
+  m_EditorClassIdentifier: 
+  Mission_code: M33
+  MissonTitle: You Don't Know Where That's Been!
+  MissionDiscription: Your client, CAT Enterprises, doesn't believe that this "social
+    engineering" thing works in rela life.
+  Newb_job: 0
+  first_mission: {fileID: 0}
+  skill_name_1: Software Wizardry
+  fist_change_hardnum: -2
+  task_discription1: Write some malware that covertly uploads confidential financial
+    reports to your server.
+  second_mission: {fileID: 0}
+  skill_name_2: Social Engineering
+  second_change_hardnum: 0
+  task_discription2: Drop infected USB thumb drives around their parking lot labeled
+    "if found please return" and "sexy party photos"
+  hasThirdMission: 0
+  third_mission: {fileID: 0}
+  skill_name_3: 
+  third_change_hardnum: 0
+  task_discription3: 
+  success_amount_hacker_cread: 1
+  other_success_things: 
+  other_success_how_much: 0
+  success_discription: Apparently, curiosity does kill the CAT.
+  failure_amount_hacker_cread: -1
+  failure_discription: 
+  other_failure_things: 
+  other_failure_how_much: 0
+  artwork_back: {fileID: 0}
+  artwork_front_info: {fileID: 0}

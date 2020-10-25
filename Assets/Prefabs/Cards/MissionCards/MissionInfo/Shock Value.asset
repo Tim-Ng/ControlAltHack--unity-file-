@@ -1,0 +1,44 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23145ec63dfdfe4ba9b38bc3cdca8bc, type: 3}
+  m_Name: Shock Value
+  m_EditorClassIdentifier: 
+  Mission_code: M19
+  MissonTitle: Shock Value
+  MissionDiscription: Is the Pacific Northwest's power grid secure?
+  Newb_job: 0
+  first_mission: {fileID: 0}
+  skill_name_1: Social Engineering
+  fist_change_hardnum: -2
+  task_discription1: Call the IT desk ("I'm a new employee!") and con them into giving
+    you the IP (Internet) address of one of their servers.
+  second_mission: {fileID: 0}
+  skill_name_2: Network Ninja
+  second_change_hardnum: 0
+  task_discription2: Their computers can't be taken down for the standard software
+    update procedures, and that means that you can exploit code that everyone else
+    patched in 1999.
+  hasThirdMission: 0
+  third_mission: {fileID: 0}
+  skill_name_3: 
+  third_change_hardnum: 0
+  task_discription3: 
+  success_amount_hacker_cread: 2
+  other_success_things: 
+  other_success_how_much: 0
+  success_discription: The managers are shocked; you aren't.
+  failure_amount_hacker_cread: -1
+  failure_discription: 
+  other_failure_things: 
+  other_failure_how_much: 0
+  artwork_back: {fileID: 0}
+  artwork_front_info: {fileID: 0}

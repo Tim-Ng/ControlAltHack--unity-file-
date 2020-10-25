@@ -1,0 +1,44 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d23145ec63dfdfe4ba9b38bc3cdca8bc, type: 3}
+  m_Name: Order in the Court
+  m_EditorClassIdentifier: 
+  Mission_code: M28
+  MissonTitle: Order in the Court
+  MissionDiscription: Your client believes that one of its fired employees leaked
+    intellectual property as revenge. Testify as an expert witness.
+  Newb_job: 1
+  first_mission: {fileID: 0}
+  skill_name_1: Social Engineering
+  fist_change_hardnum: 2
+  task_discription1: Explain how the ex-employee talked his way into the building
+    after his ID badge was revoked.
+  second_mission: {fileID: 0}
+  skill_name_2: Network Ninja
+  second_change_hardnum: 1
+  task_discription2: Demonstrate the network monitoring software that he installed
+    to extract confidential documents
+  hasThirdMission: 0
+  third_mission: {fileID: 0}
+  skill_name_3: 
+  third_change_hardnum: 0
+  task_discription3: 
+  success_amount_hacker_cread: 0
+  other_success_things: Money Tokens
+  other_success_how_much: 1000
+  success_discription: Earn $1k as a proffesional consulting fee.
+  failure_amount_hacker_cread: -1
+  failure_discription: Your company's reputation is damaged.
+  other_failure_things: ALL PLAYERS -1 Hacker Credits
+  other_failure_how_much: 0
+  artwork_back: {fileID: 0}
+  artwork_front_info: {fileID: 0}

@@ -10,31 +10,35 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d23145ec63dfdfe4ba9b38bc3cdca8bc, type: 3}
-  m_Name: One Hacker, Won Vote
+  m_Name: A Riddle, Wrapped in a Mystery
   m_EditorClassIdentifier: 
-  Mission_code: M17
-  MissonTitle: One Hacker, Won Vote
-  MissionDiscription: 'The audit target: an electronic voting machine rushed to market
-    in time for an election.'
+  Mission_code: M35
+  MissonTitle: A Riddle, Wrapped in a Mystery
+  MissionDiscription: The North Ocean Parkwa Musuem wants to add an exhibit about
+    the impact computer science had on the outcome of World War II, and the curator
+    asks for your help.
   Newb_job: 0
   first_mission: {fileID: 0}
   skill_name_1: Web Procurement
   fist_change_hardnum: 0
-  task_discription1: Locate a site that sells the manufacturer's master key. Now
-    you have access to the system internals, including the software.
+  task_discription1: Get your hands on working Enigma cipher machine.
   second_mission: {fileID: 0}
-  skill_name_2: Software Wizardry
+  skill_name_2: Cryptanalysis
   second_change_hardnum: 0
-  task_discription2: Use your reverse engineering skills to discover ways to undetectably
-    change votes.
+  task_discription2: Prepare some text for the NOP exhibit that describes Allied
+    code-breaking efforts. Understandable's the word!
+  hasThirdMission: 0
+  third_mission: {fileID: 0}
+  skill_name_3: 
+  third_change_hardnum: 0
+  task_discription3: 
   success_amount_hacker_cread: 1
   other_success_things: 
   other_success_how_much: 0
-  success_discription: You could pull this attack off in two minutes in a voting
-    booth.
+  success_discription: 
   failure_amount_hacker_cread: -1
+  failure_discription: 
   other_failure_things: 
   other_failure_how_much: 0
-  failure_discription: 
   artwork_back: {fileID: 0}
   artwork_front_info: {fileID: 0}

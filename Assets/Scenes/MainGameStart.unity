@@ -1864,17 +1864,39 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe2bb2cc6695c7c44b1477e8c5b6d20e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  entropyCardScript1: {fileID: 11400000, guid: d8d80ab5d3156754fbaf1d35c25179f7, type: 2}
-  entropyCardScript2: {fileID: 11400000, guid: 92e1ccfb82d94094aa4b332577410c77, type: 2}
-  entropyCardScript3: {fileID: 11400000, guid: 3ebdbaccb1c1ff748975ae03341f9185, type: 2}
-  entropyCardScript4: {fileID: 11400000, guid: f9a5a4556e1ec0045b1d1b888c7ff950, type: 2}
-  entropyCardScript5: {fileID: 11400000, guid: f552fb23e1efeba45b07e9f25fa4c9c8, type: 2}
-  entropyCardScript6: {fileID: 11400000, guid: e394fdcac5368254a8dc11ed7294d62e, type: 2}
-  entropyCardScript7: {fileID: 11400000, guid: 5aa53755d8f48b24da58e803717dd179, type: 2}
-  entropyCardScript8: {fileID: 11400000, guid: b76f8cada96f5ce42b83735f0f28971e, type: 2}
-  entropyCardScript9: {fileID: 11400000, guid: f9a367a3f23f08e4898b528a8e754fb7, type: 2}
-  entropyCardScript10: {fileID: 11400000, guid: 11dd5550818fb2147b0173845c505379, type: 2}
-  entropyCardScript11: {fileID: 11400000, guid: b97fc565cba198b439cda576d5abbec3, type: 2}
+  entropyCardBagScript1: {fileID: 11400000, guid: 3ae905af3f6980243a2303b7311db738, type: 2}
+  entropyCardBagScript2: {fileID: 11400000, guid: 7d84fc3b42e17bc458e8cfcbc3089ab3, type: 2}
+  entropyCardBagScript3: {fileID: 11400000, guid: d8d80ab5d3156754fbaf1d35c25179f7, type: 2}
+  entropyCardBagScript4: {fileID: 11400000, guid: 71ea5df5d23d1a94ab1f5c397c7ad865, type: 2}
+  entropyCardBagScript5: {fileID: 11400000, guid: 92e1ccfb82d94094aa4b332577410c77, type: 2}
+  entropyCardBagScript6: {fileID: 11400000, guid: 3ebdbaccb1c1ff748975ae03341f9185, type: 2}
+  entropyCardBagScript7: {fileID: 11400000, guid: f0b9dd3b6b7fb014892697cbd873eac8, type: 2}
+  entropyCardBagScript8: {fileID: 11400000, guid: 47da583f5a8da784283dd270267d0a83, type: 2}
+  entropyCardBagScript9: {fileID: 11400000, guid: fbe7c276e55be65439c6f21aeb7657d0, type: 2}
+  entropyCardBagScript10: {fileID: 11400000, guid: f9a5a4556e1ec0045b1d1b888c7ff950, type: 2}
+  entropyCardBagScript11: {fileID: 11400000, guid: f552fb23e1efeba45b07e9f25fa4c9c8, type: 2}
+  entropyCardBagScript12: {fileID: 11400000, guid: 6182bb39a93cd4a43981c1128feeece6, type: 2}
+  entropyCardBagScript13: {fileID: 11400000, guid: e394fdcac5368254a8dc11ed7294d62e, type: 2}
+  entropyCardBagScript14: {fileID: 11400000, guid: 5aa53755d8f48b24da58e803717dd179, type: 2}
+  entropyCardBagScript15: {fileID: 11400000, guid: b76f8cada96f5ce42b83735f0f28971e, type: 2}
+  entropyCardBagScript16: {fileID: 11400000, guid: f9a367a3f23f08e4898b528a8e754fb7, type: 2}
+  entropyCardBagScript17: {fileID: 11400000, guid: 70b7c310454175c439a022f48f308302, type: 2}
+  entropyCardBagScript18: {fileID: 11400000, guid: a9fafe99b6689844cabbc52ed12b1154, type: 2}
+  entropyCardBagScript19: {fileID: 11400000, guid: 11dd5550818fb2147b0173845c505379, type: 2}
+  entropyCardLightingScript1: {fileID: 11400000, guid: 4ded4df6c2345804294bc15fe9d8c1a6, type: 2}
+  entropyCardLightingScript2: {fileID: 11400000, guid: cac3bf56cd3821247a20f5d1bc3bbebc, type: 2}
+  entropyCardLightingScript3: {fileID: 11400000, guid: b97fc565cba198b439cda576d5abbec3, type: 2}
+  entropyCardLightingScript4: {fileID: 11400000, guid: b877db3f9aa5cf44ea6ff403a78bbf68, type: 2}
+  entropyCardLightingScript5: {fileID: 11400000, guid: 63b89d0efe10d27479bd7deb09845d6d, type: 2}
+  entropyCardLightingScript6: {fileID: 11400000, guid: 9cfdf25447bf1fd4d81f691d7884fa70, type: 2}
+  entropyCardLightingScript7: {fileID: 11400000, guid: 7c48061b01b61274a8a61752a9171197, type: 2}
+  entropyCardExtensiveScript1: {fileID: 11400000, guid: 746b1fadeae2a3541b255ad7559431b0, type: 2}
+  entropyCardExtensiveScript2: {fileID: 11400000, guid: fef472fadf697f143a1cb3c6d0123329, type: 2}
+  entropyCardExtensiveScript3: {fileID: 11400000, guid: 18769c09363f4914ba8216a98ca6676d, type: 2}
+  entropyCardExtensiveScript4: {fileID: 11400000, guid: 93c1bdd6c131e8145aad6c5287f2372f, type: 2}
+  entropyCardExtensiveScript5: {fileID: 11400000, guid: dc690c26e125b404d99286fa93170249, type: 2}
+  entropyChardSharedScript1: {fileID: 11400000, guid: 0bbc09f79a2707f43b16c20191f4f275, type: 2}
+  entropyChardSharedScript2: {fileID: 11400000, guid: ea353b88c9403f1439fbbf8e8fa5a5f4, type: 2}
 --- !u!114 &499456411
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -7,7 +7,7 @@ public class CharacterCardDeck : MonoBehaviour
     private List<CharCardScript> cardsInfo = new List<CharCardScript>();
     public CharCardScript CharCard1, CharCard2, CharCard3, CharCard4, CharCard5, CharCard6, CharCard7,
          CharCard8, CharCard9, CharCard10, CharCard11,CharCard12, CharCard13, CharCard14, CharCard15, CharCard16 ;
-    void Start()
+    public List<CharCardScript> getCharDeck()
     {
         cardsInfo.Add(CharCard1);
         cardsInfo.Add(CharCard2);
@@ -25,9 +25,6 @@ public class CharacterCardDeck : MonoBehaviour
         cardsInfo.Add(CharCard14);
         cardsInfo.Add(CharCard15);
         cardsInfo.Add(CharCard16);
-    }
-    public List<CharCardScript> getCharDeck()
-    { 
         return cardsInfo;
     }
 }

@@ -68,6 +68,7 @@ public class DrawEntropyCard : MonoBehaviourPunCallbacks
             object[] data = new object[] { entropycards[x].EntropyCardID };
             PhotonNetwork.RaiseEvent((byte)PhotonEventCode.removeEntropycardFromdeck, data, AllPeople, SendOptions.SendReliable);
         }
+        //drawCharacterCard.EndTurn(); 
     }
     public void RemoveThisCard(int cardID)
     {
@@ -76,11 +77,11 @@ public class DrawEntropyCard : MonoBehaviourPunCallbacks
             if (cardID == entropyscripts.EntropyCardID)
             {
                 entropycards.Remove(entropyscripts);
-                Debug.Log("Card ID :" + cardID + " is removed");
+                Debug.Log("Entropy ID :" + cardID + " is removed");
                 break;
             }
         }
-        Debug.Log("Number of cards left in deck " + entropycards.Count);
+        Debug.Log("Number of Entropy cards left in deck " + entropycards.Count);
     }
 
     //keep checking opponent amount

@@ -118,7 +118,10 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
         else if (obj.Code == (byte)PhotonEventCode.SelectChar)
         {
             object[] characterInfo = (object[])obj.CustomData;
-            SetCharacterInfo((int)characterInfo[0], (Player)characterInfo[1]);
+            int characterID = (int)characterInfo[0];
+            Player sending = (Player)characterInfo[1];
+            Debug.Log(sending.NickName + " setting this cardID :" + characterID);
+            SetCharacterInfo(characterID , sending);
         }
         else if (obj.Code == (byte)PhotonEventCode.EventSetPlayerThatStart){
             object[] carddata = (object[])obj.CustomData;
@@ -225,10 +228,10 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
         }
         chosed_character_user = Popup.GetCharCardScript();
         avertarUser.sprite = chosed_character_user.image_Avertar;
-        userAvertarButton.interactable = true;
-        Popup.closePopup();
         object[] dataSelectCard = new object[] { chosed_character_user.character_code, PhotonNetwork.LocalPlayer };
         PhotonNetwork.RaiseEvent((byte)PhotonEventCode.SelectChar, dataSelectCard, AllOtherThanMePeopleOptions, SendOptions.SendReliable);
+        userAvertarButton.interactable = true;
+        Popup.closePopup();
         PhotonNetwork.RaiseEvent((byte)PhotonEventCode.CheckAllDoneChar, null, AllPeople, SendOptions.SendReliable);
     }
 
@@ -240,42 +243,41 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
             if (cardID == checkCard.character_code)
             {
                 cardsInfoDraw.Remove(checkCard);
-                Debug.Log("Card ID :" + cardID + " is removed");
+                Debug.Log("Character Card ID :" + cardID + " is removed");
                 break;
             }
         }
-        Debug.Log("Number of cards left in deck " + cardsInfoDraw.Count);
+        Debug.Log("Number of Character cards left in deck " + cardsInfoDraw.Count);
     }
 
     //find which player selected the card in your point of view 
     public void SetCharacterInfo(int character_code, Player sendingPlayer)
     {
+        Debug.Log("setting opponents avertar");
         int i = 0;
         foreach (Player whichplayer in PhotonNetwork.PlayerListOthers)
         {
             if (sendingPlayer == whichplayer)
             {
-                setOtherPlayer(i, character_code);
+                break;
             }
             i++;
         }
-
-    }
-
-    //then set information of the card and the avertar in the allocated space 
-    public void setOtherPlayer(int i, int charcode)
-    {
         foreach (CharCardScript charScript in cardDeck.getCharDeck())
         {
-            if (charScript.character_code == charcode)
+            Debug.Log("card id :");
+            if (charScript.character_code == character_code)
             {
+                Debug.Log("Avetar of player " + sendingPlayer.NickName + " is set ");
                 otherPlayerCharacterInfo[i] = charScript;
                 otherPlayerAvertar[i].sprite = otherPlayerCharacterInfo[i].image_Avertar;
                 otherAvertarPlayerButton[i].interactable = true;
+                break;
             }
         }
 
     }
+
 
 
     // when the avertar is click 

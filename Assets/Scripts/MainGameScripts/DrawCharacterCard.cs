@@ -18,6 +18,7 @@ using WebSocketSharp;
 public class DrawCharacterCard : MonoBehaviourPunCallbacks
 
 {
+    private int seed;
     public GameObject PlayerArea;
     public GameObject cardTemplate;
     [SerializeField] private CharacterCardDeck cardDeck=null;
@@ -41,7 +42,7 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
     private int number_of_players, number_of_character_cards;
     [SerializeField] private TMP_InputField numberOfRounds_input = null, numberOfCredAhead_input = null;
     public static int[] GameProperties = { 0, 0 };
-
+    public DrawMissionCard drawMissionCard;
     private int ActorNumberOfStartPlayer; // player that start the turn
     private int NumDoneSelectChar = 0;
     private RaiseEventOptions AllOtherThanMePeopleOptions = new RaiseEventOptions()
@@ -210,9 +211,9 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
             characterPlayerCard1.transform.SetParent(PlayerArea.transform, false);
             object[] data = new object[] { cardsInfoDraw[x].character_code };
             PhotonNetwork.RaiseEvent((byte)PhotonEventCode.RemoveCharCard, data, AllPeople, SendOptions.SendReliable);
+            Thread.Sleep(125);
         }
         Debug.Log("Got pass to here");
-        EndTurn();
     }
 
     //when the local player picked on a character
@@ -274,9 +275,6 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
         }
 
     }
-
-
-
     // when the avertar is click 
     public void PopUpCharacterInfo(int i)
     {
@@ -289,7 +287,6 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
             Popup.openCharacterCard(chosed_character_user, false);
         }
     }
-
     //all of the different avertars user and the opponents 
     public void clickAvertarPlayer1() => PopUpCharacterInfo(0);
     public void clickAvertarPlayer2() => PopUpCharacterInfo(1);
@@ -396,6 +393,7 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
         {
             countNumCharCards();
             Drawcard(number_of_character_cards);
+            EndTurn();
         }
         else if ((TurnNumber == 1) && IsMyTurn )
         {
@@ -403,8 +401,29 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
             {
                 Debug.Log("Entropy Draw");
                 entropyCard.distribute_entropycard(5);
+                drawMissionCard.whoDrawMissionCard(chosed_character_user.character_code);
                 EndTurn();
             }
         }
+    }
+    public CharCardScript getPlayerCharterSet(Player playerInQuestion)
+    {
+        if (playerInQuestion == PhotonNetwork.LocalPlayer)
+        {
+            return chosed_character_user;
+        }
+        else
+        {
+            int i = 1;
+            foreach (Player checkPlayer in PhotonNetwork.PlayerListOthers)
+            {
+                if (checkPlayer == playerInQuestion)
+                {
+                    return otherPlayerCharacterInfo[i];
+                }
+                i += 1;
+            }
+        }
+        return null;
     }
 }

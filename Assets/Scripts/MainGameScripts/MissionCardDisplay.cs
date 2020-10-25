@@ -36,6 +36,12 @@ public class MissionCardDisplay : MonoBehaviour
     public Text task_discription3;
     public Text Newb_job;
 
+    public GameObject InfoSide;
+    public GameObject FrontSide;
+    public void setUpdate()
+    {
+        Start();
+    }
     private void Start()
     {
         third_mission_obj.SetActive(false);

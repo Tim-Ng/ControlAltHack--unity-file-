@@ -723,6 +723,7 @@ GameObject:
   - component: {fileID: 4159284579033273037}
   - component: {fileID: 4159284579033273039}
   - component: {fileID: 4159284579033273038}
+  - component: {fileID: 7109649190048191203}
   m_Layer: 0
   m_Name: FrontSide
   m_TagString: Untagged
@@ -789,6 +790,61 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &7109649190048191203
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4159284579033273036}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 3
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 4159284579033273038}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2157952150952575859}
+        m_TargetAssemblyTypeName: MissionCardButton, Assembly-CSharp
+        m_MethodName: whenClickOnFront
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &4159284579062422251
 GameObject:
   m_ObjectHideFlags: 0
@@ -2211,6 +2267,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4159284580279269686}
   - component: {fileID: 4159284580279269687}
+  - component: {fileID: 2157952150952575859}
   m_Layer: 0
   m_Name: MissionCardTemplete
   m_TagString: Untagged
@@ -2251,7 +2308,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e00331bb1d6ba1c49b6db7e9987254da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mission_script: {fileID: 11400000, guid: 41f4487adca2d0b45aefc2f30191c49e, type: 2}
+  mission_script: {fileID: 0}
   MissonTitle: {fileID: 4159284578874213524}
   MissionDiscription: {fileID: 4159284579962408424}
   first_mission: {fileID: 4159284579144048552}
@@ -2272,8 +2329,25 @@ MonoBehaviour:
   artwork_front_info: {fileID: 4159284580416411224}
   task_discription1: {fileID: 4159284579062422253}
   task_discription2: {fileID: 4159284579596888184}
-  task_discription3: {fileID: 0}
+  task_discription3: {fileID: 8715260654909996433}
   Newb_job: {fileID: 4159284579579515767}
+  InfoSide: {fileID: 4159284580416411238}
+  FrontSide: {fileID: 4159284579033273036}
+--- !u!114 &2157952150952575859
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4159284580279269685}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87c9f3312810b0a4fa19c2c192c5495b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  FrontSide: {fileID: 4159284579033273036}
+  InfoSide: {fileID: 4159284580416411238}
+  myparent: {fileID: 4159284580279269687}
 --- !u!1 &4159284580416411238
 GameObject:
   m_ObjectHideFlags: 0
@@ -2285,6 +2359,7 @@ GameObject:
   - component: {fileID: 4159284580416411239}
   - component: {fileID: 4159284580416411225}
   - component: {fileID: 4159284580416411224}
+  - component: {fileID: 1817626764418134016}
   m_Layer: 0
   m_Name: InfoSide
   m_TagString: Untagged
@@ -2353,6 +2428,61 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &1817626764418134016
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4159284580416411238}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 3
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 4159284580416411224}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2157952150952575859}
+        m_TargetAssemblyTypeName: MissionCardButton, Assembly-CSharp
+        m_MethodName: whenClickOnInfo
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &4171164768759716107
 GameObject:
   m_ObjectHideFlags: 0

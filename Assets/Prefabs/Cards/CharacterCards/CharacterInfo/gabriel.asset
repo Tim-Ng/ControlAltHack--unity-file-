@@ -17,7 +17,7 @@ MonoBehaviour:
   discription: Baking, cheesemaking, brewing, grilling --- Gabe's crazy about food.
     He's always brining his latest creation by the office, and gets an awful lot
     of goodwill in return.
-  artwork_back: {fileID: 0}
+  artwork_back: {fileID: 21300000, guid: ba449915cbbd94242bcce1344b1cff0c, type: 3}
   artwork_front: {fileID: 0}
   char_info: {fileID: 0}
   input_hardware: 13

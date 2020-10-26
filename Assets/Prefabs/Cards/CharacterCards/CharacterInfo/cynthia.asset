@@ -15,7 +15,7 @@ MonoBehaviour:
   character_code: 1
   character_card_name: CYNTHIA
   discription: 
-  artwork_back: {fileID: 21300000, guid: 56365aedcebae124a9cbdd7375b95ad7, type: 3}
+  artwork_back: {fileID: 21300000, guid: 7191102d6d6a1634cb24fdd09405fe80, type: 3}
   artwork_front: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
   char_info: {fileID: 21300000, guid: 56365aedcebae124a9cbdd7375b95ad7, type: 3}
   input_hardware: 11

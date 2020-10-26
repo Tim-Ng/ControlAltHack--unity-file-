@@ -17,7 +17,7 @@ MonoBehaviour:
   discription: As a connoisseur of relaxation (there's nothing better than a lazy
     nap on a Saturday afternoon!), Deb knows better than to face a challenge head-on
     when there's a workaround.
-  artwork_back: {fileID: 0}
+  artwork_back: {fileID: 21300000, guid: 6a5ac1c00dd42ca4f8e26d6ac4ff7b0d, type: 3}
   artwork_front: {fileID: 0}
   char_info: {fileID: 0}
   input_hardware: 12

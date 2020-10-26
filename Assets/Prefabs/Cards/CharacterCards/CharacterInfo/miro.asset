@@ -16,7 +16,7 @@ MonoBehaviour:
   character_card_name: MIRO
   discription: As an avid soccer player, Miro knows that there's more than one way
     to approach a goal...although it sometimes requires a little fancy footwork.
-  artwork_back: {fileID: 0}
+  artwork_back: {fileID: 21300000, guid: 82bc69c1c0e009947ada3a2c1ee1e096, type: 3}
   artwork_front: {fileID: 0}
   char_info: {fileID: 0}
   input_hardware: 9

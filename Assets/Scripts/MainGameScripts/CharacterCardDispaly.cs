@@ -28,7 +28,7 @@ public class CharacterCardDispaly : MonoBehaviour
     public Image image_special2;
     public Image image_character_info;
     public Image artwork_back;
-    public Image artwork_front;
+    public Image artwork_info;
 
     public GameObject InfoSide;
     public GameObject FrontSide;
@@ -62,7 +62,7 @@ public class CharacterCardDispaly : MonoBehaviour
         image_character_info.sprite = CharCard.char_info;
 
         artwork_back.sprite = CharCard.artwork_back;
-        artwork_front.sprite = CharCard.artwork_front;
+        artwork_info.sprite = CharCard.artwork_front_info;
 
     }
     

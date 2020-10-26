@@ -10,7 +10,7 @@ public class CharCardScript : ScriptableObject
     public string discription;
 
     public Sprite artwork_back;
-    public Sprite artwork_front;
+    public Sprite artwork_front_info;
     public Sprite char_info;
 
     public int input_hardware;

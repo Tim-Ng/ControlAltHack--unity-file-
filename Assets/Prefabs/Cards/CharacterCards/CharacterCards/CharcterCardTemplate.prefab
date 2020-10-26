@@ -915,7 +915,7 @@ MonoBehaviour:
   image_special2: {fileID: 5072119685953609127}
   image_character_info: {fileID: 5072119685797066963}
   artwork_back: {fileID: 5072119685754737958}
-  artwork_front: {fileID: 5072119685591726558}
+  artwork_info: {fileID: 5072119685591726558}
   InfoSide: {fileID: 5072119685591726560}
   FrontSide: {fileID: 5072119685754737960}
 --- !u!1 &5072119685811042476

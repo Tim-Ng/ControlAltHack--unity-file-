@@ -20,13 +20,14 @@ MonoBehaviour:
   Title: Got a Date
   discription: You met someone charming! Get a last-minute reservation for tonight's
     date at that amazing Thai place.
-  artwork_info: {fileID: 0}
+  artwork_info: {fileID: 21300000, guid: d9ecdf60b5d297d43a1dcb5c006fa436, type: 3}
   artwork_back: {fileID: 21300000, guid: aaca80ad1425f37409d6651696bb3f85, type: 3}
   Cost: 0
   usage: 
   use_usage: 0
   UseSucFailLighting: 1
   Success: Continue with your Mission.
+  add_how_much_cred: 0
   Failure: immediately.Continue with your Mission
   minus_how_much_cred: 1
   RollVSWhich: Social Engineering

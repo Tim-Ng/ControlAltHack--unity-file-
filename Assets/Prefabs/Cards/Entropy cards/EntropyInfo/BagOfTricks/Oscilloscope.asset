@@ -21,7 +21,7 @@ MonoBehaviour:
   discription: Buy your own oscilloscope so that you can stop borrowing the one from
     work. Super useful for observing the electrical signals carrying information
     within hardware.
-  artwork_info: {fileID: 0}
+  artwork_info: {fileID: 21300000, guid: d9ecdf60b5d297d43a1dcb5c006fa436, type: 3}
   artwork_back: {fileID: 0}
   Cost: 3000
   usage: +1 Hardware Hacking

@@ -21,7 +21,7 @@ MonoBehaviour:
   discription: 'Video cards are very fast at doing certain things: drawing pictures
     and incidentally cracking passwords. You buy gaming consoles and network them
     together. Never before have you been able to crack passwords so speedily!'
-  artwork_info: {fileID: 0}
+  artwork_info: {fileID: 21300000, guid: d9ecdf60b5d297d43a1dcb5c006fa436, type: 3}
   artwork_back: {fileID: 0}
   Cost: 4000
   usage: +2 Cryptanalysis

@@ -25,15 +25,20 @@ MonoBehaviour:
   second_change_hardnum: 3
   task_discription2: Can you convince the producers that hacking doesn't actually
     look like a speed-typing race?
+  hasThirdMission: 0
+  third_mission: {fileID: 0}
+  skill_name_3: 
+  third_change_hardnum: 0
+  task_discription3: 
   success_amount_hacker_cread: 1
   other_success_things: 
   other_success_how_much: 0
   success_discription: You don't know that many hackers that code in leather bodysuits
     or designer sunglasses, but no one in your office is complaining.
   failure_amount_hacker_cread: -3
-  other_failure_things: 
-  other_failure_how_much: 0
   failure_discription: You've already told everyone about consulting on the movie,
     so its inaccuracies are triply embarassing.
-  artwork_back: {fileID: 0}
+  other_failure_things: 
+  other_failure_how_much: 0
+  artwork_back: {fileID: 21300000, guid: 9c71e06e254806a4481fb78c07c9c1fc, type: 3}
   artwork_front_info: {fileID: 0}

@@ -28,13 +28,18 @@ MonoBehaviour:
   task_discription2: 23 2 1 26, 13 31 27 21 6 9 6 31 25 26 27 30 21 ? 16 15 16 31
     27 21 20 27 26 15 9 14 26 2 1 26 26 2 15 13 23 1 13 14 20 9 6 31 25 26 14 16
     23 15 26 2 6 13 1?
+  hasThirdMission: 0
+  third_mission: {fileID: 0}
+  skill_name_3: 
+  third_change_hardnum: 0
+  task_discription3: 
   success_amount_hacker_cread: 0
   other_success_things: 
   other_success_how_much: 0
   success_discription: No reward, you were expected to succeed.
   failure_amount_hacker_cread: -1
+  failure_discription: 
   other_failure_things: 
   other_failure_how_much: 0
-  failure_discription: 
-  artwork_back: {fileID: 0}
+  artwork_back: {fileID: 21300000, guid: 9c71e06e254806a4481fb78c07c9c1fc, type: 3}
   artwork_front_info: {fileID: 0}

@@ -21,7 +21,7 @@ MonoBehaviour:
   discription: It's bring-your-hangover-to-work day! You attended the intern's 21st
     birthday bash last night, and you're feeling a bit under the weather. It's really
     hard to use your people skills when all you want is a dark room and a long nap.
-  artwork_info: {fileID: 0}
+  artwork_info: {fileID: 21300000, guid: d9ecdf60b5d297d43a1dcb5c006fa436, type: 3}
   artwork_back: {fileID: 0}
   Cost: 0
   usage: All required Network Ninja and Social Engineering Rolls for this Mission
@@ -29,6 +29,7 @@ MonoBehaviour:
   use_usage: 1
   UseSucFailLighting: 0
   Success: 
+  add_how_much_cred: 0
   Failure: 
   minus_how_much_cred: 0
   RollVSWhich: 

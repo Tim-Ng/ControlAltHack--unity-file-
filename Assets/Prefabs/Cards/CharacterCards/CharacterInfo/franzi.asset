@@ -18,7 +18,7 @@ MonoBehaviour:
     spends her time travelling to new places and meeting new people. Her current
     record os 13 countries in one year.
   artwork_back: {fileID: 21300000, guid: 206468c627abf974fb4f526701bd1d63, type: 3}
-  artwork_front: {fileID: 0}
+  artwork_front_info: {fileID: 21300000, guid: 77817fa7b18bb974cb47e3efc1d36ade, type: 3}
   char_info: {fileID: 0}
   input_hardware: 12
   input_cryptanalysis: 9

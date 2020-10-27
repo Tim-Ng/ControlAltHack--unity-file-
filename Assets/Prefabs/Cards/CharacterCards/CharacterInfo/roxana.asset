@@ -17,7 +17,7 @@ MonoBehaviour:
   discription: A big fan of elegant math and detective stories, Rocana's always more
     than happy to turn any problem into a math puzzle
   artwork_back: {fileID: 21300000, guid: de0d3b31bfbd6c2499b42c4be15df5ca, type: 3}
-  artwork_front: {fileID: 0}
+  artwork_front_info: {fileID: 21300000, guid: 6b2f5adf45be6a548b43e40bc5e58fe5, type: 3}
   char_info: {fileID: 0}
   input_hardware: 11
   input_cryptanalysis: 14

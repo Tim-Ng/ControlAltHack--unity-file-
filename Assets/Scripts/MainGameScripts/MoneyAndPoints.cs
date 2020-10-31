@@ -81,7 +81,7 @@ public class MoneyAndPoints : MonoBehaviour
         if (obj.Code == (byte)PhotonEventCode.receiverPoints)
         {
             object[] pointdata = (object[])obj.CustomData;
-            int senderPoints = (int)pointdata[0];
+            int senderPoints = (byte)pointdata[0];
             Player senderPlayer = (Player)pointdata[1];
             int i = 0;
             foreach(Player checkPlayer in PhotonNetwork.PlayerListOthers)
@@ -134,10 +134,12 @@ public class MoneyAndPoints : MonoBehaviour
     public void addPoints(byte amount)
     {
         MyPoints += amount;
+        sendAllMyCurrentPoint();
     }
     public void subPoints(byte amount)
     {
         MyPoints -= amount;
+        sendAllMyCurrentPoint();
     }
     private void sendAllMyCurrentPoint()
     {

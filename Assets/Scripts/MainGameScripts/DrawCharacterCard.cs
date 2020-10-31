@@ -19,7 +19,7 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
     [SerializeField] private CharacterCardDeck cardDeck=null;
     public GameObject StartGameButtonOBJ;
     private int x;
-    public Button LeaveRoomButton;
+    public GameObject LeaveRoomButton;
 
     public popupcardwindowChar Popup;
     public GameObject clone_to_delete;
@@ -51,7 +51,7 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
         CachingOption = EventCaching.DoNotCache,
         Receivers = ReceiverGroup.All
     };
-    public enum PhotonEventCode
+    private enum PhotonEventCode
     {
         LeaveButton = 0,
         UpdateTurnPlayer = 1,
@@ -190,7 +190,7 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
         checkTurn();
 
     }
-    private void noleave() => LeaveRoomButton.interactable = false;
+    private void noleave() => LeaveRoomButton.SetActive(false);
 
     //Distribute card accordingly 
     public void Drawcard(int y)

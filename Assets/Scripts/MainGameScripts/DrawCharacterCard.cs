@@ -8,11 +8,12 @@ using System.Threading;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using WebSocketSharp;
 
 public class DrawCharacterCard : MonoBehaviourPunCallbacks
 
 {
-    private int seed;
+    [SerializeField] private MoneyAndPoints moneyAndPointScripts;
     public GameObject PlayerArea;
     public GameObject cardTemplate;
     [SerializeField] private CharacterCardDeck cardDeck=null;
@@ -70,15 +71,14 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
             return this.PlayerIdToMakeThisTurn == PhotonNetwork.LocalPlayer.ActorNumber;
         }
     }
-    public byte MyPoints = 0;
-    public byte opponent1Points = 0;
-    public byte opponent2Points = 0;
-    public byte opponent3Points = 0;
-    public byte opponent4Points = 0;
-    public byte opponent5Points = 0;
+    public GameObject tableStartContent;
     void Start()
     {
         putCharCardsInList();
+    }
+    public void closeStartContentGame()
+    {
+        tableStartContent.SetActive(false);
     }
 
     private void OnEnable()
@@ -98,6 +98,7 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
         if (obj.Code == (byte)PhotonEventCode.LeaveButton)
         {
             noleave();
+            closeStartContentGame();
         }
         else if (obj.Code == (byte)PhotonEventCode.UpdateTurnPlayer)
         {
@@ -227,6 +228,19 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
         userAvertarButton.interactable = true;
         Popup.closePopup();
         PhotonNetwork.RaiseEvent((byte)PhotonEventCode.CheckAllDoneChar, null, AllPeople, SendOptions.SendReliable);
+        if (chosed_character_user.character_code == 15)
+        {
+            moneyAndPointScripts.addMyMoney(3000);
+        }
+        else if (chosed_character_user.character_code == 1)
+        {
+            moneyAndPointScripts.addMyMoney(1000);
+        }
+        else
+        {
+            moneyAndPointScripts.addMyMoney(2000);
+        }
+        moneyAndPointScripts.addPoints(6);
     }
 
     //to remove this card from the deck for everyone so that we don't get the same character

@@ -30,6 +30,6 @@ public class MissionCardButton : MonoBehaviour
     {
         CharCardInfo = drawCharacterCard.getPlayerCharterSet(PhotonNetwork.LocalPlayer);
         MissionCardInfo = myparent.mission_script;
-        popUpScript.openEntropyCard(MissionCardInfo, CharCardInfo);
+        popUpScript.openMissionCard(MissionCardInfo, CharCardInfo);
     }
 }

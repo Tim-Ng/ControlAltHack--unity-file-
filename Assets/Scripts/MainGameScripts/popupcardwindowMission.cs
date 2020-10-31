@@ -11,15 +11,18 @@ public class popupcardwindowMission : MonoBehaviour
     private MissionCardScript pop_input_mission;
     private CharCardScript pop_input_character;
 
-    public GameObject AttendOrNot;
     public GameObject selectMissionCard;
     public GameObject UserMissionCardArea;
+
+    public GameObject AttendOrNot;
+    public GameObject textAttend;
+    public GameObject textNotAttending;
     private bool cardselected = false;
     private void Start()
     {
         PopUpCard.SetActive(true);
     }
-    public void openEntropyCard(MissionCardScript input_MissionCard,CharCardScript input_charCard)
+    public void openMissionCard(MissionCardScript input_MissionCard, CharCardScript input_charCard)
     {
         Start();
         pop_input_mission = input_MissionCard;
@@ -64,5 +67,9 @@ public class popupcardwindowMission : MonoBehaviour
         AttendOrNot.SetActive(true);
         selectMissionCard.SetActive(false);
         cardselected = true;
+    }
+    public void clickOnAttendInfo()
+    {
+
     }
 }

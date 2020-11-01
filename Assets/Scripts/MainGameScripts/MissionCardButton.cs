@@ -14,10 +14,11 @@ public class MissionCardButton : MonoBehaviour
     private popupcardwindowMission popUpScript;
     private CharCardScript CharCardInfo;
     private MissionCardScript MissionCardInfo;
+
     private void Start()
     {
         MainScript = GameObject.Find("/MainGame/Game Interface/MainScript");
-        PopUp = GameObject.Find("/MainGame/Game Interface/PopUpChooseAttend_or_not");
+        PopUp = GameObject.Find("/MainGame/Game Interface/PopUpAllAttendOrNot");
         popUpScript = PopUp.GetComponent<popupcardwindowMission>();
         drawCharacterCard = MainScript.GetComponent<DrawCharacterCard>();
     }
@@ -30,6 +31,7 @@ public class MissionCardButton : MonoBehaviour
     {
         CharCardInfo = drawCharacterCard.getPlayerCharterSet(PhotonNetwork.LocalPlayer);
         MissionCardInfo = myparent.mission_script;
+        drawCharacterCard.setCurrentMissionScript(MissionCardInfo);
         popUpScript.openMissionCard(MissionCardInfo, CharCardInfo);
     }
 }

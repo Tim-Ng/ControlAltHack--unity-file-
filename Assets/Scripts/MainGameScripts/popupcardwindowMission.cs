@@ -35,7 +35,7 @@ public class popupcardwindowMission : MonoBehaviour
         else
         {
             AttendOrNot.SetActive(true);
-            selectMissionCard.SetActive(false);
+            selectMissionCard.SetActive(false);  
         }
         missionCardDisplay.mission_script = pop_input_mission;
         missionCardDisplay.setUpdate();
@@ -67,9 +67,5 @@ public class popupcardwindowMission : MonoBehaviour
         AttendOrNot.SetActive(true);
         selectMissionCard.SetActive(false);
         cardselected = true;
-    }
-    public void clickOnAttendInfo()
-    {
-
     }
 }

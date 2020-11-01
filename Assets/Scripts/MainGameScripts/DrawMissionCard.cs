@@ -12,6 +12,7 @@ public class DrawMissionCard : MonoBehaviour
     public MissionCardDeck missionCardDeck;
     private List<MissionCardScript> missionCardToDraw = new List<MissionCardScript>();
 
+    private MissionCardScript curruntMissoinScript;
     public GameObject MissioncardTemplate;
     public GameObject PlayerMissionArea;
     private RaiseEventOptions AllOtherThanMePeopleOptions = new RaiseEventOptions()
@@ -68,11 +69,11 @@ public class DrawMissionCard : MonoBehaviour
         {
             System.Random rand = new System.Random((int)DateTime.Now.Ticks);
             int x = rand.Next(0, (missionCardToDraw.Count));
-            GameObject entropyCard = Instantiate(MissioncardTemplate, transform.position, Quaternion.identity);
-            entropyCard.GetComponent<MissionCardDisplay>().mission_script = missionCardToDraw[x];
-            entropyCard.GetComponent<MissionCardDisplay>().FrontSide.SetActive(true);
-            entropyCard.gameObject.transform.localScale += new Vector3(-0.75f, -0.75f, 0);
-            entropyCard.transform.SetParent(PlayerMissionArea.transform, false);
+            GameObject missionCard = Instantiate(MissioncardTemplate, transform.position, Quaternion.identity);
+            missionCard.GetComponent<MissionCardDisplay>().mission_script = missionCardToDraw[x];
+            missionCard.GetComponent<MissionCardDisplay>().FrontSide.SetActive(true);
+            missionCard.gameObject.transform.localScale += new Vector3(-0.75f, -0.75f, 0);
+            missionCard.transform.SetParent(PlayerMissionArea.transform, false);
             object[] data = new object[] { missionCardToDraw[x].Mission_code };
             RemoveThisCard(missionCardToDraw[x].Mission_code);
             PhotonNetwork.RaiseEvent((byte)PhotonEventCode.removeEntropycardFromdeck, data, AllOtherThanMePeopleOptions, SendOptions.SendReliable); // as this is not fast enough

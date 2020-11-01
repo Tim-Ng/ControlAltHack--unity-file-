@@ -8,6 +8,8 @@ public class Main_Game_before_start : MonoBehaviourPunCallbacks
 {
     [SerializeField] private GameObject startButtonOBJ=null;
     public Text player_username,opponent1_username, opponent2_username, opponent3_username, opponent4_username, opponent5_username,Roomtext;
+    public string opponet1Name, opponet2Name, opponet3Name, opponet4Name, opponet5Name;
+    public List<string> oppententNameTextInfo = new List<string>();
     public Text amount_of_people;
     private int minmum_amount_of_people = 2;  // minimum amount of players
     public Button Start_Button,Leave_Button;
@@ -15,6 +17,11 @@ public class Main_Game_before_start : MonoBehaviourPunCallbacks
     private PhotonView pv;
     private void Start()
     {
+        oppententNameTextInfo.Add(opponet1Name);
+        oppententNameTextInfo.Add(opponet2Name);
+        oppententNameTextInfo.Add(opponet3Name);
+        oppententNameTextInfo.Add(opponet4Name);
+        oppententNameTextInfo.Add(opponet5Name);
         textOtherPlayers.Add(opponent1_username);
         textOtherPlayers.Add(opponent2_username);
         textOtherPlayers.Add(opponent3_username);
@@ -48,7 +55,8 @@ public class Main_Game_before_start : MonoBehaviourPunCallbacks
         Debug.Log("A player entered in put name and recount of people");
         foreach (Player otherplayer in PhotonNetwork.PlayerListOthers)
         {
-            textOtherPlayers[i].text = otherplayer.NickName;
+            oppententNameTextInfo[i] = otherplayer.NickName;
+            textOtherPlayers[i].text = oppententNameTextInfo[i];
             i++;
         }
         Start_Button.interactable = !(PhotonNetwork.CurrentRoom.PlayerCount<minmum_amount_of_people);
@@ -74,6 +82,10 @@ public class Main_Game_before_start : MonoBehaviourPunCallbacks
     { 
         PhotonNetwork.LeaveRoom();
         Debug.Log("PlayerLeftRoom... loading scene");
+    }
+    public string getOtherPlayerName(int which)
+    {
+        return oppententNameTextInfo[which];
     }
     
 }

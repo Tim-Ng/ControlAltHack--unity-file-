@@ -41,6 +41,8 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
     private int ActorNumberOfStartPlayer; // player that start the turn
     private int NumDoneSelectChar = 0;
 
+    private MissionCardScript currentUserMission = null;
+
     private RaiseEventOptions AllOtherThanMePeopleOptions = new RaiseEventOptions()
     {
         CachingOption = EventCaching.DoNotCache,
@@ -436,5 +438,12 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
         }
         return null;
     }
-    
+    public void setCurrentMissionScript(MissionCardScript missionScriptSet)
+    {
+        currentUserMission = missionScriptSet;
+    }
+    public MissionCardScript getCurrentMissionScript()
+    {
+        return currentUserMission;
+    }
 }

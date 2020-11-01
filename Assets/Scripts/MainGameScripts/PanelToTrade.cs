@@ -167,7 +167,6 @@ public class PanelToTrade : MonoBehaviour
             else
             {
                 otherPlayerSkippedOBJ[k].SetActive(true);
-                otherPlayerSkippedOBJ[k].GetComponent<Button>().interactable = false;
             }
         }
     }

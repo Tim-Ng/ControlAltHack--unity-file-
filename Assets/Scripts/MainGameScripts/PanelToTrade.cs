@@ -177,9 +177,9 @@ public class PanelToTrade : MonoBehaviour
         {
             otherPlayerSkippedOBJ[i].SetActive(false);
         }
-        for (int i = 0; i < opponentBoxCardOBJ.Count; i++)
+        for (int i = 0; i < opponentBoxOBJ.Count; i++)
         {
-            opponentBoxCardOBJ[i].SetActive(false);
+            opponentBoxOBJ[i].SetActive(false);
         }
     }
 }

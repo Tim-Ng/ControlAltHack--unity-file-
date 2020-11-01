@@ -105,12 +105,14 @@ public class PanelToTrade : MonoBehaviour
     public void clickOnAttend()
     {
         RestTrades();
+        popupcardwindowMissionScript.setONLYLOOK(true);
         popupcardwindowMissionScript.closePopup();
         sendEveryOneDone(true);
     }
     public void clickOnNotAttend()
     {
         RestTrades();
+        popupcardwindowMissionScript.setONLYLOOK(true);
         popupcardwindowMissionScript.closePopup();
         sendEveryOneDone(false);
     }

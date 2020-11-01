@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Video;
 
 public class popupcardwindowMission : MonoBehaviour
 {
@@ -17,6 +18,7 @@ public class popupcardwindowMission : MonoBehaviour
     public GameObject AttendOrNot;
     public GameObject textAttend;
     public GameObject textNotAttending;
+    private bool LOOKONLY = false;
     private bool cardselected = false;
     private void Start()
     {
@@ -36,6 +38,10 @@ public class popupcardwindowMission : MonoBehaviour
         {
             AttendOrNot.SetActive(true);
             selectMissionCard.SetActive(false);  
+        }
+        if (LOOKONLY)
+        {
+            AttendOrNot.SetActive(false);
         }
         missionCardDisplay.mission_script = pop_input_mission;
         missionCardDisplay.setUpdate();
@@ -67,5 +73,9 @@ public class popupcardwindowMission : MonoBehaviour
         AttendOrNot.SetActive(true);
         selectMissionCard.SetActive(false);
         cardselected = true;
+    }
+    public void setONLYLOOK(bool yesNO)
+    {
+        LOOKONLY = yesNO;
     }
 }

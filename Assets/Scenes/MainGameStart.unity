@@ -3436,7 +3436,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 384843743}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 499456415}
+        m_TargetAssemblyTypeName: PanelToTrade, Assembly-CSharp
+        m_MethodName: confirmTrade2
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &384843743
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4284,7 +4296,7 @@ MonoBehaviour:
   opponentSkipped3: {fileID: 308811858}
   opponentSkipped4: {fileID: 132422899}
   opponentSkipped5: {fileID: 805641741}
-  drawMissionCard: {fileID: 499456407}
+  drawCharCard: {fileID: 499456407}
   popupcardwindowMissionScript: {fileID: 7013831139461939040}
   main_Game_Before_Start: {fileID: 277830163}
   panelTrade: {fileID: 1269437447}
@@ -4400,7 +4412,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 507648868}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 499456415}
+        m_TargetAssemblyTypeName: PanelToTrade, Assembly-CSharp
+        m_MethodName: confirmTrade5
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &507648868
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5319,7 +5343,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 631834007}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 499456415}
+        m_TargetAssemblyTypeName: PanelToTrade, Assembly-CSharp
+        m_MethodName: confirmTrade1
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &631834007
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5555,7 +5591,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 639166809}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 499456415}
+        m_TargetAssemblyTypeName: PanelToTrade, Assembly-CSharp
+        m_MethodName: clickOnToTradeOpponent4
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &639166809
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14195,7 +14243,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1508774359}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 499456415}
+        m_TargetAssemblyTypeName: PanelToTrade, Assembly-CSharp
+        m_MethodName: confirmTrade3
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1508774359
 MonoBehaviour:
   m_ObjectHideFlags: 0

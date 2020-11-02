@@ -26,7 +26,7 @@ public class PanelToTrade : MonoBehaviour
     public MissionCardDeck missionCard;
     [SerializeField] private GameObject opponentSkipped1, opponentSkipped2, opponentSkipped3, opponentSkipped4, opponentSkipped5;
     private List<GameObject> otherPlayerSkippedOBJ = new List<GameObject>();
-    [SerializeField] private DrawCharacterCard drawMissionCard; 
+    [SerializeField] private DrawCharacterCard drawCharCard; 
     [SerializeField] private popupcardwindowMission popupcardwindowMissionScript;
     [SerializeField] private Main_Game_before_start main_Game_Before_Start;
     [SerializeField] private GameObject panelTrade;
@@ -66,6 +66,7 @@ public class PanelToTrade : MonoBehaviour
     {
         whoDoneAttendOrNot = 11,
         sendToAsk = 12,
+        confirmOrDecline = 13,
     }
     private void OnEnable()
     {
@@ -91,6 +92,21 @@ public class PanelToTrade : MonoBehaviour
             if (PhotonNetwork.LocalPlayer.ActorNumber == (int)receiveData[1])
             {
                 whoSentInfo((int)receiveData[0], (int)receiveData[2] , (bool)receiveData[3] , (byte)receiveData[4]);
+            }
+        }
+        else if (obj.Code == (byte)PhotonEventCode.confirmOrDecline)
+        {
+            object[] receiveData = (object[])obj.CustomData;
+            if (PhotonNetwork.LocalPlayer.ActorNumber == (int)receiveData[1])
+            {
+                if((bool) receiveData[0])
+                {
+                    exchangeCards(FindPlayerUsingActorId((int)receiveData[2]), FindPlayerUsingActorId((int)receiveData[1]));
+                }
+            }
+            else
+            {
+
             }
         }
     }
@@ -131,7 +147,6 @@ public class PanelToTrade : MonoBehaviour
         allotherTradeButtonList.Add(askTradeButton3);
         allotherTradeButtonList.Add(askTradeButton4);
         allotherTradeButtonList.Add(askTradeButton5);
-        userScript = drawMissionCard.getCurrentMissionScript();
         otherPlayerSkippedOBJ.Add(opponentSkipped1);
         otherPlayerSkippedOBJ.Add(opponentSkipped2);
         otherPlayerSkippedOBJ.Add(opponentSkipped3);
@@ -185,7 +200,7 @@ public class PanelToTrade : MonoBehaviour
     }
     public void sendEveryOneDone(bool AttendOrNot)
     {
-        userScript = drawMissionCard.getCurrentMissionScript();
+        userScript = drawCharCard.getCurrentMissionScript();
         object[] data = new object[] { userScript.Mission_code,AttendOrNot, PhotonNetwork.LocalPlayer};
         PhotonNetwork.RaiseEvent((byte)PhotonEventCode.whoDoneAttendOrNot, data, AllPeople, SendOptions.SendReliable);
     }
@@ -285,8 +300,8 @@ public class PanelToTrade : MonoBehaviour
                 waitingRelpyTextList[WhichClick].text = "Waiting for other player responce...";
                 toggleButtonToTrade(false);
                 bribeOpponentList[WhichClick].interactable=false;
-                object[] data = new object[] {PhotonNetwork.LocalPlayer.ActorNumber , otherPlayerList[0].ActorNumber , MoneyBribedint , drawMissionCard.getCurrentMissionScript().Newb_job, moneyAndPoints.getMyPoints()};
-                PhotonNetwork.RaiseEvent((byte)PhotonEventCode.sendToAsk, data, AllPeople, SendOptions.SendReliable);
+                object[] data = new object[] {PhotonNetwork.LocalPlayer.ActorNumber , otherPlayerList[0].ActorNumber , MoneyBribedint , drawCharCard.getCurrentMissionScript().Newb_job, moneyAndPoints.getMyPoints()};
+                PhotonNetwork.RaiseEvent((byte)PhotonEventCode.sendToAsk, data, AllOtherThanMePeopleOptions, SendOptions.SendReliable);
             }
         }
         else
@@ -331,6 +346,8 @@ public class PanelToTrade : MonoBehaviour
                 if (NewbJob && ((int)OtherPlayerPoints > (int)moneyAndPoints.getMyPoints()))
                 {
                     getAskTextList[BoxNum].text = "A Got newb job,and you've less points so...";
+                    object[] data = new object[] { true, SenderID, PhotonNetwork.LocalPlayer.ActorNumber };
+                    PhotonNetwork.RaiseEvent((byte)PhotonEventCode.confirmOrDecline, data, AllOtherThanMePeopleOptions, SendOptions.SendReliable);
                     //swaped card 
                 }
                 else
@@ -344,8 +361,72 @@ public class PanelToTrade : MonoBehaviour
             BoxNum++;
         }
     }
-    public void confirmButton(int which)
+    public void confirmButton(int whichPlayer)
     {
         Debug.Log("Confirm Button was click going to exchange");
+        object[] data = new object[] { true , otherPlayerList[whichPlayer].ActorNumber , PhotonNetwork.LocalPlayer.ActorNumber};
+        PhotonNetwork.RaiseEvent((byte)PhotonEventCode.confirmOrDecline, data, AllOtherThanMePeopleOptions, SendOptions.SendReliable);
+        moneyAndPoints.addMyMoney(amountWantedToBribeList[whichPlayer]);
+        exchangeCards(PhotonNetwork.LocalPlayer, otherPlayerList[whichPlayer]);
     }
+    public void rejectButton(int whichPlayer)
+    {
+        object[] data = new object[] { false, otherPlayerList[whichPlayer].ActorNumber, PhotonNetwork.LocalPlayer.ActorNumber };
+        PhotonNetwork.RaiseEvent((byte)PhotonEventCode.confirmOrDecline, data, AllOtherThanMePeopleOptions, SendOptions.SendReliable);
+    }
+    public void exchangeCards(Player player1,Player player2)
+    {
+        int playerLoc2 = findPlayerPosition(player2);
+        MissionCardScript holdMission;
+        if (player1 == PhotonNetwork.LocalPlayer)
+        {
+            moneyAndPoints.subMyMoney(MoneyBribedint);
+            holdMission = userScript;
+            userScript = opponentScriptList[playerLoc2];
+            userBoxCardOBJ.GetComponent<MissionCardDisplay>().mission_script = userScript;
+            userBoxCardOBJ.GetComponent<MissionCardDisplay>().setUpdate();
+        }
+        else
+        {
+            int playerLoc1 = findPlayerPosition(player1);
+            holdMission = opponentScriptList[playerLoc1];
+            opponentScriptList[playerLoc1] = opponentScriptList[playerLoc2];
+            opponentBoxCardOBJ[playerLoc1].GetComponent<MissionCardDisplay>().mission_script = opponentScriptList[playerLoc1];
+            opponentBoxCardOBJ[playerLoc1].GetComponent<MissionCardDisplay>().setUpdate();
+        }
+        opponentScriptList[playerLoc2] = holdMission;
+        opponentBoxCardOBJ[playerLoc2].GetComponent<MissionCardDisplay>().mission_script = opponentScriptList[playerLoc2];
+        opponentBoxCardOBJ[playerLoc2].GetComponent<MissionCardDisplay>().setUpdate();
+
+    }
+    public int findPlayerPosition(Player PlayerToCheck)
+    {
+        int i = 0;
+        foreach (Player CheckPlayer in PhotonNetwork.PlayerListOthers)
+        {
+            if (CheckPlayer == PlayerToCheck)
+            {
+                break;
+            }
+            i++;
+        }
+        return i;
+    }
+    public Player FindPlayerUsingActorId(int ActorId)
+    {
+        foreach (Player CheckPlayer in PhotonNetwork.PlayerList)
+        {
+            if (CheckPlayer.ActorNumber == ActorId)
+            {
+                return CheckPlayer;
+            }
+        }
+        Debug.LogError("Can't Find Player");
+        return null;
+    }
+    public void confirmTrade1() => confirmButton(0);
+    public void confirmTrade2() => confirmButton(1);
+    public void confirmTrade3() => confirmButton(2);
+    public void confirmTrade4() => confirmButton(3);
+    public void confirmTrade5() => confirmButton(4);
 }

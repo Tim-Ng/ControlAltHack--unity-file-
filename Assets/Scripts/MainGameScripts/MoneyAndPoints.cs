@@ -147,4 +147,12 @@ public class MoneyAndPoints : MonoBehaviour
         object[] dataMyPoint = new object[] { MyPoints, PhotonNetwork.LocalPlayer };
         PhotonNetwork.RaiseEvent((byte)PhotonEventCode.receiverPoints, dataMyPoint, AllOtherThanMePeopleOptions, SendOptions.SendReliable);
     }
+    public int getMyMoneyAmount()
+    {
+        return MyMoney;
+    }
+    public byte getMyPoints()
+    {
+        return MyPoints;
+    }
 }

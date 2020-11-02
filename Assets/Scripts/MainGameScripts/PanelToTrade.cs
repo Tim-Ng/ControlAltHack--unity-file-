@@ -32,11 +32,21 @@ public class PanelToTrade : MonoBehaviour
     [SerializeField] private GameObject panelTrade;
     private int everyoneIsDone = 0;
     [SerializeField] private TMP_InputField bribeOpponent1, bribeOpponent2, bribeOpponent3, bribeOpponent4, bribeOpponent5;
+    private List<TMP_InputField> bribeOpponentList = new List<TMP_InputField>();
+
     [SerializeField] private Text WaitingReply1Text, WaitingReply2Text, WaitingReply3Text, WaitingReply4Text, WaitingReply5Text;
+    private List<Text> waitingRelpyTextList = new List<Text>();
+
     private string MoneyBribedStr;
     private int MoneyBribedint;
     [SerializeField] private Button askTradeButton1, askTradeButton2, askTradeButton3, askTradeButton4, askTradeButton5;
     [SerializeField] private Text getAskText1, getAskText2, getAskText3, getAskText4, getAskText5;
+
+    [SerializeField] private Button delineTradeButton1, delineTradeButton2, delineTradeButton3, delineTradeButton4, delineTradeButton5;
+    private List<Button> delineTradeButtonList = new List<Button>();
+    [SerializeField] private Button confirmTradeButton1, confirmTradeButton2, confirmTradeButton3, confirmTradeButton4, confirmTradeButton5;
+    private List<Button> confirmTradeButtonList = new List<Button>();
+
     private List<Text> getAskTextList = new List<Text>();
     private int amountWantedToBribe1, amountWantedToBribe2, amountWantedToBribe3, amountWantedToBribe4, amountWantedToBribe5;
     private List<int> amountWantedToBribeList = new List<int>();
@@ -80,12 +90,32 @@ public class PanelToTrade : MonoBehaviour
             object[] receiveData = (object[])obj.CustomData;
             if (PhotonNetwork.LocalPlayer.ActorNumber == (int)receiveData[1])
             {
-                whoSentInfo((int)receiveData[0], (int)receiveData[2]);
+                whoSentInfo((int)receiveData[0], (int)receiveData[2] , (bool)receiveData[3] , (byte)receiveData[4]);
             }
         }
     }
     private void Start()
     {
+        bribeOpponentList.Add(bribeOpponent1);
+        bribeOpponentList.Add(bribeOpponent2);
+        bribeOpponentList.Add(bribeOpponent3);
+        bribeOpponentList.Add(bribeOpponent4);
+        bribeOpponentList.Add(bribeOpponent5);
+        waitingRelpyTextList.Add(WaitingReply1Text);
+        waitingRelpyTextList.Add(WaitingReply2Text);
+        waitingRelpyTextList.Add(WaitingReply3Text);
+        waitingRelpyTextList.Add(WaitingReply4Text);
+        waitingRelpyTextList.Add(WaitingReply5Text);
+        delineTradeButtonList.Add(delineTradeButton1);
+        delineTradeButtonList.Add(delineTradeButton2);
+        delineTradeButtonList.Add(delineTradeButton3);
+        delineTradeButtonList.Add(delineTradeButton4);
+        delineTradeButtonList.Add(delineTradeButton5);
+        confirmTradeButtonList.Add(confirmTradeButton1);
+        confirmTradeButtonList.Add(confirmTradeButton2);
+        confirmTradeButtonList.Add(confirmTradeButton3);
+        confirmTradeButtonList.Add(confirmTradeButton4);
+        confirmTradeButtonList.Add(confirmTradeButton5);
         amountWantedToBribeList.Add(amountWantedToBribe1);
         amountWantedToBribeList.Add(amountWantedToBribe2);
         amountWantedToBribeList.Add(amountWantedToBribe3);
@@ -219,60 +249,70 @@ public class PanelToTrade : MonoBehaviour
         {
             opponentBoxOBJ[i].SetActive(false);
         }
-        bribeOpponent1.text = "0";
-        bribeOpponent2.text = "0";
-        bribeOpponent3.text = "0"; 
-        bribeOpponent4.text = "0";
-        bribeOpponent5.text = "0";
+        for (int i = 0; i < bribeOpponentList.Count; i++)
+        {
+            bribeOpponentList[i].text = "0";
+        }
         for (int i = 0; i < amountWantedToBribeList.Count; i++)
         {
             amountWantedToBribeList[i] = 0;
         }
+        for (int i = 0; i < delineTradeButtonList.Count;i++)
+        {
+            delineTradeButtonList[i].interactable = false;
+        }
+        for (int i = 0; i < confirmTradeButtonList.Count; i++)
+        {
+            confirmTradeButtonList[i].interactable = false;
+        }
     }
-    public void clickOnToTradeOpponent1()
+    public void clickOnToTrade(int WhichClick)
     {
-        MoneyBribedStr = bribeOpponent1.text;
+        MoneyBribedStr = bribeOpponentList[WhichClick].text;
         Debug.Log("Trying to bribe with " + MoneyBribedStr);
         if (int.TryParse(MoneyBribedStr, out MoneyBribedint))
         {
             if (MoneyBribedint > moneyAndPoints.getMyMoneyAmount())
             {
-                WaitingReply1Text.text = "You cant Bribe that much";
+                waitingRelpyTextList[WhichClick].text = "You cant Bribe that much";
             }
             else if (MoneyBribedint < 0)
             {
-                WaitingReply1Text.text = "You cant have negative Bribe";
+                waitingRelpyTextList[WhichClick].text = "You cant have negative Bribe";
             }
             else
             {
-                WaitingReply1Text.text = "Waiting for other player responce...";
+                waitingRelpyTextList[WhichClick].text = "Waiting for other player responce...";
                 toggleButtonToTrade(false);
-                bribeOpponent1.interactable=false;
-                object[] data = new object[] {PhotonNetwork.LocalPlayer.ActorNumber , otherPlayerList[0].ActorNumber , MoneyBribedint };
+                bribeOpponentList[WhichClick].interactable=false;
+                object[] data = new object[] {PhotonNetwork.LocalPlayer.ActorNumber , otherPlayerList[0].ActorNumber , MoneyBribedint , drawMissionCard.getCurrentMissionScript().Newb_job, moneyAndPoints.getMyPoints()};
                 PhotonNetwork.RaiseEvent((byte)PhotonEventCode.sendToAsk, data, AllPeople, SendOptions.SendReliable);
             }
         }
         else
         {
-            WaitingReply1Text.text = "This is not int " + MoneyBribedStr;
+            waitingRelpyTextList[WhichClick].text = "This is not int " + MoneyBribedStr;
         }
-
+    }
+    public void clickOnToTradeOpponent1()
+    {
+        clickOnToTrade(0);
     }
     public void clickOnToTradeOpponent2()
     {
-
+        clickOnToTrade(1);
     }
     public void clickOnToTradeOpponent3()
     {
-
+        clickOnToTrade(2);
     }
     public void clickOnToTradeOpponent4()
     {
-
+        clickOnToTrade(3);
     }
     public void clickOnToTradeOpponent5()
     {
-
+        clickOnToTrade(4);
     }
     public void toggleButtonToTrade(bool onOrOff)
     {
@@ -281,17 +321,31 @@ public class PanelToTrade : MonoBehaviour
             allotherTradeButtonList[i].interactable = onOrOff;
         }
     }
-    public void whoSentInfo(int SenderID, int Amount)
+    public void whoSentInfo(int SenderID, int Amount,bool NewbJob,byte OtherPlayerPoints)
     {
         int BoxNum = 0;
         foreach (Player CheckPlayer in PhotonNetwork.PlayerListOthers)
         {
             if (CheckPlayer.ActorNumber == SenderID)
             {
-                amountWantedToBribeList[BoxNum] = Amount;
-                getAskTextList[BoxNum].text = "This player " + CheckPlayer.NickName + " wants to trade with the amount of $" + Amount;
+                if (NewbJob && ((int)OtherPlayerPoints > (int)moneyAndPoints.getMyPoints()))
+                {
+                    getAskTextList[BoxNum].text = "A Got newb job,and you've less points so...";
+                    //swaped card 
+                }
+                else
+                {
+                    amountWantedToBribeList[BoxNum] = Amount;
+                    delineTradeButtonList[BoxNum].interactable = true;
+                    confirmTradeButtonList[BoxNum].interactable = true;
+                    getAskTextList[BoxNum].text = "This player " + CheckPlayer.NickName + " wants to trade with the amount of $" + Amount;
+                }
             }
             BoxNum++;
         }
+    }
+    public void confirmButton(int which)
+    {
+        Debug.Log("Confirm Button was click going to exchange");
     }
 }

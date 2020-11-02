@@ -3368,7 +3368,7 @@ GameObject:
   - component: {fileID: 384843743}
   - component: {fileID: 384843742}
   m_Layer: 0
-  m_Name: ComfirmTrade2
+  m_Name: ConfirmTrade2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4308,6 +4308,16 @@ MonoBehaviour:
   getAskText3: {fileID: 214612061}
   getAskText4: {fileID: 1027007160}
   getAskText5: {fileID: 581889646}
+  delineTradeButton1: {fileID: 1215854624}
+  delineTradeButton2: {fileID: 1193589256}
+  delineTradeButton3: {fileID: 2030396712}
+  delineTradeButton4: {fileID: 973485386}
+  delineTradeButton5: {fileID: 213077331}
+  confirmTradeButton1: {fileID: 631834006}
+  confirmTradeButton2: {fileID: 384843742}
+  confirmTradeButton3: {fileID: 1508774358}
+  confirmTradeButton4: {fileID: 639166808}
+  confirmTradeButton5: {fileID: 507648867}
   moneyAndPoints: {fileID: 499456414}
 --- !u!1 &507648865
 GameObject:
@@ -4322,7 +4332,7 @@ GameObject:
   - component: {fileID: 507648868}
   - component: {fileID: 507648867}
   m_Layer: 0
-  m_Name: ComfirmTrade5
+  m_Name: ConfirmTrade5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5241,7 +5251,7 @@ GameObject:
   - component: {fileID: 631834007}
   - component: {fileID: 631834006}
   m_Layer: 0
-  m_Name: ComfirmTrade1
+  m_Name: ConfirmTrade1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5477,7 +5487,7 @@ GameObject:
   - component: {fileID: 639166809}
   - component: {fileID: 639166808}
   m_Layer: 0
-  m_Name: ComfirmTrade4
+  m_Name: ConfirmTrade4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10191,8 +10201,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 160, y: 30}
+  m_AnchoredPosition: {x: 214.58, y: -146}
+  m_SizeDelta: {x: 160, y: 43.603447}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1073360691
 MonoBehaviour:
@@ -10465,8 +10475,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 160, y: 30}
+  m_AnchoredPosition: {x: 213.1, y: -149.98}
+  m_SizeDelta: {x: 160, y: 43.607056}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1089359829
 MonoBehaviour:
@@ -12935,8 +12945,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 160, y: 30}
+  m_AnchoredPosition: {x: 215.1, y: -151}
+  m_SizeDelta: {x: 160, y: 43.566864}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1339475047
 MonoBehaviour:
@@ -13109,8 +13119,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 160, y: 30}
+  m_AnchoredPosition: {x: 212.88, y: -146}
+  m_SizeDelta: {x: 160, y: 43.60694}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1345323729
 MonoBehaviour:
@@ -14117,7 +14127,7 @@ GameObject:
   - component: {fileID: 1508774359}
   - component: {fileID: 1508774358}
   m_Layer: 0
-  m_Name: ComfirmTrade3
+  m_Name: ConfirmTrade3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

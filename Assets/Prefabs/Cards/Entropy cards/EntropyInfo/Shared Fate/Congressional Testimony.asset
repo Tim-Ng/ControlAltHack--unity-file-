@@ -21,7 +21,7 @@ MonoBehaviour:
   discription: You're the key expert at a US Congressional hearing concerning net
     neutrality. The hearing is widely covered in the media, great PR for the company!
   artwork_info: {fileID: 0}
-  artwork_back: {fileID: 0}
+  artwork_back: {fileID: 21300000, guid: d9ecdf60b5d297d43a1dcb5c006fa436, type: 3}
   Cost: 0
   usage: All employees (players) get +2 Hacker Cred immediately.
   use_usage: 0

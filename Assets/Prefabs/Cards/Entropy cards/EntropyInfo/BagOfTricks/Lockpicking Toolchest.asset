@@ -21,7 +21,7 @@ MonoBehaviour:
   discription: Pick gun, bump key, impression kit...hook, half diamond, and snake
     rake picks...who knew that there were so many types of lockpicking tools?
   artwork_info: {fileID: 21300000, guid: d9ecdf60b5d297d43a1dcb5c006fa436, type: 3}
-  artwork_back: {fileID: 0}
+  artwork_back: {fileID: 21300000, guid: d9ecdf60b5d297d43a1dcb5c006fa436, type: 3}
   Cost: 1000
   usage: Once per turn, you may reroll a failed Lockpicking roll.
   use_usage: 0

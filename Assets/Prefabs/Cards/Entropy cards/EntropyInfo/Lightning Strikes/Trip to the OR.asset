@@ -21,7 +21,7 @@ MonoBehaviour:
   discription: You make a trip to the emergency room for acute pain. Turns out that
     you have appendicitis --- you're definitely not going to make it to work today!
   artwork_info: {fileID: 21300000, guid: d9ecdf60b5d297d43a1dcb5c006fa436, type: 3}
-  artwork_back: {fileID: 0}
+  artwork_back: {fileID: 21300000, guid: d9ecdf60b5d297d43a1dcb5c006fa436, type: 3}
   Cost: 0
   usage: The Mission is canceled. You have no Mission for the turn, and therefore
     get no reward and suffer no penalty.

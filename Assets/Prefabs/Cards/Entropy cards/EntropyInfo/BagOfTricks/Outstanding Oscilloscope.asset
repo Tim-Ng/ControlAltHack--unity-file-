@@ -20,7 +20,7 @@ MonoBehaviour:
   Title: OUTSTANDING OSCILLOSCOPE
   discription: Now with 3x as many buttons as the leading brand!
   artwork_info: {fileID: 21300000, guid: d9ecdf60b5d297d43a1dcb5c006fa436, type: 3}
-  artwork_back: {fileID: 0}
+  artwork_back: {fileID: 21300000, guid: d9ecdf60b5d297d43a1dcb5c006fa436, type: 3}
   Cost: 8000
   usage: +2 Hardware Hacking
   use_usage: 0

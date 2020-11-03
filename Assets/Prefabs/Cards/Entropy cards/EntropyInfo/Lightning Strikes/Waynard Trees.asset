@@ -21,7 +21,7 @@ MonoBehaviour:
   discription: The storm knocked a huge branch off of the oak tree in your yard...and
     onto your car. :(
   artwork_info: {fileID: 21300000, guid: d9ecdf60b5d297d43a1dcb5c006fa436, type: 3}
-  artwork_back: {fileID: 0}
+  artwork_back: {fileID: 21300000, guid: d9ecdf60b5d297d43a1dcb5c006fa436, type: 3}
   Cost: 0
   usage: Discard all your Money.
   use_usage: 1

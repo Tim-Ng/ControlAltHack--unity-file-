@@ -45,8 +45,8 @@ public class MissionCardDisplay : MonoBehaviour
     private void Start()
     {
         third_mission_obj.SetActive(false);
-        MissonTitle.text = mission_script.MissonTitle;
         MissionDiscription.text = mission_script.MissionDiscription;
+        MissonTitle.text = mission_script.MissonTitle;
 
         first_mission.sprite = mission_script.first_mission;
         skill_name_1.text = mission_script.skill_name_1;

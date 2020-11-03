@@ -24,6 +24,7 @@ public class PanelToTrade : MonoBehaviour
     private List<Player> otherPlayerList = new List<Player>();
     private List<bool> otherPlayerAttend = new List<bool>();
     public MissionCardDeck missionCard;
+    
     [SerializeField] private GameObject opponentSkipped1, opponentSkipped2, opponentSkipped3, opponentSkipped4, opponentSkipped5;
     private List<GameObject> otherPlayerSkippedOBJ = new List<GameObject>();
     [SerializeField] private DrawCharacterCard drawCharCard; 
@@ -52,6 +53,9 @@ public class PanelToTrade : MonoBehaviour
     private List<int> amountWantedToBribeList = new List<int>();
     private List<Button> allotherTradeButtonList = new List<Button>();
     [SerializeField] private MoneyAndPoints moneyAndPoints;
+
+    [SerializeField] private GameObject missionCardArea;
+    private int allDoneTrading = 0;
     private RaiseEventOptions AllOtherThanMePeopleOptions = new RaiseEventOptions()
     {
         CachingOption = EventCaching.DoNotCache,
@@ -67,6 +71,7 @@ public class PanelToTrade : MonoBehaviour
         whoDoneAttendOrNot = 11,
         sendToAsk = 12,
         confirmOrDecline = 13,
+        doneTrading = 14,
     }
     private void OnEnable()
     {
@@ -99,14 +104,22 @@ public class PanelToTrade : MonoBehaviour
             object[] receiveData = (object[])obj.CustomData;
             if (PhotonNetwork.LocalPlayer.ActorNumber == (int)receiveData[1])
             {
-                if((bool) receiveData[0])
+                if ((bool)receiveData[0])
                 {
-                    exchangeCards(FindPlayerUsingActorId((int)receiveData[2]), FindPlayerUsingActorId((int)receiveData[1]));
+                    exchangeCards(FindPlayerUsingActorId((int)receiveData[1]), FindPlayerUsingActorId((int)receiveData[2]));
+                }
+                else
+                {
+                    declineTrade(findPlayerPosition(FindPlayerUsingActorId((int)receiveData[2])));
                 }
             }
-            else
+        }
+        else if (obj.Code == (byte)PhotonEventCode.doneTrading)
+        {
+            allDoneTrading +=1;
+            if (allDoneTrading == PhotonNetwork.CurrentRoom.PlayerCount)
             {
-
+                
             }
         }
     }
@@ -299,6 +312,7 @@ public class PanelToTrade : MonoBehaviour
             {
                 waitingRelpyTextList[WhichClick].text = "Waiting for other player responce...";
                 toggleButtonToTrade(false);
+                TMZ_buttonBribe(false);
                 bribeOpponentList[WhichClick].interactable=false;
                 object[] data = new object[] {PhotonNetwork.LocalPlayer.ActorNumber , otherPlayerList[0].ActorNumber , MoneyBribedint , drawCharCard.getCurrentMissionScript().Newb_job, moneyAndPoints.getMyPoints()};
                 PhotonNetwork.RaiseEvent((byte)PhotonEventCode.sendToAsk, data, AllOtherThanMePeopleOptions, SendOptions.SendReliable);
@@ -309,26 +323,11 @@ public class PanelToTrade : MonoBehaviour
             waitingRelpyTextList[WhichClick].text = "This is not int " + MoneyBribedStr;
         }
     }
-    public void clickOnToTradeOpponent1()
-    {
-        clickOnToTrade(0);
-    }
-    public void clickOnToTradeOpponent2()
-    {
-        clickOnToTrade(1);
-    }
-    public void clickOnToTradeOpponent3()
-    {
-        clickOnToTrade(2);
-    }
-    public void clickOnToTradeOpponent4()
-    {
-        clickOnToTrade(3);
-    }
-    public void clickOnToTradeOpponent5()
-    {
-        clickOnToTrade(4);
-    }
+    public void clickOnToTradeOpponent1()=>clickOnToTrade(0);
+    public void clickOnToTradeOpponent2()=>clickOnToTrade(1);
+    public void clickOnToTradeOpponent3()=>clickOnToTrade(2);
+    public void clickOnToTradeOpponent4()=>clickOnToTrade(3);
+    public void clickOnToTradeOpponent5()=>clickOnToTrade(4);
     public void toggleButtonToTrade(bool onOrOff)
     {
         for (int i = 0; i < PhotonNetwork.CurrentRoom.PlayerCount; i++)
@@ -348,6 +347,8 @@ public class PanelToTrade : MonoBehaviour
                     getAskTextList[BoxNum].text = "A Got newb job,and you've less points so...";
                     object[] data = new object[] { true, SenderID, PhotonNetwork.LocalPlayer.ActorNumber };
                     PhotonNetwork.RaiseEvent((byte)PhotonEventCode.confirmOrDecline, data, AllOtherThanMePeopleOptions, SendOptions.SendReliable);
+                    moneyAndPoints.addMyMoney(amountWantedToBribeList[findPlayerPosition(FindPlayerUsingActorId(SenderID))]);
+                    exchangeCards(PhotonNetwork.LocalPlayer, otherPlayerList[SenderID]);
                     //swaped card 
                 }
                 else
@@ -373,6 +374,9 @@ public class PanelToTrade : MonoBehaviour
     {
         object[] data = new object[] { false, otherPlayerList[whichPlayer].ActorNumber, PhotonNetwork.LocalPlayer.ActorNumber };
         PhotonNetwork.RaiseEvent((byte)PhotonEventCode.confirmOrDecline, data, AllOtherThanMePeopleOptions, SendOptions.SendReliable);
+        delineTradeButtonList[whichPlayer].interactable  = false;
+        confirmTradeButtonList[whichPlayer].interactable = false;
+        getAskTextList[whichPlayer].text = "You Rejected";
     }
     public void exchangeCards(Player player1,Player player2)
     {
@@ -383,8 +387,12 @@ public class PanelToTrade : MonoBehaviour
             moneyAndPoints.subMyMoney(MoneyBribedint);
             holdMission = userScript;
             userScript = opponentScriptList[playerLoc2];
+            drawCharCard.setCurrentMissionScript(userScript);
             userBoxCardOBJ.GetComponent<MissionCardDisplay>().mission_script = userScript;
+            Debug.Log("Changing user");
             userBoxCardOBJ.GetComponent<MissionCardDisplay>().setUpdate();
+            missionCardArea.GetComponentInChildren<MissionCardDisplay>().mission_script = drawCharCard.getCurrentMissionScript();
+            missionCardArea.GetComponentInChildren<MissionCardDisplay>().setUpdate();
         }
         else
         {
@@ -392,10 +400,12 @@ public class PanelToTrade : MonoBehaviour
             holdMission = opponentScriptList[playerLoc1];
             opponentScriptList[playerLoc1] = opponentScriptList[playerLoc2];
             opponentBoxCardOBJ[playerLoc1].GetComponent<MissionCardDisplay>().mission_script = opponentScriptList[playerLoc1];
+            Debug.Log("Changing player 1");
             opponentBoxCardOBJ[playerLoc1].GetComponent<MissionCardDisplay>().setUpdate();
         }
         opponentScriptList[playerLoc2] = holdMission;
         opponentBoxCardOBJ[playerLoc2].GetComponent<MissionCardDisplay>().mission_script = opponentScriptList[playerLoc2];
+        Debug.Log("Changing player 2");
         opponentBoxCardOBJ[playerLoc2].GetComponent<MissionCardDisplay>().setUpdate();
 
     }
@@ -424,9 +434,33 @@ public class PanelToTrade : MonoBehaviour
         Debug.LogError("Can't Find Player");
         return null;
     }
+    public void TMZ_buttonBribe(bool TorF)
+    {
+        for (int i = 0; i < bribeOpponentList.Count; i++)
+        {
+            bribeOpponentList[i].interactable=TorF;
+        }
+    }
     public void confirmTrade1() => confirmButton(0);
     public void confirmTrade2() => confirmButton(1);
     public void confirmTrade3() => confirmButton(2);
     public void confirmTrade4() => confirmButton(3);
     public void confirmTrade5() => confirmButton(4);
+    public void declineTrade(int WhichPlayer)
+    {
+        toggleButtonToTrade(true);
+        TMZ_buttonBribe(true);
+        waitingRelpyTextList[WhichPlayer].text = "Player Rejected Trade";
+        bribeOpponentList[WhichPlayer].text = "0";
+    }
+    public void declineTrade1() => rejectButton(0);
+    public void declineTrade2() => rejectButton(1);
+    public void declineTrade3() => rejectButton(2);
+    public void declineTrade4() => rejectButton(3);
+    public void declineTrade5() => rejectButton(4);
+    public void clickDoneTrading()
+    {
+        panelTrade.SetActive(false);
+        PhotonNetwork.RaiseEvent((byte)PhotonEventCode.doneTrading, null, AllPeople, SendOptions.SendReliable);
+    }
 }

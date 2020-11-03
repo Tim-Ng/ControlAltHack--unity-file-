@@ -47,7 +47,7 @@ using System.Threading;
         {
             OBJHostJoin.SetActive(true);
             OBJUserName.SetActive(false);
-            ChangeNickNameButton.SetActive(false);
+            ChangeNickNameButton.SetActive(true);
             checkInputJoin();
             checkInputHost();
             PhotonNetwork.GameVersion = GameVersion;

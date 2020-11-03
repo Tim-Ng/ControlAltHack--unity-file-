@@ -1997,7 +1997,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 213077332}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 499456415}
+        m_TargetAssemblyTypeName: PanelToTrade, Assembly-CSharp
+        m_MethodName: declineTrade5
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &213077332
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4331,6 +4343,7 @@ MonoBehaviour:
   confirmTradeButton4: {fileID: 639166808}
   confirmTradeButton5: {fileID: 507648867}
   moneyAndPoints: {fileID: 499456414}
+  missionCardArea: {fileID: 1074838377}
 --- !u!1 &507648865
 GameObject:
   m_ObjectHideFlags: 0
@@ -9057,7 +9070,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 973485387}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 499456415}
+        m_TargetAssemblyTypeName: PanelToTrade, Assembly-CSharp
+        m_MethodName: declineTrade4
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &973485387
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11621,7 +11646,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1193589257}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 499456415}
+        m_TargetAssemblyTypeName: PanelToTrade, Assembly-CSharp
+        m_MethodName: declineTrade2
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1193589257
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11830,7 +11867,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1215854625}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 499456415}
+        m_TargetAssemblyTypeName: PanelToTrade, Assembly-CSharp
+        m_MethodName: declineTrade1
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1215854625
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15196,7 +15245,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1587737389}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 499456415}
+        m_TargetAssemblyTypeName: PanelToTrade, Assembly-CSharp
+        m_MethodName: clickDoneTrading
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1587737389
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18195,7 +18256,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2030396713}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 499456415}
+        m_TargetAssemblyTypeName: PanelToTrade, Assembly-CSharp
+        m_MethodName: declineTrade3
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2030396713
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -7,8 +7,9 @@ using Photon.Realtime;
 public class Main_Game_before_start : MonoBehaviourPunCallbacks
 {
     [SerializeField] private GameObject startButtonOBJ=null;
+    [SerializeField] private DrawCharacterCard drawCharacterCard;
     public Text player_username,opponent1_username, opponent2_username, opponent3_username, opponent4_username, opponent5_username,Roomtext;
-    public string opponet1Name, opponet2Name, opponet3Name, opponet4Name, opponet5Name;
+    private string opponet1Name, opponet2Name, opponet3Name, opponet4Name, opponet5Name;
     public List<string> oppententNameTextInfo = new List<string>();
     public Text amount_of_people;
     private int minmum_amount_of_people = 2;  // minimum amount of players
@@ -87,5 +88,29 @@ public class Main_Game_before_start : MonoBehaviourPunCallbacks
     {
         return oppententNameTextInfo[which];
     }
-    
+    public int findPlayerPosition(Player PlayerToCheck)
+    {
+        int i = 0;
+        foreach (Player CheckPlayer in PhotonNetwork.PlayerListOthers)
+        {
+            if (CheckPlayer == PlayerToCheck)
+            {
+                break;
+            }
+            i++;
+        }
+        return i;
+    }
+    public Player FindPlayerUsingActorId(int ActorId)
+    {
+        foreach (Player CheckPlayer in PhotonNetwork.PlayerList)
+        {
+            if (CheckPlayer.ActorNumber == ActorId)
+            {
+                return CheckPlayer;
+            }
+        }
+        Debug.LogError("Can't Find Player");
+        return null;
+    }
 }

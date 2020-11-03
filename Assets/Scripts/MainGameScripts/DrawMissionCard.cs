@@ -54,6 +54,7 @@ public class DrawMissionCard : MonoBehaviour
     }
     public void whoDrawMissionCard(int CharacterCardId)
     {
+        Debug.Log("Checking Who draw");
         if(CharacterCardId == 9 )
         {
             drawMissionCard(2);

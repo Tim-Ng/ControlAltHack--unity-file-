@@ -14,9 +14,10 @@ public class MoneyAndPoints : MonoBehaviour
     private byte opponent3Points = 0;
     private byte opponent4Points = 0;
     private byte opponent5Points = 0;
-    private List<byte> opponentpointslist = new List<byte>();
     [SerializeField] public Text MyPointsOBJ, opponent1PointsOBJ, opponent2PointsOBJ, opponent3PointsOBJ, opponent4PointsOBJ, opponent5PointsOBJ;
+    private List<byte> opponentpointslist = new List<byte>();
     private List<Text> opponentpointslistOBJ = new List<Text>();
+
     private int MyMoney = 0;
     private int opponent1Money = 0; 
     private int opponent2Money =0; 
@@ -24,8 +25,9 @@ public class MoneyAndPoints : MonoBehaviour
     private int opponent4Money =0;
     private int opponent5Money =0;
     [SerializeField]public Text MyMoneyOBJ, opponent1MoneyOBJ, opponent2MoneyOBJ, opponent3MoneyOBJ, opponent4MoneyOBJ, opponent5MoneyOBJ;
-    private List<Text> opponentpointsMoneylistOBJ = new List<Text>();
     private List<int> opponentpointsMoneylist = new List<int>();
+    private List<Text> opponentpointsMoneylistOBJ = new List<Text>();
+
     private RaiseEventOptions AllOtherThanMePeopleOptions = new RaiseEventOptions()
     {
         CachingOption = EventCaching.DoNotCache,

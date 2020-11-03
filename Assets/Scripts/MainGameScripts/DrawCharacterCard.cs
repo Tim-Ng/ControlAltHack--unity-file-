@@ -36,8 +36,10 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
     private List<Button> otherAvertarPlayerButton = new List<Button>();
     private int number_of_players, number_of_character_cards;
     [SerializeField] private TMP_InputField numberOfRounds_input = null, numberOfCredAhead_input = null;
+
     public static int[] GameProperties = { 0, 0 };
-    public DrawMissionCard drawMissionCard;
+
+    [SerializeField] private DrawMissionCard drawMissionCard;
     private int ActorNumberOfStartPlayer; // player that start the turn
     private int NumDoneSelectChar = 0;
 
@@ -132,7 +134,7 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
         {
             Debug.Log("A player is done selecting character");
             NumDoneSelectChar += 1;
-            Debug.Log(NumDoneSelectChar);
+            Debug.Log(NumDoneSelectChar + "and round is " +TurnNumber + " number of people on room " + PhotonNetwork.CurrentRoom.PlayerCount);
             checkWhichFunctionToRun();
         }
     }
@@ -190,7 +192,6 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
         Debug.Log("Send to all draw character");
         PhotonNetwork.RaiseEvent((byte)PhotonEventCode.LeaveButton, null, AllPeople, SendOptions.SendReliable); 
         checkTurn();
-
     }
     private void noleave() => LeaveRoomButton.SetActive(false);
 
@@ -381,7 +382,7 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
         }
         else if (TurnNumber > 1)
         {
-            
+
         }
     }
     // Check the number of players and distribute the number of character cards accordingly 
@@ -407,7 +408,7 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
             Drawcard(number_of_character_cards);
             EndTurn();
         }
-        else if ((TurnNumber == 1) && IsMyTurn )
+        else if ((TurnNumber == 1) && IsMyTurn)
         {
             if (NumDoneSelectChar == PhotonNetwork.CurrentRoom.PlayerCount)
             {
@@ -416,6 +417,7 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
                 drawMissionCard.whoDrawMissionCard(chosed_character_user.character_code);
                 EndTurn();
             }
+                
         }
     }
     public CharCardScript getPlayerCharterSet(Player playerInQuestion)
@@ -446,4 +448,5 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
     {
         return currentUserMission;
     }
+    
 }

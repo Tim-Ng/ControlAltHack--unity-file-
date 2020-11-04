@@ -8,7 +8,7 @@ public class CharacterCardDispaly : MonoBehaviour
 {
     public CharCardScript CharCard;
 
-    public Text input_hardware;
+    /*public Text input_hardware;
     public Text input_cryptanalysis;
     public Text input_network;
     public Text input_socal;
@@ -27,6 +27,7 @@ public class CharacterCardDispaly : MonoBehaviour
     public Image image_special;
     public Image image_special2;
     public Image image_character_info;
+    */
     public Image artwork_back;
     public Image artwork_info;
 
@@ -39,7 +40,7 @@ public class CharacterCardDispaly : MonoBehaviour
     }
     void Start()
     {
-        character_card_name.text = CharCard.character_card_name;
+        /*character_card_name.text = CharCard.character_card_name;
         ad_disadvantages.text = CharCard.ad_disadvantages;
         special.text = CharCard.special;
 
@@ -59,7 +60,7 @@ public class CharacterCardDispaly : MonoBehaviour
         image_special.sprite = CharCard.image_special;
         image_special2.sprite = CharCard.image_special2;
 
-        image_character_info.sprite = CharCard.char_info;
+        image_character_info.sprite = CharCard.char_info;*/
 
         artwork_back.sprite = CharCard.artwork_back;
         artwork_info.sprite = CharCard.artwork_front_info;

@@ -63,7 +63,7 @@ public class MissionCardDisplay : MonoBehaviour
 
         failure_amount_hacker_cread.text = mission_script.failure_amount_hacker_cread.ToString();
         failure_discription.text = mission_script.failure_discription;
-
+        
         artwork_back.sprite = mission_script.artwork_back;
         artwork_front_info.sprite = mission_script.artwork_front_info;
 
@@ -80,6 +80,6 @@ public class MissionCardDisplay : MonoBehaviour
             third_change_hardnum.text = mission_script.third_change_hardnum.ToString();
             task_discription3.text = mission_script.task_discription3;
         }
-
+        
     }
 }

@@ -32,5 +32,46 @@ public class CharCardScript : ScriptableObject
 
     public Sprite image_Avertar;
 
-   
+    public int find_which(string skill_name)
+    {
+        if (skill_name == "Hardware Hacking")
+        {
+            return input_hardware;
+        }
+        else if (skill_name == "Cryptanalysis")
+        {
+            return input_cryptanalysis;
+        }
+        else if (skill_name == "Network Ninja")
+        {
+            return input_network;
+        }
+        else if (skill_name == "Social Engineering" )
+        {
+            return input_socal;
+        }
+        else if (skill_name == "Kitchen Sink")
+        {
+            return input_kitchen;
+        }
+        else if (skill_name == "Software Wizardry")
+        {
+            return input_software;
+        }
+        else
+        {
+            if (skill_name == special)
+            {
+                return input_special;
+            }
+            else if (skill_name == special2)
+            {
+                return input_special2;
+            }
+            else
+            {
+                return 0;
+            }
+        }
+    }
 }

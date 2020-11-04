@@ -29,6 +29,7 @@ public class EntropyCardDisplay : MonoBehaviour
     public Text minus_how_much_cred;
     public Text text_RollVS;
 
+    public Button playEntorypyButton;
     public void setUpdate()
     {
         Start();

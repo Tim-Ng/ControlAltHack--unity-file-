@@ -21,7 +21,6 @@ public class PanelToTrade : MonoBehaviour
     private List<GameObject> opponentBoxCardOBJ = new List<GameObject>();
     private List<Text> NickNameOtherList = new List<Text>();
     private List<bool> otherPlayerAttend = new List<bool>();
-    public MissionCardDeck missionCard;
     
     [SerializeField] private GameObject opponentSkipped1, opponentSkipped2, opponentSkipped3, opponentSkipped4, opponentSkipped5;
     private List<GameObject> otherPlayerSkippedOBJ = new List<GameObject>();
@@ -58,6 +57,8 @@ public class PanelToTrade : MonoBehaviour
     private List<Player> otherPlayerList = new List<Player>();
 
     private int allDoneTrading = 0;
+
+    private bool EveroneDone;
 
     [SerializeField] private rollTime rolltime;
     private RaiseEventOptions AllOtherThanMePeopleOptions = new RaiseEventOptions()
@@ -123,7 +124,8 @@ public class PanelToTrade : MonoBehaviour
             allDoneTrading +=1;
             if (allDoneTrading == PhotonNetwork.CurrentRoom.PlayerCount)
             {
-                
+                EveroneDone = true;
+                rolltime.startRollTurn();
             }
         }
     }
@@ -232,13 +234,7 @@ public class PanelToTrade : MonoBehaviour
                 Debug.Log("Add player to list");
                 if (listPlayer == playerSent)
                 {
-                    foreach (MissionCardScript checkMissionScript in missionCard.getMissionCardDeck())
-                    {
-                        if (checkMissionScript.Mission_code == sentMissionID)
-                        {
-                            opponentScriptList[j] = checkMissionScript;
-                        }
-                    }
+                    opponentScriptList[j] = drawCharCard.getWhichMissionCardScript(sentMissionID);
                     otherPlayerList[j] = playerSent;
                     otherPlayerAttend[j] = AttendOrNot;
                     break;
@@ -282,6 +278,7 @@ public class PanelToTrade : MonoBehaviour
     }
     public void RestTrades()
     {
+        EveroneDone = false;
         for (int i = 0; i < otherPlayerSkippedOBJ.Count; i++)
         {
             otherPlayerSkippedOBJ[i].SetActive(false);
@@ -455,5 +452,17 @@ public class PanelToTrade : MonoBehaviour
     {
         panelTrade.SetActive(false);
         PhotonNetwork.RaiseEvent((byte)PhotonEventCode.doneTrading, null, AllPeople, SendOptions.SendReliable);
+    }
+    public bool getIfIAttend()
+    {
+        return userAttend;
+    }
+    public bool getifOpponentAtted(int which)
+    {
+        return otherPlayerAttend[which];
+    }
+    public bool getEveroneDone()
+    {
+        return EveroneDone;
     }
 }

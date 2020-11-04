@@ -157,4 +157,8 @@ public class MoneyAndPoints : MonoBehaviour
     {
         return MyPoints;
     }
+    public List<byte> getOpponentPoints()
+    {
+        return opponentpointslist;
+    }
 }

@@ -78,4 +78,8 @@ public class popupcardwindowMission : MonoBehaviour
     {
         LOOKONLY = yesNO;
     }
+    public bool getONLYLOOK()
+    {
+        return LOOKONLY;
+    }
 }

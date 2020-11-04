@@ -7,7 +7,6 @@ using Photon.Realtime;
 public class Main_Game_before_start : MonoBehaviourPunCallbacks
 {
     [SerializeField] private GameObject startButtonOBJ=null;
-    [SerializeField] private DrawCharacterCard drawCharacterCard;
     public Text player_username,opponent1_username, opponent2_username, opponent3_username, opponent4_username, opponent5_username,Roomtext;
     private string opponet1Name, opponet2Name, opponet3Name, opponet4Name, opponet5Name;
     public List<string> oppententNameTextInfo = new List<string>();

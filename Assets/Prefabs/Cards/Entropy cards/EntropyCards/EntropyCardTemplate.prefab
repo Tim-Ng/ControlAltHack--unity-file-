@@ -1089,6 +1089,8 @@ MonoBehaviour:
   Failure: {fileID: 3925159871349559249}
   minus_how_much_cred: {fileID: 4918329185162578372}
   text_RollVS: {fileID: 4067467482466701473}
+  popUpMissionCard: {fileID: 0}
+  playEntorypyButton: {fileID: 8460323732878862894}
 --- !u!1 &2637827695486844986
 GameObject:
   m_ObjectHideFlags: 0

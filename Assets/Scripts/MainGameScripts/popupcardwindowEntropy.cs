@@ -10,16 +10,15 @@ public class popupcardwindowEntropy : MonoBehaviour
     public EntropyCardDisplay EntropyDisplayUI;
     private EntropyCardScript pop_input_Entropy;
     public GameObject playCardButtonOBJ;
-    public Button playCardButton;
     private bool canPlay = false;
 
     private void Start()
     {
         PopUpCard.SetActive(true);
     }
-    private void Update()
+    public void setBoolcanPlay(bool YesOrNo)
     {
-        playCardButton.enabled = canPlay;
+        canPlay = YesOrNo;
     }
     public void openEntropyCard(EntropyCardScript input_EntropyCard)
     {
@@ -27,7 +26,7 @@ public class popupcardwindowEntropy : MonoBehaviour
         pop_input_Entropy = input_EntropyCard;
         EntropyDisplayUI.entropyData = pop_input_Entropy;
         EntropyDisplayUI.setUpdate();
-        playCardButtonOBJ.SetActive(true);
+        playCardButtonOBJ.SetActive(canPlay);
         EntropyDisplayUI.InfoSide.SetActive(true);
         EntropyDisplayUI.FrontSide.SetActive(false);
     }

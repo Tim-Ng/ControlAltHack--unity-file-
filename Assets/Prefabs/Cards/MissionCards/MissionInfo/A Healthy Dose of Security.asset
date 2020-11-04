@@ -29,7 +29,7 @@ MonoBehaviour:
   task_discription2: Log enough data so that attempted attacks can be reconstructed.
   hasThirdMission: 1
   third_mission: {fileID: 0}
-  skill_name_3: 'Hardware Hacking '
+  skill_name_3: Hardware Hacking
   third_change_hardnum: 0
   task_discription3: Design hardware failsafes to help make sure that the pump won't
     administer dangerous doses of insulin.

@@ -1,5 +1,6 @@
 ﻿using ExitGames.Client.Photon;
 using Photon.Pun;
+using Photon.Pun.UtilityScripts;
 using Photon.Realtime;
 using System;
 using System.Collections.Generic;
@@ -21,6 +22,8 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
     private int x;
     public GameObject LeaveRoomButton;
 
+    public MissionCardDeck missionCard;
+
     public popupcardwindowChar Popup;
     public GameObject clone_to_delete;
     public GameObject select_button;
@@ -36,15 +39,19 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
     private List<Button> otherAvertarPlayerButton = new List<Button>();
     private int number_of_players, number_of_character_cards;
     [SerializeField] private TMP_InputField numberOfRounds_input = null, numberOfCredAhead_input = null;
+    [SerializeField] private rollTime rollTimeScript;
 
     public static int[] GameProperties = { 0, 0 };
 
     [SerializeField] private DrawMissionCard drawMissionCard;
+
     private int ActorNumberOfStartPlayer; // player that start the turn
     private int NumDoneSelectChar = 0;
 
     private MissionCardScript currentUserMission = null;
 
+    [SerializeField] private PanelToTrade panelToTrade;
+ 
     private RaiseEventOptions AllOtherThanMePeopleOptions = new RaiseEventOptions()
     {
         CachingOption = EventCaching.DoNotCache,
@@ -129,6 +136,10 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
         {
             object[] carddata = (object[])obj.CustomData;
             TurnNumber = (int)carddata[0];
+            if (PhotonNetwork.IsMasterClient)
+            {
+                checkTurn();
+            }
         }
         else if (obj.Code == (byte)PhotonEventCode.CheckAllDoneChar)
         {
@@ -329,18 +340,14 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
             if (nextPlayer.ActorNumber == ActorNumberOfStartPlayer ){
                 TurnNumber += 1;
                 object[] turndata = new object[] { TurnNumber };
-                PhotonNetwork.RaiseEvent((byte)PhotonEventCode.TurnChanged, turndata, AllOtherThanMePeopleOptions, SendOptions.SendReliable);
-                checkTurn();
+                PhotonNetwork.RaiseEvent((byte)PhotonEventCode.TurnChanged, turndata, AllPeople, SendOptions.SendReliable);
             }
             else if (nextPlayer != null)
             {
                 this.PlayerIdToMakeThisTurn = nextPlayer.ActorNumber;
                 object[] dataSelectCard = new object[] { PlayerIdToMakeThisTurn  };
                 PhotonNetwork.RaiseEvent((byte)PhotonEventCode.UpdateTurnPlayer, dataSelectCard, AllOtherThanMePeopleOptions, SendOptions.SendReliable);
-                return;
             }
-            else
-                return;
         }
 
         this.PlayerIdToMakeThisTurn = 0;
@@ -382,7 +389,25 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
         }
         else if (TurnNumber > 1)
         {
-
+            if (PhotonNetwork.IsMasterClient)
+            {
+                int i = 0;
+                byte holdPrePoints = moneyAndPointScripts.getMyPoints();
+                PlayerIdToMakeThisTurn = PhotonNetwork.PlayerList[i].ActorNumber;
+                foreach (byte PlayerPoints in moneyAndPointScripts.getOpponentPoints())
+                {
+                    if (holdPrePoints < PlayerPoints)
+                    {
+                        PlayerIdToMakeThisTurn = PhotonNetwork.PlayerListOthers[i].ActorNumber;
+                    }
+                    i++;
+                }
+                ActorNumberOfStartPlayer = PlayerIdToMakeThisTurn;
+                object[] dataPlayerStart = new object[] { PlayerIdToMakeThisTurn };
+                object[] dataHoldPlayerStart = new object[] { ActorNumberOfStartPlayer };
+                PhotonNetwork.RaiseEvent((byte)PhotonEventCode.UpdateTurnPlayer, dataPlayerStart, AllPeople, SendOptions.SendReliable);
+                PhotonNetwork.RaiseEvent((byte)PhotonEventCode.EventSetPlayerThatStart, dataHoldPlayerStart, AllPeople, SendOptions.SendReliable);
+            }
         }
     }
     // Check the number of players and distribute the number of character cards accordingly 
@@ -416,8 +441,11 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
                 entropyCard.distribute_entropycard(5);
                 drawMissionCard.whoDrawMissionCard(chosed_character_user.character_code);
                 EndTurn();
-            }
-                
+            }  
+        }
+        else if (TurnNumber % 2 == 0 && panelToTrade.getEveroneDone())
+        {
+            rollTimeScript.startRollTurn();
         }
     }
     public CharCardScript getPlayerCharterSet(Player playerInQuestion)
@@ -447,6 +475,26 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
     public MissionCardScript getCurrentMissionScript()
     {
         return currentUserMission;
+    }
+    public MissionCardScript getWhichMissionCardScript(string whichCardId)
+    {
+        foreach (MissionCardScript checkMissionScript in missionCard.getMissionCardDeck())
+        {
+            if (checkMissionScript.Mission_code == whichCardId)
+            {
+                return checkMissionScript;
+            }
+        }
+        Debug.LogError("No card Found");
+        return null;
+    }
+    public CharCardScript getMyCharScript()
+    {
+        return chosed_character_user;
+    }
+    public CharCardScript getWhichOtherCharScript(int which)
+    {
+        return otherPlayerCharacterInfo[which];
     }
     
 }

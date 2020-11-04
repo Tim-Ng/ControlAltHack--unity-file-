@@ -29,7 +29,8 @@ public class rollTime : MonoBehaviour
     private int howManyTask;
     [SerializeField] private Text TaskOneStatus,TaskTwoStatus,TaskThreeStatus;
     [SerializeField] private GameObject TaskThreeStatusOBJ;
-
+    [SerializeField] private GameObject userMissionCardArea;
+    [SerializeField] private popupcardwindowMission popupcardwindowMissionScript;
     private RaiseEventOptions AllOtherThanMePeopleOptions = new RaiseEventOptions()
     {
         CachingOption = EventCaching.DoNotCache,
@@ -59,8 +60,15 @@ public class rollTime : MonoBehaviour
         {
             object[] receiveData = (object[])obj.CustomData;
             rollchancesNumber = (int)receiveData[3];
-            whenOtherPlayerPlay(drawCharacterCard.getWhichMissionCardScript((string)receiveData[0]), (int)receiveData[2]);
-            whichIsCurrentTask(drawCharacterCard.getWhichMissionCardScript((string)receiveData[0]), (string) receiveData[1]);
+            if ((bool)receiveData[4])
+            {
+                whenOtherPlayerPlay(drawCharacterCard.getWhichMissionCardScript((string)receiveData[0]), (int)receiveData[2]);
+                whichIsCurrentTask(drawCharacterCard.getWhichMissionCardScript((string)receiveData[0]), (string)receiveData[1]);
+            }
+            else
+            {
+                whichIsCurrentTask(drawCharacterCard.getWhichMissionCardScript((string)receiveData[0]), (string)receiveData[1]);
+            }
         }
     }
     public void startRollTurn()
@@ -75,7 +83,7 @@ public class rollTime : MonoBehaviour
             rollMissionTime.SetActive(true);
             if (drawCharacterCard.IsMyTurn)
             {
-                if (!panelToTrade.getIfIAttend())
+                if (!panelToTrade.getIfIAttend() || panelToTrade.ifOnlyYouAttend())
                 {
                     rollchancesNumber = 2;
                 }
@@ -84,7 +92,7 @@ public class rollTime : MonoBehaviour
                     rollchancesNumber = 1;
                 }
                 currentMissionCardScript = drawCharacterCard.getCurrentMissionScript();
-                object[] dataRoll = new object[] { currentMissionCardScript.Mission_code , "Task1" , PhotonNetwork.LocalPlayer.ActorNumber,rollchancesNumber };
+                object[] dataRoll = new object[] { currentMissionCardScript.Mission_code , "Task1" , PhotonNetwork.LocalPlayer.ActorNumber,rollchancesNumber, true };
                 PhotonNetwork.RaiseEvent((byte)PhotonEventCode.whoRolling, dataRoll, AllPeople, SendOptions.SendReliable);
             }
         }
@@ -96,8 +104,10 @@ public class rollTime : MonoBehaviour
         TaskTwoStatus.text = "Task 2 : waiting";
         currentMissionCardScript = missionCardScript;
         popupcardwindowEntro.setBoolcanPlay(true);
-        missionCardOBJ.SetActive(true);
+        missionCardOBJ.SetActive(false);
         missionCardOBJ.GetComponent<MissionCardDisplay>().mission_script = currentMissionCardScript;
+        missionCardOBJ.GetComponent<MissionCardDisplay>().setUpdate();
+        missionCardOBJ.SetActive(true);
         if (drawCharacterCard.IsMyTurn)
         {
             currentRollerCharCardScript = drawCharacterCard.getMyCharScript();
@@ -126,7 +136,7 @@ public class rollTime : MonoBehaviour
         ChancesLeft.text = "Reroll chances = " + rollchancesNumber;
         if (taskNum == "Task1")
         {
-            TaskThreeStatus.text = "Task 1 : currently";
+            TaskOneStatus.text = "Task 1 : currently";
             WhichSkill.text = currentMissionCardScript.skill_name_1;
             rollMoreThanTask1 = currentRollerCharCardScript.find_which(currentMissionCardScript.skill_name_1);
             if (rollMoreThanTask1 == 0)
@@ -139,6 +149,7 @@ public class rollTime : MonoBehaviour
         }
         else if (taskNum == "Task2")
         {
+            TaskTwoStatus.text = "Task 1 : currently";
             WhichSkill.text = currentMissionCardScript.skill_name_2;
             rollMoreThanTask2 = currentRollerCharCardScript.find_which(currentMissionCardScript.skill_name_2);
             if (rollMoreThanTask2 == 0)
@@ -151,6 +162,7 @@ public class rollTime : MonoBehaviour
         }
         else if (taskNum == "Task3")
         {
+            TaskThreeStatus.text = "Task 3 : currently";
             WhichSkill.text = currentMissionCardScript.skill_name_3;
             rollMoreThanTask3 = currentRollerCharCardScript.find_which(currentMissionCardScript.skill_name_3);
             if (rollMoreThanTask3 == 0)
@@ -184,6 +196,40 @@ public class rollTime : MonoBehaviour
                     successTask();
                 }
             }
+            else if (whichTaskName == "Task2")
+            {
+                if (x > rollMoreThanTask1)
+                {
+                    TaskTwoStatus.text = "Task 2 : failed";
+                    rollchancesNumber -= 1;
+                    ChancesLeft.text = "Reroll chances = " + rollchancesNumber;
+                    failTask();
+                }
+                else
+                {
+                    TaskTwoStatus.text = "Task 2 : passed";
+                    successTask();
+                }
+            }
+            else if (whichTaskName == "Task3")
+            {
+                if (x > rollMoreThanTask1)
+                {
+                    TaskThreeStatus.text = "Task 3 : failed";
+                    rollchancesNumber -= 1;
+                    ChancesLeft.text = "Reroll chances = " + rollchancesNumber;
+                    failTask();
+                }
+                else
+                {
+                    TaskThreeStatus.text = "Task 3 : passed";
+                    successTask();
+                }
+            }
+            else
+            {
+                Debug.LogError("Problem with task name");
+            }
         }
     }
     public void failTask()
@@ -204,19 +250,37 @@ public class rollTime : MonoBehaviour
     }
     public void successTask()
     {
-        if (howManyTask > 0)
+        if (whichTaskName == "Task1")
         {
-            howManyTask -= 1;
-            object[] dataRoll = new object[] { currentMissionCardScript.Mission_code, "Task2", rollchancesNumber };
+            object[] dataRoll = new object[] { currentMissionCardScript.Mission_code, "Task2", PhotonNetwork.LocalPlayer.ActorNumber, rollchancesNumber, false };
+            PhotonNetwork.RaiseEvent((byte)PhotonEventCode.whoRolling, dataRoll, AllPeople, SendOptions.SendReliable);
         }
-        else
+        else if (whichTaskName == "Task2" )
+        {
+            object[] dataRoll = new object[] { currentMissionCardScript.Mission_code, "Task3", PhotonNetwork.LocalPlayer.ActorNumber, rollchancesNumber, false };
+            PhotonNetwork.RaiseEvent((byte)PhotonEventCode.whoRolling, dataRoll, AllPeople, SendOptions.SendReliable);
+        }
+        howManyTask -= 1;
+        if (howManyTask == 0)
         {
             successTaskItems();
         }
     }
     public void successTaskItems()
     {
-        moneyAndPoints.addMyMoney(currentMissionCardScript.success_amount_hacker_cread);
+        moneyAndPoints.addPoints((byte)currentMissionCardScript.success_amount_hacker_cread);
         drawCharacterCard.EndTurn();
+    }
+    public void restRollTime()
+    {
+        rollMissionTime.SetActive(false);
+        panelToTrade.RestTrades();
+        popupcardwindowMissionScript.setONLYLOOK(false);
+        popupcardwindowMissionScript.setcardselectedFalse();
+        panelToTrade.restAttendance();
+        foreach (Transform child in userMissionCardArea.transform)
+        {
+            GameObject.Destroy(child.gameObject);
+        }
     }
 }

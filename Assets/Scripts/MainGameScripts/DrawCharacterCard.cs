@@ -140,6 +140,10 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
             {
                 checkTurn();
             }
+            if (TurnNumber > 1 && TurnNumber % 2 != 0)
+            {
+                rollTimeScript.restRollTime();
+            }
         }
         else if (obj.Code == (byte)PhotonEventCode.CheckAllDoneChar)
         {
@@ -389,25 +393,22 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
         }
         else if (TurnNumber > 1)
         {
-            if (PhotonNetwork.IsMasterClient)
+            int i = 0;
+            byte holdPrePoints = moneyAndPointScripts.getMyPoints();
+            PlayerIdToMakeThisTurn = PhotonNetwork.PlayerList[i].ActorNumber;
+            foreach (byte PlayerPoints in moneyAndPointScripts.getOpponentPoints())
             {
-                int i = 0;
-                byte holdPrePoints = moneyAndPointScripts.getMyPoints();
-                PlayerIdToMakeThisTurn = PhotonNetwork.PlayerList[i].ActorNumber;
-                foreach (byte PlayerPoints in moneyAndPointScripts.getOpponentPoints())
+                if (holdPrePoints < PlayerPoints)
                 {
-                    if (holdPrePoints < PlayerPoints)
-                    {
-                        PlayerIdToMakeThisTurn = PhotonNetwork.PlayerListOthers[i].ActorNumber;
-                    }
-                    i++;
+                    PlayerIdToMakeThisTurn = PhotonNetwork.PlayerListOthers[i].ActorNumber;
                 }
-                ActorNumberOfStartPlayer = PlayerIdToMakeThisTurn;
-                object[] dataPlayerStart = new object[] { PlayerIdToMakeThisTurn };
-                object[] dataHoldPlayerStart = new object[] { ActorNumberOfStartPlayer };
-                PhotonNetwork.RaiseEvent((byte)PhotonEventCode.UpdateTurnPlayer, dataPlayerStart, AllPeople, SendOptions.SendReliable);
-                PhotonNetwork.RaiseEvent((byte)PhotonEventCode.EventSetPlayerThatStart, dataHoldPlayerStart, AllPeople, SendOptions.SendReliable);
+                i++;
             }
+            ActorNumberOfStartPlayer = PlayerIdToMakeThisTurn;
+            object[] dataPlayerStart = new object[] { PlayerIdToMakeThisTurn };
+            object[] dataHoldPlayerStart = new object[] { ActorNumberOfStartPlayer };
+            PhotonNetwork.RaiseEvent((byte)PhotonEventCode.UpdateTurnPlayer, dataPlayerStart, AllPeople, SendOptions.SendReliable);
+            PhotonNetwork.RaiseEvent((byte)PhotonEventCode.EventSetPlayerThatStart, dataHoldPlayerStart, AllPeople, SendOptions.SendReliable);
         }
     }
     // Check the number of players and distribute the number of character cards accordingly 
@@ -433,12 +434,15 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
             Drawcard(number_of_character_cards);
             EndTurn();
         }
-        else if ((TurnNumber == 1) && IsMyTurn)
+        else if ((TurnNumber % 2 != 0) && IsMyTurn)
         {
             if (NumDoneSelectChar == PhotonNetwork.CurrentRoom.PlayerCount)
             {
                 Debug.Log("Entropy Draw");
-                entropyCard.distribute_entropycard(5);
+                if (TurnNumber == 1)
+                {
+                    entropyCard.distribute_entropycard(5);
+                }
                 drawMissionCard.whoDrawMissionCard(chosed_character_user.character_code);
                 EndTurn();
             }  

@@ -74,6 +74,10 @@ public class popupcardwindowMission : MonoBehaviour
         selectMissionCard.SetActive(false);
         cardselected = true;
     }
+    public void setcardselectedFalse()
+    {
+        cardselected = false;
+    }
     public void setONLYLOOK(bool yesNO)
     {
         LOOKONLY = yesNO;

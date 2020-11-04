@@ -218,6 +218,7 @@ public class PanelToTrade : MonoBehaviour
         popupcardwindowMissionScript.setONLYLOOK(true);
         popupcardwindowMissionScript.closePopup();
         sendEveryOneDone(false);
+
     }
     public void sendEveryOneDone(bool AttendOrNot)
     {
@@ -256,7 +257,7 @@ public class PanelToTrade : MonoBehaviour
         }
         else
         {
-            panelTrade.SetActive(false);
+            clickDoneTrading();
         }
         userBoxOBJ.SetActive(true);
         userBoxCardOBJ.GetComponent<MissionCardDisplay>().mission_script = userScript;
@@ -302,6 +303,16 @@ public class PanelToTrade : MonoBehaviour
         for (int i = 0; i < confirmTradeButtonList.Count; i++)
         {
             confirmTradeButtonList[i].interactable = false;
+        }
+    }
+    public void restAttendance()
+    {
+        everyoneIsDone = 0;
+        allDoneTrading = 0;
+        userAttend = false;
+        for (int i = 0; i < otherPlayerAttend.Count; i++)
+        {
+            otherPlayerAttend[i] = false;
         }
     }
     public void clickOnToTrade(int WhichClick)
@@ -464,5 +475,14 @@ public class PanelToTrade : MonoBehaviour
     public bool getEveroneDone()
     {
         return EveroneDone;
+    }
+    public bool ifOnlyYouAttend()
+    {
+        bool onlyHim = userAttend;
+        foreach (bool otherUserAttend in otherPlayerAttend) 
+        {
+            onlyHim = onlyHim && (!otherUserAttend);
+        }
+        return onlyHim;
     }
 }

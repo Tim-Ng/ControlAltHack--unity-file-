@@ -14,7 +14,7 @@ public class PanelToTrade : MonoBehaviour
     public Text opponent1Nick, opponent2Nick, opponent3Nick, opponent4Nick, opponent5Nick;
     [SerializeField] private GameObject userBoxOBJ,opponent1BoxOBJ, opponent2BoxOBJ, opponent3BoxOBJ, opponent4BoxOBJ, opponent5BoxOBJ;
     [SerializeField] private GameObject userBoxCardOBJ,opponent1BoxCardOBJ, opponent2BoxCardOBJ, opponent3BoxCardOBJ, opponent4BoxCardOBJ, opponent5BoxCardOBJ;
-    private bool opponentAttend1=false, opponentAttend2 = false, opponentAttend3 = false, opponentAttend4 = false, opponentAttend5 = false;
+    private bool userAttend=false,opponentAttend1=false, opponentAttend2 = false, opponentAttend3 = false, opponentAttend4 = false, opponentAttend5 = false;
     private MissionCardScript userScript,oppenentScript1, oppenentScript2, oppenentScript3, oppenentScript4, oppenentScript5;
     private List<MissionCardScript> opponentScriptList = new List<MissionCardScript>();
     private List<GameObject> opponentBoxOBJ = new List<GameObject>();
@@ -204,6 +204,7 @@ public class PanelToTrade : MonoBehaviour
     public void clickOnAttend()
     {
         RestTrades();
+        userAttend = true;
         popupcardwindowMissionScript.setONLYLOOK(true);
         popupcardwindowMissionScript.closePopup();
         sendEveryOneDone(true);
@@ -211,6 +212,7 @@ public class PanelToTrade : MonoBehaviour
     public void clickOnNotAttend()
     {
         RestTrades();
+        userAttend = false;
         popupcardwindowMissionScript.setONLYLOOK(true);
         popupcardwindowMissionScript.closePopup();
         sendEveryOneDone(false);
@@ -252,7 +254,14 @@ public class PanelToTrade : MonoBehaviour
     }
     public void setDataBoxes()
     {
-        panelTrade.SetActive(true);
+        if (userAttend)
+        {
+            panelTrade.SetActive(true);
+        }
+        else
+        {
+            panelTrade.SetActive(false);
+        }
         userBoxOBJ.SetActive(true);
         userBoxCardOBJ.GetComponent<MissionCardDisplay>().mission_script = userScript;
         for (int k = 0; k < PhotonNetwork.CurrentRoom.PlayerCount -1  ; k++)

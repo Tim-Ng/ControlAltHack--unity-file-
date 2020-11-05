@@ -53,7 +53,6 @@ public class PanelToTrade : MonoBehaviour
 
     [SerializeField] private GameObject missionCardArea;
 
-    private Player opponent1player, opponent2player, opponent3player, opponent4player, opponent5player;
     private List<Player> otherPlayerList = new List<Player>();
 
     private int allDoneTrading = 0;
@@ -131,11 +130,6 @@ public class PanelToTrade : MonoBehaviour
     }
     private void Start()
     {
-        otherPlayerList.Add(opponent1player);
-        otherPlayerList.Add(opponent2player);
-        otherPlayerList.Add(opponent3player);
-        otherPlayerList.Add(opponent4player);
-        otherPlayerList.Add(opponent5player);
         bribeOpponentList.Add(bribeOpponent1);
         bribeOpponentList.Add(bribeOpponent2);
         bribeOpponentList.Add(bribeOpponent3);
@@ -218,7 +212,6 @@ public class PanelToTrade : MonoBehaviour
         popupcardwindowMissionScript.setONLYLOOK(true);
         popupcardwindowMissionScript.closePopup();
         sendEveryOneDone(false);
-
     }
     public void sendEveryOneDone(bool AttendOrNot)
     {
@@ -229,6 +222,7 @@ public class PanelToTrade : MonoBehaviour
     public void oneDone(string sentMissionID, bool AttendOrNot,Player playerSent)
     {
         int j = 0;
+        otherPlayerList = main_Game_Before_Start.getPlayerList();
         if (playerSent != PhotonNetwork.LocalPlayer) {
             foreach (Player listPlayer in PhotonNetwork.PlayerListOthers)
             {
@@ -275,44 +269,6 @@ public class PanelToTrade : MonoBehaviour
             {
                 otherPlayerSkippedOBJ[k].SetActive(true);
             }
-        }
-    }
-    public void RestTrades()
-    {
-        EveroneDone = false;
-        for (int i = 0; i < otherPlayerSkippedOBJ.Count; i++)
-        {
-            otherPlayerSkippedOBJ[i].SetActive(false);
-        }
-        for (int i = 0; i < opponentBoxOBJ.Count; i++)
-        {
-            opponentBoxOBJ[i].SetActive(false);
-        }
-        for (int i = 0; i < bribeOpponentList.Count; i++)
-        {
-            bribeOpponentList[i].text = "0";
-        }
-        for (int i = 0; i < amountWantedToBribeList.Count; i++)
-        {
-            amountWantedToBribeList[i] = 0;
-        }
-        for (int i = 0; i < delineTradeButtonList.Count;i++)
-        {
-            delineTradeButtonList[i].interactable = false;
-        }
-        for (int i = 0; i < confirmTradeButtonList.Count; i++)
-        {
-            confirmTradeButtonList[i].interactable = false;
-        }
-    }
-    public void restAttendance()
-    {
-        everyoneIsDone = 0;
-        allDoneTrading = 0;
-        userAttend = false;
-        for (int i = 0; i < otherPlayerAttend.Count; i++)
-        {
-            otherPlayerAttend[i] = false;
         }
     }
     public void clickOnToTrade(int WhichClick)
@@ -484,5 +440,44 @@ public class PanelToTrade : MonoBehaviour
             onlyHim = onlyHim && (!otherUserAttend);
         }
         return onlyHim;
+    }
+    public void restAttendance()
+    {
+        RestTrades();
+        everyoneIsDone = 0;
+        allDoneTrading = 0;
+        userAttend = false;
+        for (int i = 0; i < otherPlayerAttend.Count; i++)
+        {
+            otherPlayerAttend[i] = false;
+        }
+    }
+    public void RestTrades()
+    {
+        EveroneDone = false;
+        for (int i = 0; i < otherPlayerSkippedOBJ.Count; i++)
+        {
+            otherPlayerSkippedOBJ[i].SetActive(false);
+        }
+        for (int i = 0; i < opponentBoxOBJ.Count; i++)
+        {
+            opponentBoxOBJ[i].SetActive(false);
+        }
+        for (int i = 0; i < bribeOpponentList.Count; i++)
+        {
+            bribeOpponentList[i].text = "0";
+        }
+        for (int i = 0; i < amountWantedToBribeList.Count; i++)
+        {
+            amountWantedToBribeList[i] = 0;
+        }
+        for (int i = 0; i < delineTradeButtonList.Count; i++)
+        {
+            delineTradeButtonList[i].interactable = false;
+        }
+        for (int i = 0; i < confirmTradeButtonList.Count; i++)
+        {
+            confirmTradeButtonList[i].interactable = false;
+        }
     }
 }

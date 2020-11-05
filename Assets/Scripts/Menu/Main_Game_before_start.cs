@@ -3,20 +3,44 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Photon.Realtime;
+using UnityEditor;
 
 public class Main_Game_before_start : MonoBehaviourPunCallbacks
 {
-    [SerializeField] private GameObject startButtonOBJ=null;
-    public Text player_username,opponent1_username, opponent2_username, opponent3_username, opponent4_username, opponent5_username,Roomtext;
+    [SerializeField] private GameObject startButtonOBJ = null;
+    public Text player_username, opponent1_username, opponent2_username, opponent3_username, opponent4_username, opponent5_username, Roomtext;
     private string opponet1Name, opponet2Name, opponet3Name, opponet4Name, opponet5Name;
     public List<string> oppententNameTextInfo = new List<string>();
     public Text amount_of_people;
     private int minmum_amount_of_people = 2;  // minimum amount of players
-    public Button Start_Button,Leave_Button;
-    List<Text> textOtherPlayers = new List<Text> ();
+    public Button Start_Button, Leave_Button;
+    List<Text> textOtherPlayers = new List<Text>();
     private PhotonView pv;
+
+    private Player opponent1player, opponent2player, opponent3player, opponent4player, opponent5player;
+    private List<int> otherPlayerListHoldAfterGame = new List<int>();
+    private List<Player> otherPlayerList = new List<Player>();
+
+    private bool isYouAreDeadBool;
+    public List<int> getotherPlayerListHoldAfterGame
+    {
+        get { return otherPlayerListHoldAfterGame; }
+    }
+    public bool ifYouAreDead
+    {
+        get { return isYouAreDeadBool;  }
+        set { isYouAreDeadBool = value; }
+    }
+
+    [SerializeField] private DrawCharacterCard drawCharacterCard;
     private void Start()
     {
+        ifYouAreDead = false;
+        otherPlayerList.Add(opponent1player);
+        otherPlayerList.Add(opponent2player);
+        otherPlayerList.Add(opponent3player);
+        otherPlayerList.Add(opponent4player);
+        otherPlayerList.Add(opponent5player);
         oppententNameTextInfo.Add(opponet1Name);
         oppententNameTextInfo.Add(opponet2Name);
         oppententNameTextInfo.Add(opponet3Name);
@@ -39,39 +63,76 @@ public class Main_Game_before_start : MonoBehaviourPunCallbacks
     {
         if (PhotonNetwork.IsMasterClient)
         {
-            startButtonOBJ.SetActive(true);
-            Start_Button.interactable = false;
+            if (!drawCharacterCard.getGameHasStart)
+            {
+                startButtonOBJ.SetActive(true);
+                Start_Button.interactable = false;
+            }
         }
     }
     [PunRPC]
     public void UpdateName()
     {
         allow_Master_client(); // check if master client changed
-        int i = 0;
-        for (int j = 0; j < textOtherPlayers.Count; j++)
+        if (!drawCharacterCard.getGameHasStart)
         {
-            textOtherPlayers[j].text = "Waiting for Player ";
+            for (int j = 0; j < textOtherPlayers.Count; j++)
+            {
+                textOtherPlayers[j].text = "Waiting for Player ";
+            }
+            int i = 0;
+            Debug.Log("A player entered in put name and recount of people");
+            foreach (Player otherplayer in PhotonNetwork.PlayerListOthers)
+            {
+                otherPlayerList[i] = otherplayer;
+                oppententNameTextInfo[i] = otherplayer.NickName;
+                textOtherPlayers[i].text = oppententNameTextInfo[i];
+                i++;
+            }
+            Start_Button.interactable = !(PhotonNetwork.CurrentRoom.PlayerCount < minmum_amount_of_people);
+            amount_of_people.text = (PhotonNetwork.CurrentRoom.PlayerCount).ToString() + "/6";
         }
-        Debug.Log("A player entered in put name and recount of people");
-        foreach (Player otherplayer in PhotonNetwork.PlayerListOthers)
-        {
-            oppententNameTextInfo[i] = otherplayer.NickName;
-            textOtherPlayers[i].text = oppententNameTextInfo[i];
-            i++;
-        }
-        Start_Button.interactable = !(PhotonNetwork.CurrentRoom.PlayerCount<minmum_amount_of_people);
-        amount_of_people.text = (PhotonNetwork.CurrentRoom.PlayerCount).ToString() + "/6";
     }
-    public override void OnPlayerLeftRoom(Player otherPlayer)
+    public override void OnPlayerLeftRoom(Player LeavingPlayer)
     {
-        if (otherPlayer.IsMasterClient)
+        if (LeavingPlayer.IsMasterClient)
         {
+            drawCharacterCard.setWinnerList();
             PhotonNetwork.SetMasterClient(PhotonNetwork.PlayerList[0]);
-            Debug.Log("Host named " + otherPlayer.NickName + " has left the room");
+            Debug.Log("Host named " + LeavingPlayer.NickName + " has left the room");
             Debug.Log("Host is changed to player named " + PhotonNetwork.PlayerList[0].NickName);
         }
-        Debug.Log(otherPlayer.NickName + " has left room");
-        UpdateName();
+        if (drawCharacterCard.getGameHasStart)
+        {
+            if (drawCharacterCard.PlayerIdToMakeThisTurn == LeavingPlayer.ActorNumber)
+            {
+                drawCharacterCard.EndTurn();
+            }
+            if (drawCharacterCard.getActorNumberOfStartPlayer == LeavingPlayer.ActorNumber)
+            {
+                drawCharacterCard.handOverToNextPlayerIfPlayerIsStartAndLeft(LeavingPlayer);
+            }
+            otherPlayerList.Remove(LeavingPlayer);
+            int i = 0;
+            foreach (int otherplayer in otherPlayerListHoldAfterGame)
+            {
+                if (otherplayer == LeavingPlayer.ActorNumber)
+                {
+                    textOtherPlayers[i].text = "Player Has Left";
+                    i++;
+                }
+            }
+            if (PhotonNetwork.CurrentRoom.PlayerCount ==1 )
+            {
+                drawCharacterCard.sendAllSomeoneWin();
+            }
+        }
+        else
+        {
+            UpdateName();
+        }
+        Debug.Log(LeavingPlayer.NickName + " has left room");
+        
     }
     public override void OnLeftRoom()
     {
@@ -111,5 +172,74 @@ public class Main_Game_before_start : MonoBehaviourPunCallbacks
         }
         Debug.LogError("Can't Find Player");
         return null;
+    }
+    public Player FindPlayersWhoHadPlayed(int ActorId)
+    {
+        List<Player> tempAllPlayers = new List<Player>();
+        tempAllPlayers.Add(PhotonNetwork.LocalPlayer);
+        foreach (Player inputPlayer in otherPlayerList)
+        {
+            tempAllPlayers.Add(inputPlayer);
+        }
+        foreach (Player Checkplayer in tempAllPlayers)
+        {
+            if (Checkplayer.ActorNumber == ActorId)
+            {
+                return Checkplayer;
+            }
+        }
+        Debug.LogError("Can't Find Player");
+        return null;
+    }
+    public int positionOfHadPlayed(Player whichPlayer)
+    {
+        int i = 0;
+        foreach (Player Checkplayer in otherPlayerList)
+        {
+            if (Checkplayer == whichPlayer)
+            {
+                break;
+            }
+            i++;
+        }
+        return i;
+    }
+    public string getNickNameOfHadPlayed(int Position)
+    {
+        return oppententNameTextInfo[positionOfHadPlayed(FindPlayersWhoHadPlayed(Position))];
+    }
+    public void removeThisPlayerFromList(Player whichPlayer)
+    {
+        otherPlayerList.Remove(whichPlayer);
+    }
+    public List<Player> getPlayerList()
+    {
+        List<Player> tempList = new List<Player>();
+        foreach (Player chackPlayer in otherPlayerList)
+        {
+            if (chackPlayer != null)
+            {
+                tempList.Add(chackPlayer);
+            }
+        }
+        return otherPlayerList;
+    }
+    public void setHoldPlayerListAfterStartGame()
+    {
+        otherPlayerListHoldAfterGame.Clear();
+        foreach (Player ActorPlayer in PhotonNetwork.PlayerListOthers)
+        {
+            otherPlayerListHoldAfterGame.Add( ActorPlayer.ActorNumber);
+        }
+    }
+    public void ResetMainGameBeforeStart()
+    {
+        Start();
+        int i = 0;
+        foreach (Player otherplayer in PhotonNetwork.PlayerListOthers)
+        {
+            otherPlayerList[i] = otherplayer;
+            i++;
+        }
     }
 }

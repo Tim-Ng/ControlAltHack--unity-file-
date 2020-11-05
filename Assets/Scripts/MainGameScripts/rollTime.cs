@@ -45,6 +45,7 @@ public class rollTime : MonoBehaviour
     {
         whoRolling = 15,
         rolledNumber = 16,
+        gettingFired = 19,
     }
     private void OnEnable()
     {
@@ -69,6 +70,18 @@ public class rollTime : MonoBehaviour
             {
                 whichIsCurrentTask(drawCharacterCard.getWhichMissionCardScript((string)receiveData[0]), (string)receiveData[1]);
             }
+        }
+        else if (obj.Code == (byte)PhotonEventCode.rolledNumber)
+        {
+            object[] rollData = (object[])obj.CustomData;
+            int rolledNumber = (int)rollData[0];
+            DiceNumber.text = rolledNumber.ToString();
+        }
+        else if (obj.Code == (byte)PhotonEventCode.gettingFired)
+        {
+            object[] firedPlayerData = (object[])obj.CustomData;
+            Player firedPlayer = main_Game_Before_Start.FindPlayerUsingActorId((int)(firedPlayerData[0]));
+            fireThisPlayer(firedPlayer);
         }
     }
     public void startRollTurn()
@@ -181,6 +194,8 @@ public class rollTime : MonoBehaviour
             System.Random rand = new System.Random((int)DateTime.Now.Ticks);
             int x = rand.Next(0, 18);
             DiceNumber.text = x.ToString();
+            object[] dataDice = new object[] { x };
+            PhotonNetwork.RaiseEvent((byte)PhotonEventCode.rolledNumber, dataDice, AllOtherThanMePeopleOptions, SendOptions.SendReliable);
             if (whichTaskName == "Task1")
             {
                 if (x > rollMoreThanTask1)
@@ -231,6 +246,11 @@ public class rollTime : MonoBehaviour
                 Debug.LogError("Problem with task name");
             }
         }
+        else
+        {
+            Debug.LogError("No turn but button still can click");
+            drawCharacterCard.EndTurn();
+        }
     }
     public void failTask()
     {
@@ -240,13 +260,23 @@ public class rollTime : MonoBehaviour
         }
         else if (rollchancesNumber == 0)
         {
-            drawCharacterCard.EndTurn();
             failTaskItems();
         }
     }
     public void failTaskItems()
     {
-        moneyAndPoints.addPoints((byte)currentMissionCardScript.failure_amount_hacker_cread);
+        if (moneyAndPoints.getMyPoints() < currentMissionCardScript.failure_amount_hacker_cread)
+        {
+            Debug.Log("You are Fired set points");
+            moneyAndPoints.zeroPoints();
+            object[] dataRoll = new object[] { PhotonNetwork.LocalPlayer.ActorNumber };
+            PhotonNetwork.RaiseEvent((byte)PhotonEventCode.gettingFired, dataRoll, AllPeople, SendOptions.SendReliable);
+        }
+        else
+        {
+            moneyAndPoints.addPoints((byte)currentMissionCardScript.failure_amount_hacker_cread);
+        }
+        drawCharacterCard.EndTurn();
     }
     public void successTask()
     {
@@ -282,5 +312,18 @@ public class rollTime : MonoBehaviour
         {
             GameObject.Destroy(child.gameObject);
         }
+    }
+    public void fireThisPlayer(Player thisPlayer)
+    {
+        if (!(thisPlayer == PhotonNetwork.LocalPlayer))
+        {
+            main_Game_Before_Start.removeThisPlayerFromList(thisPlayer);
+        }
+        else
+        {
+            main_Game_Before_Start.ifYouAreDead = true;
+            drawCharacterCard.setWinnerList();
+        }
+        drawCharacterCard.EndTurn();
     }
 }

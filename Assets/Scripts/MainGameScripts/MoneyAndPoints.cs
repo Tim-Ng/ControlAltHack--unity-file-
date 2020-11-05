@@ -5,6 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Windows.Speech;
 
 public class MoneyAndPoints : MonoBehaviour
 {
@@ -27,6 +28,8 @@ public class MoneyAndPoints : MonoBehaviour
     [SerializeField]public Text MyMoneyOBJ, opponent1MoneyOBJ, opponent2MoneyOBJ, opponent3MoneyOBJ, opponent4MoneyOBJ, opponent5MoneyOBJ;
     private List<int> opponentpointsMoneylist = new List<int>();
     private List<Text> opponentpointsMoneylistOBJ = new List<Text>();
+
+    [SerializeField] private DrawCharacterCard drawCharacterCard;
 
     private RaiseEventOptions AllOtherThanMePeopleOptions = new RaiseEventOptions()
     {
@@ -83,7 +86,7 @@ public class MoneyAndPoints : MonoBehaviour
         if (obj.Code == (byte)PhotonEventCode.receiverPoints)
         {
             object[] pointdata = (object[])obj.CustomData;
-            int senderPoints = (byte)pointdata[0];
+            byte senderPoints = (byte)pointdata[0];
             Player senderPlayer = (Player)pointdata[1];
             int i = 0;
             foreach(Player checkPlayer in PhotonNetwork.PlayerListOthers)
@@ -96,6 +99,11 @@ public class MoneyAndPoints : MonoBehaviour
                 }
                 i++;
             }
+            if (PhotonNetwork.IsMasterClient)
+            {
+                drawCharacterCard.updatePointsToChecker(senderPoints, senderPlayer);
+            }
+           
         }
 
         else if (obj.Code == (byte)PhotonEventCode.receiverMoney)
@@ -160,5 +168,53 @@ public class MoneyAndPoints : MonoBehaviour
     public List<byte> getOpponentPoints()
     {
         return opponentpointslist;
+    }
+    public byte getOpponentPointsWithPlayer(Player whichPlayer)
+    {
+        int i = 0;
+        foreach (Player checkPlayer in PhotonNetwork.PlayerListOthers)
+        {
+            if (checkPlayer == whichPlayer)
+            {
+                break;
+            }
+            i++;
+        }
+        return opponentpointslist[i];
+    }
+    public void aPlayerLeft(Player playThatLeft)
+    {
+        int  i = 0;
+        foreach (Player checkIfLeft in PhotonNetwork.PlayerListOthers)
+        {
+            if (checkIfLeft == playThatLeft)
+            {
+                opponentpointslist[i] = 0;
+                opponentpointsMoneylist[i] = 0;
+                opponentpointslistOBJ[i].text = opponentpointslist[i].ToString();
+                opponentpointsMoneylistOBJ[i].text = opponentpointsMoneylist[i].ToString();
+            }
+            i++;
+        }
+    }
+    public void resetMoneyAndPoints()
+    {
+        MyPoints = 0;
+        for (int i = 0; i < opponentpointslist.Count; i++)
+        {
+            opponentpointslist[i] = 0;
+            opponentpointslistOBJ[i].text= opponentpointslist[i].ToString();
+        }
+        MyMoney = 0;
+        for (int i = 0; i < opponentpointsMoneylist.Count; i++)
+        {
+            opponentpointsMoneylist[i] = 0;
+            opponentpointsMoneylistOBJ[i].text = opponentpointsMoneylist[i].ToString();
+        }
+    }
+    public void zeroPoints()
+    {
+        MyPoints = 0;
+        sendAllMyCurrentPoint();
     }
 }

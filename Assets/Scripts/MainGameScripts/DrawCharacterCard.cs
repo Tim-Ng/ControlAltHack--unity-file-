@@ -9,7 +9,6 @@ using System.Threading;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using WebSocketSharp;
 
 public class DrawCharacterCard : MonoBehaviourPunCallbacks
 
@@ -17,7 +16,7 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
     [SerializeField] private MoneyAndPoints moneyAndPointScripts;
     public GameObject PlayerArea;
     public GameObject cardTemplate;
-    [SerializeField] private CharacterCardDeck cardDeck=null;
+    [SerializeField] private CharacterCardDeck cardDeck = null;
     public GameObject StartGameButtonOBJ;
     private int x;
     public GameObject LeaveRoomButton;
@@ -41,9 +40,32 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
     [SerializeField] private TMP_InputField numberOfRounds_input = null, numberOfCredAhead_input = null;
     [SerializeField] private rollTime rollTimeScript;
 
+    private List<Player> whichPlayerLeading = new List<Player>();
+    private List<byte> AllPlayerPoint = new List<byte>();
     public static int[] GameProperties = { 0, 0 };
 
     [SerializeField] private DrawMissionCard drawMissionCard;
+
+    [SerializeField] private Main_Game_before_start main_Game_Before_Start;
+    public int getActorNumberOfStartPlayer
+    {
+        get{ return ActorNumberOfStartPlayer; }
+    }
+
+
+    private bool gameHasStart = false;
+    public bool getGameHasStart
+    {
+        get
+        {
+            return gameHasStart;
+        }
+    }
+
+    [SerializeField] private GameObject gameWinArea;
+    [SerializeField] private GameObject firstPlaceOBJ, sendPlaceOBJ, thirdPlaceOBJ;
+    [SerializeField] private Image AverPlace1, AverPlace2, AverPlace3;
+    [SerializeField] private Text Nickwin1, Nickwin2, Nickwin3;
 
     private int ActorNumberOfStartPlayer; // player that start the turn
     private int NumDoneSelectChar = 0;
@@ -71,6 +93,7 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
         EventSetPlayerThatStart=4,
         TurnChanged =5,
         CheckAllDoneChar=6,
+        winnnerDone = 18,
     }
 
     public int TurnNumber = 0;
@@ -108,6 +131,8 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
     {
         if (obj.Code == (byte)PhotonEventCode.LeaveButton)
         {
+            main_Game_Before_Start.setHoldPlayerListAfterStartGame();
+            gameHasStart = true;
             noleave();
             closeStartContentGame();
         }
@@ -151,6 +176,11 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
             NumDoneSelectChar += 1;
             Debug.Log(NumDoneSelectChar + "and round is " +TurnNumber + " number of people on room " + PhotonNetwork.CurrentRoom.PlayerCount);
             checkWhichFunctionToRun();
+        }
+        else if (obj.Code == (byte)PhotonEventCode.winnnerDone)
+        {
+            object[] whowin = (object[])obj.CustomData;
+            gameEndDisplayWin((int)whowin[0], (int)whowin[1], (int)whowin[2]);
         }
     }
     private void putCharCardsInList()
@@ -202,6 +232,7 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
             else
                 GameProperties[1] = 0;
         }
+        setWinnerList();
         PhotonNetwork.CurrentRoom.IsVisible = false;
         PhotonNetwork.CurrentRoom.IsOpen = false;
         Debug.Log("Send to all draw character");
@@ -328,7 +359,6 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
     {
         get
         {
-
             Player opp = PhotonNetwork.LocalPlayer.GetNext();
             //Debug.Log("you: " + this.LocalPlayer.ToString() + " other: " + opp.ToString());
             return opp;
@@ -349,12 +379,32 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
             else if (nextPlayer != null)
             {
                 this.PlayerIdToMakeThisTurn = nextPlayer.ActorNumber;
-                object[] dataSelectCard = new object[] { PlayerIdToMakeThisTurn  };
+                object[] dataSelectCard = new object[] { PlayerIdToMakeThisTurn };
                 PhotonNetwork.RaiseEvent((byte)PhotonEventCode.UpdateTurnPlayer, dataSelectCard, AllOtherThanMePeopleOptions, SendOptions.SendReliable);
             }
         }
-
-        this.PlayerIdToMakeThisTurn = 0;
+    }
+    public void handOverToNextPlayerIfPlayerIsStartAndLeft(Player playerInQuestion)
+    {
+        int i = 0;
+        foreach (Player PlayerCheck in main_Game_Before_Start.getPlayerList())
+        {
+            if (PlayerCheck == playerInQuestion)
+            {
+                break;
+            }
+            i++;
+        }
+        if (i == (main_Game_Before_Start.getotherPlayerListHoldAfterGame.Count - 1))
+        {
+            ActorNumberOfStartPlayer = PhotonNetwork.MasterClient.ActorNumber;
+        }
+        else
+        {
+            ActorNumberOfStartPlayer = main_Game_Before_Start.getotherPlayerListHoldAfterGame[i + 1];
+        }
+        object[] dataHoldPlayerStart = new object[] { ActorNumberOfStartPlayer };
+        PhotonNetwork.RaiseEvent((byte)PhotonEventCode.EventSetPlayerThatStart, dataHoldPlayerStart, AllPeople, SendOptions.SendReliable);
     }
     public void EndTurn()
     {
@@ -380,7 +430,7 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
     }
     public void checkTurn()
     {
-        if (TurnNumber == 0 || TurnNumber == 1)
+        if (TurnNumber == 0 || TurnNumber == 1 || TurnNumber == 2)
         {
             Debug.Log("Checking turn");
             // when the game first start the player will be set to the master 
@@ -391,24 +441,53 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
             PhotonNetwork.RaiseEvent((byte)PhotonEventCode.UpdateTurnPlayer, dataPlayerStart, AllPeople, SendOptions.SendReliable);
             PhotonNetwork.RaiseEvent((byte)PhotonEventCode.EventSetPlayerThatStart, dataHoldPlayerStart, AllPeople, SendOptions.SendReliable);
         }
-        else if (TurnNumber > 1)
+        else if (TurnNumber > 2 )
         {
-            int i = 0;
-            byte holdPrePoints = moneyAndPointScripts.getMyPoints();
-            PlayerIdToMakeThisTurn = PhotonNetwork.PlayerList[i].ActorNumber;
-            foreach (byte PlayerPoints in moneyAndPointScripts.getOpponentPoints())
+            for (int whichPlaceInList = 0; whichPlaceInList <= whichPlayerLeading.Count -2; whichPlaceInList++)
             {
-                if (holdPrePoints < PlayerPoints)
+                for (int i = whichPlaceInList; i <= AllPlayerPoint.Count - 2; i++)
                 {
-                    PlayerIdToMakeThisTurn = PhotonNetwork.PlayerListOthers[i].ActorNumber;
+                    Player holdPlayer;
+                    byte holdPoints;
+                    if (AllPlayerPoint[i] < AllPlayerPoint[i + 1] )
+                    {
+                        holdPlayer = whichPlayerLeading[i];
+                        whichPlayerLeading[i] = whichPlayerLeading[i + 1];
+                        whichPlayerLeading[i + 1] = holdPlayer;
+                        holdPoints = AllPlayerPoint[i];
+                        AllPlayerPoint[i] = AllPlayerPoint[i + 1];
+                        AllPlayerPoint[i + 1] = holdPoints;
+                    }
                 }
-                i++;
             }
-            ActorNumberOfStartPlayer = PlayerIdToMakeThisTurn;
-            object[] dataPlayerStart = new object[] { PlayerIdToMakeThisTurn };
-            object[] dataHoldPlayerStart = new object[] { ActorNumberOfStartPlayer };
-            PhotonNetwork.RaiseEvent((byte)PhotonEventCode.UpdateTurnPlayer, dataPlayerStart, AllPeople, SendOptions.SendReliable);
-            PhotonNetwork.RaiseEvent((byte)PhotonEventCode.EventSetPlayerThatStart, dataHoldPlayerStart, AllPeople, SendOptions.SendReliable);
+            if (checkIfSomeOneWin())
+            {
+                PlayerIdToMakeThisTurn = whichPlayerLeading[0].ActorNumber;
+                ActorNumberOfStartPlayer = PlayerIdToMakeThisTurn;
+                object[] dataPlayerStart = new object[] { PlayerIdToMakeThisTurn };
+                object[] dataHoldPlayerStart = new object[] { ActorNumberOfStartPlayer };
+                PhotonNetwork.RaiseEvent((byte)PhotonEventCode.UpdateTurnPlayer, dataPlayerStart, AllPeople, SendOptions.SendReliable);
+                PhotonNetwork.RaiseEvent((byte)PhotonEventCode.EventSetPlayerThatStart, dataHoldPlayerStart, AllPeople, SendOptions.SendReliable);
+            }
+            else
+            {
+                sendAllSomeoneWin();
+            }
+        }
+    }
+    public bool checkIfSomeOneWin()
+    {
+        if (PhotonNetwork.CurrentRoom.PlayerCount == 1)
+        {
+            return false;
+        }
+        if (AllPlayerPoint[0] - AllPlayerPoint[1] >= 5)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
         }
     }
     // Check the number of players and distribute the number of character cards accordingly 
@@ -447,7 +526,7 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
                 EndTurn();
             }  
         }
-        else if (TurnNumber % 2 == 0 && panelToTrade.getEveroneDone())
+        else if (TurnNumber % 2 == 0 && panelToTrade.getEveroneDone() && IsMyTurn)
         {
             rollTimeScript.startRollTurn();
         }
@@ -471,6 +550,25 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
             }
         }
         return null;
+    }
+    public void sendAllSomeoneWin()
+    {
+        List<int> actorNumberTemp = new List<int>();
+        actorNumberTemp.Add(999);
+        actorNumberTemp.Add(999);
+        actorNumberTemp.Add(999);
+        int i=0;
+        foreach (Player checkPlayer in PhotonNetwork.PlayerListOthers)
+        {
+            actorNumberTemp[i] = checkPlayer.ActorNumber;
+            if (i == 3)
+            {
+                break;
+            }
+            i++;
+        }
+        object[] top3winner = new object[] { actorNumberTemp[0], actorNumberTemp[1] , actorNumberTemp[2] };
+        PhotonNetwork.RaiseEvent((byte)PhotonEventCode.winnnerDone, top3winner, AllPeople, SendOptions.SendReliable);
     }
     public void setCurrentMissionScript(MissionCardScript missionScriptSet)
     {
@@ -500,5 +598,78 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
     {
         return otherPlayerCharacterInfo[which];
     }
-    
+    public void updatePointsToChecker(byte pointsSender, Player SenderPlayer)
+    {
+        int i = 0;
+        foreach (Player CheckPlayer in whichPlayerLeading)
+        {
+            if (CheckPlayer == SenderPlayer)
+            {
+                AllPlayerPoint[i] = pointsSender;
+            }
+            i++;
+        }
+    }
+    public void gameEndDisplayWin(int firstPlace , int secondPlace, int thirdPlace )
+    {
+        gameWinArea.SetActive(true);
+        if (secondPlace==999 && thirdPlace == 999)
+        {
+            Debug.Log("Win only 1 player");
+            placeInfoPlace(main_Game_Before_Start.FindPlayersWhoHadPlayed(firstPlace), firstPlaceOBJ, Nickwin1, AverPlace1);
+        }
+        else if (secondPlace == 999)
+        {
+            Debug.Log("Win only 2 player");
+            placeInfoPlace(main_Game_Before_Start.FindPlayersWhoHadPlayed(firstPlace), firstPlaceOBJ, Nickwin1, AverPlace1);
+            placeInfoPlace(main_Game_Before_Start.FindPlayersWhoHadPlayed(secondPlace), sendPlaceOBJ, Nickwin2, AverPlace2);
+        }
+        else
+        {
+            Debug.Log("Win only 3 player");
+            placeInfoPlace(main_Game_Before_Start.FindPlayersWhoHadPlayed(firstPlace), firstPlaceOBJ, Nickwin1, AverPlace1);
+            placeInfoPlace(main_Game_Before_Start.FindPlayersWhoHadPlayed(secondPlace), sendPlaceOBJ, Nickwin2, AverPlace2);
+            placeInfoPlace(main_Game_Before_Start.FindPlayersWhoHadPlayed(thirdPlace), thirdPlaceOBJ, Nickwin3, AverPlace3);
+        }
+    }
+    public void placeInfoPlace(Player whichPlayer,GameObject placeObj,Text nickNameObj,Image AvertarOBJ)
+    {
+        placeObj.SetActive(true);
+        if (whichPlayer == PhotonNetwork.LocalPlayer)
+        {
+            AvertarOBJ.sprite = chosed_character_user.image_Avertar;
+            nickNameObj.text = PhotonNetwork.LocalPlayer.NickName;
+        }
+        else
+        {
+            nickNameObj.text = main_Game_Before_Start.getNickNameOfHadPlayed(main_Game_Before_Start.positionOfHadPlayed(whichPlayer));
+            AvertarOBJ.sprite = getAvertarOfPlayerHadPlayed(main_Game_Before_Start.positionOfHadPlayed(whichPlayer));
+        }
+    }
+    public void setWinnerList()
+    {
+        whichPlayerLeading.Clear();
+        AllPlayerPoint.Clear();
+        if (!main_Game_Before_Start.ifYouAreDead)
+        {
+            whichPlayerLeading.Add(PhotonNetwork.LocalPlayer);
+            AllPlayerPoint.Add(moneyAndPointScripts.getMyPoints());
+        }
+        foreach (Player playerInList in main_Game_Before_Start.getPlayerList())
+        {
+            whichPlayerLeading.Add(playerInList);
+            AllPlayerPoint.Add(moneyAndPointScripts.getOpponentPointsWithPlayer(playerInList));
+        }
+    }
+    public Sprite getAvertarOfPlayerHadPlayed(int Position)
+    {
+        return otherPlayerCharacterInfo[Position].image_Avertar;
+    }
+    public void ResetDrawCharCards()
+    {
+        gameHasStart = true;
+        firstPlaceOBJ.SetActive(false);
+        sendPlaceOBJ.SetActive(false);
+        thirdPlaceOBJ.SetActive(false);
+    }
 }

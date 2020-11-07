@@ -103,7 +103,6 @@ public class MoneyAndPoints : MonoBehaviour
             {
                 drawCharacterCard.updatePointsToChecker(senderPoints, senderPlayer);
             }
-           
         }
 
         else if (obj.Code == (byte)PhotonEventCode.receiverMoney)

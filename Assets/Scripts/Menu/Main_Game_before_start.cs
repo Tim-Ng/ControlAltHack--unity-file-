@@ -106,11 +106,7 @@ public class Main_Game_before_start : MonoBehaviourPunCallbacks
         {
             if (drawCharacterCard.PlayerIdToMakeThisTurn == LeavingPlayer.ActorNumber)
             {
-                drawCharacterCard.EndTurn();
-            }
-            if (drawCharacterCard.getActorNumberOfStartPlayer == LeavingPlayer.ActorNumber)
-            {
-                drawCharacterCard.handOverToNextPlayerIfPlayerIsStartAndLeft(LeavingPlayer);
+                drawCharacterCard.PlayerIdToMakeThisTurn = drawCharacterCard.getMynextPlayerId;
             }
             otherPlayerList.Remove(LeavingPlayer);
             int i = 0;
@@ -210,6 +206,15 @@ public class Main_Game_before_start : MonoBehaviourPunCallbacks
     }
     public void removeThisPlayerFromList(Player whichPlayer)
     {
+        int i = 0;
+        foreach (int otherplayer in otherPlayerListHoldAfterGame)
+        {
+            if (otherplayer == whichPlayer.ActorNumber)
+            {
+                textOtherPlayers[i].text = "Player Is Fired";
+                i++;
+            }
+        }
         otherPlayerList.Remove(whichPlayer);
     }
     public List<Player> getPlayerList()

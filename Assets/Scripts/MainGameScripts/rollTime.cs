@@ -265,7 +265,7 @@ public class rollTime : MonoBehaviour
     }
     public void failTaskItems()
     {
-        if (moneyAndPoints.getMyPoints() < currentMissionCardScript.failure_amount_hacker_cread)
+        if (currentMissionCardScript.failure_amount_hacker_cread > moneyAndPoints.getMyPoints())
         {
             Debug.Log("You are Fired set points");
             moneyAndPoints.zeroPoints();
@@ -315,13 +315,16 @@ public class rollTime : MonoBehaviour
     }
     public void fireThisPlayer(Player thisPlayer)
     {
-        if (!(thisPlayer == PhotonNetwork.LocalPlayer))
+        if ((thisPlayer != PhotonNetwork.LocalPlayer))
         {
             main_Game_Before_Start.removeThisPlayerFromList(thisPlayer);
         }
         else
         {
             main_Game_Before_Start.ifYouAreDead = true;
+        }
+        if (PhotonNetwork.IsMasterClient)
+        {
             drawCharacterCard.setWinnerList();
         }
         drawCharacterCard.EndTurn();

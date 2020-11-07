@@ -67,7 +67,6 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
     [SerializeField] private Image AverPlace1, AverPlace2, AverPlace3;
     [SerializeField] private Text Nickwin1, Nickwin2, Nickwin3;
 
-    private int ActorNumberOfStartPlayer; // player that start the turn
     private int NumDoneSelectChar = 0;
 
     private MissionCardScript currentUserMission = null;
@@ -171,13 +170,35 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
         {
             Debug.Log("A player is done selecting character");
             NumDoneSelectChar += 1;
-            Debug.Log(NumDoneSelectChar + "and round is " +TurnNumber + " number of people on room " + PhotonNetwork.CurrentRoom.PlayerCount);
+            Debug.Log(NumDoneSelectChar + "and round is " + TurnNumber + " number of people on room " + PhotonNetwork.CurrentRoom.PlayerCount);
             checkWhichFunctionToRun();
         }
         else if (obj.Code == (byte)PhotonEventCode.winnnerDone)
         {
+            gameWinArea.SetActive(true);
             object[] whowin = (object[])obj.CustomData;
-            gameEndDisplayWin((int)whowin[0], (int)whowin[1], (int)whowin[2]);
+            if ((int)whowin[6] == 1)
+            {
+                Debug.Log("Win only 1 player");
+                placeInfoPlace(firstPlaceOBJ, Nickwin1, AverPlace1, (string)whowin[0], (int)whowin[1]);
+            }
+            else if ((int)whowin[6] == 2)
+            {
+                Debug.Log("Win only 2 player");
+                placeInfoPlace(firstPlaceOBJ, Nickwin1, AverPlace1, (string)whowin[0], (int)whowin[1]);
+                placeInfoPlace(sendPlaceOBJ, Nickwin2, AverPlace2, (string)whowin[2], (int)whowin[3]);
+            }
+            else if ((int)whowin[6] == 3)
+            {
+                Debug.Log("Win only 3 player");
+                placeInfoPlace(firstPlaceOBJ, Nickwin1, AverPlace1, (string)whowin[0], (int)whowin[1]);
+                placeInfoPlace(sendPlaceOBJ, Nickwin2, AverPlace2, (string)whowin[2], (int)whowin[3]);
+                placeInfoPlace(thirdPlaceOBJ, Nickwin3, AverPlace3, (string)whowin[4], (int)whowin[5]);
+            }
+            else
+            {
+                Debug.LogError("EmptyList");
+            }
         }
     }
     private void putCharCardsInList()
@@ -373,14 +394,6 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
             }
             i++;
         }
-        if (i == (main_Game_Before_Start.getotherPlayerListHoldAfterGame.Count - 1))
-        {
-            ActorNumberOfStartPlayer = PhotonNetwork.MasterClient.ActorNumber;
-        }
-        else
-        {
-            ActorNumberOfStartPlayer = main_Game_Before_Start.getotherPlayerListHoldAfterGame[i + 1];
-        }
     }
     // Check the number of players and distribute the number of character cards accordingly 
     public void countNumCharCards()
@@ -445,22 +458,47 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
     }
     public void sendAllSomeoneWin()
     {
-        List<int> actorNumberTemp = new List<int>();
-        actorNumberTemp.Add(999);
-        actorNumberTemp.Add(999);
-        actorNumberTemp.Add(999);
-        int i=0;
-        foreach (Player checkPlayer in PhotonNetwork.PlayerListOthers)
+        List<string> NickNameList = new List<string>();
+        List<int> CharacterID = new List<int>();
+
+        for (int i = 0; i<whichPlayerLeading.Count; i++)
         {
-            actorNumberTemp[i] = checkPlayer.ActorNumber;
+            NickNameList.Add(whichPlayerLeading[i].NickName);
+            CharacterID.Add(AllCharacterPlayCharacter()[main_Game_Before_Start.findPlayerPosition(whichPlayerLeading[i])].character_code);
             if (i == 3)
             {
                 break;
-            }
-            i++;
+            }        
         }
-        object[] top3winner = new object[] { actorNumberTemp[0], actorNumberTemp[1] , actorNumberTemp[2] };
-        PhotonNetwork.RaiseEvent((byte)PhotonEventCode.winnnerDone, top3winner, AllPeople, SendOptions.SendReliable);
+        if (NickNameList.Count == 1)
+        {
+            object[] top3winner = new object[] { NickNameList[0], CharacterID[0], null, null, null, null, 1 };
+            PhotonNetwork.RaiseEvent((byte)PhotonEventCode.winnnerDone, top3winner, AllPeople, SendOptions.SendReliable);
+        }
+        else if (NickNameList.Count == 2)
+        {
+            object[] top3winner = new object[] { NickNameList[0], CharacterID[0], NickNameList[1], CharacterID[1], null, null, 2 };
+            PhotonNetwork.RaiseEvent((byte)PhotonEventCode.winnnerDone, top3winner, AllPeople, SendOptions.SendReliable);
+        }
+        else if (NickNameList.Count == 3)
+        {
+            object[] top3winner = new object[] { NickNameList[0], CharacterID[0], NickNameList[1], CharacterID[2], NickNameList[1], CharacterID[2], 3 };
+            PhotonNetwork.RaiseEvent((byte)PhotonEventCode.winnnerDone, top3winner, AllPeople, SendOptions.SendReliable);
+        }
+        else
+        {
+            Debug.LogError("No player in list !?!?!?!");
+        }
+    }
+    public List<CharCardScript> AllCharacterPlayCharacter()
+    {
+        List<CharCardScript> tempAllPlayerList = new List<CharCardScript>();
+        tempAllPlayerList.Add(getMyCharScript());
+        foreach(CharCardScript thisPlayer in otherPlayerCharacterInfo)
+        {
+            tempAllPlayerList.Add(thisPlayer);
+        }
+        return tempAllPlayerList;
     }
     public void setCurrentMissionScript(MissionCardScript missionScriptSet)
     {
@@ -502,45 +540,17 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
             i++;
         }
     }
-    public void gameEndDisplayWin(int firstPlace , int secondPlace, int thirdPlace )
-    {
-        gameWinArea.SetActive(true);
-        if (secondPlace==999 && thirdPlace == 999)
-        {
-            Debug.Log("Win only 1 player");
-            placeInfoPlace(main_Game_Before_Start.FindPlayersWhoHadPlayed(firstPlace), firstPlaceOBJ, Nickwin1, AverPlace1);
-        }
-        else if (secondPlace == 999)
-        {
-            Debug.Log("Win only 2 player");
-            placeInfoPlace(main_Game_Before_Start.FindPlayersWhoHadPlayed(firstPlace), firstPlaceOBJ, Nickwin1, AverPlace1);
-            placeInfoPlace(main_Game_Before_Start.FindPlayersWhoHadPlayed(secondPlace), sendPlaceOBJ, Nickwin2, AverPlace2);
-        }
-        else
-        {
-            Debug.Log("Win only 3 player");
-            placeInfoPlace(main_Game_Before_Start.FindPlayersWhoHadPlayed(firstPlace), firstPlaceOBJ, Nickwin1, AverPlace1);
-            placeInfoPlace(main_Game_Before_Start.FindPlayersWhoHadPlayed(secondPlace), sendPlaceOBJ, Nickwin2, AverPlace2);
-            placeInfoPlace(main_Game_Before_Start.FindPlayersWhoHadPlayed(thirdPlace), thirdPlaceOBJ, Nickwin3, AverPlace3);
-        }
-    }
-    public void placeInfoPlace(Player whichPlayer,GameObject placeObj,Text nickNameObj,Image AvertarOBJ)
+    public void placeInfoPlace(GameObject placeObj, Text nickNameObj, Image AvertarOBJ,string NickName,int whichCharCode)
     {
         placeObj.SetActive(true);
-        if (whichPlayer == PhotonNetwork.LocalPlayer)
+        nickNameObj.text = NickName;
+        foreach (CharCardScript whichScript in cardDeck.getCharDeck())
         {
-            AvertarOBJ.sprite = chosed_character_user.image_Avertar;
-            nickNameObj.text = PhotonNetwork.LocalPlayer.NickName;
+            if (whichScript.character_code == whichCharCode)
+            {
+                AvertarOBJ.sprite = whichScript.image_Avertar;
+            }
         }
-        else
-        {
-            nickNameObj.text = main_Game_Before_Start.getNickNameOfHadPlayed(main_Game_Before_Start.positionOfHadPlayed(whichPlayer));
-            AvertarOBJ.sprite = getAvertarOfPlayerHadPlayed(main_Game_Before_Start.positionOfHadPlayed(whichPlayer));
-        }
-    }
-    public Sprite getAvertarOfPlayerHadPlayed(int Position)
-    {
-        return otherPlayerCharacterInfo[Position].image_Avertar;
     }
     public void ResetDrawCharCards()
     {
@@ -596,16 +606,9 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
                 }
             }
             whichPlayerLeading.Reverse();
-            bool ifGotwinner;
+            AllPlayerPoint.Reverse();
+            Debug.Log("1st :" + AllPlayerPoint[0] +" vs 2nd is " + AllPlayerPoint[0] +" differents " + (AllPlayerPoint[0] - AllPlayerPoint[1]));
             if (AllPlayerPoint[0] - AllPlayerPoint[1] >= 5 || PhotonNetwork.CurrentRoom.PlayerCount == 1)
-            {
-                ifGotwinner= false;
-            }
-            else
-            {
-                ifGotwinner= true;
-            }
-            if (!ifGotwinner)
             {
                 sendAllSomeoneWin();
             }

@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Photon.Realtime;
 using UnityEditor;
+using System.Globalization;
 
 public class Main_Game_before_start : MonoBehaviourPunCallbacks
 {
@@ -169,24 +170,6 @@ public class Main_Game_before_start : MonoBehaviourPunCallbacks
         Debug.LogError("Can't Find Player");
         return null;
     }
-    public Player FindPlayersWhoHadPlayed(int ActorId)
-    {
-        List<Player> tempAllPlayers = new List<Player>();
-        tempAllPlayers.Add(PhotonNetwork.LocalPlayer);
-        foreach (Player inputPlayer in otherPlayerList)
-        {
-            tempAllPlayers.Add(inputPlayer);
-        }
-        foreach (Player Checkplayer in tempAllPlayers)
-        {
-            if (Checkplayer.ActorNumber == ActorId)
-            {
-                return Checkplayer;
-            }
-        }
-        Debug.LogError("Can't Find Player");
-        return null;
-    }
     public int positionOfHadPlayed(Player whichPlayer)
     {
         int i = 0;
@@ -199,10 +182,6 @@ public class Main_Game_before_start : MonoBehaviourPunCallbacks
             i++;
         }
         return i;
-    }
-    public string getNickNameOfHadPlayed(int Position)
-    {
-        return oppententNameTextInfo[positionOfHadPlayed(FindPlayersWhoHadPlayed(Position))];
     }
     public void removeThisPlayerFromList(Player whichPlayer)
     {

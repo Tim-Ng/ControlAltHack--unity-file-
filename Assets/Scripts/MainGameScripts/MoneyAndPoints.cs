@@ -103,6 +103,7 @@ public class MoneyAndPoints : MonoBehaviour
             {
                 drawCharacterCard.updatePointsToChecker(senderPoints, senderPlayer);
             }
+           
         }
 
         else if (obj.Code == (byte)PhotonEventCode.receiverMoney)
@@ -168,18 +169,9 @@ public class MoneyAndPoints : MonoBehaviour
     {
         return opponentpointslist;
     }
-    public byte getOpponentPointsWithPlayer(Player whichPlayer)
+    public byte getOpponentPointsWithPlayer(int whichPlayer)
     {
-        int i = 0;
-        foreach (Player checkPlayer in PhotonNetwork.PlayerListOthers)
-        {
-            if (checkPlayer == whichPlayer)
-            {
-                break;
-            }
-            i++;
-        }
-        return opponentpointslist[i];
+        return opponentpointslist[whichPlayer];
     }
     public void aPlayerLeft(Player playThatLeft)
     {

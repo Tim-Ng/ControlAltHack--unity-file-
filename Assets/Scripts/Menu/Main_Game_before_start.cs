@@ -63,7 +63,7 @@ public class Main_Game_before_start : MonoBehaviourPunCallbacks
     {
         if (PhotonNetwork.IsMasterClient)
         {
-            if (!drawCharacterCard.getGameHasStart)
+            if (!drawCharacterCard.getSetGameHasStart)
             {
                 startButtonOBJ.SetActive(true);
                 Start_Button.interactable = false;
@@ -74,7 +74,7 @@ public class Main_Game_before_start : MonoBehaviourPunCallbacks
     public void UpdateName()
     {
         allow_Master_client(); // check if master client changed
-        if (!drawCharacterCard.getGameHasStart)
+        if (!drawCharacterCard.getSetGameHasStart)
         {
             for (int j = 0; j < textOtherPlayers.Count; j++)
             {
@@ -102,11 +102,11 @@ public class Main_Game_before_start : MonoBehaviourPunCallbacks
             Debug.Log("Host named " + LeavingPlayer.NickName + " has left the room");
             Debug.Log("Host is changed to player named " + PhotonNetwork.PlayerList[0].NickName);
         }
-        if (drawCharacterCard.getGameHasStart)
+        if (drawCharacterCard.getSetGameHasStart)
         {
             if (drawCharacterCard.PlayerIdToMakeThisTurn == LeavingPlayer.ActorNumber)
             {
-                drawCharacterCard.PlayerIdToMakeThisTurn = drawCharacterCard.getMynextPlayerId;
+                drawCharacterCard.EndTurn();
             }
             otherPlayerList.Remove(LeavingPlayer);
             int i = 0;
@@ -206,15 +206,6 @@ public class Main_Game_before_start : MonoBehaviourPunCallbacks
     }
     public void removeThisPlayerFromList(Player whichPlayer)
     {
-        int i = 0;
-        foreach (int otherplayer in otherPlayerListHoldAfterGame)
-        {
-            if (otherplayer == whichPlayer.ActorNumber)
-            {
-                textOtherPlayers[i].text = "Player Is Fired";
-                i++;
-            }
-        }
         otherPlayerList.Remove(whichPlayer);
     }
     public List<Player> getPlayerList()
@@ -227,7 +218,7 @@ public class Main_Game_before_start : MonoBehaviourPunCallbacks
                 tempList.Add(chackPlayer);
             }
         }
-        return otherPlayerList;
+        return tempList;
     }
     public void setHoldPlayerListAfterStartGame()
     {

@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using Photon.Realtime;
 using UnityEditor;
 using System.Globalization;
+using UnityEngine.Windows.Speech;
 
 public class Main_Game_before_start : MonoBehaviourPunCallbacks
 {
@@ -23,6 +24,12 @@ public class Main_Game_before_start : MonoBehaviourPunCallbacks
     private List<Player> otherPlayerList = new List<Player>();
 
     private bool isYouAreDeadBool;
+    private int OnlyOneLeft; 
+    public int getSetIfONlyOneLeft
+    {
+        get { return (OnlyOneLeft); }
+        set { OnlyOneLeft = value; }
+    }
     public List<int> getotherPlayerListHoldAfterGame
     {
         get { return otherPlayerListHoldAfterGame; }
@@ -96,6 +103,14 @@ public class Main_Game_before_start : MonoBehaviourPunCallbacks
     }
     public override void OnPlayerLeftRoom(Player LeavingPlayer)
     {
+        OnlyOneLeft -= 1;
+        for (int i = 0; i < otherPlayerList.Count; i++)
+        {
+            if (LeavingPlayer == otherPlayerList[i])
+            {
+                otherPlayerList[i] = null;
+            }
+        }
         if (LeavingPlayer.IsMasterClient)
         {
             drawCharacterCard.setWinnerList();
@@ -105,24 +120,24 @@ public class Main_Game_before_start : MonoBehaviourPunCallbacks
         }
         if (drawCharacterCard.getSetGameHasStart)
         {
+            if (PhotonNetwork.CurrentRoom.PlayerCount == 0 || OnlyOneLeft == 1)
+            {
+                drawCharacterCard.sendAllSomeoneWin();
+            }
             if (drawCharacterCard.PlayerIdToMakeThisTurn == LeavingPlayer.ActorNumber)
             {
                 drawCharacterCard.EndTurn();
             }
-            otherPlayerList.Remove(LeavingPlayer);
             int i = 0;
             foreach (int otherplayer in otherPlayerListHoldAfterGame)
             {
                 if (otherplayer == LeavingPlayer.ActorNumber)
                 {
                     textOtherPlayers[i].text = "Player Has Left";
-                    i++;
                 }
+                i++;
             }
-            if (PhotonNetwork.CurrentRoom.PlayerCount ==1 )
-            {
-                drawCharacterCard.sendAllSomeoneWin();
-            }
+            drawCharacterCard.checkWhichFunctionToRun();
         }
         else
         {
@@ -148,7 +163,7 @@ public class Main_Game_before_start : MonoBehaviourPunCallbacks
     public int findPlayerPosition(Player PlayerToCheck)
     {
         int i = 0;
-        foreach (Player CheckPlayer in PhotonNetwork.PlayerListOthers)
+        foreach (Player CheckPlayer in otherPlayerList)
         {
             if (CheckPlayer == PlayerToCheck)
             {
@@ -183,10 +198,6 @@ public class Main_Game_before_start : MonoBehaviourPunCallbacks
         }
         return i;
     }
-    public void removeThisPlayerFromList(Player whichPlayer)
-    {
-        otherPlayerList.Remove(whichPlayer);
-    }
     public List<Player> getPlayerList()
     {
         List<Player> tempList = new List<Player>();
@@ -199,6 +210,16 @@ public class Main_Game_before_start : MonoBehaviourPunCallbacks
         }
         return tempList;
     }
+    public List<Player> allPlayerList()
+    {
+        List<Player> tempPlayerList = new List<Player>();
+        tempPlayerList.Add(PhotonNetwork.LocalPlayer);
+        foreach (Player inList in getPlayerList())
+        {
+            tempPlayerList.Add(inList);
+        }
+        return tempPlayerList;
+    }
     public void setHoldPlayerListAfterStartGame()
     {
         otherPlayerListHoldAfterGame.Clear();
@@ -206,6 +227,21 @@ public class Main_Game_before_start : MonoBehaviourPunCallbacks
         {
             otherPlayerListHoldAfterGame.Add( ActorPlayer.ActorNumber);
         }
+    }
+    public bool isActorIdInList(int ActorId)
+    {
+        if ((PhotonNetwork.LocalPlayer.ActorNumber==ActorId))
+        {
+            return true;
+        }
+        foreach (Player CheckPlayer in getPlayerList())
+        {
+            if (ActorId == CheckPlayer.ActorNumber)
+            {
+                return true;
+            }
+        }
+        return false;
     }
     public void ResetMainGameBeforeStart()
     {

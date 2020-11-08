@@ -99,10 +99,6 @@ public class MoneyAndPoints : MonoBehaviour
                 }
                 i++;
             }
-            if (PhotonNetwork.IsMasterClient)
-            {
-                drawCharacterCard.updatePointsToChecker(senderPoints, senderPlayer);
-            }
            
         }
 
@@ -173,6 +169,7 @@ public class MoneyAndPoints : MonoBehaviour
     {
         return opponentpointslist[whichPlayer];
     }
+    
     public void aPlayerLeft(Player playThatLeft)
     {
         int  i = 0;

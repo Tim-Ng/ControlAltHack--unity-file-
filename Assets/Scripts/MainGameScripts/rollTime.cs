@@ -80,8 +80,6 @@ public class rollTime : MonoBehaviour
         else if (obj.Code == (byte)PhotonEventCode.gettingFired)
         {
             object[] firedPlayerData = (object[])obj.CustomData;
-            Player firedPlayer = main_Game_Before_Start.FindPlayerUsingActorId((int)(firedPlayerData[0]));
-            fireThisPlayer(firedPlayer);
         }
     }
     public void startRollTurn()
@@ -246,17 +244,12 @@ public class rollTime : MonoBehaviour
                 Debug.LogError("Problem with task name");
             }
         }
-        else
-        {
-            Debug.LogError("No turn but button still can click");
-            drawCharacterCard.EndTurn();
-        }
     }
     public void failTask()
     {
         if (currentRollerCharCardScript.character_code == 12)
         {
-
+            failTaskItems();
         }
         else if (rollchancesNumber == 0)
         {
@@ -269,6 +262,8 @@ public class rollTime : MonoBehaviour
         {
             Debug.Log("You are Fired set points");
             moneyAndPoints.zeroPoints();
+            main_Game_Before_Start.ifYouAreDead = true;
+            drawCharacterCard.EndTurn();
             object[] dataRoll = new object[] { PhotonNetwork.LocalPlayer.ActorNumber };
             PhotonNetwork.RaiseEvent((byte)PhotonEventCode.gettingFired, dataRoll, AllPeople, SendOptions.SendReliable);
         }
@@ -313,17 +308,5 @@ public class rollTime : MonoBehaviour
             GameObject.Destroy(child.gameObject);
         }
     }
-    public void fireThisPlayer(Player thisPlayer)
-    {
-        if (!(thisPlayer == PhotonNetwork.LocalPlayer))
-        {
-            main_Game_Before_Start.removeThisPlayerFromList(thisPlayer);
-        }
-        else
-        {
-            main_Game_Before_Start.ifYouAreDead = true;
-            drawCharacterCard.setWinnerList();
-        }
-        drawCharacterCard.EndTurn();
-    }
+
 }

@@ -7,8 +7,7 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
 using System.Threading;
-
- public class Main_Menu : MonoBehaviourPunCallbacks
+public class Main_Menu : MonoBehaviourPunCallbacks
     {
         [SerializeField] private TMP_InputField join_input = null, host_input = null, nameInputFeild = null;
         [SerializeField] private Text message=null;
@@ -20,7 +19,7 @@ using System.Threading;
         private const string PlayerPrefsNameKey = "PlayerName";
         private bool turnOnButtons=false;
         public GameObject OBJUserName, OBJHostJoin;
-        private void Awake()
+    private void Awake()
         {
             PhotonNetwork.AutomaticallySyncScene = true;
             OnEnable();

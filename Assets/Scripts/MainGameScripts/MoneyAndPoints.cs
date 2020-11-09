@@ -31,6 +31,7 @@ public class MoneyAndPoints : MonoBehaviour
 
     [SerializeField] private DrawCharacterCard drawCharacterCard;
 
+    [SerializeField] private Main_Game_before_start main_Game_Before_Start;
     private RaiseEventOptions AllOtherThanMePeopleOptions = new RaiseEventOptions()
     {
         CachingOption = EventCaching.DoNotCache,
@@ -88,18 +89,9 @@ public class MoneyAndPoints : MonoBehaviour
             object[] pointdata = (object[])obj.CustomData;
             byte senderPoints = (byte)pointdata[0];
             Player senderPlayer = (Player)pointdata[1];
-            int i = 0;
-            foreach(Player checkPlayer in PhotonNetwork.PlayerListOthers)
-            {
-                if (checkPlayer == senderPlayer)
-                {
-                    opponentpointslist[i] = (byte) senderPoints;
-                    opponentpointslistOBJ[i].text = senderPoints.ToString();
-                    break;
-                }
-                i++;
-            }
-           
+            opponentpointslist[main_Game_Before_Start.findPlayerPosition(senderPlayer)] = (byte) senderPoints;
+            opponentpointslistOBJ[main_Game_Before_Start.findPlayerPosition(senderPlayer)].text = senderPoints.ToString();
+
         }
 
         else if (obj.Code == (byte)PhotonEventCode.receiverMoney)
@@ -107,17 +99,8 @@ public class MoneyAndPoints : MonoBehaviour
             object[] moneydata = (object[])obj.CustomData;
             int senderMoney = (int)moneydata[0];
             Player senderPlayer = (Player)moneydata[1];
-            int i = 0;
-            foreach (Player checkPlayer in PhotonNetwork.PlayerListOthers)
-            {
-                if (checkPlayer == senderPlayer)
-                {
-                    opponentpointsMoneylist[i] = senderMoney;
-                    opponentpointsMoneylistOBJ[i].text ="$" + senderMoney.ToString();
-                    break;
-                }
-                i++;
-            }
+            opponentpointsMoneylist[main_Game_Before_Start.findPlayerPosition(senderPlayer)] = senderMoney;
+            opponentpointsMoneylistOBJ[main_Game_Before_Start.findPlayerPosition(senderPlayer)].text = "$" + senderMoney.ToString();
         }
 
     }
@@ -168,22 +151,6 @@ public class MoneyAndPoints : MonoBehaviour
     public byte getOpponentPointsWithPlayer(int whichPlayer)
     {
         return opponentpointslist[whichPlayer];
-    }
-    
-    public void aPlayerLeft(Player playThatLeft)
-    {
-        int  i = 0;
-        foreach (Player checkIfLeft in PhotonNetwork.PlayerListOthers)
-        {
-            if (checkIfLeft == playThatLeft)
-            {
-                opponentpointslist[i] = 0;
-                opponentpointsMoneylist[i] = 0;
-                opponentpointslistOBJ[i].text = opponentpointslist[i].ToString();
-                opponentpointsMoneylistOBJ[i].text = opponentpointsMoneylist[i].ToString();
-            }
-            i++;
-        }
     }
     public void resetMoneyAndPoints()
     {

@@ -3121,6 +3121,7 @@ MonoBehaviour:
   amount_of_people: {fileID: 854439822}
   Start_Button: {fileID: 4334109394784263526}
   Leave_Button: {fileID: 1819265644}
+  panelToTrade: {fileID: 499456415}
   drawCharacterCard: {fileID: 499456407}
 --- !u!114 &277830164
 MonoBehaviour:
@@ -5437,6 +5438,7 @@ MonoBehaviour:
   opponent4MoneyOBJ: {fileID: 1365135563}
   opponent5MoneyOBJ: {fileID: 1234507903}
   drawCharacterCard: {fileID: 499456407}
+  main_Game_Before_Start: {fileID: 277830163}
 --- !u!114 &499456415
 MonoBehaviour:
   m_ObjectHideFlags: 0

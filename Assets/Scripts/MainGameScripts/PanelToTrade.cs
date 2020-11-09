@@ -54,6 +54,7 @@ public class PanelToTrade : MonoBehaviour
     [SerializeField] private GameObject missionCardArea;
 
     private List<Player> otherPlayerList = new List<Player>();
+    private List<Player> holdDoneList = new List<Player>();
 
     private int allDoneTrading = 0;
 
@@ -237,13 +238,36 @@ public class PanelToTrade : MonoBehaviour
                 j++;
             }
         }
-        everyoneIsDone += 1;
+        holdDoneList.Add(playerSent);
+        isAllDoneAttendance();
+    }
+    public void isAllDoneAttendance()
+    {
+        everyoneIsDone = holdDoneList.Count;
         if (everyoneIsDone == PhotonNetwork.CurrentRoom.PlayerCount)
         {
             setDataBoxes();
         }
     }
-    public void setDataBoxes()
+    public void setHoldDoneList(bool erase, Player removeThisPlayer)
+    {
+        if (erase)
+        {
+            holdDoneList.Clear();
+        }
+        else
+        {
+            foreach (Player ifThisPlayer in holdDoneList)
+            {
+                if (ifThisPlayer == removeThisPlayer)
+                {
+                    holdDoneList.Remove(removeThisPlayer);
+                    break;
+                }
+            }
+        }
+    }
+    public  void setDataBoxes()
     {
         if (userAttend)
         {

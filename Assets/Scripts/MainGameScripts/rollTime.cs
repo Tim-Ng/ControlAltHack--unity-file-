@@ -145,45 +145,49 @@ public class rollTime : MonoBehaviour
     {
         whichTaskName = taskNum;
         ChancesLeft.text = "Reroll chances = " + rollchancesNumber;
-        if (taskNum == "Task1")
+        if (currentRollerCharCardScript != null)
         {
-            TaskOneStatus.text = "Task 1 : currently";
-            WhichSkill.text = currentMissionCardScript.skill_name_1;
-            rollMoreThanTask1 = currentRollerCharCardScript.find_which(currentMissionCardScript.skill_name_1);
-            if (rollMoreThanTask1 == 0)
+            if (taskNum == "Task1")
             {
-                rollMoreThanTask1 = currentRollerCharCardScript.find_which("Kitchen Sink");
+                TaskOneStatus.text = "Task 1 : currently";
+                WhichSkill.text = currentMissionCardScript.skill_name_1;
+                rollMoreThanTask1 = currentRollerCharCardScript.find_which(currentMissionCardScript.skill_name_1);
+                if (rollMoreThanTask1 == 0)
+                {
+                    rollMoreThanTask1 = currentRollerCharCardScript.find_which("Kitchen Sink");
+                }
+                rollMoreThanTask1 += currentMissionCardScript.fist_change_hardnum;
+                WhichTask.text = "First Task:";
+                RollMustBeLess.text = rollMoreThanTask1.ToString();
             }
-            rollMoreThanTask1 += currentMissionCardScript.fist_change_hardnum;
-            WhichTask.text = "First Task:";
-            RollMustBeLess.text = rollMoreThanTask1.ToString();
-        }
-        else if (taskNum == "Task2")
-        {
-            TaskTwoStatus.text = "Task 1 : currently";
-            WhichSkill.text = currentMissionCardScript.skill_name_2;
-            rollMoreThanTask2 = currentRollerCharCardScript.find_which(currentMissionCardScript.skill_name_2);
-            if (rollMoreThanTask2 == 0)
+            else if (taskNum == "Task2")
             {
-                rollMoreThanTask2 = currentRollerCharCardScript.find_which("Kitchen Sink");
+                TaskTwoStatus.text = "Task 1 : currently";
+                WhichSkill.text = currentMissionCardScript.skill_name_2;
+                rollMoreThanTask2 = currentRollerCharCardScript.find_which(currentMissionCardScript.skill_name_2);
+                if (rollMoreThanTask2 == 0)
+                {
+                    rollMoreThanTask2 = currentRollerCharCardScript.find_which("Kitchen Sink");
+                }
+                rollMoreThanTask2 += currentMissionCardScript.second_change_hardnum;
+                WhichTask.text = "Second Task:";
+                RollMustBeLess.text = rollMoreThanTask2.ToString();
             }
-            rollMoreThanTask2 += currentMissionCardScript.second_change_hardnum;
-            WhichTask.text = "Second Task:";
-            RollMustBeLess.text = rollMoreThanTask2.ToString();
-        }
-        else if (taskNum == "Task3")
-        {
-            TaskThreeStatus.text = "Task 3 : currently";
-            WhichSkill.text = currentMissionCardScript.skill_name_3;
-            rollMoreThanTask3 = currentRollerCharCardScript.find_which(currentMissionCardScript.skill_name_3);
-            if (rollMoreThanTask3 == 0)
+            else if (taskNum == "Task3")
             {
-                rollMoreThanTask3 = currentRollerCharCardScript.find_which("Kitchen Sink");
+                TaskThreeStatus.text = "Task 3 : currently";
+                WhichSkill.text = currentMissionCardScript.skill_name_3;
+                rollMoreThanTask3 = currentRollerCharCardScript.find_which(currentMissionCardScript.skill_name_3);
+                if (rollMoreThanTask3 == 0)
+                {
+                    rollMoreThanTask3 = currentRollerCharCardScript.find_which("Kitchen Sink");
+                }
+                rollMoreThanTask3 += currentMissionCardScript.third_change_hardnum;
+                WhichTask.text = "Third Task:";
+                RollMustBeLess.text = rollMoreThanTask3.ToString();
             }
-            rollMoreThanTask3 += currentMissionCardScript.third_change_hardnum;
-            WhichTask.text = "Third Task:";
-            RollMustBeLess.text = rollMoreThanTask3.ToString();
         }
+        
     }
     public void clickOnRollDice()
     {

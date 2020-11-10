@@ -103,8 +103,7 @@ public class Main_Game_before_start : MonoBehaviourPunCallbacks
     }
     public override void OnPlayerLeftRoom(Player LeavingPlayer)
     {
-        if (!isActorIdInList(LeavingPlayer.ActorNumber))
-            drawCharacterCard.removeAvertar(findPlayerPosition(LeavingPlayer));
+        drawCharacterCard.removeAvertar(findPlayerPosition(LeavingPlayer));
         if (LeavingPlayer.IsMasterClient)
         {
             Debug.Log("Host named " + LeavingPlayer.NickName + " has left the room");
@@ -122,9 +121,7 @@ public class Main_Game_before_start : MonoBehaviourPunCallbacks
         }
         if (drawCharacterCard.getSetGameHasStart)
         {
-            panelToTrade.setHoldDoneList(false, LeavingPlayer);
-            panelToTrade.setPannelDoneList(false, LeavingPlayer);
-            if (OnlyOneLeft == 1)
+            if (PhotonNetwork.CurrentRoom.PlayerCount == 1)
             {
                 drawCharacterCard.sendAllSomeoneWin();
             }
@@ -145,8 +142,27 @@ public class Main_Game_before_start : MonoBehaviourPunCallbacks
                 }
                 i++;
             }
-            drawCharacterCard.checkWhichFunctionToRun();
-            panelToTrade.isAllDoneAttendance();
+            if (drawCharacterCard.TurnNumber %2 != 0 || drawCharacterCard.TurnNumber == 0)
+            {
+                drawCharacterCard.checkWhichFunctionToRun();
+            }
+            else if (drawCharacterCard.TurnNumber % 2 == 0)
+            {
+                panelToTrade.setPannelDoneList(false, LeavingPlayer);
+                if (!panelToTrade.getEveryoneDonePanel())
+                {
+                    if (panelToTrade.doneSettingUpBox)
+                    {
+                        panelToTrade.PlayerLeftDuringExchange(LeavingPlayer);
+                    }
+                    else
+                    {
+                        panelToTrade.setHoldDoneList(false, LeavingPlayer);
+                    }
+                }
+            }
+            
+            
         }
         else
         {
@@ -174,9 +190,12 @@ public class Main_Game_before_start : MonoBehaviourPunCallbacks
         int i = 0;
         foreach (Player CheckPlayer in otherPlayerList)
         {
-            if (CheckPlayer == PlayerToCheck)
+            if (CheckPlayer != null)
             {
-                break;
+                if (CheckPlayer == PlayerToCheck)
+                {
+                    break;
+                }
             }
             i++;
         }
@@ -237,15 +256,15 @@ public class Main_Game_before_start : MonoBehaviourPunCallbacks
             otherPlayerListHoldAfterGame.Add( ActorPlayer.ActorNumber);
         }
     }
-    public bool isActorIdInList(int ActorId)
+    public bool isActorIdInList(Player player)
     {
-        if ((PhotonNetwork.LocalPlayer.ActorNumber==ActorId))
+        if ((PhotonNetwork.LocalPlayer== player))
         {
             return true;
         }
         foreach (Player CheckPlayer in getPlayerList())
         {
-            if (ActorId == CheckPlayer.ActorNumber)
+            if (player == CheckPlayer)
             {
                 return true;
             }

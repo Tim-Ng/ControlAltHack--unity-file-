@@ -15,7 +15,7 @@ public class PanelToTrade : MonoBehaviour
     [SerializeField] private GameObject userBoxOBJ,opponent1BoxOBJ, opponent2BoxOBJ, opponent3BoxOBJ, opponent4BoxOBJ, opponent5BoxOBJ;
     [SerializeField] private GameObject userBoxCardOBJ,opponent1BoxCardOBJ, opponent2BoxCardOBJ, opponent3BoxCardOBJ, opponent4BoxCardOBJ, opponent5BoxCardOBJ;
     private bool userAttend=false,opponentAttend1=false, opponentAttend2 = false, opponentAttend3 = false, opponentAttend4 = false, opponentAttend5 = false;
-    private MissionCardScript userScript,oppenentScript1, oppenentScript2, oppenentScript3, oppenentScript4, oppenentScript5;
+    private MissionCardScript userScript,oppenentScript1=null, oppenentScript2 = null, oppenentScript3 = null, oppenentScript4 = null, oppenentScript5 = null;
     private List<MissionCardScript> opponentScriptList = new List<MissionCardScript>();
     private List<GameObject> opponentBoxOBJ = new List<GameObject>();
     private List<GameObject> opponentBoxCardOBJ = new List<GameObject>();
@@ -53,14 +53,23 @@ public class PanelToTrade : MonoBehaviour
 
     [SerializeField] private GameObject missionCardArea;
 
-    private List<Player> otherPlayerList = new List<Player> { null, null, null, null, null, null };
+    private List<Player> otherPlayerList = new List<Player> { null, null, null, null, null };
     private List<Player> holdDoneList = new List<Player>();
     private List<Player> panelDoneList = new List<Player>();
+
+    private List<int> peopleWhoAskedTrade = new List<int>();
+    [SerializeField] private Button cancelButton1,cancelButton2,cancelButton3,cancelButton4,cancelButton5;
+    private List<Button> cancelButtonList = new List<Button>();
 
     private int allDoneTrading = 0;
 
     private bool EveryoneDone;
-
+    public bool doneSettingUpBox = false;
+    private Player whoYouAskToTradeWith;
+    [SerializeField] private GameObject playerLeftHide1, playerLeftHide2, playerLeftHide3, playerLeftHide4, playerLeftHide5;
+    private List<GameObject> playerLeftGameOBJ = new List<GameObject>();
+    [SerializeField] private GameObject playerDoneTrade1, playerDoneTrade2, playerDoneTrade3, playerDoneTrade4, playerDoneTrade5;
+    private List<GameObject> playerDoneTradeGameOBJ = new List<GameObject>();
     [SerializeField] private rollTime rolltime;
     private RaiseEventOptions AllOtherThanMePeopleOptions = new RaiseEventOptions()
     {
@@ -102,7 +111,10 @@ public class PanelToTrade : MonoBehaviour
             object[] receiveData = (object[])obj.CustomData;
             if (PhotonNetwork.LocalPlayer.ActorNumber == (int)receiveData[1])
             {
-                whoSentInfo((int)receiveData[0], (int)receiveData[2] , (bool)receiveData[3] , (byte)receiveData[4]);
+                if ((bool)receiveData[5])
+                    whoSentInfo((int)receiveData[0], (int)receiveData[2], (bool)receiveData[3], (byte)receiveData[4]);
+                else
+                    whoSentCancel((int)receiveData[0]);
             }
         }
         else if (obj.Code == (byte)PhotonEventCode.confirmOrDecline)
@@ -110,6 +122,7 @@ public class PanelToTrade : MonoBehaviour
             object[] receiveData = (object[])obj.CustomData;
             if (PhotonNetwork.LocalPlayer.ActorNumber == (int)receiveData[1])
             {
+                cancelAskToTrade(false);
                 if ((bool)receiveData[0])
                 {
                     exchangeCards(main_Game_Before_Start.FindPlayerUsingActorId((int)receiveData[1]), main_Game_Before_Start.FindPlayerUsingActorId((int)receiveData[2]));
@@ -127,6 +140,21 @@ public class PanelToTrade : MonoBehaviour
             if (getEveryoneDonePanel())
             {
                 rolltime.startRollTurn();
+            }
+            int j = 0;
+            int whichBox=0;
+            foreach (Player which in otherPlayerList)
+            {
+                if (otherPlayerList[j] != null)
+                {
+                    if (otherPlayerList[j].ActorNumber == (int)playerInfo[0])
+                    {
+                        playerDoneTradeGameOBJ[whichBox].SetActive(true);
+                        break;
+                    }
+                    whichBox++;
+                }
+                j++;
             }
             drawCharCard.checkWhichFunctionToRun();
         }
@@ -198,6 +226,21 @@ public class PanelToTrade : MonoBehaviour
         opponentBoxOBJ.Add(opponent3BoxOBJ);
         opponentBoxOBJ.Add(opponent4BoxOBJ);
         opponentBoxOBJ.Add(opponent5BoxOBJ);
+        cancelButtonList.Add(cancelButton1);
+        cancelButtonList.Add(cancelButton2);
+        cancelButtonList.Add(cancelButton3);
+        cancelButtonList.Add(cancelButton4);
+        cancelButtonList.Add(cancelButton5);
+        playerLeftGameOBJ.Add(playerLeftHide1);
+        playerLeftGameOBJ.Add(playerLeftHide2);
+        playerLeftGameOBJ.Add(playerLeftHide3);
+        playerLeftGameOBJ.Add(playerLeftHide4);
+        playerLeftGameOBJ.Add(playerLeftHide5);
+        playerDoneTradeGameOBJ.Add(playerDoneTrade1);
+        playerDoneTradeGameOBJ.Add(playerDoneTrade2);
+        playerDoneTradeGameOBJ.Add(playerDoneTrade3);
+        playerDoneTradeGameOBJ.Add(playerDoneTrade4);
+        playerDoneTradeGameOBJ.Add(playerDoneTrade5);
         RestTrades();
     }
     public bool getEveryoneDonePanel()
@@ -239,6 +282,7 @@ public class PanelToTrade : MonoBehaviour
     }
     public void oneDone(string sentMissionID, bool AttendOrNot,Player playerSent)
     {
+        holdDoneList.Add(playerSent);
         if (playerSent != PhotonNetwork.LocalPlayer) {
             foreach (Player listPlayer in PhotonNetwork.PlayerListOthers)
             {
@@ -252,15 +296,21 @@ public class PanelToTrade : MonoBehaviour
                 }
             }
         }
-        holdDoneList.Add(playerSent);
-        isAllDoneAttendance();
+        if (isAllDoneAttendance())
+        {
+            setDataBoxes();
+        }
     }
-    public void isAllDoneAttendance()
+    public bool isAllDoneAttendance()
     {
         everyoneIsDone = holdDoneList.Count;
         if ( (everyoneIsDone == PhotonNetwork.CurrentRoom.PlayerCount) && (!getEveryoneDonePanel()))
         {
-            setDataBoxes();
+            return true;
+        }
+        else
+        {
+            return false;
         }
     }
     public void setHoldDoneList(bool erase, Player removeThisPlayer)
@@ -271,6 +321,17 @@ public class PanelToTrade : MonoBehaviour
         }
         else
         {
+            for (int i = 0; i<otherPlayerList.Count; i++)
+            {
+                if (otherPlayerList[i]==removeThisPlayer)
+                {
+                    Debug.Log("Found Player and removed for the data box list");
+                    otherPlayerList[i] = null;
+                    opponentScriptList[i] = null;
+                    otherPlayerAttend[i] = false;
+                    break;
+                }
+            }
             foreach (Player ifThisPlayer in holdDoneList)
             {
                 if (ifThisPlayer == removeThisPlayer)
@@ -278,6 +339,10 @@ public class PanelToTrade : MonoBehaviour
                     holdDoneList.Remove(removeThisPlayer);
                     break;
                 }
+            }
+            if (isAllDoneAttendance())
+            {
+                setDataBoxes();
             }
         }
     }
@@ -311,22 +376,43 @@ public class PanelToTrade : MonoBehaviour
         }
         userBoxOBJ.SetActive(true);
         userBoxCardOBJ.GetComponent<MissionCardDisplay>().mission_script = userScript;
-        foreach (Player whichPlayerInRoom in PhotonNetwork.PlayerListOthers)
+        userBoxCardOBJ.GetComponent<MissionCardDisplay>().setUpdate();
+        int k = 0;
+        int playerData = 0;
+        foreach (Player whichPlayerInRoom in otherPlayerList)
         {
-            int k = main_Game_Before_Start.findPlayerPosition(whichPlayerInRoom);
-            Debug.Log("Open other player Trade Box");
-            NickNameOtherList[k].text = main_Game_Before_Start.oppententNameTextInfo[k];
-            opponentBoxOBJ[k].SetActive(true);
-            opponentBoxCardOBJ[k].GetComponent<MissionCardDisplay>().mission_script = opponentScriptList[k];
-            if (otherPlayerAttend[k])
+            if (whichPlayerInRoom != null)
             {
-                otherPlayerSkippedOBJ[k].SetActive(false);
+                Debug.Log("Open other player Trade Box");
+                NickNameOtherList[k].text = main_Game_Before_Start.oppententNameTextInfo[playerData];
+                opponentBoxOBJ[k].SetActive(true);
+                opponentBoxCardOBJ[k].GetComponent<MissionCardDisplay>().mission_script = opponentScriptList[playerData];
+                opponentBoxCardOBJ[k].GetComponent<MissionCardDisplay>().setUpdate();
+                if (otherPlayerAttend[playerData])
+                {
+                    otherPlayerSkippedOBJ[k].SetActive(false);
+                }
+                else
+                {
+                    otherPlayerSkippedOBJ[k].SetActive(true);
+                }
+                k++;
             }
-            else
+            playerData++;
+        }
+        doneSettingUpBox = true;
+    }
+    public List<Player> otherPlayerListWithOutNull()
+    {
+        List<Player> tempOtherPlayer = new List<Player>();
+        foreach (Player whichPlayer in otherPlayerList)
+        {
+            if (whichPlayer != null)
             {
-                otherPlayerSkippedOBJ[k].SetActive(true);
+                tempOtherPlayer.Add(whichPlayer);
             }
         }
+        return tempOtherPlayer;
     }
     public void clickOnToTrade(int WhichClick)
     {
@@ -345,10 +431,12 @@ public class PanelToTrade : MonoBehaviour
             else
             {
                 waitingRelpyTextList[WhichClick].text = "Waiting for other player responce...";
+                cancelButtonList[WhichClick].interactable = true;
                 toggleButtonToTrade(false);
                 TMZ_buttonBribe(false);
+                whoYouAskToTradeWith = otherPlayerList[findPositionOfBoxUsingInt(WhichClick)];
                 bribeOpponentList[WhichClick].interactable=false;
-                object[] data = new object[] {PhotonNetwork.LocalPlayer.ActorNumber , otherPlayerList[WhichClick].ActorNumber , MoneyBribedint , drawCharCard.getCurrentMissionScript().Newb_job, moneyAndPoints.getMyPoints()};
+                object[] data = new object[] {PhotonNetwork.LocalPlayer.ActorNumber , otherPlayerList[findPositionOfBoxUsingInt(WhichClick)].ActorNumber , MoneyBribedint , drawCharCard.getCurrentMissionScript().Newb_job, moneyAndPoints.getMyPoints(), true};
                 PhotonNetwork.RaiseEvent((byte)PhotonEventCode.sendToAsk, data, AllOtherThanMePeopleOptions, SendOptions.SendReliable);
             }
         }
@@ -362,38 +450,109 @@ public class PanelToTrade : MonoBehaviour
     public void clickOnToTradeOpponent3()=>clickOnToTrade(2);
     public void clickOnToTradeOpponent4()=>clickOnToTrade(3);
     public void clickOnToTradeOpponent5()=>clickOnToTrade(4);
+    public void clickOnToCancelTrade(int WhichClick)
+    {
+        waitingRelpyTextList[WhichClick].text = "You canceled the trade";
+        cancelButtonList[WhichClick].interactable = false;
+        toggleButtonToTrade(true);
+        TMZ_buttonBribe(true);
+        bribeOpponentList[WhichClick].interactable = true;
+        object[] data = new object[] { PhotonNetwork.LocalPlayer.ActorNumber, otherPlayerList[findPositionOfBoxUsingInt(WhichClick)].ActorNumber, MoneyBribedint, drawCharCard.getCurrentMissionScript().Newb_job, moneyAndPoints.getMyPoints(),false };
+        PhotonNetwork.RaiseEvent((byte)PhotonEventCode.sendToAsk, data, AllOtherThanMePeopleOptions, SendOptions.SendReliable);
+    }
+    private int findPositionOfBoxUsingInt(int whichClick)
+    {
+        int i = 0;
+        int whichBox=0;
+        foreach (Player which in otherPlayerList)
+        {
+            if (which != null)
+            {
+                if (whichBox == whichClick)
+                {
+                    break;
+                }
+                whichBox++;
+            }
+            i++;
+        }
+        return i;
+    }
+    public void clickOnToCancelTradeOpponent1() => clickOnToCancelTrade(0);
+    public void clickOnToCancelTradeOpponent2() => clickOnToCancelTrade(1);
+    public void clickOnToCancelTradeOpponent3() => clickOnToCancelTrade(2);
+    public void clickOnToCancelTradeOpponent4() => clickOnToCancelTrade(3);
+    public void clickOnToCancelTradeOpponent5() => clickOnToCancelTrade(4);
+    public void toggleButtonToCancel(bool onOrOff)
+    {
+        for (int i = 0; i < cancelButtonList.Count; i++)
+        {
+            cancelButtonList[i].interactable = onOrOff;
+        }
+    }
     public void toggleButtonToTrade(bool onOrOff)
     {
-        for (int i = 0; i < PhotonNetwork.CurrentRoom.PlayerCount; i++)
+        for (int i = 0; i < allotherTradeButtonList.Count; i++)
         {
             allotherTradeButtonList[i].interactable = onOrOff;
+        }
+    }
+    public void cancelAskToTrade(bool onOrOff)
+    {
+        for (int i = 0; i < cancelButtonList.Count; i++)
+        {
+            cancelButtonList[i].interactable = onOrOff;
+        }
+    }
+    public void whoSentCancel(int SenderID)
+    {
+        int BoxNum = 0;
+        foreach (Player CheckPlayer in otherPlayerList)
+        {
+            if (CheckPlayer != null)
+            {
+                peopleWhoAskedTrade.Remove(SenderID);
+                if (CheckPlayer.ActorNumber == SenderID)
+                {
+                    amountWantedToBribeList[BoxNum] = 0;
+                    delineTradeButtonList[BoxNum].interactable = false;
+                    confirmTradeButtonList[BoxNum].interactable = false;
+                    getAskTextList[BoxNum].text = "This player " + CheckPlayer.NickName + "has canceled the trade.";
+                }
+                BoxNum++;
+            }
         }
     }
     public void whoSentInfo(int SenderID, int Amount,bool NewbJob,byte OtherPlayerPoints)
     {
         int BoxNum = 0;
-        foreach (Player CheckPlayer in PhotonNetwork.PlayerListOthers)
+        foreach (Player CheckPlayer in otherPlayerList)
         {
-            if (CheckPlayer.ActorNumber == SenderID)
+            if (CheckPlayer != null)
             {
-                if (NewbJob && ((int)OtherPlayerPoints > (int)moneyAndPoints.getMyPoints()))
+                if (CheckPlayer.ActorNumber == SenderID)
                 {
-                    getAskTextList[BoxNum].text = "A Got newb job,and you've less points so...";
-                    object[] data = new object[] { true, SenderID, PhotonNetwork.LocalPlayer.ActorNumber };
-                    PhotonNetwork.RaiseEvent((byte)PhotonEventCode.confirmOrDecline, data, AllOtherThanMePeopleOptions, SendOptions.SendReliable);
-                    moneyAndPoints.addMyMoney(amountWantedToBribeList[main_Game_Before_Start.findPlayerPosition(main_Game_Before_Start.FindPlayerUsingActorId(SenderID))]);
-                    exchangeCards(PhotonNetwork.LocalPlayer, otherPlayerList[SenderID]);
-                    //swaped card 
+                    peopleWhoAskedTrade.Add(SenderID);
+                    if (NewbJob && ((int)OtherPlayerPoints > (int)moneyAndPoints.getMyPoints()))
+                    {
+                        getAskTextList[BoxNum].text = "A Got newb job,and you've less points so...";
+                        object[] data = new object[] { true, SenderID, PhotonNetwork.LocalPlayer.ActorNumber };
+                        PhotonNetwork.RaiseEvent((byte)PhotonEventCode.confirmOrDecline, data, AllOtherThanMePeopleOptions, SendOptions.SendReliable);
+                        peopleWhoAskedTrade.Remove(SenderID);
+                        moneyAndPoints.addMyMoney(amountWantedToBribeList[main_Game_Before_Start.findPlayerPosition(main_Game_Before_Start.FindPlayerUsingActorId(SenderID))]);
+                        exchangeCards(PhotonNetwork.LocalPlayer, otherPlayerList[findPositionOfBoxUsingInt(SenderID)]);
+                        //swaped card 
+                    }
+                    else
+                    {
+                        amountWantedToBribeList[BoxNum] = Amount;
+                        delineTradeButtonList[BoxNum].interactable = true;
+                        confirmTradeButtonList[BoxNum].interactable = true;
+                        getAskTextList[BoxNum].text = "This player " + CheckPlayer.NickName + " wants to trade with the amount of $" + Amount;
+                    }
                 }
-                else
-                {
-                    amountWantedToBribeList[BoxNum] = Amount;
-                    delineTradeButtonList[BoxNum].interactable = true;
-                    confirmTradeButtonList[BoxNum].interactable = true;
-                    getAskTextList[BoxNum].text = "This player " + CheckPlayer.NickName + " wants to trade with the amount of $" + Amount;
-                }
+                BoxNum++;
             }
-            BoxNum++;
         }
     }
     public void confirmButton(int whichPlayer)
@@ -401,15 +560,17 @@ public class PanelToTrade : MonoBehaviour
         Debug.Log("Confirm Button was click going to exchange");
         delineTradeButtonList[whichPlayer].interactable = false;
         confirmTradeButtonList[whichPlayer].interactable = false;
-        object[] data = new object[] { true , otherPlayerList[whichPlayer].ActorNumber , PhotonNetwork.LocalPlayer.ActorNumber};
+        object[] data = new object[] { true , otherPlayerList[findPositionOfBoxUsingInt(whichPlayer)].ActorNumber , PhotonNetwork.LocalPlayer.ActorNumber};
         PhotonNetwork.RaiseEvent((byte)PhotonEventCode.confirmOrDecline, data, AllOtherThanMePeopleOptions, SendOptions.SendReliable);
+        peopleWhoAskedTrade.Remove(otherPlayerList[findPositionOfBoxUsingInt(whichPlayer)].ActorNumber);
         moneyAndPoints.addMyMoney(amountWantedToBribeList[whichPlayer]);
-        exchangeCards(PhotonNetwork.LocalPlayer, otherPlayerList[whichPlayer]);
+        exchangeCards(PhotonNetwork.LocalPlayer, otherPlayerList[findPositionOfBoxUsingInt(whichPlayer)]);
     }
     public void rejectButton(int whichPlayer)
     {
-        object[] data = new object[] { false, otherPlayerList[whichPlayer].ActorNumber, PhotonNetwork.LocalPlayer.ActorNumber };
+        object[] data = new object[] { false, otherPlayerList[findPositionOfBoxUsingInt(whichPlayer)].ActorNumber, PhotonNetwork.LocalPlayer.ActorNumber };
         PhotonNetwork.RaiseEvent((byte)PhotonEventCode.confirmOrDecline, data, AllOtherThanMePeopleOptions, SendOptions.SendReliable);
+        peopleWhoAskedTrade.Remove(otherPlayerList[findPositionOfBoxUsingInt(whichPlayer)].ActorNumber);
         delineTradeButtonList[whichPlayer].interactable  = false;
         confirmTradeButtonList[whichPlayer].interactable = false;
         getAskTextList[whichPlayer].text = "You Rejected";
@@ -425,6 +586,7 @@ public class PanelToTrade : MonoBehaviour
             userScript = opponentScriptList[playerLoc2];
             drawCharCard.setCurrentMissionScript(userScript);
             TMZ_buttonBribe(true);
+            toggleButtonToTrade(true);
             bribeOpponentList[playerLoc2].text = "0";
             allotherTradeButtonList[playerLoc2].interactable = true;
             userBoxCardOBJ.GetComponent<MissionCardDisplay>().mission_script = userScript;
@@ -475,6 +637,19 @@ public class PanelToTrade : MonoBehaviour
     public void clickDoneTrading()
     {
         panelTrade.SetActive(false);
+        for (int i=0; i < peopleWhoAskedTrade.Count; i++)
+        {
+            for (int j = 0; j < otherPlayerList.Count; j++)
+            {
+                if (otherPlayerList[j] != null)
+                {
+                    if (otherPlayerList[j].ActorNumber == peopleWhoAskedTrade[i])
+                    {
+                        rejectButton(j);
+                    }
+                }
+            }
+        }
         object[] playerData = new object[] { PhotonNetwork.LocalPlayer.ActorNumber};
         PhotonNetwork.RaiseEvent((byte)PhotonEventCode.doneTrading, playerData, AllPeople, SendOptions.SendReliable);
     }
@@ -497,7 +672,12 @@ public class PanelToTrade : MonoBehaviour
     }
     public void restAttendance()
     {
+        doneSettingUpBox = false;
         RestTrades();
+        setHoldDoneList(true, null);
+        setPannelDoneList(true, null);
+        peopleWhoAskedTrade.Clear();
+        peopleWhoAskedTrade.Clear();
         everyoneIsDone = 0;
         allDoneTrading = 0;
         userAttend = false;
@@ -506,8 +686,34 @@ public class PanelToTrade : MonoBehaviour
             otherPlayerAttend[i] = false;
         }
     }
+    public void PlayerLeftDuringExchange(Player LeavingPlayer)
+    {
+        int i = 0;
+        int whichBox = 0;
+        foreach (Player which in otherPlayerList)
+        {
+            if (which != null)
+            {
+                if (which== LeavingPlayer)
+                {
+                    break;
+                }
+                whichBox++;
+            }
+            i++;
+        }
+        if (whoYouAskToTradeWith == LeavingPlayer)
+        {
+            declineTrade(whichBox);
+        }
+        playerLeftGameOBJ[whichBox].SetActive(true);
+    }
     public void RestTrades()
     {
+        for (int i = 0; i < otherPlayerList.Count; i++)
+        {
+            otherPlayerList[i] = null;
+        }
         for (int i = 0; i < otherPlayerSkippedOBJ.Count; i++)
         {
             otherPlayerSkippedOBJ[i].SetActive(false);
@@ -515,6 +721,18 @@ public class PanelToTrade : MonoBehaviour
         for (int i = 0; i < opponentBoxOBJ.Count; i++)
         {
             opponentBoxOBJ[i].SetActive(false);
+        }
+        for (int i = 0; i < playerLeftGameOBJ.Count; i++)
+        {
+            playerLeftGameOBJ[i].SetActive(false);
+        }
+        for (int i = 0; i < playerDoneTradeGameOBJ.Count; i++)
+        {
+            playerDoneTradeGameOBJ[i].SetActive(false);
+        }
+        for (int i=0; i < cancelButtonList.Count; i++)
+        {
+            cancelButtonList[i].interactable = false;
         }
         for (int i = 0; i < bribeOpponentList.Count; i++)
         {

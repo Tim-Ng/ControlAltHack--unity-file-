@@ -70,8 +70,6 @@ public class DrawEntropyCard : MonoBehaviourPunCallbacks
             entropyCard.transform.SetParent(UserArea.transform, false);
             object[] data = new object[] { entropycards[x].EntropyCardID };
             PhotonNetwork.RaiseEvent((byte)PhotonEventCode.removeEntropycardFromdeck, data, AllOtherThanMePeopleOptions, SendOptions.SendReliable); // as this is not fast enough 
-            RemoveThisCard(entropycards[x].EntropyCardID); //so this is used
-            Thread.Sleep(175);
         }
     }
     public void RemoveThisCard(int cardID)

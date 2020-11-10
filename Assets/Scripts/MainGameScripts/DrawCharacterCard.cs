@@ -8,6 +8,7 @@ using System.Linq;
 using System.Threading;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SocialPlatforms;
 using UnityEngine.UI;
 
 public class DrawCharacterCard : MonoBehaviourPunCallbacks
@@ -48,7 +49,6 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
     [SerializeField] private DrawMissionCard drawMissionCard;
 
     [SerializeField] private Main_Game_before_start main_Game_Before_Start;
-
     private int nextMyPlayerId;
     private bool returnToPlayerStartAround;
     public bool getSetreturnToPlayerStartAround
@@ -71,7 +71,8 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
     private MissionCardScript currentUserMission = null;
 
     [SerializeField] private PanelToTrade panelToTrade;
- 
+
+    private bool iveDoneMyTurn = false;
     private RaiseEventOptions AllOtherThanMePeopleOptions = new RaiseEventOptions()
     {
         CachingOption = EventCaching.DoNotCache,
@@ -96,6 +97,7 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
 
     public int TurnNumber = 0;
     public int PlayerIdToMakeThisTurn;
+    public int playersBeforeStartGame;
     public bool IsMyTurn
     {
         get
@@ -129,11 +131,13 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
     {
         if (obj.Code == (byte)PhotonEventCode.LeaveButton)
         {
+            iveDoneMyTurn = false;
             if (!PhotonNetwork.IsMasterClient)
             {
                 setWinnerList();
             }
             main_Game_Before_Start.setHoldPlayerListAfterStartGame();
+            playersBeforeStartGame = PhotonNetwork.CurrentRoom.PlayerCount;
             gameHasStart = true;
             noleave();
             closeStartContentGame();
@@ -162,12 +166,14 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
         }
         else if (obj.Code == (byte)PhotonEventCode.TurnChanged)
         {
+            object[] carddata = (object[])obj.CustomData;
+            TurnNumber = (int)carddata[0];
+            iveDoneMyTurn = (bool)carddata[1];
+            Debug.Log("New Turn player have done turn = " + iveDoneMyTurn);
             if (!PhotonNetwork.IsMasterClient)
             {
                 setWinnerList();
             }
-            object[] carddata = (object[])obj.CustomData;
-            TurnNumber = (int)carddata[0];
             panelToTrade.setHoldDoneList(true, null);
             if (TurnNumber > 1 && TurnNumber % 2 != 0)
             {
@@ -395,7 +401,7 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
     // Check the number of players and distribute the number of character cards accordingly 
     public void countNumCharCards()
     {
-        number_of_players = PhotonNetwork.CurrentRoom.PlayerCount;
+        number_of_players = playersBeforeStartGame;
         if (number_of_players == 6)
         {
             Debug.Log("Number of players is 6 , distributing 2 cards");
@@ -413,15 +419,23 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
     }
     public void checkWhichFunctionToRun()
     {
-        if ((!main_Game_Before_Start.ifYouAreDead))
+        if ((!main_Game_Before_Start.ifYouAreDead) )
         {  
-            if ((TurnNumber == 0) && IsMyTurn)
+            if ((TurnNumber == 0) && IsMyTurn )
             {
-                countNumCharCards();
-                Drawcard(number_of_character_cards);
-                EndTurn();
+                if (!iveDoneMyTurn)
+                {
+                    countNumCharCards();
+                    Drawcard(number_of_character_cards);
+                    EndTurn();
+                }
+                else
+                {
+                    EndTurn();
+                }
+                
             }
-            else if ((TurnNumber % 2 != 0) && IsMyTurn)
+            else if ((TurnNumber % 2 != 0) && IsMyTurn )
             {
                 int NumberOfselectedPlayer = 0;
                 if(chosed_character_user != null)
@@ -487,7 +501,15 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
         {
             main_Game_Before_Start.getSetIfONlyOneLeft = PhotonNetwork.CurrentRoom.PlayerCount;
             NickNameList.Add(whichPlayerLeading[i].NickName);
-            CharacterID.Add(AllCharacterPlayCharacter()[main_Game_Before_Start.findPlayerPosition(whichPlayerLeading[i])].character_code);
+            if (whichPlayerLeading[i] == PhotonNetwork.LocalPlayer)
+            {
+                CharacterID.Add(chosed_character_user.character_code);
+            }
+            else
+            {
+                CharacterID.Add(AllCharacterPlayCharacter()[main_Game_Before_Start.findPlayerPosition(whichPlayerLeading[i])].character_code);
+            }
+            
             if (i == 2)
             {
                 break;
@@ -609,8 +631,7 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
         setWinnerList();
         if (TurnNumber > 2)
         {
-            Debug.Log("1st :" + AllPlayerPoint[0] +" vs 2nd is " + AllPlayerPoint[1] +" differents " + (AllPlayerPoint[0] - AllPlayerPoint[1]));
-            if (AllPlayerPoint[0] - AllPlayerPoint[1] >= 5 || main_Game_Before_Start.getSetIfONlyOneLeft == 1)
+            if (main_Game_Before_Start.getSetIfONlyOneLeft == 1 || AllPlayerPoint[0] - AllPlayerPoint[1] >= 5 )
             {
                 sendAllSomeoneWin();
             }
@@ -621,6 +642,10 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
     }
     public void EndTurn()
     {
+        if (IsMyTurn)
+        {
+            iveDoneMyTurn = true;
+        }
         Debug.Log("sending to master");
         PhotonNetwork.RaiseEvent((byte)PhotonEventCode.sortToMaster, null, new RaiseEventOptions { TargetActors = new int[] { PhotonNetwork.MasterClient.ActorNumber } }, SendOptions.SendReliable);
     }
@@ -645,8 +670,7 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
             if (getSetreturnToPlayerStartAround)
             {
                 TurnNumber += 1;
-                object[] turndata = new object[] { TurnNumber };
-                
+                object[] turndata = new object[] { TurnNumber , false};
                 PhotonNetwork.RaiseEvent((byte)PhotonEventCode.TurnChanged, turndata, AllPeople, SendOptions.SendReliable);
             }
             else

@@ -175,6 +175,7 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
                 setWinnerList();
             }
             panelToTrade.setHoldDoneList(true, null);
+            panelToTrade.setPannelDoneList(true, null);
             if (TurnNumber > 1 && TurnNumber % 2 != 0)
             {
                 rollTimeScript.restRollTime();
@@ -310,7 +311,6 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
         PhotonNetwork.RaiseEvent((byte)PhotonEventCode.SelectChar, dataSelectCard, AllOtherThanMePeopleOptions, SendOptions.SendReliable);
         userAvertarButton.interactable = true;
         Popup.closePopup();
-        PhotonNetwork.RaiseEvent((byte)PhotonEventCode.CheckAllDoneChar, null, AllPeople, SendOptions.SendReliable);
         if (chosed_character_user.character_code == 15)
         {
             moneyAndPointScripts.addMyMoney(3000);
@@ -324,6 +324,7 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
             moneyAndPointScripts.addMyMoney(2000);
         }
         moneyAndPointScripts.addPoints(6);
+        PhotonNetwork.RaiseEvent((byte)PhotonEventCode.CheckAllDoneChar, null, AllPeople, SendOptions.SendReliable);
     }
 
     //to remove this card from the deck for everyone so that we don't get the same character
@@ -345,25 +346,16 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
     public void SetCharacterInfo(int character_code, Player sendingPlayer)
     {
         Debug.Log("setting opponents avertar");
-        int i = 0;
-        foreach (Player whichplayer in main_Game_Before_Start.getPlayerList())
-        {
-            if (sendingPlayer == whichplayer)
-            {
-                break;
-            }
-            i++;
-        }
         foreach (CharCardScript charScript in cardDeck.getCharDeck())
         {
             Debug.Log("card id :");
             if (charScript.character_code == character_code)
             {
                 Debug.Log("Avetar of player " + sendingPlayer.NickName + " is set ");
-                otherPlayerCharacterInfo[i] = charScript;
-                holdTocheckIngame[i] = charScript;
-                otherPlayerAvertar[i].sprite = otherPlayerCharacterInfo[i].image_Avertar;
-                otherAvertarPlayerButton[i].interactable = true;
+                otherPlayerCharacterInfo[main_Game_Before_Start.findPlayerPosition(sendingPlayer)] = charScript;
+                holdTocheckIngame[main_Game_Before_Start.findPlayerPosition(sendingPlayer)] = charScript;
+                otherPlayerAvertar[main_Game_Before_Start.findPlayerPosition(sendingPlayer)].sprite = otherPlayerCharacterInfo[main_Game_Before_Start.findPlayerPosition(sendingPlayer)].image_Avertar;
+                otherAvertarPlayerButton[main_Game_Before_Start.findPlayerPosition(sendingPlayer)].interactable = true;
                 break;
             }
         }
@@ -433,7 +425,6 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
                 {
                     EndTurn();
                 }
-                
             }
             else if ((TurnNumber % 2 != 0) && IsMyTurn )
             {
@@ -461,7 +452,7 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
                     EndTurn();
                 }
             }
-            else if (TurnNumber % 2 == 0 && panelToTrade.getEveroneDone() && IsMyTurn)
+            else if (TurnNumber % 2 == 0 && panelToTrade.getEveryoneDonePanel() && IsMyTurn)
             {
                 rollTimeScript.startRollTurn();
             }
@@ -631,7 +622,23 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
         setWinnerList();
         if (TurnNumber > 2)
         {
-            if (main_Game_Before_Start.getSetIfONlyOneLeft == 1 || AllPlayerPoint[0] - AllPlayerPoint[1] >= 5 )
+            bool gotPlayerWin;
+            if (AllPlayerPoint.Count > 1)
+            {
+                if (AllPlayerPoint[0] - AllPlayerPoint[1] >= 5)
+                {
+                    gotPlayerWin = true;
+                }
+                else
+                {
+                    gotPlayerWin = false;
+                }
+            }
+            else
+            {
+                gotPlayerWin = true;
+            }
+            if (gotPlayerWin)
             {
                 sendAllSomeoneWin();
             }

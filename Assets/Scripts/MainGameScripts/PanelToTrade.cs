@@ -53,12 +53,13 @@ public class PanelToTrade : MonoBehaviour
 
     [SerializeField] private GameObject missionCardArea;
 
-    private List<Player> otherPlayerList = new List<Player>();
+    private List<Player> otherPlayerList = new List<Player> { null, null, null, null, null, null };
     private List<Player> holdDoneList = new List<Player>();
+    private List<Player> panelDoneList = new List<Player>();
 
     private int allDoneTrading = 0;
 
-    private bool EveroneDone;
+    private bool EveryoneDone;
 
     [SerializeField] private rollTime rolltime;
     private RaiseEventOptions AllOtherThanMePeopleOptions = new RaiseEventOptions()
@@ -121,12 +122,13 @@ public class PanelToTrade : MonoBehaviour
         }
         else if (obj.Code == (byte)PhotonEventCode.doneTrading)
         {
-            allDoneTrading +=1;
-            if (allDoneTrading == PhotonNetwork.CurrentRoom.PlayerCount)
+            object[] playerInfo = (object[])obj.CustomData;
+            panelDoneList.Add(main_Game_Before_Start.FindPlayerUsingActorId((int)playerInfo[0]));
+            if (getEveryoneDonePanel())
             {
-                EveroneDone = true;
                 rolltime.startRollTurn();
             }
+            drawCharCard.checkWhichFunctionToRun();
         }
     }
     private void Start()
@@ -198,9 +200,25 @@ public class PanelToTrade : MonoBehaviour
         opponentBoxOBJ.Add(opponent5BoxOBJ);
         RestTrades();
     }
+    public bool getEveryoneDonePanel()
+    {
+        allDoneTrading = 0;
+        for(int i =0; i< panelDoneList.Count;i++)
+        {
+            allDoneTrading += 1;
+        }
+        if (allDoneTrading == PhotonNetwork.CurrentRoom.PlayerCount)
+        {
+            EveryoneDone = true;
+        }
+        else
+        {
+            EveryoneDone = false;
+        }
+        return EveryoneDone;
+    }
     public void clickOnAttend()
     {
-        RestTrades();
         userAttend = true;
         popupcardwindowMissionScript.setONLYLOOK(true);
         popupcardwindowMissionScript.closePopup();
@@ -208,7 +226,6 @@ public class PanelToTrade : MonoBehaviour
     }
     public void clickOnNotAttend()
     {
-        RestTrades();
         userAttend = false;
         popupcardwindowMissionScript.setONLYLOOK(true);
         popupcardwindowMissionScript.closePopup();
@@ -222,20 +239,17 @@ public class PanelToTrade : MonoBehaviour
     }
     public void oneDone(string sentMissionID, bool AttendOrNot,Player playerSent)
     {
-        int j = 0;
-        otherPlayerList = main_Game_Before_Start.getPlayerList();
         if (playerSent != PhotonNetwork.LocalPlayer) {
             foreach (Player listPlayer in PhotonNetwork.PlayerListOthers)
             {
                 Debug.Log("Add player to list");
                 if (listPlayer == playerSent)
                 {
-                    opponentScriptList[j] = drawCharCard.getWhichMissionCardScript(sentMissionID);
-                    otherPlayerList[j] = playerSent;
-                    otherPlayerAttend[j] = AttendOrNot;
+                    opponentScriptList[main_Game_Before_Start.findPlayerPosition(playerSent)] = drawCharCard.getWhichMissionCardScript(sentMissionID);
+                    otherPlayerList[main_Game_Before_Start.findPlayerPosition(playerSent)] = playerSent;
+                    otherPlayerAttend[main_Game_Before_Start.findPlayerPosition(playerSent)] = AttendOrNot;
                     break;
                 }
-                j++;
             }
         }
         holdDoneList.Add(playerSent);
@@ -244,7 +258,7 @@ public class PanelToTrade : MonoBehaviour
     public void isAllDoneAttendance()
     {
         everyoneIsDone = holdDoneList.Count;
-        if (everyoneIsDone == PhotonNetwork.CurrentRoom.PlayerCount)
+        if ( (everyoneIsDone == PhotonNetwork.CurrentRoom.PlayerCount) && (!getEveryoneDonePanel()))
         {
             setDataBoxes();
         }
@@ -267,6 +281,24 @@ public class PanelToTrade : MonoBehaviour
             }
         }
     }
+    public void setPannelDoneList(bool erase, Player removeThisPlayer)
+    {
+        if (erase)
+        {
+            panelDoneList.Clear();
+        }
+        else
+        {
+            foreach (Player ifThisPlayer in panelDoneList)
+            {
+                if (ifThisPlayer == removeThisPlayer)
+                {
+                    panelDoneList.Remove(removeThisPlayer);
+                    break;
+                }
+            }
+        }
+    }
     public  void setDataBoxes()
     {
         if (userAttend)
@@ -279,8 +311,9 @@ public class PanelToTrade : MonoBehaviour
         }
         userBoxOBJ.SetActive(true);
         userBoxCardOBJ.GetComponent<MissionCardDisplay>().mission_script = userScript;
-        for (int k = 0; k < PhotonNetwork.CurrentRoom.PlayerCount -1  ; k++)
+        foreach (Player whichPlayerInRoom in PhotonNetwork.PlayerListOthers)
         {
+            int k = main_Game_Before_Start.findPlayerPosition(whichPlayerInRoom);
             Debug.Log("Open other player Trade Box");
             NickNameOtherList[k].text = main_Game_Before_Start.oppententNameTextInfo[k];
             opponentBoxOBJ[k].SetActive(true);
@@ -315,7 +348,7 @@ public class PanelToTrade : MonoBehaviour
                 toggleButtonToTrade(false);
                 TMZ_buttonBribe(false);
                 bribeOpponentList[WhichClick].interactable=false;
-                object[] data = new object[] {PhotonNetwork.LocalPlayer.ActorNumber , otherPlayerList[0].ActorNumber , MoneyBribedint , drawCharCard.getCurrentMissionScript().Newb_job, moneyAndPoints.getMyPoints()};
+                object[] data = new object[] {PhotonNetwork.LocalPlayer.ActorNumber , otherPlayerList[WhichClick].ActorNumber , MoneyBribedint , drawCharCard.getCurrentMissionScript().Newb_job, moneyAndPoints.getMyPoints()};
                 PhotonNetwork.RaiseEvent((byte)PhotonEventCode.sendToAsk, data, AllOtherThanMePeopleOptions, SendOptions.SendReliable);
             }
         }
@@ -442,7 +475,8 @@ public class PanelToTrade : MonoBehaviour
     public void clickDoneTrading()
     {
         panelTrade.SetActive(false);
-        PhotonNetwork.RaiseEvent((byte)PhotonEventCode.doneTrading, null, AllPeople, SendOptions.SendReliable);
+        object[] playerData = new object[] { PhotonNetwork.LocalPlayer.ActorNumber};
+        PhotonNetwork.RaiseEvent((byte)PhotonEventCode.doneTrading, playerData, AllPeople, SendOptions.SendReliable);
     }
     public bool getIfIAttend()
     {
@@ -451,10 +485,6 @@ public class PanelToTrade : MonoBehaviour
     public bool getifOpponentAtted(int which)
     {
         return otherPlayerAttend[which];
-    }
-    public bool getEveroneDone()
-    {
-        return EveroneDone;
     }
     public bool ifOnlyYouAttend()
     {
@@ -478,7 +508,6 @@ public class PanelToTrade : MonoBehaviour
     }
     public void RestTrades()
     {
-        EveroneDone = false;
         for (int i = 0; i < otherPlayerSkippedOBJ.Count; i++)
         {
             otherPlayerSkippedOBJ[i].SetActive(false);

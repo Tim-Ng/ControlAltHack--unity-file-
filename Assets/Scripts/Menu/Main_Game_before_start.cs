@@ -122,6 +122,8 @@ public class Main_Game_before_start : MonoBehaviourPunCallbacks
         }
         if (drawCharacterCard.getSetGameHasStart)
         {
+            panelToTrade.setHoldDoneList(false, LeavingPlayer);
+            panelToTrade.setPannelDoneList(false, LeavingPlayer);
             if (OnlyOneLeft == 1)
             {
                 drawCharacterCard.sendAllSomeoneWin();
@@ -130,6 +132,7 @@ public class Main_Game_before_start : MonoBehaviourPunCallbacks
             {
                 if (drawCharacterCard.PlayerIdToMakeThisTurn == LeavingPlayer.ActorNumber)
                 {
+                    Debug.Log("Player left turn so ending turn");
                     drawCharacterCard.EndTurn();
                 }
             }
@@ -142,7 +145,6 @@ public class Main_Game_before_start : MonoBehaviourPunCallbacks
                 }
                 i++;
             }
-            panelToTrade.setHoldDoneList(false, LeavingPlayer);
             drawCharacterCard.checkWhichFunctionToRun();
             panelToTrade.isAllDoneAttendance();
         }

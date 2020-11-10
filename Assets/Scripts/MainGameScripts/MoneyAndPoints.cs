@@ -93,7 +93,6 @@ public class MoneyAndPoints : MonoBehaviour
             opponentpointslistOBJ[main_Game_Before_Start.findPlayerPosition(senderPlayer)].text = senderPoints.ToString();
 
         }
-
         else if (obj.Code == (byte)PhotonEventCode.receiverMoney)
         {
             object[] moneydata = (object[])obj.CustomData;

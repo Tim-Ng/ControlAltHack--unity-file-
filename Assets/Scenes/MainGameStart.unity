@@ -5264,6 +5264,7 @@ MonoBehaviour:
   panelToTrade: {fileID: 499456415}
   TurnNumber: 0
   PlayerIdToMakeThisTurn: 0
+  playersBeforeStartGame: 0
   tableStartContent: {fileID: 1753310601}
 --- !u!4 &499456408
 Transform:

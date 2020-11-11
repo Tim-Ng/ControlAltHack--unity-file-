@@ -39,7 +39,6 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
     private List<Image> otherPlayerAvertar = new List<Image>();
     private List<Button> otherAvertarPlayerButton = new List<Button>();
     private int number_of_players, number_of_character_cards;
-    [SerializeField] private TMP_InputField numberOfRounds_input = null, numberOfCredAhead_input = null;
     [SerializeField] private rollTime rollTimeScript;
 
     private List<Player> whichPlayerLeading = new List<Player>();
@@ -71,7 +70,7 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
     private MissionCardScript currentUserMission = null;
 
     [SerializeField] private PanelToTrade panelToTrade;
-
+    [SerializeField] private Sprite noCharImage;
     private bool iveDoneMyTurn = false;
     private RaiseEventOptions AllOtherThanMePeopleOptions = new RaiseEventOptions()
     {
@@ -105,14 +104,23 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
             return this.PlayerIdToMakeThisTurn == PhotonNetwork.LocalPlayer.ActorNumber;
         }
     }
-    public GameObject tableStartContent;
+    private List<GameObject> tableStartContent = new List<GameObject>();
+    [SerializeField] private GameObject Amount_people_in_lobby, RoomNumber_Text, RoomCode, Number_Of_Rounds, Number_Of_HackerCreds;
     void Start()
     {
         putCharCardsInList();
+        tableStartContent.Add(Amount_people_in_lobby);
+        tableStartContent.Add(RoomNumber_Text);
+        tableStartContent.Add(RoomCode);
+        tableStartContent.Add(Number_Of_Rounds);
+        tableStartContent.Add(Number_Of_HackerCreds);
     }
-    public void closeStartContentGame()
+    public void StartContentGame(bool closeOrnot)
     {
-        tableStartContent.SetActive(false);
+        foreach (GameObject which in tableStartContent)
+        {
+            which.SetActive(closeOrnot);
+        }
     }
 
     private void OnEnable()
@@ -131,6 +139,7 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
     {
         if (obj.Code == (byte)PhotonEventCode.LeaveButton)
         {
+            setGameproperties();
             iveDoneMyTurn = false;
             if (!PhotonNetwork.IsMasterClient)
             {
@@ -140,7 +149,7 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
             playersBeforeStartGame = PhotonNetwork.CurrentRoom.PlayerCount;
             gameHasStart = true;
             noleave();
-            closeStartContentGame();
+            StartContentGame(false);
         }
         else if (obj.Code == (byte)PhotonEventCode.UpdateTurnPlayer)
         {
@@ -201,20 +210,20 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
             if ((int)whowin[6] == 1)
             {
                 Debug.Log("Win only 1 player");
-                placeInfoPlace(firstPlaceOBJ, Nickwin1, AverPlace1, (string)whowin[0], (int)whowin[1]);
+                placeInfoPlace(firstPlaceOBJ, Nickwin1, AverPlace1, (string)whowin[0], (string)whowin[1]);
             }
             else if ((int)whowin[6] == 2)
             {
                 Debug.Log("Win only 2 player");
-                placeInfoPlace(firstPlaceOBJ, Nickwin1, AverPlace1, (string)whowin[0], (int)whowin[1]);
-                placeInfoPlace(sendPlaceOBJ, Nickwin2, AverPlace2, (string)whowin[2], (int)whowin[3]);
+                placeInfoPlace(firstPlaceOBJ, Nickwin1, AverPlace1, (string)whowin[0], (string)whowin[1]);
+                placeInfoPlace(sendPlaceOBJ, Nickwin2, AverPlace2, (string)whowin[2], (string)whowin[3]);
             }
             else if ((int)whowin[6] == 3)
             {
                 Debug.Log("Win only 3 player");
-                placeInfoPlace(firstPlaceOBJ, Nickwin1, AverPlace1, (string)whowin[0], (int)whowin[1]);
-                placeInfoPlace(sendPlaceOBJ, Nickwin2, AverPlace2, (string)whowin[2], (int)whowin[3]);
-                placeInfoPlace(thirdPlaceOBJ, Nickwin3, AverPlace3, (string)whowin[4], (int)whowin[5]);
+                placeInfoPlace(firstPlaceOBJ, Nickwin1, AverPlace1, (string)whowin[0], (string)whowin[1]);
+                placeInfoPlace(sendPlaceOBJ, Nickwin2, AverPlace2, (string)whowin[2], (string)whowin[3]);
+                placeInfoPlace(thirdPlaceOBJ, Nickwin3, AverPlace3, (string)whowin[4], (string)whowin[5]);
             }
             else
             {
@@ -254,25 +263,17 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
         }
         userAvertarButton.interactable = false;
     }
+    public void setGameproperties()
+    {
+        GameProperties[0]= main_Game_Before_Start.getRoundInput();
+        GameProperties[1] = main_Game_Before_Start.getCredAheadInput();
+    }
     // when host click on the start button;
     public void OnClickTodrawCard()
     {
         PhotonNetwork.RaiseEvent((byte)PhotonEventCode.LeaveButton, null, AllPeople, SendOptions.SendReliable);
         StartGameButtonOBJ.SetActive(false);
-        if (!(string.IsNullOrEmpty(numberOfRounds_input.text)))
-        {
-            if ((numberOfRounds_input.text).All(char.IsDigit))
-                GameProperties[0] = int.Parse(numberOfRounds_input.text);
-            else
-                GameProperties[0] = 0;
-        }
-        if (!(string.IsNullOrEmpty(numberOfCredAhead_input.text)))
-        {
-            if ((numberOfCredAhead_input.text).All(char.IsDigit))
-                GameProperties[1] = int.Parse(numberOfCredAhead_input.text);
-            else
-                GameProperties[1] = 0;
-        }
+        setGameproperties();
         PhotonNetwork.CurrentRoom.IsVisible = false;
         PhotonNetwork.CurrentRoom.IsOpen = false;
         Debug.Log("Send to all draw character");
@@ -477,7 +478,10 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
         }
         else
         {
-            EndTurn();
+            if (IsMyTurn)
+            {
+                EndTurn();
+            }
         }
         
     }
@@ -504,10 +508,17 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
     public void sendAllSomeoneWin()
     {
         List<string> NickNameList = new List<string>();
-        List<int> CharacterID = new List<int>();
+        List<string> CharacterID = new List<string>();
         if (PhotonNetwork.CurrentRoom.PlayerCount == 1)
         {
-            CharacterID.Add(chosed_character_user.character_code);
+            if (chosed_character_user == null)
+            {
+                CharacterID.Add(null);
+            }
+            else
+            {
+                CharacterID.Add(chosed_character_user.character_code.ToString());
+            }
             NickNameList.Add(PhotonNetwork.LocalPlayer.NickName);
         }
         else
@@ -518,11 +529,11 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
                 NickNameList.Add(whichPlayerLeading[i].NickName);
                 if (whichPlayerLeading[i] == PhotonNetwork.LocalPlayer)
                 {
-                    CharacterID.Add(chosed_character_user.character_code);
+                    CharacterID.Add(chosed_character_user.character_code.ToString());
                 }
                 else
                 {
-                    CharacterID.Add(otherPlayerCharacterInfo[main_Game_Before_Start.findPlayerPosition(whichPlayerLeading[i])].character_code);
+                    CharacterID.Add(otherPlayerCharacterInfo[main_Game_Before_Start.findPlayerPosition(whichPlayerLeading[i])].character_code.ToString());
                 }
                 if (i == 2)
                 {
@@ -578,15 +589,22 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
     {
         return otherPlayerCharacterInfo[which];
     }
-    public void placeInfoPlace(GameObject placeObj, Text nickNameObj, Image AvertarOBJ,string NickName,int whichCharCode)
+    public void placeInfoPlace(GameObject placeObj, Text nickNameObj, Image AvertarOBJ,string NickName,string whichCharCode)
     {
         placeObj.SetActive(true);
         nickNameObj.text = NickName;
-        foreach (CharCardScript whichScript in cardDeck.getCharDeck())
+        if (whichCharCode == null)
         {
-            if (whichScript.character_code == whichCharCode)
+            AvertarOBJ.sprite = noCharImage;
+        }
+        else
+        {
+            foreach (CharCardScript whichScript in cardDeck.getCharDeck())
             {
-                AvertarOBJ.sprite = whichScript.image_Avertar;
+                if (whichScript.character_code == int.Parse(whichCharCode))
+                {
+                    AvertarOBJ.sprite = whichScript.image_Avertar;
+                }
             }
         }
     }
@@ -601,11 +619,8 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
     {
         whichPlayerLeading.Clear();
         AllPlayerPoint.Clear();
-        if (!main_Game_Before_Start.ifYouAreDead)
-        {
-            whichPlayerLeading.Add(PhotonNetwork.LocalPlayer);
-            AllPlayerPoint.Add(moneyAndPointScripts.getMyPoints());
-        }
+        whichPlayerLeading.Add(PhotonNetwork.LocalPlayer);
+        AllPlayerPoint.Add(moneyAndPointScripts.getMyPoints());
         foreach (Player playerInList in main_Game_Before_Start.getPlayerList())
         {
             whichPlayerLeading.Add(playerInList);
@@ -653,7 +668,7 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
     public void checkTurn()
     {
         setWinnerList();
-        if ((TurnNumber / 2 == (6 + 1)))
+        if ((TurnNumber / 2 == (GameProperties[0] + 1)))
         {
             sendAllSomeoneWin();
         }
@@ -662,7 +677,7 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
             bool gotPlayerWin;
             if (AllPlayerPoint.Count > 1)
             {
-                if (AllPlayerPoint[0] - AllPlayerPoint[1] >= 5)
+                if (AllPlayerPoint[0] - AllPlayerPoint[1] >= GameProperties[1])
                 {
                     gotPlayerWin = true;
                 }

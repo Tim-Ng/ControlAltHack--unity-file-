@@ -9,16 +9,16 @@ using UnityEngine.SceneManagement;
 using System.Threading;
 public class Main_Menu : MonoBehaviourPunCallbacks
     {
-        [SerializeField] private TMP_InputField join_input = null, host_input = null, nameInputFeild = null;
-        [SerializeField] private Text message=null;
-        public Text loading_text;
-        public GameObject TurnHost, TurnJoin, loading_OBJ, messageOBJ, ChangeNickNameButton;
-        public Button join_button, host_button, continueButton;
-        private const string GameVersion = "0.1"; //not the same will not connect together 
-        private const int MaxPlayersPerRoom = 6;
-        private const string PlayerPrefsNameKey = "PlayerName";
-        private bool turnOnButtons=false;
-        public GameObject OBJUserName, OBJHostJoin;
+    [SerializeField] private TMP_InputField join_input = null, host_input = null, nameInputFeild = null;
+    [SerializeField] private Text message = null;
+    public Text loading_text;
+    public GameObject TurnHost, TurnJoin, loading_OBJ, messageOBJ, ChangeNickNameButton;
+    public Button join_button, host_button, continueButton;
+    private const string GameVersion = "0.1"; //not the same will not connect together 
+    private const int MaxPlayersPerRoom = 6;
+    private const string PlayerPrefsNameKey = "PlayerName";
+    private bool turnOnButtons = false;
+    public GameObject OBJUserName, OBJHostJoin;
     private void Awake()
         {
             PhotonNetwork.AutomaticallySyncScene = true;

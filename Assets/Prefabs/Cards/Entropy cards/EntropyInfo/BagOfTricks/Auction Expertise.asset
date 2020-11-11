@@ -23,7 +23,13 @@ MonoBehaviour:
   artwork_info: {fileID: 21300000, guid: d9ecdf60b5d297d43a1dcb5c006fa436, type: 3}
   artwork_back: {fileID: 21300000, guid: d9ecdf60b5d297d43a1dcb5c006fa436, type: 3}
   Cost: 4000
-  usage: +3 Web Procurement.
+  SkillEffecter: 1
+  whichSkillIncrease1: Web Procurement
+  byHowMuchSkillIncrease1: 3
+  increaseSecondSkill: 0
+  whichSkillIncrease2: 
+  byHowMuchSkillIncrease2: 0
+  usage: 
   use_usage: 0
   UseSucFailLighting: 0
   Success: 

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel.Design.Serialization;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "New Card", menuName = "EntropyCard")]
@@ -17,6 +18,12 @@ public class EntropyCardScript : ScriptableObject
     public Sprite artwork_back;
     // Is bag of tricks
     public int Cost;
+    public bool SkillEffecter;
+    public string whichSkillIncrease1;
+    public int byHowMuchSkillIncrease1;
+    public bool increaseSecondSkill;
+    public string whichSkillIncrease2;
+    public int byHowMuchSkillIncrease2;
     public string usage;
 
     // Is Lighting strikes 

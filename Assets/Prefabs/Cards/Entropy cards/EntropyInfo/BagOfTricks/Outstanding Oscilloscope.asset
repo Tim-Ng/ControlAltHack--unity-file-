@@ -22,7 +22,13 @@ MonoBehaviour:
   artwork_info: {fileID: 21300000, guid: d9ecdf60b5d297d43a1dcb5c006fa436, type: 3}
   artwork_back: {fileID: 21300000, guid: d9ecdf60b5d297d43a1dcb5c006fa436, type: 3}
   Cost: 8000
-  usage: +2 Hardware Hacking
+  SkillEffecter: 1
+  whichSkillIncrease1: Hardware Hacking
+  byHowMuchSkillIncrease1: 2
+  increaseSecondSkill: 0
+  whichSkillIncrease2: 
+  byHowMuchSkillIncrease2: 0
+  usage: 
   use_usage: 0
   UseSucFailLighting: 0
   Success: 

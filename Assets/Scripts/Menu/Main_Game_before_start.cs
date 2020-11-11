@@ -6,6 +6,9 @@ using Photon.Realtime;
 using UnityEditor;
 using System.Globalization;
 using UnityEngine.Windows.Speech;
+using TMPro;
+using System.Linq;
+using UnityEngine.Assertions.Must;
 
 public class Main_Game_before_start : MonoBehaviourPunCallbacks
 {
@@ -22,6 +25,10 @@ public class Main_Game_before_start : MonoBehaviourPunCallbacks
     private Player opponent1player, opponent2player, opponent3player, opponent4player, opponent5player;
     private List<int> otherPlayerListHoldAfterGame = new List<int>();
     private List<Player> otherPlayerList = new List<Player>();
+    [SerializeField]private GameObject gameEntoropyArea,gameMissionArea;
+    [SerializeField] private TMP_InputField numberOfRounds_input, numberOfCredAhead_input;
+    private int HoldRounds_input, holdCreds_input;
+    [SerializeField] private GameObject setRoundsButton, setCredsButton;
 
     private bool isYouAreDeadBool;
     private int OnlyOneLeft; 
@@ -65,6 +72,13 @@ public class Main_Game_before_start : MonoBehaviourPunCallbacks
         player_username.text = PhotonNetwork.NickName;
         Leave_Button.enabled = true;
         pv = GetComponent<PhotonView>();
+        if (PhotonNetwork.IsMasterClient)
+        {
+            HoldRounds_input = 6;
+            numberOfRounds_input.text = HoldRounds_input.ToString();
+            holdCreds_input = 5;
+            numberOfCredAhead_input.text = holdCreds_input.ToString();
+        }
         pv.RPC("UpdateName", RpcTarget.All);
     }
     private void allow_Master_client()
@@ -75,8 +89,111 @@ public class Main_Game_before_start : MonoBehaviourPunCallbacks
             {
                 startButtonOBJ.SetActive(true);
                 Start_Button.interactable = false;
+                numberOfRounds_input.interactable = true;
+                numberOfCredAhead_input.interactable = true;
+                setRoundsButton.SetActive(true);
+                setCredsButton.SetActive(true);
+                setRoundsButton.GetComponent<Button>().interactable = false;
+                setCredsButton.GetComponent<Button>().interactable = false;
             }
         }
+        else
+        {
+            numberOfRounds_input.interactable = false;
+            numberOfCredAhead_input.interactable = false;
+            setRoundsButton.SetActive(false);
+            setCredsButton.SetActive(false);
+        }
+    }
+    public bool ifRoundInputCanUse()
+    {
+        if (!(string.IsNullOrEmpty(numberOfRounds_input.text)))
+        {
+            if ((numberOfRounds_input.text).All(char.IsDigit))
+            {
+                if (int.Parse(numberOfRounds_input.text) < 6)
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+            else
+                return false;
+        }
+        else
+            return false;
+    }
+    public void whenRoundsInputChange() => setRoundsButton.GetComponent<Button>().interactable = true;
+    public void onSetRoundInputButton()
+    {
+        if (ifRoundInputCanUse())
+        {
+            HoldRounds_input = int.Parse(numberOfRounds_input.text);
+            setRoundsButton.GetComponent<Button>().interactable = false;
+            pv.RPC("upDateOtherOnGameRounds", RpcTarget.Others,HoldRounds_input);
+        }
+        else
+        {
+            numberOfRounds_input.text = HoldRounds_input.ToString();
+        }
+    }
+    [PunRPC]
+    public void upDateOtherOnGameRounds(int num_rounds)
+    {
+        HoldRounds_input = num_rounds;
+        numberOfRounds_input.text = HoldRounds_input.ToString();
+    }
+    public bool ifCredInputCanUse()
+    {
+        if (!(string.IsNullOrEmpty(numberOfCredAhead_input.text)))
+        {
+            if ((numberOfCredAhead_input.text).All(char.IsDigit))
+            {
+                if (int.Parse(numberOfCredAhead_input.text) < 5)
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+            else
+                return false;
+        }
+        else
+            return false;
+    }
+    public void whenCredInputChange() => setCredsButton.GetComponent<Button>().interactable = true;
+    public void onSetCredInputButton()
+    {
+        if (ifCredInputCanUse())
+        {
+            holdCreds_input = int.Parse(numberOfCredAhead_input.text);
+            setCredsButton.GetComponent<Button>().interactable = false;
+            pv.RPC("upDateOtherOnGameHacker", RpcTarget.Others, holdCreds_input);
+        }
+        else
+        {
+            numberOfCredAhead_input.text = holdCreds_input.ToString();
+        }
+    }
+    [PunRPC]
+    public void upDateOtherOnGameHacker(int Cred_Ahead)
+    {
+        holdCreds_input = Cred_Ahead;
+        numberOfCredAhead_input.text = holdCreds_input.ToString();
+    }
+    public int getCredAheadInput()
+    {
+        return holdCreds_input;
+    }
+    public int getRoundInput()
+    {
+        return HoldRounds_input;
     }
     [PunRPC]
     public void UpdateName()
@@ -84,6 +201,11 @@ public class Main_Game_before_start : MonoBehaviourPunCallbacks
         allow_Master_client(); // check if master client changed
         if (!drawCharacterCard.getSetGameHasStart)
         {
+            if (PhotonNetwork.IsMasterClient)
+            {
+                pv.RPC("upDateOtherOnGameHacker", RpcTarget.Others, holdCreds_input);
+                pv.RPC("upDateOtherOnGameRounds", RpcTarget.Others, HoldRounds_input);
+            }
             for (int j = 0; j < textOtherPlayers.Count; j++)
             {
                 textOtherPlayers[j].text = "Waiting for Player ";
@@ -161,8 +283,6 @@ public class Main_Game_before_start : MonoBehaviourPunCallbacks
                     }
                 }
             }
-            
-            
         }
         else
         {
@@ -170,6 +290,33 @@ public class Main_Game_before_start : MonoBehaviourPunCallbacks
         }
         Debug.Log(LeavingPlayer.NickName + " has left room");
         
+    }
+    public void thisplayerIsFired(int playerActorID)
+    {
+        int i = 0;
+        if (playerActorID == PhotonNetwork.LocalPlayer.ActorNumber)
+        {
+            foreach (Transform child in gameEntoropyArea.transform)
+            {
+                GameObject.Destroy(child.gameObject);
+            }
+            foreach (Transform child in gameMissionArea.transform)
+            {
+                GameObject.Destroy(child.gameObject);
+            }
+            ifYouAreDead = true;
+        }
+        else
+        {
+            foreach (int otherplayer in otherPlayerListHoldAfterGame)
+            {
+                if (otherplayer == playerActorID)
+                {
+                    textOtherPlayers[i].text = "Fired";
+                }
+                i++;
+            }
+        }
     }
     public override void OnLeftRoom()
     {

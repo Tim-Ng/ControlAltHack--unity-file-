@@ -23,8 +23,14 @@ MonoBehaviour:
   artwork_info: {fileID: 21300000, guid: d9ecdf60b5d297d43a1dcb5c006fa436, type: 3}
   artwork_back: {fileID: 21300000, guid: d9ecdf60b5d297d43a1dcb5c006fa436, type: 3}
   Cost: 1000
+  SkillEffecter: 0
+  whichSkillIncrease1: 
+  byHowMuchSkillIncrease1: 0
+  increaseSecondSkill: 0
+  whichSkillIncrease2: 
+  byHowMuchSkillIncrease2: 0
   usage: Automatically turns any failed Cryptanalysis roll into a success
-  use_usage: 0
+  use_usage: 1
   UseSucFailLighting: 0
   Success: 
   add_how_much_cred: 0

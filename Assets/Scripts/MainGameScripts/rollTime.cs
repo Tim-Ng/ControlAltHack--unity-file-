@@ -80,6 +80,7 @@ public class rollTime : MonoBehaviour
         else if (obj.Code == (byte)PhotonEventCode.gettingFired)
         {
             object[] firedPlayerData = (object[])obj.CustomData;
+            main_Game_Before_Start.thisplayerIsFired((int)firedPlayerData[0]);
         }
     }
     public void startRollTurn()
@@ -266,8 +267,6 @@ public class rollTime : MonoBehaviour
         {
             Debug.Log("You are Fired set points");
             moneyAndPoints.zeroPoints();
-            main_Game_Before_Start.ifYouAreDead = true;
-            drawCharacterCard.EndTurn();
             object[] dataRoll = new object[] { PhotonNetwork.LocalPlayer.ActorNumber };
             PhotonNetwork.RaiseEvent((byte)PhotonEventCode.gettingFired, dataRoll, AllPeople, SendOptions.SendReliable);
         }

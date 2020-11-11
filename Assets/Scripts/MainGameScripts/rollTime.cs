@@ -45,7 +45,6 @@ public class rollTime : MonoBehaviour
     {
         whoRolling = 15,
         rolledNumber = 16,
-        gettingFired = 19,
     }
     private void OnEnable()
     {
@@ -76,11 +75,6 @@ public class rollTime : MonoBehaviour
             object[] rollData = (object[])obj.CustomData;
             int rolledNumber = (int)rollData[0];
             DiceNumber.text = rolledNumber.ToString();
-        }
-        else if (obj.Code == (byte)PhotonEventCode.gettingFired)
-        {
-            object[] firedPlayerData = (object[])obj.CustomData;
-            main_Game_Before_Start.thisplayerIsFired((int)firedPlayerData[0]);
         }
     }
     public void startRollTurn()
@@ -263,17 +257,7 @@ public class rollTime : MonoBehaviour
     }
     public void failTaskItems()
     {
-        if (moneyAndPoints.getMyPoints() < currentMissionCardScript.failure_amount_hacker_cread)
-        {
-            Debug.Log("You are Fired set points");
-            moneyAndPoints.zeroPoints();
-            object[] dataRoll = new object[] { PhotonNetwork.LocalPlayer.ActorNumber };
-            PhotonNetwork.RaiseEvent((byte)PhotonEventCode.gettingFired, dataRoll, AllPeople, SendOptions.SendReliable);
-        }
-        else
-        {
-            moneyAndPoints.addPoints((byte)currentMissionCardScript.failure_amount_hacker_cread);
-        }
+        moneyAndPoints.subPoints((byte)currentMissionCardScript.failure_amount_hacker_cread);
         drawCharacterCard.EndTurn();
     }
     public void successTask()

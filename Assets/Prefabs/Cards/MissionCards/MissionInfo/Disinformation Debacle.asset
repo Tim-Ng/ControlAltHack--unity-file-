@@ -36,7 +36,7 @@ MonoBehaviour:
   other_success_things: 
   other_success_how_much: 0
   success_discription: The culprit is arrested.
-  failure_amount_hacker_cread: -1
+  failure_amount_hacker_cread: 1
   failure_discription: Turns out you had stock in the company. Double Bummer.
   other_failure_things: Money Token
   other_failure_how_much: -3000

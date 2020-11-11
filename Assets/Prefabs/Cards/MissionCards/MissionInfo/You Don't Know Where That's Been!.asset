@@ -36,7 +36,7 @@ MonoBehaviour:
   other_success_things: 
   other_success_how_much: 0
   success_discription: Apparently, curiosity does kill the CAT.
-  failure_amount_hacker_cread: -1
+  failure_amount_hacker_cread: 1
   failure_discription: 
   other_failure_things: 
   other_failure_how_much: 0

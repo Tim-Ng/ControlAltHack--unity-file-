@@ -146,7 +146,7 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
                 setWinnerList();
             }
             main_Game_Before_Start.setHoldPlayerListAfterStartGame();
-            playersBeforeStartGame = PhotonNetwork.CurrentRoom.PlayerCount;
+            playersBeforeStartGame = main_Game_Before_Start.getPlayerListOfAllPlayer().Count;
             gameHasStart = true;
             noleave();
             StartContentGame(false);
@@ -195,7 +195,10 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
             }
             if (PhotonNetwork.IsMasterClient)
             {
-                checkTurn();
+                if (getSetGameHasStart)
+                {
+                    checkTurn();
+                }
             }
         }
         else if (obj.Code == (byte)PhotonEventCode.CheckAllDoneChar)
@@ -207,6 +210,7 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
         {
             gameWinArea.SetActive(true);
             object[] whowin = (object[])obj.CustomData;
+            getSetGameHasStart = false;
             if ((int)whowin[6] == 1)
             {
                 Debug.Log("Win only 1 player");
@@ -327,7 +331,7 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
         {
             moneyAndPointScripts.addMyMoney(2000);
         }
-        moneyAndPointScripts.addPoints(6);
+        moneyAndPointScripts.addPoints(1);
         PhotonNetwork.RaiseEvent((byte)PhotonEventCode.CheckAllDoneChar, null, AllPeople, SendOptions.SendReliable);
     }
 
@@ -411,11 +415,26 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
     }
     public void removeAvertar(int position)
     {
-        holdTocheckIngame[position] = null;
+        if (holdTocheckIngame[position] != null)
+        {
+            holdTocheckIngame[position] = null;
+        }
     }
     public void checkWhichFunctionToRun()
     {
-        if ((!main_Game_Before_Start.ifYouAreDead) )
+        if (main_Game_Before_Start.ifYouAreDead)
+        {
+            if (TurnNumber %2 == 0)
+            {
+                panelToTrade.imFiredSoAutoDoneAttendence();
+            }
+            if (IsMyTurn)
+            {
+                
+                EndTurn();
+            }
+        }
+        else
         {  
             if ((TurnNumber == 0) && IsMyTurn )
             {
@@ -459,8 +478,8 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
                         NumberOfselectedPlayer += 1;
                     }
                 }
-                Debug.Log(NumberOfselectedPlayer + " done and round is " + TurnNumber + " number of people on room " + PhotonNetwork.CurrentRoom.PlayerCount);
-                if (NumberOfselectedPlayer == PhotonNetwork.CurrentRoom.PlayerCount)
+                Debug.Log(NumberOfselectedPlayer + " done and round is " + TurnNumber + " number of people on room " + main_Game_Before_Start.getPlayerListOfAllPlayer().Count);
+                if (NumberOfselectedPlayer == main_Game_Before_Start.getPlayerListOfAllPlayer().Count)
                 {
                     Debug.Log("Entropy Draw");
                     if (TurnNumber == 1)
@@ -475,15 +494,7 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
             {
                 rollTimeScript.startRollTurn();
             }
-        }
-        else
-        {
-            if (IsMyTurn)
-            {
-                EndTurn();
-            }
-        }
-        
+        }        
     }
     public CharCardScript getPlayerCharterSet(Player playerInQuestion)
     {
@@ -494,7 +505,7 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
         else
         {
             int i = 1;
-            foreach (Player checkPlayer in PhotonNetwork.PlayerListOthers)
+            foreach (Player checkPlayer in main_Game_Before_Start.getPlayerList())
             {
                 if (checkPlayer == playerInQuestion)
                 {
@@ -509,7 +520,7 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
     {
         List<string> NickNameList = new List<string>();
         List<string> CharacterID = new List<string>();
-        if (PhotonNetwork.CurrentRoom.PlayerCount == 1)
+        if (main_Game_Before_Start.getPlayerListOfAllPlayer().Count == 1)
         {
             if (chosed_character_user == null)
             {
@@ -525,7 +536,7 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
         {
             for (int i = 0; i < whichPlayerLeading.Count; i++)
             {
-                main_Game_Before_Start.getSetIfONlyOneLeft = PhotonNetwork.CurrentRoom.PlayerCount;
+                main_Game_Before_Start.getSetIfONlyOneLeft = main_Game_Before_Start.getPlayerListOfAllPlayer().Count;
                 NickNameList.Add(whichPlayerLeading[i].NickName);
                 if (whichPlayerLeading[i] == PhotonNetwork.LocalPlayer)
                 {

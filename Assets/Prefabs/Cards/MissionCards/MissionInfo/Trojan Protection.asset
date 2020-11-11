@@ -38,7 +38,7 @@ MonoBehaviour:
   other_success_things: Draw an Entropy Card
   other_success_how_much: 0
   success_discription: 
-  failure_amount_hacker_cread: -2
+  failure_amount_hacker_cread: 2
   failure_discription: 
   other_failure_things: 
   other_failure_how_much: 0

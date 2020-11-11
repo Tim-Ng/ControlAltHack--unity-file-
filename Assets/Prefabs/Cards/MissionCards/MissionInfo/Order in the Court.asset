@@ -36,7 +36,7 @@ MonoBehaviour:
   other_success_things: Money Tokens
   other_success_how_much: 1000
   success_discription: Earn $1k as a proffesional consulting fee.
-  failure_amount_hacker_cread: -1
+  failure_amount_hacker_cread: 1
   failure_discription: Your company's reputation is damaged.
   other_failure_things: ALL PLAYERS -1 Hacker Credits
   other_failure_how_much: 0

@@ -37,7 +37,7 @@ MonoBehaviour:
   other_success_how_much: 0
   success_discription: The students got the point. But next time, verify that all
     students are 18+ before the demo.
-  failure_amount_hacker_cread: -1
+  failure_amount_hacker_cread: 1
   failure_discription: 
   other_failure_things: 
   other_failure_how_much: 0

@@ -24,12 +24,14 @@ public class Main_Game_before_start : MonoBehaviourPunCallbacks
     [SerializeField] private PanelToTrade panelToTrade;
     private Player opponent1player, opponent2player, opponent3player, opponent4player, opponent5player;
     private List<int> otherPlayerListHoldAfterGame = new List<int>();
+    private List<Player> playerInfoListHoldAfterGame = new List<Player>();
     private List<Player> otherPlayerList = new List<Player>();
+    private List<bool> otherPlayerNotFired = new List<bool> { true, true, true, true, true };
     [SerializeField]private GameObject gameEntoropyArea,gameMissionArea;
     [SerializeField] private TMP_InputField numberOfRounds_input, numberOfCredAhead_input;
     private int HoldRounds_input, holdCreds_input;
     [SerializeField] private GameObject setRoundsButton, setCredsButton;
-
+    [SerializeField] private GameObject leaveButtonAfterFired;
     private bool isYouAreDeadBool;
     private int OnlyOneLeft; 
     public int getSetIfONlyOneLeft
@@ -67,6 +69,7 @@ public class Main_Game_before_start : MonoBehaviourPunCallbacks
         textOtherPlayers.Add(opponent4_username);
         textOtherPlayers.Add(opponent5_username);
         startButtonOBJ.SetActive(false);
+        leaveButtonAfterFired.SetActive(false);
         allow_Master_client();
         Roomtext.text = PhotonNetwork.CurrentRoom.Name;
         player_username.text = PhotonNetwork.NickName;
@@ -232,13 +235,16 @@ public class Main_Game_before_start : MonoBehaviourPunCallbacks
             Debug.Log("Host is changed to player named " + PhotonNetwork.PlayerList[0].NickName);
             PhotonNetwork.SetMasterClient(PhotonNetwork.PlayerList[0]);
         }
-        OnlyOneLeft -= 1;
         for (int i = 0; i < otherPlayerList.Count; i++)
         {
-            if (LeavingPlayer == otherPlayerList[i])
+            if (otherPlayerList[i] != null)
             {
-                otherPlayerList[i] = null;
-                break;
+                if (LeavingPlayer == otherPlayerList[i])
+                {
+                    otherPlayerNotFired[i] = false;
+                    otherPlayerList[i] = null;
+                    break;
+                }
             }
         }
         if (drawCharacterCard.getSetGameHasStart)
@@ -296,6 +302,8 @@ public class Main_Game_before_start : MonoBehaviourPunCallbacks
         int i = 0;
         if (playerActorID == PhotonNetwork.LocalPlayer.ActorNumber)
         {
+            ifYouAreDead = true;
+            Debug.Log("im Fired " + ifYouAreDead);
             foreach (Transform child in gameEntoropyArea.transform)
             {
                 GameObject.Destroy(child.gameObject);
@@ -304,10 +312,11 @@ public class Main_Game_before_start : MonoBehaviourPunCallbacks
             {
                 GameObject.Destroy(child.gameObject);
             }
-            ifYouAreDead = true;
+            leaveButtonAfterFired.SetActive(true);
         }
         else
         {
+            otherPlayerNotFired[findPlayerPosition(FindPlayerUsingActorId(playerActorID))] = false;
             foreach (int otherplayer in otherPlayerListHoldAfterGame)
             {
                 if (otherplayer == playerActorID)
@@ -315,6 +324,10 @@ public class Main_Game_before_start : MonoBehaviourPunCallbacks
                     textOtherPlayers[i].text = "Fired";
                 }
                 i++;
+            }
+            if ((!isYouAreDeadBool) && (!(otherPlayerNotFired[0] || otherPlayerNotFired[1] || otherPlayerNotFired[2] || otherPlayerNotFired[3] || otherPlayerNotFired[4])))
+            {
+                drawCharacterCard.sendAllSomeoneWin();
             }
         }
     }
@@ -385,21 +398,26 @@ public class Main_Game_before_start : MonoBehaviourPunCallbacks
         }
         return tempList;
     }
-    public List<Player> allPlayerList()
+    public List<Player> getPlayerListOfAllPlayer()
     {
-        List<Player> tempPlayerList = new List<Player>();
-        tempPlayerList.Add(PhotonNetwork.LocalPlayer);
-        foreach (Player inList in getPlayerList())
+        List<Player> tempList = new List<Player>();
+        tempList.Add(PhotonNetwork.LocalPlayer);
+        foreach (Player chackPlayer in otherPlayerList)
         {
-            tempPlayerList.Add(inList);
+            if (chackPlayer != null)
+            {
+                tempList.Add(chackPlayer);
+            }
         }
-        return tempPlayerList;
+        return tempList;
     }
     public void setHoldPlayerListAfterStartGame()
     {
         otherPlayerListHoldAfterGame.Clear();
+        playerInfoListHoldAfterGame.Clear();
         foreach (Player ActorPlayer in PhotonNetwork.PlayerListOthers)
         {
+            playerInfoListHoldAfterGame.Add(ActorPlayer);
             otherPlayerListHoldAfterGame.Add( ActorPlayer.ActorNumber);
         }
     }

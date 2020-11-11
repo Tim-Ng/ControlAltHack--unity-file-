@@ -366,6 +366,7 @@ public class PanelToTrade : MonoBehaviour
     }
     public  void setDataBoxes()
     {
+        doneSettingUpBox = true;
         if (userAttend)
         {
             panelTrade.SetActive(true);
@@ -400,7 +401,6 @@ public class PanelToTrade : MonoBehaviour
             }
             playerData++;
         }
-        doneSettingUpBox = true;
     }
     public List<Player> otherPlayerListWithOutNull()
     {
@@ -707,6 +707,11 @@ public class PanelToTrade : MonoBehaviour
             declineTrade(whichBox);
         }
         playerLeftGameOBJ[whichBox].SetActive(true);
+    }
+    public void imFiredSoAutoDoneAttendence()
+    {
+        userAttend = false;
+        sendEveryOneDone(false);
     }
     public void RestTrades()
     {

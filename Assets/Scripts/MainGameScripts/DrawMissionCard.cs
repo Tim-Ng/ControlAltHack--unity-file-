@@ -92,6 +92,10 @@ public class DrawMissionCard : MonoBehaviour
                 break;
             }
         }
-        Debug.Log("Number of Entropy cards left in deck " + missionCardToDraw.Count);
+        if (missionCardToDraw.Count == 0)
+        {
+            missionCardToDraw = missionCardDeck.getMissionCardDeck();
+        }
+        Debug.Log("Number of Mission cards left in deck " + missionCardToDraw.Count);
     }
 }

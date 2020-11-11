@@ -37,7 +37,7 @@ MonoBehaviour:
   other_success_things: Money Token
   other_success_how_much: 3000
   success_discription: 
-  failure_amount_hacker_cread: -1
+  failure_amount_hacker_cread: 1
   failure_discription: The company definitely won't be asking you back to help secure
     their pacemakers.
   other_failure_things: 

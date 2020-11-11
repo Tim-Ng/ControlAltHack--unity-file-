@@ -35,7 +35,7 @@ MonoBehaviour:
   other_success_how_much: 0
   success_discription: You don't know that many hackers that code in leather bodysuits
     or designer sunglasses, but no one in your office is complaining.
-  failure_amount_hacker_cread: -3
+  failure_amount_hacker_cread: 3
   failure_discription: You've already told everyone about consulting on the movie,
     so its inaccuracies are triply embarassing.
   other_failure_things: 

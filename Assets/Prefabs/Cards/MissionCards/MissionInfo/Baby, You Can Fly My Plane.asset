@@ -35,7 +35,7 @@ MonoBehaviour:
   other_success_things: 
   other_success_how_much: 0
   success_discription: 
-  failure_amount_hacker_cread: -1
+  failure_amount_hacker_cread: 1
   failure_discription: As the icing on the cake, you fell down the stairs and broke
     your arm. -2 on Software Wizardry rolls during your next turn (keep this card
     until then as a reminder).

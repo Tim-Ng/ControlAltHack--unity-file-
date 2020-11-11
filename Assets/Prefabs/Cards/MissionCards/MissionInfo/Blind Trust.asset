@@ -36,7 +36,7 @@ MonoBehaviour:
   other_success_how_much: 0
   success_discription: They may have trusted you, but your app isn't so blind. Some
     of those photos could be really, um, interesting.
-  failure_amount_hacker_cread: -1
+  failure_amount_hacker_cread: 1
   failure_discription: You released a Trojan app... what were you thinking???
   other_failure_things: 
   other_failure_how_much: 0

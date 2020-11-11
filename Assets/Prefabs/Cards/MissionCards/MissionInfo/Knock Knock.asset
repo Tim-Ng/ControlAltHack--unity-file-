@@ -37,7 +37,7 @@ MonoBehaviour:
   other_success_how_much: 0
   success_discription: Someone else WAS on your network, hacking military systems
     and streaming infomercials??
-  failure_amount_hacker_cread: -2
+  failure_amount_hacker_cread: 2
   failure_discription: The misunderstanding will take a long time to clear up.
   other_failure_things: 
   other_failure_how_much: 0

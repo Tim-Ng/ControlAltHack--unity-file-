@@ -89,9 +89,15 @@ public class MoneyAndPoints : MonoBehaviour
             object[] pointdata = (object[])obj.CustomData;
             byte senderPoints = (byte)pointdata[0];
             Player senderPlayer = (Player)pointdata[1];
-            opponentpointslist[main_Game_Before_Start.findPlayerPosition(senderPlayer)] = (byte) senderPoints;
-            opponentpointslistOBJ[main_Game_Before_Start.findPlayerPosition(senderPlayer)].text = senderPoints.ToString();
-
+            if (senderPoints == 0)
+            {
+                main_Game_Before_Start.thisplayerIsFired(senderPlayer.ActorNumber);
+            }
+            else
+            {
+                opponentpointslist[main_Game_Before_Start.findPlayerPosition(senderPlayer)] = (byte)senderPoints;
+                opponentpointslistOBJ[main_Game_Before_Start.findPlayerPosition(senderPlayer)].text = senderPoints.ToString();
+            }
         }
         else if (obj.Code == (byte)PhotonEventCode.receiverMoney)
         {
@@ -101,7 +107,6 @@ public class MoneyAndPoints : MonoBehaviour
             opponentpointsMoneylist[main_Game_Before_Start.findPlayerPosition(senderPlayer)] = senderMoney;
             opponentpointsMoneylistOBJ[main_Game_Before_Start.findPlayerPosition(senderPlayer)].text = "$" + senderMoney.ToString();
         }
-
     }
     public void addMyMoney(int amount)
     {
@@ -126,7 +131,19 @@ public class MoneyAndPoints : MonoBehaviour
     }
     public void subPoints(byte amount)
     {
-        MyPoints -= amount;
+        if (amount > MyPoints)
+        {
+            MyPoints = 0;
+        }
+        else
+        {
+            MyPoints -= amount;
+        }
+        if (MyPoints == 0)
+        {
+            main_Game_Before_Start.ifYouAreDead = true;
+            main_Game_Before_Start.thisplayerIsFired(PhotonNetwork.LocalPlayer.ActorNumber);
+        }
         sendAllMyCurrentPoint();
     }
     private void sendAllMyCurrentPoint()
@@ -169,6 +186,7 @@ public class MoneyAndPoints : MonoBehaviour
     public void zeroPoints()
     {
         MyPoints = 0;
+        main_Game_Before_Start.thisplayerIsFired(PhotonNetwork.LocalPlayer.ActorNumber);
         sendAllMyCurrentPoint();
     }
 }

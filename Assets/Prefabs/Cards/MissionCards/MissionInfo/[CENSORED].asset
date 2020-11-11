@@ -36,7 +36,7 @@ MonoBehaviour:
   other_success_things: draw an Entropy Card
   other_success_how_much: 0
   success_discription: It's a cat-and-mouse game, but this round is yours.
-  failure_amount_hacker_cread: -1
+  failure_amount_hacker_cread: 1
   failure_discription: 
   other_failure_things: Discard 2 Entropy Cards
   other_failure_how_much: 0

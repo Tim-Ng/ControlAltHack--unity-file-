@@ -38,7 +38,7 @@ MonoBehaviour:
     the rounds five years ago. The hospital's infected MRI machine runs an unpatched
     operating system; no one was targeting it ut even random crashes can be serious
     bad news.
-  failure_amount_hacker_cread: -1
+  failure_amount_hacker_cread: 1
   failure_discription: 
   other_failure_things: 
   other_failure_how_much: 0

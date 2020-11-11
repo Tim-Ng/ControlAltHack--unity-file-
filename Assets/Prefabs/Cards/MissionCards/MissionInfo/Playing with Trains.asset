@@ -36,7 +36,7 @@ MonoBehaviour:
   other_success_how_much: 0
   success_discription: The attacker didn't get lucky...but it's still good that the
     company has now decided to practice safe networking..
-  failure_amount_hacker_cread: -1
+  failure_amount_hacker_cread: 1
   failure_discription: 
   other_failure_things: 
   other_failure_how_much: 0

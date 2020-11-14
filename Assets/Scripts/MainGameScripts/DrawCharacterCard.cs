@@ -43,7 +43,7 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
 
     private List<Player> whichPlayerLeading = new List<Player>();
     private List<byte> AllPlayerPoint = new List<byte>();
-    public static int[] GameProperties = { 0, 0 };
+    public static int GameProperties = 0;
 
     [SerializeField] private DrawMissionCard drawMissionCard;
 
@@ -72,6 +72,7 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
     [SerializeField] private PanelToTrade panelToTrade;
     [SerializeField] private Sprite noCharImage;
     private bool iveDoneMyTurn = false;
+    [SerializeField] private GameObject gameTurnIndicator;
     private RaiseEventOptions AllOtherThanMePeopleOptions = new RaiseEventOptions()
     {
         CachingOption = EventCaching.DoNotCache,
@@ -105,15 +106,15 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
         }
     }
     private List<GameObject> tableStartContent = new List<GameObject>();
-    [SerializeField] private GameObject Amount_people_in_lobby, RoomNumber_Text, RoomCode, Number_Of_Rounds, Number_Of_HackerCreds;
+    [SerializeField] private GameObject Amount_people_in_lobby, RoomNumber_Text, RoomCode, Number_Of_Rounds;
     void Start()
     {
         putCharCardsInList();
+        gameTurnIndicator.SetActive(false);
         tableStartContent.Add(Amount_people_in_lobby);
         tableStartContent.Add(RoomNumber_Text);
         tableStartContent.Add(RoomCode);
         tableStartContent.Add(Number_Of_Rounds);
-        tableStartContent.Add(Number_Of_HackerCreds);
     }
     public void StartContentGame(bool closeOrnot)
     {
@@ -269,8 +270,7 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
     }
     public void setGameproperties()
     {
-        GameProperties[0]= main_Game_Before_Start.getRoundInput();
-        GameProperties[1] = main_Game_Before_Start.getCredAheadInput();
+        GameProperties= main_Game_Before_Start.getRoundInput();
     }
     // when host click on the start button;
     public void OnClickTodrawCard()
@@ -331,7 +331,7 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
         {
             moneyAndPointScripts.addMyMoney(2000);
         }
-        moneyAndPointScripts.addPoints(1);
+        moneyAndPointScripts.addPoints(6);
         PhotonNetwork.RaiseEvent((byte)PhotonEventCode.CheckAllDoneChar, null, AllPeople, SendOptions.SendReliable);
     }
 
@@ -424,8 +424,24 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
     {
         if (main_Game_Before_Start.ifYouAreDead)
         {
-            if (TurnNumber %2 == 0)
+            if (TurnNumber %2 != 0)
             {
+                gameTurnIndicator.SetActive(true);
+                if ((TurnNumber / 2 > (GameProperties + 1))) 
+                {
+                    gameTurnIndicator.GetComponent<Text>().text = "Tie Breaker Round " + ((TurnNumber / 2) + 1);
+                }
+                else
+                {
+                    gameTurnIndicator.GetComponent<Text>().text = "Round " + ((TurnNumber / 2) + 1);
+                }
+            }
+            else if (TurnNumber %2 == 0)
+            {
+                if (panelToTrade.getEveryoneDonePanel())
+                {
+                    gameTurnIndicator.SetActive(false);
+                }
                 panelToTrade.imFiredSoAutoDoneAttendence();
             }
             if (IsMyTurn)
@@ -481,6 +497,15 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
                 Debug.Log(NumberOfselectedPlayer + " done and round is " + TurnNumber + " number of people on room " + main_Game_Before_Start.getPlayerListOfAllPlayer().Count);
                 if (NumberOfselectedPlayer == main_Game_Before_Start.getPlayerListOfAllPlayer().Count)
                 {
+                    gameTurnIndicator.SetActive(true);
+                    if ((TurnNumber / 2 > (GameProperties + 1)))
+                    {
+                        gameTurnIndicator.GetComponent<Text>().text = "Tie Breaker Round " + ((TurnNumber / 2) + 1);
+                    }
+                    else
+                    {
+                        gameTurnIndicator.GetComponent<Text>().text = "Round " + ((TurnNumber / 2) + 1);
+                    }
                     Debug.Log("Entropy Draw");
                     if (TurnNumber == 1)
                     {
@@ -490,9 +515,13 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
                     EndTurn();
                 }
             }
-            else if (TurnNumber % 2 == 0 && panelToTrade.getEveryoneDonePanel() && IsMyTurn)
+            else if (TurnNumber % 2 == 0 && panelToTrade.getEveryoneDonePanel())
             {
-                rollTimeScript.startRollTurn();
+                gameTurnIndicator.SetActive(false);
+                if (IsMyTurn)
+                {
+                    rollTimeScript.startRollTurn();
+                }
             }
         }        
     }
@@ -679,29 +708,10 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
     public void checkTurn()
     {
         setWinnerList();
-        if ((TurnNumber / 2 == (GameProperties[0] + 1)))
+        Thread.Sleep(100);
+        if ((TurnNumber / 2 >= (GameProperties + 1))) 
         {
-            sendAllSomeoneWin();
-        }
-        else if (TurnNumber > 2)
-        {
-            bool gotPlayerWin;
-            if (AllPlayerPoint.Count > 1)
-            {
-                if (AllPlayerPoint[0] - AllPlayerPoint[1] >= GameProperties[1])
-                {
-                    gotPlayerWin = true;
-                }
-                else
-                {
-                    gotPlayerWin = false;
-                }
-            }
-            else
-            {
-                gotPlayerWin = true;
-            }
-            if (gotPlayerWin )
+            if (AllPlayerPoint[0] != AllPlayerPoint[1])
             {
                 sendAllSomeoneWin();
             }

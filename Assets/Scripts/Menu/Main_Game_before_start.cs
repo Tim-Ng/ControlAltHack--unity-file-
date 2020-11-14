@@ -26,11 +26,11 @@ public class Main_Game_before_start : MonoBehaviourPunCallbacks
     private List<int> otherPlayerListHoldAfterGame = new List<int>();
     private List<Player> playerInfoListHoldAfterGame = new List<Player>();
     private List<Player> otherPlayerList = new List<Player>();
-    private List<bool> otherPlayerNotFired = new List<bool> { true, true, true, true, true };
+    private List<bool> otherPlayerNotFired = new List<bool> { false, false, false, false, false };
     [SerializeField]private GameObject gameEntoropyArea,gameMissionArea;
-    [SerializeField] private TMP_InputField numberOfRounds_input, numberOfCredAhead_input;
-    private int HoldRounds_input, holdCreds_input;
-    [SerializeField] private GameObject setRoundsButton, setCredsButton;
+    [SerializeField] private TMP_InputField numberOfRounds_input;
+    private int HoldRounds_input;
+    [SerializeField] private GameObject setRoundsButton;
     [SerializeField] private GameObject leaveButtonAfterFired;
     private bool isYouAreDeadBool;
     private int OnlyOneLeft; 
@@ -79,8 +79,6 @@ public class Main_Game_before_start : MonoBehaviourPunCallbacks
         {
             HoldRounds_input = 6;
             numberOfRounds_input.text = HoldRounds_input.ToString();
-            holdCreds_input = 5;
-            numberOfCredAhead_input.text = holdCreds_input.ToString();
         }
         pv.RPC("UpdateName", RpcTarget.All);
     }
@@ -93,19 +91,14 @@ public class Main_Game_before_start : MonoBehaviourPunCallbacks
                 startButtonOBJ.SetActive(true);
                 Start_Button.interactable = false;
                 numberOfRounds_input.interactable = true;
-                numberOfCredAhead_input.interactable = true;
                 setRoundsButton.SetActive(true);
-                setCredsButton.SetActive(true);
                 setRoundsButton.GetComponent<Button>().interactable = false;
-                setCredsButton.GetComponent<Button>().interactable = false;
             }
         }
         else
         {
             numberOfRounds_input.interactable = false;
-            numberOfCredAhead_input.interactable = false;
             setRoundsButton.SetActive(false);
-            setCredsButton.SetActive(false);
         }
     }
     public bool ifRoundInputCanUse()
@@ -149,51 +142,6 @@ public class Main_Game_before_start : MonoBehaviourPunCallbacks
         HoldRounds_input = num_rounds;
         numberOfRounds_input.text = HoldRounds_input.ToString();
     }
-    public bool ifCredInputCanUse()
-    {
-        if (!(string.IsNullOrEmpty(numberOfCredAhead_input.text)))
-        {
-            if ((numberOfCredAhead_input.text).All(char.IsDigit))
-            {
-                if (int.Parse(numberOfCredAhead_input.text) < 5)
-                {
-                    return false;
-                }
-                else
-                {
-                    return true;
-                }
-            }
-            else
-                return false;
-        }
-        else
-            return false;
-    }
-    public void whenCredInputChange() => setCredsButton.GetComponent<Button>().interactable = true;
-    public void onSetCredInputButton()
-    {
-        if (ifCredInputCanUse())
-        {
-            holdCreds_input = int.Parse(numberOfCredAhead_input.text);
-            setCredsButton.GetComponent<Button>().interactable = false;
-            pv.RPC("upDateOtherOnGameHacker", RpcTarget.Others, holdCreds_input);
-        }
-        else
-        {
-            numberOfCredAhead_input.text = holdCreds_input.ToString();
-        }
-    }
-    [PunRPC]
-    public void upDateOtherOnGameHacker(int Cred_Ahead)
-    {
-        holdCreds_input = Cred_Ahead;
-        numberOfCredAhead_input.text = holdCreds_input.ToString();
-    }
-    public int getCredAheadInput()
-    {
-        return holdCreds_input;
-    }
     public int getRoundInput()
     {
         return HoldRounds_input;
@@ -206,7 +154,6 @@ public class Main_Game_before_start : MonoBehaviourPunCallbacks
         {
             if (PhotonNetwork.IsMasterClient)
             {
-                pv.RPC("upDateOtherOnGameHacker", RpcTarget.Others, holdCreds_input);
                 pv.RPC("upDateOtherOnGameRounds", RpcTarget.Others, HoldRounds_input);
             }
             for (int j = 0; j < textOtherPlayers.Count; j++)
@@ -217,6 +164,7 @@ public class Main_Game_before_start : MonoBehaviourPunCallbacks
             Debug.Log("A player entered in put name and recount of people");
             foreach (Player otherplayer in PhotonNetwork.PlayerListOthers)
             {
+                otherPlayerNotFired[i] = true;
                 otherPlayerList[i] = otherplayer;
                 oppententNameTextInfo[i] = otherplayer.NickName;
                 textOtherPlayers[i].text = oppententNameTextInfo[i];

@@ -469,6 +469,13 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
             {
                 if (TurnNumber > 1)
                 {
+                    if (AllPlayerPoint[0] != AllPlayerPoint[1])
+                    {
+                        if (whichPlayerLeading[0] == PhotonNetwork.LocalPlayer)
+                        {
+                            moneyAndPointScripts.addMyMoney(1000);
+                        }
+                    }
                     if (chosed_character_user.character_code == 15)
                     {
                         moneyAndPointScripts.addMyMoney(3000);

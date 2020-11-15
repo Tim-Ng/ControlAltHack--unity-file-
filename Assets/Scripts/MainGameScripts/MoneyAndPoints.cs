@@ -29,6 +29,16 @@ public class MoneyAndPoints : MonoBehaviour
     private List<int> opponentpointsMoneylist = new List<int>();
     private List<Text> opponentpointsMoneylistOBJ = new List<Text>();
 
+    private int MyEntropyCards = 0;
+    private int opponent1EntropyCards = 0;
+    private int opponent2EntropyCards = 0;
+    private int opponent3EntropyCards = 0;
+    private int opponent4EntropyCards = 0;
+    private int opponent5EntropyCards = 0;
+    [SerializeField] private GameObject userEntropyCardsArea,opponent1EntropyCardsArea, opponent2EntropyCardsArea, opponent3EntropyCardsArea, opponent4EntropyCardsArea, opponent5EntropyCardsArea, entropyICON;
+    private List<int> amountOfEntropyCards = new List<int>();
+    private List<GameObject> opponentEntorpyCardsAreaList = new List<GameObject>();
+
     [SerializeField] private DrawCharacterCard drawCharacterCard;
 
     [SerializeField] private Main_Game_before_start main_Game_Before_Start;
@@ -46,6 +56,7 @@ public class MoneyAndPoints : MonoBehaviour
     {
         receiverPoints = 9,
         receiverMoney  = 10,
+        sendPeopleCards = 23,
     }
     void Start()
     {
@@ -69,6 +80,16 @@ public class MoneyAndPoints : MonoBehaviour
         opponentpointsMoneylistOBJ.Add(opponent3MoneyOBJ);
         opponentpointsMoneylistOBJ.Add(opponent4MoneyOBJ);
         opponentpointsMoneylistOBJ.Add(opponent5MoneyOBJ);
+        opponentEntorpyCardsAreaList.Add(opponent1EntropyCardsArea);
+        opponentEntorpyCardsAreaList.Add(opponent2EntropyCardsArea);
+        opponentEntorpyCardsAreaList.Add(opponent3EntropyCardsArea);
+        opponentEntorpyCardsAreaList.Add(opponent4EntropyCardsArea);
+        opponentEntorpyCardsAreaList.Add(opponent5EntropyCardsArea);
+        amountOfEntropyCards.Add(opponent1EntropyCards);
+        amountOfEntropyCards.Add(opponent2EntropyCards);
+        amountOfEntropyCards.Add(opponent3EntropyCards);
+        amountOfEntropyCards.Add(opponent4EntropyCards);
+        amountOfEntropyCards.Add(opponent5EntropyCards);
     }
 
     private void OnEnable()
@@ -106,6 +127,22 @@ public class MoneyAndPoints : MonoBehaviour
             Player senderPlayer = (Player)moneydata[1];
             opponentpointsMoneylist[main_Game_Before_Start.findPlayerPosition(senderPlayer)] = senderMoney;
             opponentpointsMoneylistOBJ[main_Game_Before_Start.findPlayerPosition(senderPlayer)].text = "$" + senderMoney.ToString();
+        }
+        else if (obj.Code == (byte)PhotonEventCode.sendPeopleCards)
+        {
+            object[] EntorpyData = (object[])obj.CustomData;
+            int numberOfEntorpy = (int)EntorpyData[0];
+            Player senderPlayer = (Player)EntorpyData[1];
+            amountOfEntropyCards[main_Game_Before_Start.findPlayerPosition(senderPlayer)] = numberOfEntorpy;
+            foreach (Transform child in opponentEntorpyCardsAreaList[main_Game_Before_Start.findPlayerPosition(senderPlayer)].transform)
+            {
+                GameObject.Destroy(child.gameObject);
+            }
+            for (int i = 0; i < numberOfEntorpy; i++)
+            {
+                GameObject missionCard = Instantiate(entropyICON, transform.position, Quaternion.identity);
+                missionCard.transform.SetParent(opponentEntorpyCardsAreaList[main_Game_Before_Start.findPlayerPosition(senderPlayer)].transform, false);
+            }
         }
     }
     public void addMyMoney(int amount)
@@ -183,10 +220,14 @@ public class MoneyAndPoints : MonoBehaviour
             opponentpointsMoneylistOBJ[i].text = opponentpointsMoneylist[i].ToString();
         }
     }
-    public void zeroPoints()
+    public int getMyAmountOfEntropyCards()
     {
-        MyPoints = 0;
-        main_Game_Before_Start.thisplayerIsFired(PhotonNetwork.LocalPlayer.ActorNumber);
-        sendAllMyCurrentPoint();
+        return MyEntropyCards;
+    }
+    public void countMyNumOfEntropyCards()
+    {
+        MyEntropyCards =userEntropyCardsArea.transform.childCount;
+        object[] dataCards = new object[] { MyEntropyCards, PhotonNetwork.LocalPlayer };
+        PhotonNetwork.RaiseEvent((byte)PhotonEventCode.sendPeopleCards, dataCards, AllOtherThanMePeopleOptions, SendOptions.SendReliable);
     }
 }

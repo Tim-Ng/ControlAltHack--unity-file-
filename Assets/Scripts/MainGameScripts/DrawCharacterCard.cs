@@ -427,7 +427,7 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
             if (TurnNumber %2 != 0)
             {
                 gameTurnIndicator.SetActive(true);
-                if ((TurnNumber / 2) > (GameProperties + 1)) 
+                if ((TurnNumber / 2) > (GameProperties )) 
                 {
                     gameTurnIndicator.GetComponent<Text>().text = "Tie Breaker Round " + ((TurnNumber / 2) + 1);
                 }
@@ -457,6 +457,7 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
                 if (!iveDoneMyTurn)
                 {
                     countNumCharCards();
+                    entropyCard.distribute_entropycard(1);
                     Drawcard(number_of_character_cards);
                     EndTurn();
                 }

@@ -13,6 +13,7 @@ public class DrawEntropyCard : MonoBehaviourPunCallbacks
     public EntropyCardDeck entropyCardDeck;
     public GameObject UserArea;
     public DrawCharacterCard drawCharacterCard;
+    [SerializeField] private MoneyAndPoints moneyAndPointScripts;
     //inputmultiple cards
     private int x;
     private List<EntropyCardScript> entropycards = new List<EntropyCardScript>();
@@ -59,6 +60,10 @@ public class DrawEntropyCard : MonoBehaviourPunCallbacks
     public void distribute_entropycard(int how_many)
     {
         Debug.Log("Drawing card");
+        if (how_many > (5 - moneyAndPointScripts.getMyAmountOfEntropyCards()) )
+        {
+            how_many = (5 -moneyAndPointScripts.getMyAmountOfEntropyCards());
+        }
         for (var i = 0; i < how_many; i++)
         {
             System.Random rand = new System.Random((int)DateTime.Now.Ticks);
@@ -71,6 +76,7 @@ public class DrawEntropyCard : MonoBehaviourPunCallbacks
             object[] data = new object[] { entropycards[x].EntropyCardID };
             PhotonNetwork.RaiseEvent((byte)PhotonEventCode.removeEntropycardFromdeck, data, AllOtherThanMePeopleOptions, SendOptions.SendReliable); // as this is not fast enough 
         }
+        moneyAndPointScripts.countMyNumOfEntropyCards();
     }
     public void RemoveThisCard(int cardID)
     {
@@ -83,9 +89,23 @@ public class DrawEntropyCard : MonoBehaviourPunCallbacks
                 break;
             }
         }
+        if (entropycards.Count == 0)
+        {
+            entropycards = entropyCardDeck.getentropyCards();
+        }
         Debug.Log("Number of Entropy cards left in deck " + entropycards.Count);
     }
-
+    public EntropyCardScript FindWhichEntropyWithEntroID(int ID)
+    {
+        foreach (EntropyCardScript whichScript in entropyCardDeck.getentropyCards())
+        {
+            if (whichScript.EntropyCardID == ID)
+            {
+                return whichScript;
+            }
+        }
+        return null;
+    }
     //keep checking opponent amount
 
 }

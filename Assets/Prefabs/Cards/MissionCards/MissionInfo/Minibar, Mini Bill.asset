@@ -18,7 +18,7 @@ MonoBehaviour:
     your jet-lagged state, you get up to some sleep-hacking
   Newb_job: 0
   first_mission: {fileID: 0}
-  skill_name_1: 'Hardware Hacking '
+  skill_name_1: Hardware Hacking
   fist_change_hardnum: -2
   task_discription1: Make(and plant) counterfeit RFID tags so that the minibar thinks
     that all the items are still there.

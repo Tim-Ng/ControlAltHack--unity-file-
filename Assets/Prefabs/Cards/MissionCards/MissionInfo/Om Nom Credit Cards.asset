@@ -25,7 +25,7 @@ MonoBehaviour:
     you find it?
   hasSecondMission: 1
   second_mission: {fileID: 0}
-  skill_name_2: 'Network Ninja '
+  skill_name_2: Network Ninja
   second_change_hardnum: -1
   task_discription2: Monitor the restaurant's network traffic and find put where
     the criminals are sending the credit card numbers.

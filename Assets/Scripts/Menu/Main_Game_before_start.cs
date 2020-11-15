@@ -256,10 +256,10 @@ public class Main_Game_before_start : MonoBehaviourPunCallbacks
             {
                 GameObject.Destroy(child.gameObject);
             }
-            /*foreach (Transform child in gameMissionArea.transform)
+            foreach (Transform child in gameMissionArea.transform)
             {
                 GameObject.Destroy(child.gameObject);
-            }*/
+            }
             leaveButtonAfterFired.SetActive(true);
         }
         else

@@ -28,6 +28,7 @@ public class PanelToTrade : MonoBehaviour
     [SerializeField] private popupcardwindowMission popupcardwindowMissionScript;
     [SerializeField] private Main_Game_before_start main_Game_Before_Start;
     [SerializeField] private GameObject panelTrade;
+    [SerializeField] private DrawEntropyCard drawEntropyCard;
     private int everyoneIsDone = 0;
     [SerializeField] private TMP_InputField bribeOpponent1, bribeOpponent2, bribeOpponent3, bribeOpponent4, bribeOpponent5;
     private List<TMP_InputField> bribeOpponentList = new List<TMP_InputField>();
@@ -636,6 +637,11 @@ public class PanelToTrade : MonoBehaviour
     public void declineTrade5() => rejectButton(4);
     public void clickDoneTrading()
     {
+        drawEntropyCard.distribute_entropycard(1);
+        if (ifOnlyYouAttend())
+        {
+            drawEntropyCard.distribute_entropycard(1);
+        }
         panelTrade.SetActive(false);
         for (int i=0; i < peopleWhoAskedTrade.Count; i++)
         {

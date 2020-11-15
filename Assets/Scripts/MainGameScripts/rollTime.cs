@@ -36,7 +36,7 @@ public class rollTime : MonoBehaviour
     private CharCardScript currentRollerCharCardScript = null;
     [SerializeField] private Main_Game_before_start main_Game_Before_Start;
     private int rollLessThanTask;
-    private string whichTaskName,currentTaskSkill;
+    private string whichTaskName;
     [SerializeField] private MoneyAndPoints moneyAndPoints;
     private MissionCardScript currentMissionCardScript;
     private int howManyTask;
@@ -58,9 +58,9 @@ public class rollTime : MonoBehaviour
     };
     public enum PhotonEventCode
     {
-        whoRolling = 15,
-        rolledNumber = 16,
-        thereIsSkillChanger=19,
+        whoRollingMission = 15,
+        rolledNumberMission = 16,
+        thereIsSkillChangerMission = 19,
     }
     private void OnEnable()
     {
@@ -72,7 +72,7 @@ public class rollTime : MonoBehaviour
     }
     private void NetworkingClient_EventReceived(EventData obj)
     {
-        if (obj.Code == (byte)PhotonEventCode.whoRolling)
+        if (obj.Code == (byte)PhotonEventCode.whoRollingMission)
         {
             object[] receiveData = (object[])obj.CustomData;
             rollchancesNumber = (int)receiveData[3];
@@ -86,13 +86,13 @@ public class rollTime : MonoBehaviour
                 whichIsCurrentTask(drawCharacterCard.getWhichMissionCardScript((string)receiveData[0]), (string)receiveData[1]);
             }
         }
-        else if (obj.Code == (byte)PhotonEventCode.rolledNumber)
+        else if (obj.Code == (byte)PhotonEventCode.rolledNumberMission)
         {
             object[] rollData = (object[])obj.CustomData;
             int rolledNumber = (int)rollData[0];
             DiceNumber.text = rolledNumber.ToString();
         }
-        else if (obj.Code == (byte)PhotonEventCode.thereIsSkillChanger)
+        else if (obj.Code == (byte)PhotonEventCode.thereIsSkillChangerMission)
         {
             object[] skillChanger = (object[])obj.CustomData;
             RollMustBeLess.text =(string)skillChanger[0];
@@ -118,9 +118,13 @@ public class rollTime : MonoBehaviour
                 {
                     rollchancesNumber = 1;
                 }
+                if (drawCharacterCard.getMyCharScript().character_code == 13)
+                {
+                    rollchancesNumber += 1;
+                }
                 currentMissionCardScript = drawCharacterCard.getCurrentMissionScript();
                 object[] dataRoll = new object[] { currentMissionCardScript.Mission_code , "Task1" , PhotonNetwork.LocalPlayer.ActorNumber,rollchancesNumber, true };
-                PhotonNetwork.RaiseEvent((byte)PhotonEventCode.whoRolling, dataRoll, AllPeople, SendOptions.SendReliable);
+                PhotonNetwork.RaiseEvent((byte)PhotonEventCode.whoRollingMission, dataRoll, AllPeople, SendOptions.SendReliable);
             }
         }
     }
@@ -151,6 +155,9 @@ public class rollTime : MonoBehaviour
             howManyTask = 3;
             TaskThreeStatusOBJ.SetActive(true);
             TaskThreeStatus.text = "Task 3 : waiting";
+            howManyTask = 2;
+            TaskTwoStatusOBJ.SetActive(true);
+            TaskTwoStatus.text = "Task 2 : waiting";
         }
         else if (currentMissionCardScript.hasSecondMission)
         {
@@ -175,7 +182,7 @@ public class rollTime : MonoBehaviour
     {
         foreach (SkillEffector skillEffect in skillEffectorsList)
         {
-            if ((drawCharacterCard.TurnNumber/2 + 1) == skillEffect.turnNumber)
+            if (Mathf.RoundToInt(drawCharacterCard.TurnNumber / 2 + 1) == skillEffect.turnNumber)
             {
                 if(WhichSkill.text == skillEffect.skillName)
                 {
@@ -184,7 +191,7 @@ public class rollTime : MonoBehaviour
                     RollMustBeLess.text = holdString + " + " + skillEffect.amount;
                     rollLessThanTask += skillEffect.amount;
                     object[] rollMustBeLessTast = new object[] { RollMustBeLess.text };
-                    PhotonNetwork.RaiseEvent((byte)PhotonEventCode.thereIsSkillChanger, rollMustBeLessTast, AllOtherThanMePeopleOptions, SendOptions.SendReliable);
+                    PhotonNetwork.RaiseEvent((byte)PhotonEventCode.thereIsSkillChangerMission, rollMustBeLessTast, AllOtherThanMePeopleOptions, SendOptions.SendReliable);
                 }
             }
         }
@@ -257,7 +264,7 @@ public class rollTime : MonoBehaviour
             int x = rand.Next(0, 18);
             DiceNumber.text = x.ToString();
             object[] dataDice = new object[] { x };
-            PhotonNetwork.RaiseEvent((byte)PhotonEventCode.rolledNumber, dataDice, AllOtherThanMePeopleOptions, SendOptions.SendReliable);
+            PhotonNetwork.RaiseEvent((byte)PhotonEventCode.rolledNumberMission, dataDice, AllOtherThanMePeopleOptions, SendOptions.SendReliable);
             if (whichTaskName == "Task1")
             {
                 if (x > rollLessThanTask)
@@ -330,12 +337,12 @@ public class rollTime : MonoBehaviour
         if (whichTaskName == "Task1" && currentMissionCardScript.hasSecondMission)
         {
             object[] dataRoll = new object[] { currentMissionCardScript.Mission_code, "Task2", PhotonNetwork.LocalPlayer.ActorNumber, rollchancesNumber, false };
-            PhotonNetwork.RaiseEvent((byte)PhotonEventCode.whoRolling, dataRoll, AllPeople, SendOptions.SendReliable);
+            PhotonNetwork.RaiseEvent((byte)PhotonEventCode.whoRollingMission, dataRoll, AllPeople, SendOptions.SendReliable);
         }
         else if (whichTaskName == "Task2")
         {
             object[] dataRoll = new object[] { currentMissionCardScript.Mission_code, "Task3", PhotonNetwork.LocalPlayer.ActorNumber, rollchancesNumber, false };
-            PhotonNetwork.RaiseEvent((byte)PhotonEventCode.whoRolling, dataRoll, AllPeople, SendOptions.SendReliable);
+            PhotonNetwork.RaiseEvent((byte)PhotonEventCode.whoRollingMission, dataRoll, AllPeople, SendOptions.SendReliable);
         }
         howManyTask -= 1;
         if (howManyTask == 0)

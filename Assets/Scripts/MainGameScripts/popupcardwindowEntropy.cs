@@ -9,6 +9,7 @@ public class popupcardwindowEntropy : MonoBehaviour
     public GameObject EntropyCard;
     public EntropyCardDisplay EntropyDisplayUI;
     private EntropyCardScript pop_input_Entropy;
+    [SerializeField] private DrawCharacterCard drawCharacterCard;
     public GameObject playCardButtonOBJ;
     private bool canPlay = false;
 
@@ -26,7 +27,18 @@ public class popupcardwindowEntropy : MonoBehaviour
         pop_input_Entropy = input_EntropyCard;
         EntropyDisplayUI.entropyData = pop_input_Entropy;
         EntropyDisplayUI.setUpdate();
-        playCardButtonOBJ.SetActive(canPlay);
+        if (pop_input_Entropy.IsBagOfTricks && drawCharacterCard.IsMyTurn && canPlay)
+        {
+            playCardButtonOBJ.SetActive(true);
+        }
+        else if (pop_input_Entropy.IsLigthingStrikes && !drawCharacterCard.IsMyTurn && canPlay)
+        {
+            playCardButtonOBJ.SetActive(true);
+        }
+        else
+        {
+            playCardButtonOBJ.SetActive(false);
+        }
         EntropyDisplayUI.InfoSide.SetActive(true);
         EntropyDisplayUI.FrontSide.SetActive(false);
     }

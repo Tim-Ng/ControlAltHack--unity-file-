@@ -23,6 +23,7 @@ MonoBehaviour:
   fist_change_hardnum: 0
   task_discription1: How quickly can you pick that lock? The security guard is almost
     done with her round.
+  hasSecondMission: 1
   second_mission: {fileID: 0}
   skill_name_2: Cryptanalysis
   second_change_hardnum: 0

@@ -21,6 +21,7 @@ MonoBehaviour:
   skill_name_1: Barista
   fist_change_hardnum: 0
   task_discription1: Make two coffees, one for each hand.
+  hasSecondMission: 1
   second_mission: {fileID: 0}
   skill_name_2: Social Engineering
   second_change_hardnum: 0

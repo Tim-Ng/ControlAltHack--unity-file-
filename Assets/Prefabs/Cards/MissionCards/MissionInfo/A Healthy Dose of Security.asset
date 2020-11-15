@@ -23,6 +23,7 @@ MonoBehaviour:
   fist_change_hardnum: 0
   task_discription1: Make sure that the insulin pump only accpets wireless commands
     from its paired controller.
+  hasSecondMission: 1
   second_mission: {fileID: 0}
   skill_name_2: Forensics
   second_change_hardnum: 0

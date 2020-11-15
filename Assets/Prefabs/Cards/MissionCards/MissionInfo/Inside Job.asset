@@ -22,6 +22,7 @@ MonoBehaviour:
   skill_name_1: Social Engineering
   fist_change_hardnum: -1
   task_discription1: Pose an employee. Don't forget to help the customers!
+  hasSecondMission: 1
   second_mission: {fileID: 0}
   skill_name_2: Social Engineering
   second_change_hardnum: -2

@@ -22,6 +22,7 @@ MonoBehaviour:
   fist_change_hardnum: 0
   task_discription1: Buy uniform coveralls, prit a fake badge, then stop by the bank
     to "service" their telephone system.
+  hasSecondMission: 1
   second_mission: {fileID: 0}
   skill_name_2: Software Wizardry
   second_change_hardnum: 0

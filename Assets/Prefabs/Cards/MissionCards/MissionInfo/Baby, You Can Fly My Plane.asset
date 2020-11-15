@@ -21,6 +21,7 @@ MonoBehaviour:
   skill_name_1: Software Wizardry
   fist_change_hardnum: 0
   task_discription1: Don't let enemy troops view the live video stream
+  hasSecondMission: 1
   second_mission: {fileID: 0}
   skill_name_2: Software Wizardry
   second_change_hardnum: -1

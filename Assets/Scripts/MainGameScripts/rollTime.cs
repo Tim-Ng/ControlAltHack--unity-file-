@@ -9,6 +9,19 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
+public struct SkillEffector
+{
+    public string skillName;
+    public int amount;
+    public int turnNumber;
+    public SkillEffector(string SkillName, int Amount, int TurnNumber)
+    {
+        skillName = SkillName;
+        amount = Amount;
+        turnNumber = TurnNumber;
+    }
+}
+
 public class rollTime : MonoBehaviour
 {
     [SerializeField] private GameObject rollMissionTime;
@@ -22,15 +35,17 @@ public class rollTime : MonoBehaviour
     [SerializeField] private PanelToTrade panelToTrade;
     private CharCardScript currentRollerCharCardScript = null;
     [SerializeField] private Main_Game_before_start main_Game_Before_Start;
-    private int rollMoreThanTask1, rollMoreThanTask2, rollMoreThanTask3;
-    private string whichTaskName;
+    private int rollLessThanTask;
+    private string whichTaskName,currentTaskSkill;
     [SerializeField] private MoneyAndPoints moneyAndPoints;
     private MissionCardScript currentMissionCardScript;
     private int howManyTask;
     [SerializeField] private Text TaskOneStatus,TaskTwoStatus,TaskThreeStatus;
-    [SerializeField] private GameObject TaskThreeStatusOBJ;
+    [SerializeField] private GameObject TaskTwoStatusOBJ, TaskThreeStatusOBJ;
     [SerializeField] private GameObject userMissionCardArea;
     [SerializeField] private popupcardwindowMission popupcardwindowMissionScript;
+    private List<SkillEffector> skillEffectorsList = new List<SkillEffector>();
+    
     private RaiseEventOptions AllOtherThanMePeopleOptions = new RaiseEventOptions()
     {
         CachingOption = EventCaching.DoNotCache,
@@ -45,6 +60,7 @@ public class rollTime : MonoBehaviour
     {
         whoRolling = 15,
         rolledNumber = 16,
+        thereIsSkillChanger=19,
     }
     private void OnEnable()
     {
@@ -76,6 +92,11 @@ public class rollTime : MonoBehaviour
             int rolledNumber = (int)rollData[0];
             DiceNumber.text = rolledNumber.ToString();
         }
+        else if (obj.Code == (byte)PhotonEventCode.thereIsSkillChanger)
+        {
+            object[] skillChanger = (object[])obj.CustomData;
+            RollMustBeLess.text =(string)skillChanger[0];
+        }
     }
     public void startRollTurn()
     {
@@ -106,8 +127,8 @@ public class rollTime : MonoBehaviour
     public void whenOtherPlayerPlay(MissionCardScript missionCardScript,int ActorNumber)
     {
         TaskThreeStatusOBJ.SetActive(false);
+        TaskTwoStatusOBJ.SetActive(false);
         TaskOneStatus.text = "Task 1 : waiting";
-        TaskTwoStatus.text = "Task 2 : waiting";
         currentMissionCardScript = missionCardScript;
         popupcardwindowEntro.setBoolcanPlay(true);
         missionCardOBJ.SetActive(false);
@@ -129,11 +150,43 @@ public class rollTime : MonoBehaviour
         {
             howManyTask = 3;
             TaskThreeStatusOBJ.SetActive(true);
-            TaskThreeStatus.text = "Task 1 : waiting";
+            TaskThreeStatus.text = "Task 3 : waiting";
+        }
+        else if (currentMissionCardScript.hasSecondMission)
+        {
+            howManyTask = 2;
+            TaskTwoStatusOBJ.SetActive(true);
+            TaskTwoStatus.text = "Task 2 : waiting";
         }
         else
         {
-            howManyTask = 2;
+            howManyTask = 1;
+        }
+    }
+    public void addSkillChanger(string whichSkill, int Amount, int whichTurn)
+    {
+        skillEffectorsList.Add(new SkillEffector(whichSkill, Amount, whichTurn));
+        if (drawCharacterCard.IsMyTurn)
+        {
+            checkSkillChanger();
+        }
+    }
+    public void checkSkillChanger()
+    {
+        foreach (SkillEffector skillEffect in skillEffectorsList)
+        {
+            if ((drawCharacterCard.TurnNumber/2 + 1) == skillEffect.turnNumber)
+            {
+                if(WhichSkill.text == skillEffect.skillName)
+                {
+                    string holdString;
+                    holdString = RollMustBeLess.text;
+                    RollMustBeLess.text = holdString + " + " + skillEffect.amount;
+                    rollLessThanTask += skillEffect.amount;
+                    object[] rollMustBeLessTast = new object[] { RollMustBeLess.text };
+                    PhotonNetwork.RaiseEvent((byte)PhotonEventCode.thereIsSkillChanger, rollMustBeLessTast, AllOtherThanMePeopleOptions, SendOptions.SendReliable);
+                }
+            }
         }
     }
     public void whichIsCurrentTask(MissionCardScript missionCardScript,string taskNum)
@@ -146,40 +199,52 @@ public class rollTime : MonoBehaviour
             {
                 TaskOneStatus.text = "Task 1 : currently";
                 WhichSkill.text = currentMissionCardScript.skill_name_1;
-                rollMoreThanTask1 = currentRollerCharCardScript.find_which(currentMissionCardScript.skill_name_1);
-                if (rollMoreThanTask1 == 0)
+                rollLessThanTask = currentRollerCharCardScript.find_which(currentMissionCardScript.skill_name_1);
+                if (rollLessThanTask == 0)
                 {
-                    rollMoreThanTask1 = currentRollerCharCardScript.find_which("Kitchen Sink");
+                    rollLessThanTask = currentRollerCharCardScript.find_which("Kitchen Sink");
                 }
-                rollMoreThanTask1 += currentMissionCardScript.fist_change_hardnum;
+                rollLessThanTask += currentMissionCardScript.fist_change_hardnum;
                 WhichTask.text = "First Task:";
-                RollMustBeLess.text = rollMoreThanTask1.ToString();
+                RollMustBeLess.text = rollLessThanTask.ToString();
+                if (drawCharacterCard.IsMyTurn)
+                {
+                    checkSkillChanger();
+                }
             }
             else if (taskNum == "Task2")
             {
-                TaskTwoStatus.text = "Task 1 : currently";
+                TaskTwoStatus.text = "Task 2 : currently";
                 WhichSkill.text = currentMissionCardScript.skill_name_2;
-                rollMoreThanTask2 = currentRollerCharCardScript.find_which(currentMissionCardScript.skill_name_2);
-                if (rollMoreThanTask2 == 0)
+                rollLessThanTask = currentRollerCharCardScript.find_which(currentMissionCardScript.skill_name_2);
+                if (rollLessThanTask == 0)
                 {
-                    rollMoreThanTask2 = currentRollerCharCardScript.find_which("Kitchen Sink");
+                    rollLessThanTask = currentRollerCharCardScript.find_which("Kitchen Sink");
                 }
-                rollMoreThanTask2 += currentMissionCardScript.second_change_hardnum;
+                rollLessThanTask += currentMissionCardScript.second_change_hardnum;
                 WhichTask.text = "Second Task:";
-                RollMustBeLess.text = rollMoreThanTask2.ToString();
+                RollMustBeLess.text = rollLessThanTask.ToString();
+                if (drawCharacterCard.IsMyTurn)
+                {
+                    checkSkillChanger();
+                }
             }
             else if (taskNum == "Task3")
             {
                 TaskThreeStatus.text = "Task 3 : currently";
                 WhichSkill.text = currentMissionCardScript.skill_name_3;
-                rollMoreThanTask3 = currentRollerCharCardScript.find_which(currentMissionCardScript.skill_name_3);
-                if (rollMoreThanTask3 == 0)
+                rollLessThanTask = currentRollerCharCardScript.find_which(currentMissionCardScript.skill_name_3);
+                if (rollLessThanTask == 0)
                 {
-                    rollMoreThanTask3 = currentRollerCharCardScript.find_which("Kitchen Sink");
+                    rollLessThanTask = currentRollerCharCardScript.find_which("Kitchen Sink");
                 }
-                rollMoreThanTask3 += currentMissionCardScript.third_change_hardnum;
+                rollLessThanTask += currentMissionCardScript.third_change_hardnum;
                 WhichTask.text = "Third Task:";
-                RollMustBeLess.text = rollMoreThanTask3.ToString();
+                RollMustBeLess.text = rollLessThanTask.ToString();
+                if (drawCharacterCard.IsMyTurn)
+                {
+                    checkSkillChanger();
+                }
             }
         }
         
@@ -195,7 +260,7 @@ public class rollTime : MonoBehaviour
             PhotonNetwork.RaiseEvent((byte)PhotonEventCode.rolledNumber, dataDice, AllOtherThanMePeopleOptions, SendOptions.SendReliable);
             if (whichTaskName == "Task1")
             {
-                if (x > rollMoreThanTask1)
+                if (x > rollLessThanTask)
                 {
                     TaskOneStatus.text = "Task 1 : failed";
                     rollchancesNumber -= 1;
@@ -210,7 +275,7 @@ public class rollTime : MonoBehaviour
             }
             else if (whichTaskName == "Task2")
             {
-                if (x > rollMoreThanTask1)
+                if (x > rollLessThanTask)
                 {
                     TaskTwoStatus.text = "Task 2 : failed";
                     rollchancesNumber -= 1;
@@ -225,7 +290,7 @@ public class rollTime : MonoBehaviour
             }
             else if (whichTaskName == "Task3")
             {
-                if (x > rollMoreThanTask1)
+                if (x > rollLessThanTask)
                 {
                     TaskThreeStatus.text = "Task 3 : failed";
                     rollchancesNumber -= 1;
@@ -262,12 +327,12 @@ public class rollTime : MonoBehaviour
     }
     public void successTask()
     {
-        if (whichTaskName == "Task1")
+        if (whichTaskName == "Task1" && currentMissionCardScript.hasSecondMission)
         {
             object[] dataRoll = new object[] { currentMissionCardScript.Mission_code, "Task2", PhotonNetwork.LocalPlayer.ActorNumber, rollchancesNumber, false };
             PhotonNetwork.RaiseEvent((byte)PhotonEventCode.whoRolling, dataRoll, AllPeople, SendOptions.SendReliable);
         }
-        else if (whichTaskName == "Task2" )
+        else if (whichTaskName == "Task2")
         {
             object[] dataRoll = new object[] { currentMissionCardScript.Mission_code, "Task3", PhotonNetwork.LocalPlayer.ActorNumber, rollchancesNumber, false };
             PhotonNetwork.RaiseEvent((byte)PhotonEventCode.whoRolling, dataRoll, AllPeople, SendOptions.SendReliable);

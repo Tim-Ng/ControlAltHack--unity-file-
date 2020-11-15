@@ -5566,6 +5566,7 @@ GameObject:
   - component: {fileID: 499456414}
   - component: {fileID: 499456415}
   - component: {fileID: 499456416}
+  - component: {fileID: 499456417}
   m_Layer: 0
   m_Name: MainScript
   m_TagString: Untagged
@@ -5922,9 +5923,26 @@ MonoBehaviour:
   TaskOneStatus: {fileID: 1912998811}
   TaskTwoStatus: {fileID: 979131869}
   TaskThreeStatus: {fileID: 289582713}
+  TaskTwoStatusOBJ: {fileID: 979131867}
   TaskThreeStatusOBJ: {fileID: 289582711}
   userMissionCardArea: {fileID: 1074838377}
   popupcardwindowMissionScript: {fileID: 7013831139461939040}
+--- !u!114 &499456417
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 499456406}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0acb67266e063a14dac0dd18b0db471f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  RollTime: {fileID: 499456416}
+  moneyAndPoints: {fileID: 499456414}
+  drawCharacterCard: {fileID: 499456407}
+  popUpEntropy: {fileID: 4474021401755880698}
 --- !u!1 &507648865
 GameObject:
   m_ObjectHideFlags: 0
@@ -24328,6 +24346,34 @@ PrefabInstance:
       propertyPath: playCardButton
       value: 
       objectReference: {fileID: 1639649700}
+    - target: {fileID: 5440332264935372663, guid: 5fd9301e663e40145b062de0287463a8, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5440332264935372663, guid: 5fd9301e663e40145b062de0287463a8, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5440332264935372663, guid: 5fd9301e663e40145b062de0287463a8, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5440332264935372663, guid: 5fd9301e663e40145b062de0287463a8, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 499456417}
+    - target: {fileID: 5440332264935372663, guid: 5fd9301e663e40145b062de0287463a8, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: PlayEntropyCard, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 5440332264935372663, guid: 5fd9301e663e40145b062de0287463a8, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: clickOnPlayEntropyCard
+      objectReference: {fileID: 0}
+    - target: {fileID: 5440332264935372663, guid: 5fd9301e663e40145b062de0287463a8, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 4474021401820085533, guid: 5fd9301e663e40145b062de0287463a8, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 5fd9301e663e40145b062de0287463a8, type: 3}

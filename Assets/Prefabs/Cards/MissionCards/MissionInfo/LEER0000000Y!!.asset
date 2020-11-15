@@ -21,6 +21,7 @@ MonoBehaviour:
   skill_name_1: Hardware Hacking
   fist_change_hardnum: 1
   task_discription1: Is their hardware authenticator dongle secure?
+  hasSecondMission: 1
   second_mission: {fileID: 0}
   skill_name_2: Cryptanalysis
   second_change_hardnum: 0

@@ -22,6 +22,7 @@ MonoBehaviour:
   fist_change_hardnum: 0
   task_discription1: Robotic bat, check, LED-o'-lantern, check. Eerie soundtrack,
     check. Now choreograph the action with custom software.
+  hasSecondMission: 1
   second_mission: {fileID: 0}
   skill_name_2: Cryptanalysis
   second_change_hardnum: 0

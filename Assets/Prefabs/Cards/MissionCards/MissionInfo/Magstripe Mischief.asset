@@ -23,6 +23,7 @@ MonoBehaviour:
   task_discription1: 3D printers are getting cheaper, and criminals can be clever.
     Use your office 3D printer to fabricate a credit card skimmer for a gas station
     pump.
+  hasSecondMission: 1
   second_mission: {fileID: 0}
   skill_name_2: Social Engineering
   second_change_hardnum: 0

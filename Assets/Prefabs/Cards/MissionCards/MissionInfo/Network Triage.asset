@@ -21,6 +21,7 @@ MonoBehaviour:
   skill_name_1: Network Ninja
   fist_change_hardnum: 0
   task_discription1: Analyze network traffic for suspicious activity.
+  hasSecondMission: 1
   second_mission: {fileID: 0}
   skill_name_2: Search FU
   second_change_hardnum: 0

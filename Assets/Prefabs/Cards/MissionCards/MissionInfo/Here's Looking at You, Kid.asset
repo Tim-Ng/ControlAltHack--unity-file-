@@ -22,6 +22,7 @@ MonoBehaviour:
   skill_name_1: Network Ninja
   fist_change_hardnum: 0
   task_discription1: I find your lack of encryption disturbing.
+  hasSecondMission: 1
   second_mission: {fileID: 0}
   skill_name_2: Forensics
   second_change_hardnum: -1

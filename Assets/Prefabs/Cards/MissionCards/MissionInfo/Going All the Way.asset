@@ -22,6 +22,7 @@ MonoBehaviour:
   fist_change_hardnum: 0
   task_discription1: 'First step : locate several potential vulnerabilities in their
     code.'
+  hasSecondMission: 1
   second_mission: {fileID: 0}
   skill_name_2: Software Wizardry
   second_change_hardnum: -1

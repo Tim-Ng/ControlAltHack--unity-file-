@@ -9,14 +9,6 @@ public class EntropyCardDeck : MonoBehaviour
     public EntropyCardScript entropyCardBagScript2;
     public EntropyCardScript entropyCardBagScript3;
     public EntropyCardScript entropyCardBagScript4;
-    public EntropyCardScript entropyCardBagScript5;
-    public EntropyCardScript entropyCardBagScript6;
-    public EntropyCardScript entropyCardBagScript7;
-    public EntropyCardScript entropyCardBagScript8;
-    public EntropyCardScript entropyCardBagScript9;
-    public EntropyCardScript entropyCardBagScript10;
-    public EntropyCardScript entropyCardBagScript11;
-    public EntropyCardScript entropyCardBagScript12;
     public EntropyCardScript entropyCardBagScript13;
     public EntropyCardScript entropyCardBagScript14;
     public EntropyCardScript entropyCardBagScript15;
@@ -38,6 +30,15 @@ public class EntropyCardDeck : MonoBehaviour
     public EntropyCardScript entropyCardExtensiveScript3;
     public EntropyCardScript entropyCardExtensiveScript4;
     public EntropyCardScript entropyCardExtensiveScript5;
+    //to mix around
+    public EntropyCardScript entropyCardBagScript5;
+    public EntropyCardScript entropyCardBagScript6;
+    public EntropyCardScript entropyCardBagScript7;
+    public EntropyCardScript entropyCardBagScript8;
+    public EntropyCardScript entropyCardBagScript9;
+    public EntropyCardScript entropyCardBagScript10;
+    public EntropyCardScript entropyCardBagScript11;
+    public EntropyCardScript entropyCardBagScript12;
     //shared fate
     public EntropyCardScript entropyChardSharedScript1;
     public EntropyCardScript entropyChardSharedScript2;

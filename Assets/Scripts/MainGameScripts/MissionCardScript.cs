@@ -16,7 +16,7 @@ public class MissionCardScript : ScriptableObject
     public int fist_change_hardnum;
     public string task_discription1;
 
-
+    public bool hasSecondMission;
     public Sprite second_mission;
     public string skill_name_2;
     public int second_change_hardnum;

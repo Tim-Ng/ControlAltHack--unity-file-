@@ -22,6 +22,7 @@ MonoBehaviour:
   skill_name_1: Web Procurement
   fist_change_hardnum: 0
   task_discription1: Get your hands on working Enigma cipher machine.
+  hasSecondMission: 1
   second_mission: {fileID: 0}
   skill_name_2: Cryptanalysis
   second_change_hardnum: 0

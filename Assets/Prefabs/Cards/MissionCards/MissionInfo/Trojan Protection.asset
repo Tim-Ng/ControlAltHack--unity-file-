@@ -24,6 +24,7 @@ MonoBehaviour:
   task_discription1: Interview factory workers and study the manufacturing pipeline
     to figure out where it could be sabotaged. (You're working through a translator
     which makes the job harder than usual.)
+  hasSecondMission: 1
   second_mission: {fileID: 0}
   skill_name_2: Hardware Hacking
   second_change_hardnum: 1

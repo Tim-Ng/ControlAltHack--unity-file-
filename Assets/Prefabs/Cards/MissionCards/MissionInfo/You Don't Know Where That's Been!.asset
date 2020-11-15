@@ -22,6 +22,7 @@ MonoBehaviour:
   fist_change_hardnum: -2
   task_discription1: Write some malware that covertly uploads confidential financial
     reports to your server.
+  hasSecondMission: 1
   second_mission: {fileID: 0}
   skill_name_2: Social Engineering
   second_change_hardnum: 0

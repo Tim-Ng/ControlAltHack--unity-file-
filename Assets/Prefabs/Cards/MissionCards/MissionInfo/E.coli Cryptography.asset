@@ -23,6 +23,7 @@ MonoBehaviour:
   fist_change_hardnum: 0
   task_discription1: Get someone with the right equipment and biology know-how to
     collaborate on a project.
+  hasSecondMission: 1
   second_mission: {fileID: 0}
   skill_name_2: Cryptanalysis
   second_change_hardnum: 0

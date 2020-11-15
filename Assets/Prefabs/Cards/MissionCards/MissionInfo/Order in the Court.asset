@@ -22,6 +22,7 @@ MonoBehaviour:
   fist_change_hardnum: 2
   task_discription1: Explain how the ex-employee talked his way into the building
     after his ID badge was revoked.
+  hasSecondMission: 1
   second_mission: {fileID: 0}
   skill_name_2: Network Ninja
   second_change_hardnum: 1

@@ -22,6 +22,7 @@ MonoBehaviour:
   fist_change_hardnum: 0
   task_discription1: 2 14 12 12 27, 23 27 6 12 16 --- 16 15 16 31 27 21 14 18 25
     14 9 26 13 27 7 14 26 2 15 20 28 14 12 13 14
+  hasSecondMission: 1
   second_mission: {fileID: 0}
   skill_name_2: 'Cryptanalysis '
   second_change_hardnum: -1

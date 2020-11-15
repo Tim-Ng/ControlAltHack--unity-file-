@@ -23,6 +23,7 @@ MonoBehaviour:
   fist_change_hardnum: 0
   task_discription1: There's malware installed on the point of sale machine. Can
     you find it?
+  hasSecondMission: 1
   second_mission: {fileID: 0}
   skill_name_2: 'Network Ninja '
   second_change_hardnum: -1

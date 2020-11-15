@@ -23,6 +23,7 @@ MonoBehaviour:
   fist_change_hardnum: -2
   task_discription1: Can you figure out (and fix) the software vulnerability the
     attackers used to first gain entry to the system?
+  hasSecondMission: 1
   second_mission: {fileID: 0}
   skill_name_2: Forensics
   second_change_hardnum: 0

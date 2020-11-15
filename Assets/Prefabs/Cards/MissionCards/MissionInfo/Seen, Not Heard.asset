@@ -22,6 +22,7 @@ MonoBehaviour:
   fist_change_hardnum: 0
   task_discription1: Conveniently, you hve the same entertainment system. Take it
     apart and figure out how the proprietary wireless protocol works.
+  hasSecondMission: 1
   second_mission: {fileID: 0}
   skill_name_2: Network Ninja
   second_change_hardnum: 0

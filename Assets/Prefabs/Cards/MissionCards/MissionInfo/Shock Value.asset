@@ -21,6 +21,7 @@ MonoBehaviour:
   fist_change_hardnum: -2
   task_discription1: Call the IT desk ("I'm a new employee!") and con them into giving
     you the IP (Internet) address of one of their servers.
+  hasSecondMission: 1
   second_mission: {fileID: 0}
   skill_name_2: Network Ninja
   second_change_hardnum: 0

@@ -22,6 +22,7 @@ MonoBehaviour:
   fist_change_hardnum: 0
   task_discription1: Write a game that secretly takes a photo every 30 minutes. (As
     a white hat, you play nice, don't upload them!)
+  hasSecondMission: 1
   second_mission: {fileID: 0}
   skill_name_2: Social Engineering
   second_change_hardnum: 0

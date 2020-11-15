@@ -23,6 +23,7 @@ MonoBehaviour:
   fist_change_hardnum: -1
   task_discription1: Grab some LEDs, some conductive thread, and a thimble. Make
     it work!
+  hasSecondMission: 1
   second_mission: {fileID: 0}
   skill_name_2: Search FU
   second_change_hardnum: 0

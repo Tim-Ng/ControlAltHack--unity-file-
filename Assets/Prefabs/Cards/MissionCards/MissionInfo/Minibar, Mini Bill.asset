@@ -22,6 +22,7 @@ MonoBehaviour:
   fist_change_hardnum: -2
   task_discription1: Make(and plant) counterfeit RFID tags so that the minibar thinks
     that all the items are still there.
+  hasSecondMission: 1
   second_mission: {fileID: 0}
   skill_name_2: Social Engineering
   second_change_hardnum: 1

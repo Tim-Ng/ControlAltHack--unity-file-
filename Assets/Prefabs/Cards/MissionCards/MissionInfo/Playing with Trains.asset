@@ -21,6 +21,7 @@ MonoBehaviour:
   fist_change_hardnum: 0
   task_discription1: Looks like someone's been trying to chat up every computer on
     the network. That's a bit too promiscuous to be legit.
+  hasSecondMission: 1
   second_mission: {fileID: 0}
   skill_name_2: Software Wizardry
   second_change_hardnum: 0

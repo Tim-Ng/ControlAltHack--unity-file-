@@ -131,7 +131,7 @@ public class MoneyAndPoints : MonoBehaviour
     }
     public void subPoints(byte amount)
     {
-        if (amount >= MyPoints)
+        if (MyPoints <= amount)
         {
             MyPoints = 0;
         }

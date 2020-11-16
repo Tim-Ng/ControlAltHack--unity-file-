@@ -96,7 +96,7 @@ public class DrawEntropyCard : MonoBehaviourPunCallbacks
             RemoveThisCard(entropycards[x].EntropyCardID);
             PhotonNetwork.RaiseEvent((byte)PhotonEventCode.removeEntropycardFromdeck, data, AllOtherThanMePeopleOptions, SendOptions.SendReliable); // as this is not fast enough 
         }
-        moneyAndPointScripts.countMyNumOfEntropyCards();
+        moneyAndPointScripts.addMyCards(how_many);
     }
     public void RemoveThisCard(int cardID)
     {

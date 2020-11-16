@@ -208,8 +208,8 @@ public class rollTime : MonoBehaviour
         }
         foreach (SkillEffector skillEffect in skillEffectorsList)
         {
-            var copy = Instantiate(skillTemplate);
-            copy.transform.parent = skillChangerEliment.transform;
+            GameObject copy = Instantiate(skillTemplate, transform.position, Quaternion.identity);
+            copy.transform.SetParent(skillChangerEliment.transform, false);
             copy.GetComponent<Text>().text = "Skill Name: "+skillEffect.skillName +"\nAmount Change: +"+skillEffect.amount.ToString()+"\nIn turn:"+skillEffect.turnNumber;
         }
     }

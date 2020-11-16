@@ -3,6 +3,7 @@ using Photon.Pun;
 using Photon.Realtime;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 
 public class PlayEntropyCard : MonoBehaviour
@@ -92,6 +93,12 @@ public class PlayEntropyCard : MonoBehaviour
             }
         }
     }
+    public void clickOnDiscardCard()
+    {
+        entropyCardScript = popUpEntropy.GetEntropyCardScript();
+        removeCard(entropyCardScript);
+        popUpEntropy.closePopup();
+    }
     private void removeCard(EntropyCardScript whichEntropy)
     {
         foreach (Transform child in userEntorpyArea.transform)
@@ -102,6 +109,6 @@ public class PlayEntropyCard : MonoBehaviour
                 break;
             }
         }
-        moneyAndPoints.countMyNumOfEntropyCards();
+        moneyAndPoints.subMyCards(1);
     }
 }

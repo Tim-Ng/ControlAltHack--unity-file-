@@ -236,9 +236,18 @@ public class MoneyAndPoints : MonoBehaviour
     {
         return MyEntropyCards;
     }
+    public void addMyCards(int amount)
+    {
+        MyEntropyCards += amount;
+        countMyNumOfEntropyCards();
+    }
+    public void subMyCards(int amount)
+    {
+        MyEntropyCards -= amount;
+        countMyNumOfEntropyCards();
+    }
     public void countMyNumOfEntropyCards()
     {
-        MyEntropyCards =userEntropyCardsArea.transform.childCount;
         object[] dataCards = new object[] { MyEntropyCards, PhotonNetwork.LocalPlayer };
         PhotonNetwork.RaiseEvent((byte)PhotonEventCode.sendPeopleCards, dataCards, AllOtherThanMePeopleOptions, SendOptions.SendReliable);
     }

@@ -380,6 +380,7 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
         {
             Popup.openCharacterCard(chosed_character_user, false,true);
         }
+
     }
     //all of the different avertars user and the opponents 
     public void clickAvertarPlayer1() => PopUpCharacterInfo(0);

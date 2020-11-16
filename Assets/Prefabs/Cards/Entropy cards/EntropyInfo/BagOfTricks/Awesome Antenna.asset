@@ -21,7 +21,7 @@ MonoBehaviour:
   discription: No sir, that's not a directional WiFi antenna on my car. I'm not going
     to join your wireless network from the parking lot. I'm just listening to the
     radio and eating a sandwich.
-  artwork_info: {fileID: 21300000, guid: d9ecdf60b5d297d43a1dcb5c006fa436, type: 3}
+  artwork_info: {fileID: 21300000, guid: 3a5af10465d47f941a7ef1ceffa25cbe, type: 3}
   artwork_back: {fileID: 21300000, guid: d9ecdf60b5d297d43a1dcb5c006fa436, type: 3}
   Cost: 1000
   SkillEffecter: 0

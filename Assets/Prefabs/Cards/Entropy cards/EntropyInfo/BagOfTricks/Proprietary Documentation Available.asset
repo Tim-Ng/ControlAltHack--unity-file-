@@ -20,7 +20,7 @@ MonoBehaviour:
   Title: PROPRIETARY DOCUMENTATION AVAILABLE
   discription: Turns out that the manufacturer offers documentation for their proprietary
     protocol for sale on their website. Makes finding vulnerability that much easier!
-  artwork_info: {fileID: 21300000, guid: d9ecdf60b5d297d43a1dcb5c006fa436, type: 3}
+  artwork_info: {fileID: 21300000, guid: a3333128057c1664cac028656419cf45, type: 3}
   artwork_back: {fileID: 21300000, guid: d9ecdf60b5d297d43a1dcb5c006fa436, type: 3}
   Cost: 1000
   SkillEffecter: 0

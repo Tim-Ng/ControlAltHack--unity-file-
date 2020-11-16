@@ -21,7 +21,7 @@ MonoBehaviour:
   discription: Your best friend's parents have years of experience tinkering with
     hardware. Join them for dinner, get some suggestions on gear upgrades and retrofit
     your lab.
-  artwork_info: {fileID: 21300000, guid: d9ecdf60b5d297d43a1dcb5c006fa436, type: 3}
+  artwork_info: {fileID: 21300000, guid: 29459e5ac5c3c9944a22e7fbd9084e19, type: 3}
   artwork_back: {fileID: 21300000, guid: d9ecdf60b5d297d43a1dcb5c006fa436, type: 3}
   Cost: 2000
   SkillEffecter: 1

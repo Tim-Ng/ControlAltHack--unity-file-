@@ -20,7 +20,7 @@ MonoBehaviour:
   Title: ESPRESSO MACHINE
   discription: Some would call it a long night. But with your new espresso machine,
     you don't need any sleep... and have extra time to look at those log files!
-  artwork_info: {fileID: 21300000, guid: d9ecdf60b5d297d43a1dcb5c006fa436, type: 3}
+  artwork_info: {fileID: 21300000, guid: 7233ca702c944504ca77e525161af523, type: 3}
   artwork_back: {fileID: 21300000, guid: d9ecdf60b5d297d43a1dcb5c006fa436, type: 3}
   Cost: 2000
   SkillEffecter: 1

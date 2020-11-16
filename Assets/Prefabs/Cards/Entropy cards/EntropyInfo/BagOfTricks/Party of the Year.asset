@@ -20,7 +20,7 @@ MonoBehaviour:
   Title: PARTY OF THE YEAR
   discription: Chocolate fountain, open bar, and a hovering chandelier. You throw
     the best parties, and everybody who's anybody is there
-  artwork_info: {fileID: 21300000, guid: d9ecdf60b5d297d43a1dcb5c006fa436, type: 3}
+  artwork_info: {fileID: 21300000, guid: 14c8797a18ea452489bdfa11a13ac6ac, type: 3}
   artwork_back: {fileID: 21300000, guid: d9ecdf60b5d297d43a1dcb5c006fa436, type: 3}
   Cost: 1000
   SkillEffecter: 0

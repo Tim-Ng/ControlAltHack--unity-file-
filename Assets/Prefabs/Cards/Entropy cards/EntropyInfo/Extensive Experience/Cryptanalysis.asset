@@ -19,9 +19,15 @@ MonoBehaviour:
   IsExtensiveExperience: 1
   Title: Cryptanalysis
   discription: If experience is the best teacher, then you've earned your degree.
-  artwork_info: {fileID: 21300000, guid: d9ecdf60b5d297d43a1dcb5c006fa436, type: 3}
+  artwork_info: {fileID: 21300000, guid: 5c6387a1fd45e9d4caa2fc0dbd46760c, type: 3}
   artwork_back: {fileID: 21300000, guid: d9ecdf60b5d297d43a1dcb5c006fa436, type: 3}
   Cost: 0
+  SkillEffecter: 0
+  whichSkillIncrease1: 
+  byHowMuchSkillIncrease1: 0
+  increaseSecondSkill: 0
+  whichSkillIncrease2: 
+  byHowMuchSkillIncrease2: 0
   usage: 
   use_usage: 0
   UseSucFailLighting: 0

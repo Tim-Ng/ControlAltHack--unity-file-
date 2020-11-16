@@ -101,6 +101,7 @@ public class rollTime : MonoBehaviour
     }
     public void startRollTurn()
     {
+        currentMissionCardScript = null;
         missionCardOBJ.SetActive(false);
         if (drawCharacterCard.TurnNumber % 2 != 0)
         {
@@ -200,6 +201,11 @@ public class rollTime : MonoBehaviour
     }
     public void changeSkillChangerList()
     {
+        skillChangerEliment.SetActive(true);
+        foreach (Transform child in skillChangerEliment.transform)
+        {
+            GameObject.Destroy(child.gameObject);
+        }
         foreach (SkillEffector skillEffect in skillEffectorsList)
         {
             var copy = Instantiate(skillTemplate);

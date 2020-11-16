@@ -14,6 +14,7 @@ public class DrawEntropyCard : MonoBehaviourPunCallbacks
     public GameObject UserArea;
     public DrawCharacterCard drawCharacterCard;
     [SerializeField] private MoneyAndPoints moneyAndPointScripts;
+    [SerializeField] private rollTime RollTime;
     //inputmultiple cards
     private int x;
     private List<EntropyCardScript> entropycards = new List<EntropyCardScript>();
@@ -79,6 +80,20 @@ public class DrawEntropyCard : MonoBehaviourPunCallbacks
             entropyCard.gameObject.transform.localScale += new Vector3(-0.75f, -0.75f, 0);
             entropyCard.transform.SetParent(UserArea.transform, false);
             object[] data = new object[] { entropycards[x].EntropyCardID };
+            if (entropycards[x].IsExtensiveExperience)
+            {
+                int HowMuchAdd;
+                if (drawCharacterCard.getMyCharScript().find_which(entropycards[x].Title) >= 12)
+                {
+                    HowMuchAdd = 1;
+                }
+                else
+                {
+                    HowMuchAdd = (12 - drawCharacterCard.getMyCharScript().find_which(entropycards[x].Title));
+                }
+                RollTime.addSkillChanger(entropycards[x].Title, HowMuchAdd, "All");
+            }
+            RemoveThisCard(entropycards[x].EntropyCardID);
             PhotonNetwork.RaiseEvent((byte)PhotonEventCode.removeEntropycardFromdeck, data, AllOtherThanMePeopleOptions, SendOptions.SendReliable); // as this is not fast enough 
         }
         moneyAndPointScripts.countMyNumOfEntropyCards();

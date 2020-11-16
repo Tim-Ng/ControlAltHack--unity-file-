@@ -520,12 +520,9 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
                     Debug.Log("Entropy Draw");
                     if (TurnNumber == 1)
                     {
-                        entropyCard.distribute_entropycard(5);
+                        entropyCard.distribute_entropycard(4);
                     }
-                    else
-                    {
-                        entropyCard.distribute_entropycard(1);
-                    }
+                    entropyCard.distribute_entropycard(1);
                     drawMissionCard.whoDrawMissionCard(chosed_character_user.character_code);
                     EndTurn();
                 }

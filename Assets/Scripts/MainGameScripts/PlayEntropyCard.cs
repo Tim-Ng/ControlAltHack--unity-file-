@@ -71,11 +71,11 @@ public class PlayEntropyCard : MonoBehaviour
                 {
                     RollTime.addSkillChanger(entropyCardScript.whichSkillIncrease2, entropyCardScript.byHowMuchSkillIncrease2, (Mathf.RoundToInt(drawCharacterCard.TurnNumber / 2 + 1)).ToString());
                 }
-                removeCard();
+                removeCard(entropyCardScript);
             }
             else
             {
-                removeCard();
+                removeCard(entropyCardScript);
             }
         }
         else if (entropyCardScript.IsLigthingStrikes)
@@ -84,26 +84,22 @@ public class PlayEntropyCard : MonoBehaviour
             {
                 object[] dataRoll = new object[] { entropyCardScript.EntropyCardID };
                 PhotonNetwork.RaiseEvent((byte)PhotonEventCode.sendEntropyRollToOther, dataRoll, AllPeople, SendOptions.SendReliable);
-                removeCard();
+                removeCard(entropyCardScript);
             }
             else
             {
-                removeCard();
+                removeCard(entropyCardScript);
             }
         }
     }
-    private void removeCard()
+    private void removeCard(EntropyCardScript whichEntropy)
     {
         foreach (Transform child in userEntorpyArea.transform)
         {
-            if (child.GetComponent<EntropyCardDisplay>().entropyData == entropyCardScript)
+            if (child.GetComponent<EntropyCardDisplay>().entropyData == whichEntropy)
             {
                 GameObject.Destroy(child.gameObject);
                 break;
-            }
-            else
-            {
-                removeCard();
             }
         }
         moneyAndPoints.countMyNumOfEntropyCards();

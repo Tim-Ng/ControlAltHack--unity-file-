@@ -5742,7 +5742,6 @@ MonoBehaviour:
   entropyCardBagScript18: {fileID: 11400000, guid: a9fafe99b6689844cabbc52ed12b1154, type: 2}
   entropyCardBagScript19: {fileID: 11400000, guid: 11dd5550818fb2147b0173845c505379, type: 2}
   entropyCardLightingScript1: {fileID: 11400000, guid: 4ded4df6c2345804294bc15fe9d8c1a6, type: 2}
-  entropyCardLightingScript2: {fileID: 0}
   entropyCardLightingScript3: {fileID: 11400000, guid: b97fc565cba198b439cda576d5abbec3, type: 2}
   entropyCardLightingScript4: {fileID: 11400000, guid: b877db3f9aa5cf44ea6ff403a78bbf68, type: 2}
   entropyCardLightingScript5: {fileID: 11400000, guid: 63b89d0efe10d27479bd7deb09845d6d, type: 2}
@@ -5780,6 +5779,7 @@ MonoBehaviour:
   UserArea: {fileID: 2874756393525619206}
   drawCharacterCard: {fileID: 499456407}
   moneyAndPointScripts: {fileID: 499456414}
+  RollTime: {fileID: 499456416}
 --- !u!114 &499456412
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6920,14 +6920,14 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 573680378}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 991504111}
   - {fileID: 1766885988}
-  m_Father: {fileID: 755170887}
-  m_RootOrder: 2
+  m_Father: {fileID: 1052135754}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -13621,6 +13621,7 @@ RectTransform:
   - {fileID: 1940780714}
   - {fileID: 1855246178}
   - {fileID: 222890370}
+  - {fileID: 573680379}
   m_Father: {fileID: 277830159}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

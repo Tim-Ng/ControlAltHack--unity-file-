@@ -66,10 +66,10 @@ public class PlayEntropyCard : MonoBehaviour
         {
             if (entropyCardScript.SkillEffecter)
             {
-                RollTime.addSkillChanger(entropyCardScript.whichSkillIncrease1, entropyCardScript.byHowMuchSkillIncrease1, Mathf.RoundToInt(drawCharacterCard.TurnNumber / 2 + 1));
+                RollTime.addSkillChanger(entropyCardScript.whichSkillIncrease1, entropyCardScript.byHowMuchSkillIncrease1, (Mathf.RoundToInt(drawCharacterCard.TurnNumber / 2 + 1)).ToString());
                 if (entropyCardScript.increaseSecondSkill)
                 {
-                    RollTime.addSkillChanger(entropyCardScript.whichSkillIncrease2, entropyCardScript.byHowMuchSkillIncrease2, Mathf.RoundToInt(drawCharacterCard.TurnNumber / 2 + 1));
+                    RollTime.addSkillChanger(entropyCardScript.whichSkillIncrease2, entropyCardScript.byHowMuchSkillIncrease2, (Mathf.RoundToInt(drawCharacterCard.TurnNumber / 2 + 1)).ToString());
                 }
                 removeCard();
             }

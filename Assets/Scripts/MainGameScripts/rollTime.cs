@@ -13,8 +13,8 @@ public struct SkillEffector
 {
     public string skillName;
     public int amount;
-    public int turnNumber;
-    public SkillEffector(string SkillName, int Amount, int TurnNumber)
+    public string turnNumber;
+    public SkillEffector(string SkillName, int Amount, string TurnNumber)
     {
         skillName = SkillName;
         amount = Amount;
@@ -26,6 +26,7 @@ public class rollTime : MonoBehaviour
 {
     [SerializeField] private GameObject rollMissionTime;
     [SerializeField] private GameObject missionCardOBJ;
+    [SerializeField] private GameObject skillChangerEliment,skillTemplate;
     [SerializeField] private Text rollingPlayerNickName, DiceNumber,
         ChancesLeft, WhichTask, WhichSkill, RollMustBeLess;
     [SerializeField] private GameObject RollButton;
@@ -170,19 +171,20 @@ public class rollTime : MonoBehaviour
             howManyTask = 1;
         }
     }
-    public void addSkillChanger(string whichSkill, int Amount, int whichTurn)
+    public void addSkillChanger(string whichSkill, int Amount, string whichTurn)
     {
         skillEffectorsList.Add(new SkillEffector(whichSkill, Amount, whichTurn));
         if (drawCharacterCard.IsMyTurn)
         {
             checkSkillChanger();
+            changeSkillChangerList();
         }
     }
     public void checkSkillChanger()
     {
         foreach (SkillEffector skillEffect in skillEffectorsList)
         {
-            if (Mathf.RoundToInt(drawCharacterCard.TurnNumber / 2 + 1) == skillEffect.turnNumber)
+            if ((Mathf.RoundToInt(drawCharacterCard.TurnNumber / 2 + 1)).ToString() == skillEffect.turnNumber || "All"== skillEffect.turnNumber)
             {
                 if(WhichSkill.text == skillEffect.skillName)
                 {
@@ -194,6 +196,15 @@ public class rollTime : MonoBehaviour
                     PhotonNetwork.RaiseEvent((byte)PhotonEventCode.thereIsSkillChangerMission, rollMustBeLessTast, AllOtherThanMePeopleOptions, SendOptions.SendReliable);
                 }
             }
+        }
+    }
+    public void changeSkillChangerList()
+    {
+        foreach (SkillEffector skillEffect in skillEffectorsList)
+        {
+            var copy = Instantiate(skillTemplate);
+            copy.transform.parent = skillChangerEliment.transform;
+            copy.GetComponent<Text>().text = "Skill Name: "+skillEffect.skillName +"\nAmount Change: +"+skillEffect.amount.ToString()+"\nIn turn:"+skillEffect.turnNumber;
         }
     }
     public void whichIsCurrentTask(MissionCardScript missionCardScript,string taskNum)

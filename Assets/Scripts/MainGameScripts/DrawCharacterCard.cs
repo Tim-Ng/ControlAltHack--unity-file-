@@ -374,11 +374,11 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
     {
         if ((i != 5))
         {
-            Popup.openCharacterCard(otherPlayerCharacterInfo[i], false);
+            Popup.openCharacterCard(otherPlayerCharacterInfo[i], false,false);
         }
         else
         {
-            Popup.openCharacterCard(chosed_character_user, false);
+            Popup.openCharacterCard(chosed_character_user, false,true);
         }
     }
     //all of the different avertars user and the opponents 

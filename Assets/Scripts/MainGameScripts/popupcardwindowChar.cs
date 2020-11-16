@@ -11,7 +11,7 @@ public class popupcardwindowChar : MonoBehaviour
     private CharCardScript pop_input_CharacterCard;
     public GameObject PopUpCard;
     public GameObject SelectChar;
-
+    [SerializeField] private GameObject skillChangerListOBJ;
 
     //allow popup gameobjet to open 
     private void Start()
@@ -21,7 +21,7 @@ public class popupcardwindowChar : MonoBehaviour
 
 
     //CHARACTER CARD
-    public void openCharacterCard(CharCardScript input_CharacterCard, bool yesNOselect)
+    public void openCharacterCard(CharCardScript input_CharacterCard, bool yesNOselect, bool openSelect)
     {
         Start();
         pop_input_CharacterCard = input_CharacterCard;
@@ -37,6 +37,7 @@ public class popupcardwindowChar : MonoBehaviour
         CharactercardUI.setUpdate();
         CharactercardUI.FrontSide.SetActive(false);
         CharactercardUI.InfoSide.SetActive(true);
+        skillChangerListOBJ.SetActive(openSelect);
     }
     //get the character script
     public CharCardScript GetCharCardScript()

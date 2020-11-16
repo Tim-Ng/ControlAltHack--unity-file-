@@ -984,8 +984,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 260, y: 115.05}
-  m_SizeDelta: {x: 200, y: 200}
+  m_AnchoredPosition: {x: 270.8, y: 115.06}
+  m_SizeDelta: {x: 250, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &66864153
 MonoBehaviour:
@@ -2897,6 +2897,7 @@ MonoBehaviour:
   CharactercardUI: {fileID: 222890371}
   PopUpCard: {fileID: 1692396080}
   SelectChar: {fileID: 1940780710}
+  skillChangerListOBJ: {fileID: 66864151}
 --- !u!1001 &249235930
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8214,7 +8215,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 1
-  m_Spacing: 55
+  m_Spacing: 5
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
@@ -26272,7 +26273,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -155.4, y: 0.91064}
+  m_AnchoredPosition: {x: -155.36, y: -0.00031686}
   m_SizeDelta: {x: 292.21124, y: 127.14264}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &5132570365836124971

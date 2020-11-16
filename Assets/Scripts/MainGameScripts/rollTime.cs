@@ -181,6 +181,28 @@ public class rollTime : MonoBehaviour
             changeSkillChangerList();
         }
     }
+    public void removeSkillChanger(string whichSkill, string whichTurnSent,int which)
+    {
+        if (which == 2)
+        {
+            foreach (SkillEffector skillEffect in skillEffectorsList)
+            {
+                if (whichTurnSent == skillEffect.turnNumber)
+                {
+                    skillEffectorsList.Remove(skillEffect);
+                }
+                else if (skillEffect.turnNumber == "All")
+                {
+                    if (whichSkill == skillEffect.skillName)
+                    {
+                        skillEffectorsList.Remove(skillEffect);
+                        break;
+                    }
+                }
+            }
+        }
+        changeSkillChangerList();
+    }
     public void checkSkillChanger()
     {
         foreach (SkillEffector skillEffect in skillEffectorsList)
@@ -271,7 +293,6 @@ public class rollTime : MonoBehaviour
                 }
             }
         }
-        
     }
     public void clickOnRollDice()
     {
@@ -379,6 +400,7 @@ public class rollTime : MonoBehaviour
     }
     public void restRollTime()
     {
+        removeSkillChanger(null , (Mathf.RoundToInt((drawCharacterCard.TurnNumber / 2 + 1))-1).ToString() , 2);
         rollMissionTime.SetActive(false);
         panelToTrade.RestTrades();
         popupcardwindowMissionScript.setONLYLOOK(false);

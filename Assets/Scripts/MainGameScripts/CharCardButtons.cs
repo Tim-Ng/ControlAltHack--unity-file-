@@ -18,6 +18,6 @@ public class CharCardButtons : MonoBehaviour
     {
         PopUp.SetActive(true);
         CharCardInfo = myParent.CharCard;
-        popUpScript.openCharacterCard(CharCardInfo,true);
+        popUpScript.openCharacterCard(CharCardInfo,true,false);
     }
 }

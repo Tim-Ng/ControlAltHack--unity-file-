@@ -637,7 +637,10 @@ public class PanelToTrade : MonoBehaviour
     public void declineTrade5() => rejectButton(4);
     public void clickDoneTrading()
     {
-        drawEntropyCard.distribute_entropycard(1);
+        if (userAttend)
+        {
+            drawEntropyCard.distribute_entropycard(1);
+        }
         if (ifOnlyYouAttend())
         {
             drawEntropyCard.distribute_entropycard(1);

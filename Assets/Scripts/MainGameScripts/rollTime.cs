@@ -355,6 +355,11 @@ public class rollTime : MonoBehaviour
         moneyAndPoints.addPoints((byte)currentMissionCardScript.success_amount_hacker_cread);
         drawCharacterCard.EndTurn();
     }
+    public void resetPlayGameAgain()
+    {
+        skillEffectorsList.Clear();
+        restRollTime();
+    }
     public void restRollTime()
     {
         rollMissionTime.SetActive(false);

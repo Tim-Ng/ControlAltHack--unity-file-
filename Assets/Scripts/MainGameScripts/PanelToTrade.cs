@@ -679,6 +679,7 @@ public class PanelToTrade : MonoBehaviour
     public void restAttendance()
     {
         doneSettingUpBox = false;
+        panelTrade.SetActive(false);
         RestTrades();
         setHoldDoneList(true, null);
         setPannelDoneList(true, null);

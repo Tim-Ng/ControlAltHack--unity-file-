@@ -57,6 +57,11 @@ public class DrawEntropyCard : MonoBehaviourPunCallbacks
         //add all cards to a list here
         entropycards = entropyCardDeck.getentropyCards();
     }
+    public void restEntropyCard()
+    {
+        entropycards.Clear();
+        Start();
+    }
     public void distribute_entropycard(int how_many)
     {
         Debug.Log("Drawing card");

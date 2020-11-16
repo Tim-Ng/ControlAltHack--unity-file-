@@ -32,6 +32,8 @@ public class Main_Game_before_start : MonoBehaviourPunCallbacks
     private int HoldRounds_input;
     [SerializeField] private GameObject setRoundsButton;
     [SerializeField] private GameObject leaveButtonAfterFired;
+    [SerializeField] private rollTime RollTime;
+    [SerializeField] private MoneyAndPoints moneyAndPoints;
     private bool isYouAreDeadBool;
     private int OnlyOneLeft; 
     public int getSetIfONlyOneLeft
@@ -243,7 +245,7 @@ public class Main_Game_before_start : MonoBehaviourPunCallbacks
             UpdateName();
         }
         Debug.Log(LeavingPlayer.NickName + " has left room");
-        
+        drawCharacterCard.setWinHostPlayAgain();
     }
     public void thisplayerIsFired(int playerActorID)
     {
@@ -252,14 +254,7 @@ public class Main_Game_before_start : MonoBehaviourPunCallbacks
         {
             ifYouAreDead = true;
             Debug.Log("im Fired " + ifYouAreDead);
-            foreach (Transform child in gameEntoropyArea.transform)
-            {
-                GameObject.Destroy(child.gameObject);
-            }
-            foreach (Transform child in gameMissionArea.transform)
-            {
-                GameObject.Destroy(child.gameObject);
-            }
+            removeAllInPlayArea();
             leaveButtonAfterFired.SetActive(true);
         }
         else
@@ -277,6 +272,17 @@ public class Main_Game_before_start : MonoBehaviourPunCallbacks
             {
                 drawCharacterCard.sendAllSomeoneWin();
             }
+        }
+    }
+    private void removeAllInPlayArea()
+    {
+        foreach (Transform child in gameEntoropyArea.transform)
+        {
+            GameObject.Destroy(child.gameObject);
+        }
+        foreach (Transform child in gameMissionArea.transform)
+        {
+            GameObject.Destroy(child.gameObject);
         }
     }
     public override void OnLeftRoom()
@@ -386,7 +392,23 @@ public class Main_Game_before_start : MonoBehaviourPunCallbacks
     }
     public void ResetMainGameBeforeStart()
     {
+        pv.RPC("resetButtonHostSent", RpcTarget.All);
+    }
+    [PunRPC]
+    private void resetButtonHostSent()
+    {
         Start();
+        moneyAndPoints.resetMoneyAndPoints();
+        drawCharacterCard.StartContentGame(true);
+        drawCharacterCard.ResetDrawCharCards();
+        panelToTrade.restAttendance();
+        removeAllInPlayArea();
+        RollTime.resetPlayGameAgain();
+        if (PhotonNetwork.IsMasterClient)
+        {
+            PhotonNetwork.CurrentRoom.IsVisible = true;
+            PhotonNetwork.CurrentRoom.IsOpen = true;
+        }
         int i = 0;
         foreach (Player otherplayer in PhotonNetwork.PlayerListOthers)
         {

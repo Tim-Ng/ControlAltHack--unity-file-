@@ -52,6 +52,11 @@ public class DrawMissionCard : MonoBehaviour
     {
         missionCardToDraw = missionCardDeck.getMissionCardDeck();
     }
+    public void resetMissionCards()
+    {
+        missionCardToDraw.Clear();
+        Start();
+    }
     public void whoDrawMissionCard(int CharacterCardId)
     {
         Debug.Log("Checking Who draw");

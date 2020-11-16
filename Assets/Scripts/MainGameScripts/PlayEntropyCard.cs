@@ -50,14 +50,6 @@ public class PlayEntropyCard : MonoBehaviour
         if (moneyAndPoints.getMyMoneyAmount() >= entropyCardScript.Cost || entropyCardScript.Cost == 0)
         {
             moneyAndPoints.subMyMoney(entropyCardScript.Cost);
-            foreach (Transform child in userEntorpyArea.transform)
-            {
-                if (child.GetComponent<EntropyCardDisplay>().entropyData == entropyCardScript)
-                {
-                    GameObject.Destroy(child.gameObject);
-                    break;
-                }
-            }
             popUpEntropy.closePopup();
             enoughMoney();
         }
@@ -79,6 +71,11 @@ public class PlayEntropyCard : MonoBehaviour
                 {
                     RollTime.addSkillChanger(entropyCardScript.whichSkillIncrease2, entropyCardScript.byHowMuchSkillIncrease2, Mathf.RoundToInt(drawCharacterCard.TurnNumber / 2 + 1));
                 }
+                removeCard();
+            }
+            else
+            {
+                removeCard();
             }
         }
         else if (entropyCardScript.IsLigthingStrikes)
@@ -87,7 +84,28 @@ public class PlayEntropyCard : MonoBehaviour
             {
                 object[] dataRoll = new object[] { entropyCardScript.EntropyCardID };
                 PhotonNetwork.RaiseEvent((byte)PhotonEventCode.sendEntropyRollToOther, dataRoll, AllPeople, SendOptions.SendReliable);
+                removeCard();
+            }
+            else
+            {
+                removeCard();
             }
         }
+    }
+    private void removeCard()
+    {
+        foreach (Transform child in userEntorpyArea.transform)
+        {
+            if (child.GetComponent<EntropyCardDisplay>().entropyData == entropyCardScript)
+            {
+                GameObject.Destroy(child.gameObject);
+                break;
+            }
+            else
+            {
+                removeCard();
+            }
+        }
+        moneyAndPoints.countMyNumOfEntropyCards();
     }
 }

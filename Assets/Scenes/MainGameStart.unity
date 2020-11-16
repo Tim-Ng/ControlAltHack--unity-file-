@@ -3370,6 +3370,8 @@ MonoBehaviour:
   numberOfRounds_input: {fileID: 2144033323}
   setRoundsButton: {fileID: 2029548105}
   leaveButtonAfterFired: {fileID: 1361702735}
+  RollTime: {fileID: 499456416}
+  moneyAndPoints: {fileID: 499456414}
   drawCharacterCard: {fileID: 499456407}
 --- !u!114 &277830164
 MonoBehaviour:
@@ -4971,7 +4973,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 426295415}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 277830163}
+        m_TargetAssemblyTypeName: Main_Game_before_start, Assembly-CSharp
+        m_MethodName: ResetMainGameBeforeStart
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &426295415
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5638,6 +5652,7 @@ MonoBehaviour:
   Player4AvertarButton: {fileID: 1855348866}
   Player5AvertarButton: {fileID: 1835776290}
   rollTimeScript: {fileID: 499456416}
+  playButtonOBJ: {fileID: 426295412}
   drawMissionCard: {fileID: 499456413}
   main_Game_Before_Start: {fileID: 277830163}
   gameWinArea: {fileID: 1177829921}
@@ -5650,6 +5665,7 @@ MonoBehaviour:
   Nickwin1: {fileID: 651749034}
   Nickwin2: {fileID: 208952563}
   Nickwin3: {fileID: 776823929}
+  playButtonText: {fileID: 494240379}
   panelToTrade: {fileID: 499456415}
   noCharImage: {fileID: 21300000, guid: 6bfbda08105f1494492e4da121f53126, type: 3}
   gameTurnIndicator: {fileID: 753686415}

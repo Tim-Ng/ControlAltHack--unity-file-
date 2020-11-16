@@ -219,6 +219,18 @@ public class MoneyAndPoints : MonoBehaviour
             opponentpointsMoneylist[i] = 0;
             opponentpointsMoneylistOBJ[i].text = opponentpointsMoneylist[i].ToString();
         }
+        MyEntropyCards = 0;
+        for (int i = 0; i < amountOfEntropyCards.Count; i++)
+        {
+            amountOfEntropyCards[i] = 0;
+        }
+        foreach (GameObject gameOBJ in opponentEntorpyCardsAreaList)
+        {
+            foreach (Transform child in gameOBJ.transform)
+            {
+                GameObject.Destroy(child.gameObject);
+            }
+        }
     }
     public int getMyAmountOfEntropyCards()
     {

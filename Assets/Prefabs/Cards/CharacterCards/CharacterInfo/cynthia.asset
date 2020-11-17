@@ -26,7 +26,7 @@ MonoBehaviour:
   input_software: 12
   ad_disadvantages: She normaly gets only $1K at the beginning of each round (instead
     of $2K)
-  special: CONNECTIONS
+  special: Connections
   input_special: 12
   image_special: {fileID: 0}
   special2: 

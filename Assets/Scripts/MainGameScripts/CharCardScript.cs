@@ -70,7 +70,7 @@ public class CharCardScript : ScriptableObject
             }
             else
             {
-                return 0;
+                return find_which("Kitchen Sink");
             }
         }
     }

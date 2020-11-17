@@ -27,7 +27,7 @@ MonoBehaviour:
   input_software: 10
   ad_disadvantages: He makes Lockpicking rolls automatically, every time,no matter
     what
-  special: LOCKPICKING
+  special: Lockpicking
   input_special: 9999
   image_special: {fileID: 0}
   special2: 

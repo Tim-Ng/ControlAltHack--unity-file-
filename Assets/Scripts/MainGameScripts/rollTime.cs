@@ -45,7 +45,14 @@ public class rollTime : MonoBehaviour
     [SerializeField] private GameObject TaskTwoStatusOBJ, TaskThreeStatusOBJ;
     [SerializeField] private GameObject userMissionCardArea;
     [SerializeField] private popupcardwindowMission popupcardwindowMissionScript;
+    [SerializeField] private GameObject rollingTimeOBJ,StartRollOBJ,doneStartButtonOBJ, Task1SkillwAmountOBJ, Task2SkillwAmountOBJ, Task3SkillwAmountOBJ;
+    [SerializeField] private Text Timer;
+    [SerializeField] private GameObject EndOfRollOBJ,TaskStats1,TaskStats2,TaskStats3,EndturnButtonOBJ;
+    [SerializeField] private Text currentGameStatus;
+    private bool[] TaskDone = { true, true, true };
+    private string[] whichTasks = { null, null, null};
     private List<SkillEffector> skillEffectorsList = new List<SkillEffector>();
+    private float currentTime = 0f, startingTime = 0f;
     
     private RaiseEventOptions AllOtherThanMePeopleOptions = new RaiseEventOptions()
     {
@@ -62,6 +69,7 @@ public class rollTime : MonoBehaviour
         whoRollingMission = 15,
         rolledNumberMission = 16,
         thereIsSkillChangerMission = 19,
+        startToRollToEnd = 24,
     }
     private void OnEnable()
     {
@@ -76,16 +84,8 @@ public class rollTime : MonoBehaviour
         if (obj.Code == (byte)PhotonEventCode.whoRollingMission)
         {
             object[] receiveData = (object[])obj.CustomData;
-            rollchancesNumber = (int)receiveData[3];
-            if ((bool)receiveData[4])
-            {
-                whenOtherPlayerPlay(drawCharacterCard.getWhichMissionCardScript((string)receiveData[0]), (int)receiveData[2]);
-                whichIsCurrentTask(drawCharacterCard.getWhichMissionCardScript((string)receiveData[0]), (string)receiveData[1]);
-            }
-            else
-            {
-                whichIsCurrentTask(drawCharacterCard.getWhichMissionCardScript((string)receiveData[0]), (string)receiveData[1]);
-            }
+            rollchancesNumber = (int)receiveData[1];
+            whichIsCurrentTask((string)receiveData[0]);
         }
         else if (obj.Code == (byte)PhotonEventCode.rolledNumberMission)
         {
@@ -97,6 +97,44 @@ public class rollTime : MonoBehaviour
         {
             object[] skillChanger = (object[])obj.CustomData;
             RollMustBeLess.text =(string)skillChanger[0];
+        }
+        else if (obj.Code == (byte)PhotonEventCode.startToRollToEnd)
+        {
+            object[] startRollEndOBJ = (object[])obj.CustomData;
+            if ((int)startRollEndOBJ[0] == 1)
+            {
+                //player Start
+                popupcardwindowEntro.setBoolcanAttack(true);
+                setCurrentCardScript(drawCharacterCard.getWhichMissionCardScript((string)startRollEndOBJ[1]),(int)startRollEndOBJ[2]);
+            }
+            else if ((int)startRollEndOBJ[0] == 2)
+            {
+                //Player done with entropy
+                popupcardwindowEntro.setBoolcanAttack(false);
+                rollingTimeOBJ.SetActive(true);
+                EndOfRollOBJ.SetActive(false);
+                StartRollOBJ.SetActive(false);
+            }
+            else if ((int)startRollEndOBJ[0] == 3)
+            {
+                //PlayerEndTurn
+                currentGameStatus.text = (string)startRollEndOBJ[1];
+                if (drawCharacterCard.IsMyTurn)
+                {
+                    EndturnButtonOBJ.SetActive(true);
+                }
+                else
+                {
+                    EndturnButtonOBJ.SetActive(false);
+                }
+                rollingTimeOBJ.SetActive(false);
+                EndOfRollOBJ.SetActive(true);
+                StartRollOBJ.SetActive(false);
+            }
+            else if ((int)startRollEndOBJ[0] == 4)
+            {
+                Timer.text = (string)startRollEndOBJ[1];
+            }
         }
     }
     public void startRollTurn()
@@ -125,52 +163,34 @@ public class rollTime : MonoBehaviour
                     rollchancesNumber += 1;
                 }
                 currentMissionCardScript = drawCharacterCard.getCurrentMissionScript();
-                object[] dataRoll = new object[] { currentMissionCardScript.Mission_code , "Task1" , PhotonNetwork.LocalPlayer.ActorNumber,rollchancesNumber, true };
-                PhotonNetwork.RaiseEvent((byte)PhotonEventCode.whoRollingMission, dataRoll, AllPeople, SendOptions.SendReliable);
+                object[] dataRollWhich = new object[] { 1,currentMissionCardScript.Mission_code,PhotonNetwork.LocalPlayer.ActorNumber};
+                PhotonNetwork.RaiseEvent((byte)PhotonEventCode.startToRollToEnd, dataRollWhich, AllPeople, SendOptions.SendReliable);
             }
         }
     }
-    public void whenOtherPlayerPlay(MissionCardScript missionCardScript,int ActorNumber)
+    void Update()
     {
-        TaskThreeStatusOBJ.SetActive(false);
-        TaskTwoStatusOBJ.SetActive(false);
-        TaskOneStatus.text = "Task 1 : waiting";
-        currentMissionCardScript = missionCardScript;
-        popupcardwindowEntro.setBoolcanPlay(true);
-        missionCardOBJ.SetActive(false);
-        missionCardOBJ.GetComponent<MissionCardDisplay>().mission_script = currentMissionCardScript;
-        missionCardOBJ.GetComponent<MissionCardDisplay>().setUpdate();
-        missionCardOBJ.SetActive(true);
-        if (drawCharacterCard.IsMyTurn)
+        if (currentTime <= 0)
         {
-            currentRollerCharCardScript = drawCharacterCard.getMyCharScript();
-            RollButton.SetActive(true);
+            doneStartButtonOBJ.GetComponent<Button>().interactable = true;
+            currentTime = 0;
         }
         else
         {
-            currentRollerCharCardScript = drawCharacterCard.getWhichOtherCharScript(main_Game_Before_Start.findPlayerPosition(main_Game_Before_Start.FindPlayerUsingActorId(ActorNumber)));
-            RollButton.SetActive(false);
+            currentTime -= 1 * Time.deltaTime;
+            doneStartButtonOBJ.GetComponent<Button>().interactable = false;
+            object[] dataRollWhich = new object[] { 4, currentTime.ToString("0") };
+            PhotonNetwork.RaiseEvent((byte)PhotonEventCode.startToRollToEnd, dataRollWhich, AllPeople, SendOptions.SendReliable);
         }
-        rollingPlayerNickName.text = main_Game_Before_Start.FindPlayerUsingActorId(ActorNumber).NickName;
-        if (currentMissionCardScript.hasThirdMission)
-        {
-            howManyTask = 3;
-            TaskThreeStatusOBJ.SetActive(true);
-            TaskThreeStatus.text = "Task 3 : waiting";
-            howManyTask = 2;
-            TaskTwoStatusOBJ.SetActive(true);
-            TaskTwoStatus.text = "Task 2 : waiting";
-        }
-        else if (currentMissionCardScript.hasSecondMission)
-        {
-            howManyTask = 2;
-            TaskTwoStatusOBJ.SetActive(true);
-            TaskTwoStatus.text = "Task 2 : waiting";
-        }
-        else
-        {
-            howManyTask = 1;
-        }
+        
+    }
+    public void ClickOnStartTurn()
+    {
+        popupcardwindowEntro.setBoolcanPlayBackOfTricks(false);
+        object[] dataRollWhich = new object[] { 2, null,null };
+        PhotonNetwork.RaiseEvent((byte)PhotonEventCode.startToRollToEnd, dataRollWhich, AllPeople, SendOptions.SendReliable);
+        object[] dataRoll = new object[] {"Task1",rollchancesNumber };
+        PhotonNetwork.RaiseEvent((byte)PhotonEventCode.whoRollingMission, dataRoll, AllPeople, SendOptions.SendReliable);
     }
     public void addSkillChanger(string whichSkill, int Amount, string whichTurn)
     {
@@ -211,12 +231,66 @@ public class rollTime : MonoBehaviour
             {
                 if(WhichSkill.text == skillEffect.skillName)
                 {
-                    string holdString;
-                    holdString = RollMustBeLess.text;
-                    RollMustBeLess.text = holdString + " + " + skillEffect.amount;
+                    string holdString = RollMustBeLess.text;
+                    if (skillEffect.amount < 0)
+                    {
+                        RollMustBeLess.text = holdString + " - " + skillEffect.amount;
+                    }
+                    else
+                    {
+                        RollMustBeLess.text = holdString + " + " + skillEffect.amount;
+                    }
                     rollLessThanTask += skillEffect.amount;
                     object[] rollMustBeLessTast = new object[] { RollMustBeLess.text };
                     PhotonNetwork.RaiseEvent((byte)PhotonEventCode.thereIsSkillChangerMission, rollMustBeLessTast, AllOtherThanMePeopleOptions, SendOptions.SendReliable);
+                }
+            }
+            if ((Mathf.RoundToInt(drawCharacterCard.TurnNumber / 2 + 1)).ToString() == skillEffect.turnNumber || "All" == skillEffect.turnNumber)
+            {
+                for (int i = 0; i < whichTasks.Length; i++)
+                {
+                    if (whichTasks[i] != null)
+                    {
+                        if (whichTasks[i] == skillEffect.skillName)
+                        {
+                            if (i == 0)
+                            {
+                                string hold = Task1SkillwAmountOBJ.GetComponent<Text>().text;
+                                if (skillEffect.amount < 0)
+                                {
+                                    Task1SkillwAmountOBJ.GetComponent<Text>().text = hold + " - " + skillEffect.amount.ToString();
+                                }
+                                else
+                                {
+                                    Task1SkillwAmountOBJ.GetComponent<Text>().text = hold + " + " + skillEffect.amount.ToString();
+                                }
+                            }
+                            else if (i == 1)
+                            {
+                                string hold = Task2SkillwAmountOBJ.GetComponent<Text>().text;
+                                if (skillEffect.amount < 0)
+                                {
+                                    Task2SkillwAmountOBJ.GetComponent<Text>().text = hold + " - " + skillEffect.amount.ToString();
+                                }
+                                else
+                                {
+                                    Task2SkillwAmountOBJ.GetComponent<Text>().text = hold + " + " + skillEffect.amount.ToString();
+                                }
+                            }
+                            else if (i == 2)
+                            {
+                                string hold = Task3SkillwAmountOBJ.GetComponent<Text>().text;
+                                if (skillEffect.amount < 0)
+                                {
+                                    Task3SkillwAmountOBJ.GetComponent<Text>().text = hold + " - " + skillEffect.amount.ToString();
+                                }
+                                else
+                                {
+                                    Task3SkillwAmountOBJ.GetComponent<Text>().text = hold + " + " + skillEffect.amount.ToString();
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -235,7 +309,84 @@ public class rollTime : MonoBehaviour
             copy.GetComponent<Text>().text = "Skill Name: "+skillEffect.skillName +"\nAmount Change: +"+skillEffect.amount.ToString()+"\nIn turn:"+skillEffect.turnNumber;
         }
     }
-    public void whichIsCurrentTask(MissionCardScript missionCardScript,string taskNum)
+    public void setCurrentCardScript(MissionCardScript missionCardScript,int ActorNumber)
+    {
+        currentMissionCardScript = missionCardScript;
+        if (drawCharacterCard.IsMyTurn)
+        {
+            popupcardwindowEntro.setBoolcanPlayBackOfTricks(true);
+            currentRollerCharCardScript = drawCharacterCard.getMyCharScript();
+            RollButton.SetActive(true);
+            doneStartButtonOBJ.SetActive(true);
+        }
+        else
+        {
+            popupcardwindowEntro.setBoolcanPlayBackOfTricks(false);
+            currentRollerCharCardScript = drawCharacterCard.getWhichOtherCharScript(main_Game_Before_Start.findPlayerPosition(main_Game_Before_Start.FindPlayerUsingActorId(ActorNumber)));
+            RollButton.SetActive(false);
+            doneStartButtonOBJ.SetActive(false);
+        }
+        TaskThreeStatusOBJ.SetActive(false);
+        TaskTwoStatusOBJ.SetActive(false);
+        TaskStats2.SetActive(false);
+        TaskStats3.SetActive(false);
+        Task3SkillwAmountOBJ.SetActive(false);
+        Task2SkillwAmountOBJ.SetActive(false);
+
+        TaskOneStatus.text = "Task 1 : waiting";
+        TaskStats1.GetComponent<Text>().text = "Task 1: waiting";
+        Task1SkillwAmountOBJ.GetComponent<Text>().text = "1]" + currentMissionCardScript.skill_name_1 + "\nAmount:" + currentRollerCharCardScript.find_which(currentMissionCardScript.skill_name_1);
+        whichTasks[0] = currentMissionCardScript.skill_name_1;
+        popupcardwindowEntro.setBoolcanPlay(true);
+        missionCardOBJ.SetActive(false);
+        missionCardOBJ.GetComponent<MissionCardDisplay>().mission_script = currentMissionCardScript;
+        missionCardOBJ.GetComponent<MissionCardDisplay>().setUpdate();
+        missionCardOBJ.SetActive(true);
+        rollingPlayerNickName.text = main_Game_Before_Start.FindPlayerUsingActorId(ActorNumber).NickName;
+        if (currentMissionCardScript.hasThirdMission)
+        {
+            howManyTask = 3;
+            TaskThreeStatusOBJ.SetActive(true);
+            TaskThreeStatus.text = "Task 3 : waiting";
+            TaskStats3.GetComponent<Text>().text = "Task 3: waiting";
+            Task3SkillwAmountOBJ.GetComponent<Text>().text = "3]" + currentMissionCardScript.skill_name_3 + "\nAmount:" + currentRollerCharCardScript.find_which(currentMissionCardScript.skill_name_3);
+            Task3SkillwAmountOBJ.SetActive(true);
+            TaskStats3.SetActive(true);
+            whichTasks[2] = currentMissionCardScript.skill_name_3;
+
+            TaskTwoStatusOBJ.SetActive(true);
+            TaskTwoStatus.text = "Task 2 : waiting";
+            TaskStats2.GetComponent<Text>().text = "Task 2 : waiting";
+            Task2SkillwAmountOBJ.GetComponent<Text>().text = "2]" + currentMissionCardScript.skill_name_2 + "\nAmount:" + currentRollerCharCardScript.find_which(currentMissionCardScript.skill_name_2);
+            Task2SkillwAmountOBJ.SetActive(true);
+            TaskStats2.SetActive(true);
+            whichTasks[1] = currentMissionCardScript.skill_name_2;
+        }
+        else if (currentMissionCardScript.hasSecondMission)
+        {
+            howManyTask = 2;
+            TaskTwoStatusOBJ.SetActive(true);
+            TaskTwoStatus.text = "Task 2 : waiting";
+            TaskStats2.GetComponent<Text>().text = "Task 2 : waiting";
+            Task2SkillwAmountOBJ.GetComponent<Text>().text = "2]" + currentMissionCardScript.skill_name_2 + "\nAmount:" + currentRollerCharCardScript.find_which(currentMissionCardScript.skill_name_2);
+            Task2SkillwAmountOBJ.SetActive(true);
+            TaskStats2.SetActive(true);
+            whichTasks[1] = currentMissionCardScript.skill_name_2;
+        }
+        else
+        {
+            howManyTask = 1;
+        }
+        rollingTimeOBJ.SetActive(false);
+        EndOfRollOBJ.SetActive(false);
+        StartRollOBJ.SetActive(true);
+        if (drawCharacterCard.IsMyTurn)
+        {
+            checkSkillChanger();
+            currentTime = 30;
+        }
+    }
+    public void whichIsCurrentTask(string taskNum)
     {
         whichTaskName = taskNum;
         ChancesLeft.text = "Reroll chances = " + rollchancesNumber;
@@ -244,12 +395,9 @@ public class rollTime : MonoBehaviour
             if (taskNum == "Task1")
             {
                 TaskOneStatus.text = "Task 1 : currently";
+                TaskStats1.GetComponent<Text>().text = TaskOneStatus.text;
                 WhichSkill.text = currentMissionCardScript.skill_name_1;
                 rollLessThanTask = currentRollerCharCardScript.find_which(currentMissionCardScript.skill_name_1);
-                if (rollLessThanTask == 0)
-                {
-                    rollLessThanTask = currentRollerCharCardScript.find_which("Kitchen Sink");
-                }
                 rollLessThanTask += currentMissionCardScript.fist_change_hardnum;
                 WhichTask.text = "First Task:";
                 RollMustBeLess.text = rollLessThanTask.ToString();
@@ -261,14 +409,10 @@ public class rollTime : MonoBehaviour
             else if (taskNum == "Task2")
             {
                 TaskTwoStatus.text = "Task 2 : currently";
+                TaskStats2.GetComponent<Text>().text = TaskTwoStatus.text;
                 WhichSkill.text = currentMissionCardScript.skill_name_2;
                 rollLessThanTask = currentRollerCharCardScript.find_which(currentMissionCardScript.skill_name_2);
-                if (rollLessThanTask == 0)
-                {
-                    rollLessThanTask = currentRollerCharCardScript.find_which("Kitchen Sink");
-                }
                 rollLessThanTask += currentMissionCardScript.second_change_hardnum;
-                WhichTask.text = "Second Task:";
                 RollMustBeLess.text = rollLessThanTask.ToString();
                 if (drawCharacterCard.IsMyTurn)
                 {
@@ -278,12 +422,10 @@ public class rollTime : MonoBehaviour
             else if (taskNum == "Task3")
             {
                 TaskThreeStatus.text = "Task 3 : currently";
+                TaskStats3.GetComponent<Text>().text = TaskThreeStatus.text;
                 WhichSkill.text = currentMissionCardScript.skill_name_3;
+                whichTasks[2] = WhichSkill.text;
                 rollLessThanTask = currentRollerCharCardScript.find_which(currentMissionCardScript.skill_name_3);
-                if (rollLessThanTask == 0)
-                {
-                    rollLessThanTask = currentRollerCharCardScript.find_which("Kitchen Sink");
-                }
                 rollLessThanTask += currentMissionCardScript.third_change_hardnum;
                 WhichTask.text = "Third Task:";
                 RollMustBeLess.text = rollLessThanTask.ToString();
@@ -308,14 +450,16 @@ public class rollTime : MonoBehaviour
                 if (x > rollLessThanTask)
                 {
                     TaskOneStatus.text = "Task 1 : failed";
+                    TaskStats1.GetComponent<Text>().text = TaskOneStatus.text;
                     rollchancesNumber -= 1;
                     ChancesLeft.text = "Reroll chances = " + rollchancesNumber;
-                    failTask();
+                    TaskDone[0] = false;
                 }
                 else
                 {
                     TaskOneStatus.text = "Task 1 : passed";
-                    successTask();
+                    TaskStats1.GetComponent<Text>().text = TaskOneStatus.text;
+                    TaskDone[0] = true;
                 }
             }
             else if (whichTaskName == "Task2")
@@ -323,14 +467,16 @@ public class rollTime : MonoBehaviour
                 if (x > rollLessThanTask)
                 {
                     TaskTwoStatus.text = "Task 2 : failed";
+                    TaskStats2.GetComponent<Text>().text = TaskTwoStatus.text;
                     rollchancesNumber -= 1;
                     ChancesLeft.text = "Reroll chances = " + rollchancesNumber;
-                    failTask();
+                    TaskDone[1] = false;
                 }
                 else
                 {
                     TaskTwoStatus.text = "Task 2 : passed";
-                    successTask();
+                    TaskStats2.GetComponent<Text>().text = TaskTwoStatus.text;
+                    TaskDone[1] = true;
                 }
             }
             else if (whichTaskName == "Task3")
@@ -338,68 +484,93 @@ public class rollTime : MonoBehaviour
                 if (x > rollLessThanTask)
                 {
                     TaskThreeStatus.text = "Task 3 : failed";
+                    TaskStats3.GetComponent<Text>().text = TaskThreeStatus.text;
                     rollchancesNumber -= 1;
                     ChancesLeft.text = "Reroll chances = " + rollchancesNumber;
-                    failTask();
+                    TaskDone[2] = false;
                 }
                 else
                 {
                     TaskThreeStatus.text = "Task 3 : passed";
-                    successTask();
+                    TaskStats3.GetComponent<Text>().text = TaskThreeStatus.text;
+                    TaskDone[2] = true;
                 }
             }
             else
             {
                 Debug.LogError("Problem with task name");
             }
-        }
-    }
-    public void failTask()
-    {
-        if (currentRollerCharCardScript.character_code == 12)
-        {
-            failTaskItems();
-        }
-        else if (rollchancesNumber == 0)
-        {
-            failTaskItems();
+            checkWhichIfAnyFailed();
         }
     }
     public void failTaskItems()
     {
         moneyAndPoints.subPoints((byte)currentMissionCardScript.failure_amount_hacker_cread);
-        drawCharacterCard.EndTurn();
     }
-    public void successTask()
+    public void checkWhichIfAnyFailed()
     {
-        if (whichTaskName == "Task1" && currentMissionCardScript.hasSecondMission)
+        if (TaskDone[0] && TaskDone[1] && TaskDone[2])
         {
-            object[] dataRoll = new object[] { currentMissionCardScript.Mission_code, "Task2", PhotonNetwork.LocalPlayer.ActorNumber, rollchancesNumber, false };
-            PhotonNetwork.RaiseEvent((byte)PhotonEventCode.whoRollingMission, dataRoll, AllPeople, SendOptions.SendReliable);
+            if (whichTaskName == "Task1" && currentMissionCardScript.hasSecondMission)
+            {
+                object[] dataRoll = new object[] { "Task2", rollchancesNumber };
+                PhotonNetwork.RaiseEvent((byte)PhotonEventCode.whoRollingMission, dataRoll, AllPeople, SendOptions.SendReliable);
+            }
+            else if (whichTaskName == "Task2")
+            {
+                object[] dataRoll = new object[] { "Task3", rollchancesNumber };
+                PhotonNetwork.RaiseEvent((byte)PhotonEventCode.whoRollingMission, dataRoll, AllPeople, SendOptions.SendReliable);
+            }
+            howManyTask -= 1;
+            if (howManyTask == 0)
+            {
+                openRollDone("Passing");
+            }
         }
-        else if (whichTaskName == "Task2")
+        else
         {
-            object[] dataRoll = new object[] { currentMissionCardScript.Mission_code, "Task3", PhotonNetwork.LocalPlayer.ActorNumber, rollchancesNumber, false };
-            PhotonNetwork.RaiseEvent((byte)PhotonEventCode.whoRollingMission, dataRoll, AllPeople, SendOptions.SendReliable);
+            //open fail page
+            openRollDone("Falied");
         }
-        howManyTask -= 1;
-        if (howManyTask == 0)
-        {
-            successTaskItems();
-        }
+    }
+    public void openRollDone(string WinOrNot)
+    { 
+        object[] dataRollWhich = new object[] { 3, WinOrNot };
+        PhotonNetwork.RaiseEvent((byte)PhotonEventCode.startToRollToEnd, dataRollWhich, AllPeople, SendOptions.SendReliable);
     }
     public void successTaskItems()
     {
         moneyAndPoints.addPoints((byte)currentMissionCardScript.success_amount_hacker_cread);
-        drawCharacterCard.EndTurn();
     }
     public void resetPlayGameAgain()
     {
         skillEffectorsList.Clear();
         restRollTime();
     }
+    public void clickOnDoneTurn()
+    {
+        if (TaskDone[0] && TaskDone[1] && TaskDone[2])
+        {
+            successTaskItems();
+        }
+        else
+        {
+            failTaskItems();
+        }
+        currentTime = 0;
+        drawCharacterCard.EndTurn();
+    }
     public void restRollTime()
     {
+        TaskDone[0] = true;
+        TaskDone[1] = true;
+        TaskDone[2] = true;
+        whichTasks[0] = null;
+        whichTasks[1] = null;
+        whichTasks[2] = null;
+        currentTime = 0;
+        popupcardwindowEntro.setBoolcanAttack(false);
+        popupcardwindowEntro.setBoolcanPlay(false);
         removeSkillChanger(null , (Mathf.RoundToInt((drawCharacterCard.TurnNumber / 2 + 1))-1).ToString() , 2);
         rollMissionTime.SetActive(false);
         panelToTrade.RestTrades();

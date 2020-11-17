@@ -29,7 +29,7 @@ MonoBehaviour:
   ad_disadvantages: He normally draws two Mission cards and choose which one he wants
     to use; if he comes to the Staff Video Conference, he may look at the other players'
     exposed Missions before he decides. The other drawn Mission is discarded
-  special: LOCKPICKING
+  special: Lockpicking
   input_special: 14
   image_special: {fileID: 0}
   special2: 

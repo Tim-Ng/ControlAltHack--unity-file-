@@ -27,7 +27,7 @@ MonoBehaviour:
   input_software: 11
   ad_disadvantages: He normally gets $3K at the begining of each round (instead of
     $2k).
-  special: BARISTA
+  special: Barista
   input_special: 12
   image_special: {fileID: 0}
   special2: 

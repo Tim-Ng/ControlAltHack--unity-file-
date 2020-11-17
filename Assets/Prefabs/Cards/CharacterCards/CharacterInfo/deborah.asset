@@ -28,7 +28,7 @@ MonoBehaviour:
   input_software: 10
   ad_disadvantages: Once per turn, she may substitute any one skill for any other
     skill. This substitution only applies to one task.
-  special: SEARCH FU
+  special: Search FU
   input_special: 11
   image_special: {fileID: 0}
   special2: 

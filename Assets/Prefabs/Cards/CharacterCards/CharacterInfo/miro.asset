@@ -28,7 +28,7 @@ MonoBehaviour:
   ad_disadvantages: By discarding two cards from his hand, he can substitute any
     skill (except Forensics or Barista) for Hardware Hacking.This substitution only
     applies to only one task.
-  special: FORENSICS
+  special: Forensics
   input_special: 12
   image_special: {fileID: 0}
   special2: BARISTA

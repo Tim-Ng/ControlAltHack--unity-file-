@@ -28,7 +28,7 @@ MonoBehaviour:
   ad_disadvantages: At the start of her turn,before her first Mission roll, she can
     roll her Network Ninja at a -3 penalty.If she succeeds, she can draw the top
     Entropty card or the top Entrypy diacard--- her choice.
-  special: SEARCH FU
+  special: Search FU
   input_special: 11
   image_special: {fileID: 0}
   special2: 

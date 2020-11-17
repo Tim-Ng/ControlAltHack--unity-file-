@@ -27,7 +27,7 @@ MonoBehaviour:
   input_software: 11
   ad_disadvantages: He gets one extra Hacker Cred piont if he succeeds in a Mission
     requiring at least one Hardware Hacking task.
-  special: WEB PROCUREMENT
+  special: Web Procurement
   input_special: 12
   image_special: {fileID: 0}
   special2: 

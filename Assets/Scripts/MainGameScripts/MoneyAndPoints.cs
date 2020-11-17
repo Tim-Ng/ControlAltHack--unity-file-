@@ -206,12 +206,14 @@ public class MoneyAndPoints : MonoBehaviour
     public void resetMoneyAndPoints()
     {
         MyPoints = 0;
+        MyPointsOBJ.text = MyPoints.ToString();
         for (int i = 0; i < opponentpointslist.Count; i++)
         {
             opponentpointslist[i] = 0;
             opponentpointslistOBJ[i].text= opponentpointslist[i].ToString();
         }
         MyMoney = 0;
+        MyMoneyOBJ.text = "$" + MyMoney.ToString();
         for (int i = 0; i < opponentpointsMoneylist.Count; i++)
         {
             opponentpointsMoneylist[i] = 0;

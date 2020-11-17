@@ -28,7 +28,7 @@ MonoBehaviour:
   input_software: 13
   ad_disadvantages: If he has "Bag of Tricks:Acting Class" purchased and in play,
     he will automatically succeed at all Social Engineering rolls.
-  special: FORENSICS
+  special: Forensics
   input_special: 12
   image_special: {fileID: 0}
   special2: 

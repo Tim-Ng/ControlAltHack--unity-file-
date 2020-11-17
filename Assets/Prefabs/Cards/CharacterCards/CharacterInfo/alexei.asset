@@ -27,7 +27,7 @@ MonoBehaviour:
   input_software: 10
   ad_disadvantages: Once per turn, he gets a free re-roll.These free re-rolls may
     not be saved up.
-  special: CONNECTIONS
+  special: Connections
   input_special: 11
   image_special: {fileID: 0}
   special2: 

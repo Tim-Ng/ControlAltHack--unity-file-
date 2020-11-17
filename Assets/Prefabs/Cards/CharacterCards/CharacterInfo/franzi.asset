@@ -27,7 +27,7 @@ MonoBehaviour:
   input_kitchen: 10
   input_software: 9999
   ad_disadvantages: She never fails a Software Wizardry roll, no matter what
-  special: CONNECTIONS
+  special: Connections
   input_special: 12
   image_special: {fileID: 0}
   special2: BARISTA

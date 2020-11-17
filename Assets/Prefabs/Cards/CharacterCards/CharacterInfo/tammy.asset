@@ -27,7 +27,7 @@ MonoBehaviour:
   input_kitchen: 11
   input_software: 8
   ad_disadvantages: 
-  special: WEB PROCUREMENT
+  special: Web Procurement
   input_special: 13
   image_special: {fileID: 0}
   special2: 

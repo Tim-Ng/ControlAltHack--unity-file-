@@ -12,6 +12,8 @@ public class popupcardwindowEntropy : MonoBehaviour
     [SerializeField] private DrawCharacterCard drawCharacterCard;
     public GameObject playCardButtonOBJ;
     private bool canPlay = false;
+    private bool canAttack = false;
+    private bool canPlayBackOfTricks = false;
 
     private void Start()
     {
@@ -21,17 +23,25 @@ public class popupcardwindowEntropy : MonoBehaviour
     {
         canPlay = YesOrNo;
     }
+    public void setBoolcanAttack(bool YesOrNo)
+    {
+        canAttack = YesOrNo;
+    }
+    public void setBoolcanPlayBackOfTricks(bool YesOrNo)
+    {
+        canPlayBackOfTricks = YesOrNo;
+    }
     public void openEntropyCard(EntropyCardScript input_EntropyCard)
     {
         Start();
         pop_input_Entropy = input_EntropyCard;
         EntropyDisplayUI.entropyData = pop_input_Entropy;
         EntropyDisplayUI.setUpdate();
-        if (pop_input_Entropy.IsBagOfTricks && drawCharacterCard.IsMyTurn && canPlay)
+        if (pop_input_Entropy.IsBagOfTricks && drawCharacterCard.IsMyTurn && canPlay && canPlayBackOfTricks)
         {
             playCardButtonOBJ.SetActive(true);
         }
-        else if (pop_input_Entropy.IsLigthingStrikes && !drawCharacterCard.IsMyTurn && canPlay)
+        else if (pop_input_Entropy.IsLigthingStrikes && !drawCharacterCard.IsMyTurn && canAttack &&canPlay)
         {
             playCardButtonOBJ.SetActive(true);
         }

@@ -383,7 +383,7 @@ public class rollTime : MonoBehaviour
         if (drawCharacterCard.IsMyTurn)
         {
             checkSkillChanger();
-            currentTime = 30;
+            currentTime = 3;
         }
     }
     public void whichIsCurrentTask(string taskNum)

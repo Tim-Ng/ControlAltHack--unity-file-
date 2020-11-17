@@ -32,7 +32,6 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
     public Button userAvertarButton, Player1AvertarButton, Player2AvertarButton, Player3AvertarButton, Player4AvertarButton, Player5AvertarButton;
     private List<CharCardScript> cardsInfoDraw = new List<CharCardScript>();
     private List<CharCardScript> otherPlayerCharacterInfo = new List<CharCardScript>();
-    private List<CharCardScript> holdTocheckIngame= new List<CharCardScript>();
     private List<Image> otherPlayerAvertar = new List<Image>();
     private List<Button> otherAvertarPlayerButton = new List<Button>();
     private int number_of_players, number_of_character_cards;
@@ -41,7 +40,7 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
     private List<Player> whichPlayerLeading = new List<Player>();
     private List<byte> AllPlayerPoint = new List<byte>();
     public static int GameProperties = 0;
-
+    private int NumberOfselectedPlayer = 0;
     [SerializeField] private DrawMissionCard drawMissionCard;
 
     [SerializeField] private Main_Game_before_start main_Game_Before_Start;
@@ -164,6 +163,7 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
         else if (obj.Code == (byte)PhotonEventCode.SelectChar)
         {
             object[] characterInfo = (object[])obj.CustomData;
+            NumberOfselectedPlayer += 1;
             SetCharacterInfo((int)characterInfo[0], (Player)characterInfo[1]);
         }
         else if (obj.Code == (byte)PhotonEventCode.sortToMaster)
@@ -243,7 +243,6 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
         otherPlayerCharacterInfo.Add(chosed_character_player3);
         otherPlayerCharacterInfo.Add(chosed_character_player4);
         otherPlayerCharacterInfo.Add(chosed_character_player5);
-        holdTocheckIngame = otherPlayerCharacterInfo;
         avertarUser.sprite = defultImage;
         avertarPlayer1.sprite = defultImage;
         avertarPlayer2.sprite = defultImage;
@@ -313,6 +312,7 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
         }
         chosed_character_user = Popup.GetCharCardScript();
         avertarUser.sprite = chosed_character_user.image_Avertar;
+        NumberOfselectedPlayer += 1;
         object[] dataSelectCard = new object[] { chosed_character_user.character_code, PhotonNetwork.LocalPlayer };
         PhotonNetwork.RaiseEvent((byte)PhotonEventCode.SelectChar, dataSelectCard, AllOtherThanMePeopleOptions, SendOptions.SendReliable);
         userAvertarButton.interactable = true;
@@ -359,7 +359,6 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
             {
                 Debug.Log("Avetar of player " + sendingPlayer.NickName + " is set ");
                 otherPlayerCharacterInfo[main_Game_Before_Start.findPlayerPosition(sendingPlayer)] = charScript;
-                holdTocheckIngame[main_Game_Before_Start.findPlayerPosition(sendingPlayer)] = charScript;
                 otherPlayerAvertar[main_Game_Before_Start.findPlayerPosition(sendingPlayer)].sprite = otherPlayerCharacterInfo[main_Game_Before_Start.findPlayerPosition(sendingPlayer)].image_Avertar;
                 otherAvertarPlayerButton[main_Game_Before_Start.findPlayerPosition(sendingPlayer)].interactable = true;
                 break;
@@ -413,12 +412,10 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
     }
     public void removeAvertar(int position)
     {
-        if (holdTocheckIngame.Count < position)
+        if (otherPlayerCharacterInfo[position] != null)
         {
-            if (holdTocheckIngame[position] != null)
-            {
-                holdTocheckIngame[position] = null;
-            }
+            Debug.Log("Player Left and minus for to draw cards things NumberOfselectedPlayer");
+            NumberOfselectedPlayer -= 1;
         }
     }
     public void checkWhichFunctionToRun()
@@ -490,23 +487,11 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
                         moneyAndPointScripts.addMyMoney(2000);
                     }
                 }
-                int NumberOfselectedPlayer = 0;
-                if(chosed_character_user != null)
-                {
-                    NumberOfselectedPlayer += 1;
-                }
-                foreach (CharCardScript which in holdTocheckIngame)
-                {
-                    if (which != null)
-                    {
-                        NumberOfselectedPlayer += 1;
-                    }
-                }
-                Debug.Log(NumberOfselectedPlayer + " done and round is " + TurnNumber + " number of people on room " + main_Game_Before_Start.getPlayerListOfAllPlayer().Count);
-                if (NumberOfselectedPlayer == main_Game_Before_Start.getPlayerListOfAllPlayer().Count)
+                Debug.Log(NumberOfselectedPlayer + " done and round is " + TurnNumber + " number of people on room " + PhotonNetwork.CurrentRoom.PlayerCount);
+                if (NumberOfselectedPlayer == PhotonNetwork.CurrentRoom.PlayerCount)
                 {
                     gameTurnIndicator.SetActive(true);
-                    if ((TurnNumber / 2 > (GameProperties + 1)))
+                    if (Mathf.Round(TurnNumber / 2) > (GameProperties + 1))
                     {
                         gameTurnIndicator.GetComponent<Text>().text = "Tie Breaker Round " + ((TurnNumber / 2) + 1);
                     }
@@ -537,6 +522,7 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
             }
         }        
     }
+    
     public CharCardScript getPlayerCharterSet(Player playerInQuestion)
     {
         if (playerInQuestion == PhotonNetwork.LocalPlayer)
@@ -680,6 +666,7 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
         entropyCard.restEntropyCard();
         drawMissionCard.resetMissionCards();
         TurnNumber = 0;
+        NumberOfselectedPlayer = 0;
         LeaveRoomButton.SetActive(true);
         chosed_character_user = null; 
         chosed_character_player1 = null; 
@@ -747,7 +734,7 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
     {
         setWinnerList();
         Thread.Sleep(100);
-        if ((TurnNumber / 2 >= 3)) //(GameProperties + 1)
+        if ((TurnNumber / 2 >= (GameProperties + 1)))
         {
             if (AllPlayerPoint[0] != AllPlayerPoint[1])
             {
@@ -812,7 +799,6 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
             }
             i++;
         }
-       
         Debug.Log("i =" + i + " and last is" + (whichPlayerLeading.Count - 1));
         if (whichPlayerLeading[i] == whichPlayerLeading.Last() )
         {

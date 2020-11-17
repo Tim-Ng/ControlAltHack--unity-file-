@@ -37,10 +37,6 @@ public class Main_Game_before_start : MonoBehaviourPunCallbacks
         get { return (OnlyOneLeft); }
         set { OnlyOneLeft = value; }
     }
-    public List<int> getotherPlayerListHoldAfterGame
-    {
-        get { return otherPlayerListHoldAfterGame; }
-    }
     public bool ifYouAreDead
     {
         get { return isYouAreDeadBool;  }
@@ -172,9 +168,22 @@ public class Main_Game_before_start : MonoBehaviourPunCallbacks
             amount_of_people.text = (PhotonNetwork.CurrentRoom.PlayerCount).ToString() + "/6";
         }
     }
+    private int findPlayerWhoHadPlayPosition(Player which)
+    {
+        int i = 0;
+        foreach (Player thisPlayer in playerInfoListHoldAfterGame)
+        {
+            if (thisPlayer == which)
+            {
+                return i;
+            }
+        }
+        Debug.LogError("Cant find player");
+        return i;
+    }
     public override void OnPlayerLeftRoom(Player LeavingPlayer)
     {
-        drawCharacterCard.removeAvertar(findPlayerPosition(LeavingPlayer));
+        drawCharacterCard.removeAvertar(findPlayerWhoHadPlayPosition(LeavingPlayer));
         if (LeavingPlayer.IsMasterClient)
         {
             Debug.Log("Host named " + LeavingPlayer.NickName + " has left the room");

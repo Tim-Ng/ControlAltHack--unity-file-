@@ -178,7 +178,7 @@ public class rollTime : MonoBehaviour
         else
         {
             currentTime -= 1 * Time.deltaTime;
-            doneStartButtonOBJ.GetComponent<Button>().interactable = true;
+            doneStartButtonOBJ.GetComponent<Button>().interactable = false;
             object[] dataRollWhich = new object[] { 4, currentTime.ToString("0") };
             PhotonNetwork.RaiseEvent((byte)PhotonEventCode.startToRollToEnd, dataRollWhich, AllPeople, SendOptions.SendReliable);
         }
@@ -187,7 +187,7 @@ public class rollTime : MonoBehaviour
     public void ClickOnStartTurn()
     {
         popupcardwindowEntro.setBoolcanPlayBackOfTricks(false);
-        object[] dataRollWhich = new object[] { 2, null,null };
+        object[] dataRollWhich = new object[] { 2 };
         PhotonNetwork.RaiseEvent((byte)PhotonEventCode.startToRollToEnd, dataRollWhich, AllPeople, SendOptions.SendReliable);
         object[] dataRoll = new object[] {"Task1",rollchancesNumber };
         PhotonNetwork.RaiseEvent((byte)PhotonEventCode.whoRollingMission, dataRoll, AllPeople, SendOptions.SendReliable);

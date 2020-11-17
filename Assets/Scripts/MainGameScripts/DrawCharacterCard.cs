@@ -1,14 +1,11 @@
 ﻿using ExitGames.Client.Photon;
 using Photon.Pun;
-using Photon.Pun.UtilityScripts;
 using Photon.Realtime;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
-using TMPro;
 using UnityEngine;
-using UnityEngine.SocialPlatforms;
 using UnityEngine.UI;
 
 public class DrawCharacterCard : MonoBehaviourPunCallbacks

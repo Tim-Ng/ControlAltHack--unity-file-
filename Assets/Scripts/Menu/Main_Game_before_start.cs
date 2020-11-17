@@ -3,12 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Photon.Realtime;
-using UnityEditor;
-using System.Globalization;
-using UnityEngine.Windows.Speech;
 using TMPro;
 using System.Linq;
-using UnityEngine.Assertions.Must;
 
 public class Main_Game_before_start : MonoBehaviourPunCallbacks
 {

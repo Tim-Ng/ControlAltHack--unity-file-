@@ -178,7 +178,7 @@ public class rollTime : MonoBehaviour
         else
         {
             currentTime -= 1 * Time.deltaTime;
-            doneStartButtonOBJ.GetComponent<Button>().interactable = false;
+            doneStartButtonOBJ.GetComponent<Button>().interactable = true;
             object[] dataRollWhich = new object[] { 4, currentTime.ToString("0") };
             PhotonNetwork.RaiseEvent((byte)PhotonEventCode.startToRollToEnd, dataRollWhich, AllPeople, SendOptions.SendReliable);
         }
@@ -383,7 +383,7 @@ public class rollTime : MonoBehaviour
         if (drawCharacterCard.IsMyTurn)
         {
             checkSkillChanger();
-            currentTime = 3;
+            currentTime = 30;
         }
     }
     public void whichIsCurrentTask(string taskNum)

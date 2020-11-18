@@ -598,14 +598,44 @@ public class PanelToTrade : MonoBehaviour
             int playerLoc1 = main_Game_Before_Start.findPlayerPosition(player1);
             holdMission = opponentScriptList[playerLoc1];
             opponentScriptList[playerLoc1] = opponentScriptList[playerLoc2];
-            opponentBoxCardOBJ[playerLoc1].GetComponent<MissionCardDisplay>().mission_script = opponentScriptList[playerLoc1];
+            int j = 0;
+            int whichBox1 = 0;
+            foreach (Player which in otherPlayerList)
+            {
+                if (otherPlayerList[j] != null)
+                {
+                    if (otherPlayerList[j].ActorNumber == player1.ActorNumber)
+                    {
+                        playerDoneTradeGameOBJ[whichBox1].SetActive(true);
+                        break;
+                    }
+                    whichBox1++;
+                }
+                j++;
+            }
+            opponentBoxCardOBJ[whichBox1].GetComponent<MissionCardDisplay>().mission_script = opponentScriptList[playerLoc1];
             Debug.Log("Changing player 1");
-            opponentBoxCardOBJ[playerLoc1].GetComponent<MissionCardDisplay>().setUpdate();
+            opponentBoxCardOBJ[whichBox1].GetComponent<MissionCardDisplay>().setUpdate();
         }
         opponentScriptList[playerLoc2] = holdMission;
-        opponentBoxCardOBJ[playerLoc2].GetComponent<MissionCardDisplay>().mission_script = opponentScriptList[playerLoc2];
+        int i = 0;
+        int whichBox2 = 0;
+        foreach (Player which in otherPlayerList)
+        {
+            if (otherPlayerList[i] != null)
+            {
+                if (otherPlayerList[i].ActorNumber == player2.ActorNumber)
+                {
+                    playerDoneTradeGameOBJ[whichBox2].SetActive(true);
+                    break;
+                }
+                whichBox2++;
+            }
+            i++;
+        }
+        opponentBoxCardOBJ[whichBox2].GetComponent<MissionCardDisplay>().mission_script = opponentScriptList[playerLoc2];
         Debug.Log("Changing player 2");
-        opponentBoxCardOBJ[playerLoc2].GetComponent<MissionCardDisplay>().setUpdate();
+        opponentBoxCardOBJ[whichBox2].GetComponent<MissionCardDisplay>().setUpdate();
 
     }
     public void TMZ_buttonBribe(bool TorF)

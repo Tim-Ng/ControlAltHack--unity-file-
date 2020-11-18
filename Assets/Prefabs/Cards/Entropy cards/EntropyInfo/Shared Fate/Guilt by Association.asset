@@ -31,7 +31,7 @@ MonoBehaviour:
   byHowMuchSkillIncrease2: 0
   usage: All employees get penalized -2 Hacker Cred immediately, unless their Hacker
     Cred was already 2 or less.
-  use_usage: 0
+  use_usage: 1
   UseSucFailLighting: 0
   Success: 
   add_how_much_cred: 0

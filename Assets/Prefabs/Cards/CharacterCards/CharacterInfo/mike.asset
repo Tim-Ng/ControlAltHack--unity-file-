@@ -33,4 +33,4 @@ MonoBehaviour:
   special2: 
   input_special2: 0
   image_special2: {fileID: 0}
-  image_Avertar: {fileID: 0}
+  image_Avertar: {fileID: 21300000, guid: dd11284d21fc3d6409d121f84d522813, type: 3}

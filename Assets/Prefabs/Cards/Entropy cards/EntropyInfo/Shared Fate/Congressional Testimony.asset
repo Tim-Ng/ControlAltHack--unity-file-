@@ -30,7 +30,7 @@ MonoBehaviour:
   whichSkillIncrease2: 
   byHowMuchSkillIncrease2: 0
   usage: All employees (players) get +2 Hacker Cred immediately.
-  use_usage: 0
+  use_usage: 1
   UseSucFailLighting: 0
   Success: 
   add_how_much_cred: 0

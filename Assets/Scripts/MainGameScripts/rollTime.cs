@@ -49,6 +49,8 @@ public class rollTime : MonoBehaviour
     [SerializeField] private Text Timer;
     [SerializeField] private GameObject EndOfRollOBJ,TaskStats1,TaskStats2,TaskStats3,EndturnButtonOBJ;
     [SerializeField] private Text currentGameStatus;
+    [SerializeField] private DrawEntropyCard drawEntropyCard;
+    [SerializeField] private popupcardwindowMission popUpMission;
     private bool[] TaskDone = { true, true, true };
     private string[] whichTasks = { null, null, null};
     private List<SkillEffector> skillEffectorsList = new List<SkillEffector>();
@@ -92,6 +94,46 @@ public class rollTime : MonoBehaviour
             object[] rollData = (object[])obj.CustomData;
             int rolledNumber = (int)rollData[0];
             DiceNumber.text = rolledNumber.ToString();
+            if (whichTaskName == "Task1")
+            {
+                if (rolledNumber > rollLessThanTask)
+                {
+                    TaskOneStatus.text = "Task 1 : failed";
+                }
+                else
+                {
+                    TaskOneStatus.text = "Task 1 : passed";
+                }
+                TaskStats1.GetComponent<Text>().text = TaskOneStatus.text;
+            }
+            else if (whichTaskName == "Task2")
+            {
+                if (rolledNumber > rollLessThanTask)
+                {
+                    TaskTwoStatus.text = "Task 2 : failed";
+                }
+                else
+                {
+                    TaskTwoStatus.text = "Task 2 : passed";
+                }
+                TaskStats2.GetComponent<Text>().text = TaskTwoStatus.text;
+            }
+            else if (whichTaskName == "Task3")
+            {
+                if (rolledNumber > rollLessThanTask)
+                {
+                    TaskThreeStatus.text = "Task 3 : failed";
+                }
+                else
+                {
+                    TaskThreeStatus.text = "Task 3 : passed";
+                }
+                TaskStats3.GetComponent<Text>().text = TaskThreeStatus.text;
+            }
+            else
+            {
+                Debug.LogError("Problem with task name");
+            }
         }
         else if (obj.Code == (byte)PhotonEventCode.thereIsSkillChangerMission)
         {
@@ -134,6 +176,10 @@ public class rollTime : MonoBehaviour
             else if ((int)startRollEndOBJ[0] == 4)
             {
                 Timer.text = (string)startRollEndOBJ[1];
+            }
+            else if ((int)startRollEndOBJ[0] == 5) // this is for when mission  M28 everyone minus 1 points
+            {
+                moneyAndPoints.subPoints(1);
             }
         }
     }
@@ -186,7 +232,7 @@ public class rollTime : MonoBehaviour
     }
     public void ClickOnStartTurn()
     {
-        popupcardwindowEntro.setBoolcanPlayBackOfTricks(false);
+        popupcardwindowEntro.getBeforeRoll = false;
         object[] dataRollWhich = new object[] { 2 };
         PhotonNetwork.RaiseEvent((byte)PhotonEventCode.startToRollToEnd, dataRollWhich, AllPeople, SendOptions.SendReliable);
         object[] dataRoll = new object[] {"Task1",rollchancesNumber };
@@ -201,7 +247,7 @@ public class rollTime : MonoBehaviour
             changeSkillChangerList();
         }
     }
-    public void removeSkillChanger(string whichSkill, string whichTurnSent,int which)
+    public void removeSkillChanger(string whichTurnSent,int which)
     {
         if (which == 2)
         {
@@ -210,14 +256,6 @@ public class rollTime : MonoBehaviour
                 if (whichTurnSent == skillEffect.turnNumber)
                 {
                     skillEffectorsList.Remove(skillEffect);
-                }
-                else if (skillEffect.turnNumber == "All")
-                {
-                    if (whichSkill == skillEffect.skillName)
-                    {
-                        skillEffectorsList.Remove(skillEffect);
-                        break;
-                    }
                 }
             }
         }
@@ -314,14 +352,14 @@ public class rollTime : MonoBehaviour
         currentMissionCardScript = missionCardScript;
         if (drawCharacterCard.IsMyTurn)
         {
-            popupcardwindowEntro.setBoolcanPlayBackOfTricks(true);
+            popupcardwindowEntro.getBeforeRoll = true;
             currentRollerCharCardScript = drawCharacterCard.getMyCharScript();
             RollButton.SetActive(true);
             doneStartButtonOBJ.SetActive(true);
         }
         else
         {
-            popupcardwindowEntro.setBoolcanPlayBackOfTricks(false);
+            popupcardwindowEntro.getBeforeRoll = false;
             currentRollerCharCardScript = drawCharacterCard.getWhichOtherCharScript(main_Game_Before_Start.findPlayerPosition(main_Game_Before_Start.FindPlayerUsingActorId(ActorNumber)));
             RollButton.SetActive(false);
             doneStartButtonOBJ.SetActive(false);
@@ -505,7 +543,28 @@ public class rollTime : MonoBehaviour
     }
     public void failTaskItems()
     {
-        moneyAndPoints.subPoints((byte)currentMissionCardScript.failure_amount_hacker_cread);
+        if (currentMissionCardScript.Mission_code == "M01")
+        {
+            addSkillChanger(currentMissionCardScript.other_failure_things,currentMissionCardScript.other_failure_how_much, (Mathf.RoundToInt(drawCharacterCard.TurnNumber / 2 + 2)).ToString());
+        }
+        else if (currentMissionCardScript.Mission_code == "M14")
+        {
+            moneyAndPoints.subMyMoney(3000);
+        }
+        else if (currentMissionCardScript.Mission_code == "M16")
+        {
+            moneyAndPoints.subMyMoney(1000);
+        }
+        else if (currentMissionCardScript.Mission_code == "M17")
+        {
+            //remove two entropy 
+        }
+        else if (currentMissionCardScript.Mission_code == "M28")
+        {
+            object[] dataRollWhich = new object[] { 5 };
+            PhotonNetwork.RaiseEvent((byte)PhotonEventCode.startToRollToEnd, dataRollWhich, AllPeople, SendOptions.SendReliable);
+        }
+        moneyAndPoints.subPoints((byte)currentMissionCardScript.failure_amount_hacker_cread);        
     }
     public void checkWhichIfAnyFailed()
     {
@@ -540,6 +599,14 @@ public class rollTime : MonoBehaviour
     }
     public void successTaskItems()
     {
+        if (currentMissionCardScript.Mission_code == "M17" || currentMissionCardScript.Mission_code == "M02"|| currentMissionCardScript.Mission_code == "M31"|| currentMissionCardScript.Mission_code == "M32"|| currentMissionCardScript.Mission_code == "M06"|| currentMissionCardScript.Mission_code == "M07")
+        {
+            drawEntropyCard.distribute_entropycard(1);
+        }
+        else if (currentMissionCardScript.Mission_code == "M30" || currentMissionCardScript.Mission_code == "M28" || currentMissionCardScript.Mission_code == "M29" || currentMissionCardScript.Mission_code == "M26" || currentMissionCardScript.Mission_code == "M02")
+        {
+            moneyAndPoints.addMyMoney(currentMissionCardScript.other_success_how_much);
+        }
         moneyAndPoints.addPoints((byte)currentMissionCardScript.success_amount_hacker_cread);
     }
     public void resetPlayGameAgain()
@@ -571,7 +638,7 @@ public class rollTime : MonoBehaviour
         currentTime = 0;
         popupcardwindowEntro.setBoolcanAttack(false);
         popupcardwindowEntro.setBoolcanPlay(false);
-        removeSkillChanger(null , (Mathf.RoundToInt((drawCharacterCard.TurnNumber / 2 + 1))-1).ToString() , 2);
+        removeSkillChanger((Mathf.RoundToInt((drawCharacterCard.TurnNumber / 2 + 1))-1).ToString() , 2);
         rollMissionTime.SetActive(false);
         panelToTrade.RestTrades();
         popupcardwindowMissionScript.setONLYLOOK(false);
@@ -582,5 +649,41 @@ public class rollTime : MonoBehaviour
             GameObject.Destroy(child.gameObject);
         }
     }
-
+    public void convertFailedToPassed(string whichTask )
+    {
+        for (int i = 0; i < whichTasks.Length; i++)
+        {
+            if (whichTasks[i] == whichTask)
+            {
+                if (drawCharacterCard.IsMyTurn)
+                {
+                    TaskDone[i] = true;
+                }
+                if (i == 0)
+                {
+                    TaskOneStatus.text = "Task 1 : passed";
+                    TaskStats1.GetComponent<Text>().text = TaskOneStatus.text;
+                }
+                else if (i == 1)
+                {
+                    TaskTwoStatus.text = "Task 2 : passed";
+                    TaskStats2.GetComponent<Text>().text = TaskTwoStatus.text;
+                }
+                else if (i == 2)
+                {
+                    TaskThreeStatus.text = "Task 3 : passed";
+                    TaskStats3.GetComponent<Text>().text = TaskThreeStatus.text;
+                }
+            }
+        }
+    }
+    public void openMissionDuringRoll()
+    {
+        popUpMission.openMissionCard(currentMissionCardScript, currentRollerCharCardScript);
+    }
+    public void enturnForEntorpyLightning()
+    {
+        currentTime = 0;
+        drawCharacterCard.EndTurn();
+    }
 }

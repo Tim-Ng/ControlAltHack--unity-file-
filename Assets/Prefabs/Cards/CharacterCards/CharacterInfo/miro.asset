@@ -34,4 +34,4 @@ MonoBehaviour:
   special2: BARISTA
   input_special2: 12
   image_special2: {fileID: 0}
-  image_Avertar: {fileID: 0}
+  image_Avertar: {fileID: 21300000, guid: 7249a20ec80fc1744a368c7098e1e3a0, type: 3}

@@ -606,7 +606,6 @@ public class PanelToTrade : MonoBehaviour
                 {
                     if (otherPlayerList[j].ActorNumber == player1.ActorNumber)
                     {
-                        playerDoneTradeGameOBJ[whichBox1].SetActive(true);
                         break;
                     }
                     whichBox1++;
@@ -626,7 +625,6 @@ public class PanelToTrade : MonoBehaviour
             {
                 if (otherPlayerList[i].ActorNumber == player2.ActorNumber)
                 {
-                    playerDoneTradeGameOBJ[whichBox2].SetActive(true);
                     break;
                 }
                 whichBox2++;

@@ -296,7 +296,7 @@ public class rollTime : MonoBehaviour
                                 string hold = Task1SkillwAmountOBJ.GetComponent<Text>().text;
                                 if (skillEffect.amount < 0)
                                 {
-                                    Task1SkillwAmountOBJ.GetComponent<Text>().text = hold + " - " + skillEffect.amount.ToString();
+                                    Task1SkillwAmountOBJ.GetComponent<Text>().text = hold + skillEffect.amount.ToString();
                                 }
                                 else
                                 {
@@ -308,7 +308,7 @@ public class rollTime : MonoBehaviour
                                 string hold = Task2SkillwAmountOBJ.GetComponent<Text>().text;
                                 if (skillEffect.amount < 0)
                                 {
-                                    Task2SkillwAmountOBJ.GetComponent<Text>().text = hold + " - " + skillEffect.amount.ToString();
+                                    Task2SkillwAmountOBJ.GetComponent<Text>().text = hold + skillEffect.amount.ToString();
                                 }
                                 else
                                 {
@@ -320,7 +320,7 @@ public class rollTime : MonoBehaviour
                                 string hold = Task3SkillwAmountOBJ.GetComponent<Text>().text;
                                 if (skillEffect.amount < 0)
                                 {
-                                    Task3SkillwAmountOBJ.GetComponent<Text>().text = hold + " - " + skillEffect.amount.ToString();
+                                    Task3SkillwAmountOBJ.GetComponent<Text>().text = hold + skillEffect.amount.ToString();
                                 }
                                 else
                                 {
@@ -344,7 +344,15 @@ public class rollTime : MonoBehaviour
         {
             GameObject copy = Instantiate(skillTemplate, transform.position, Quaternion.identity);
             copy.transform.SetParent(skillChangerEliment.transform, false);
-            copy.GetComponent<Text>().text = "Skill Name: "+skillEffect.skillName +"\nAmount Change: +"+skillEffect.amount.ToString()+"\nIn turn:"+skillEffect.turnNumber;
+            if (skillEffect.amount < 0)
+            {
+                copy.GetComponent<Text>().text = "Skill Name: " + skillEffect.skillName + "\nAmount Change: " + skillEffect.amount.ToString() + "\nIn turn:" + skillEffect.turnNumber;
+            }
+            else
+            {
+                copy.GetComponent<Text>().text = "Skill Name: " + skillEffect.skillName + "\nAmount Change: +" + skillEffect.amount.ToString() + "\nIn turn:" + skillEffect.turnNumber;
+            }
+            
         }
     }
     public void setCurrentCardScript(MissionCardScript missionCardScript,int ActorNumber)

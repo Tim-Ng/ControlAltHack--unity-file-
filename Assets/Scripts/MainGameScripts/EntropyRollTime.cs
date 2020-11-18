@@ -136,7 +136,7 @@ public class EntropyRollTime : MonoBehaviour
     {
         if (currentEntropyCardScript.EntropyCardID == 12)
         {
-            RollTime.failTaskItems();
+            RollTime.enturnForEntorpyLightning();
         }
         moneyAndPoints.subPoints((byte)currentEntropyCardScript.minus_how_much_cred);
         object[] dataRoll = new object[] { PhotonNetwork.LocalPlayer.ActorNumber, 0, false };

@@ -244,50 +244,37 @@ public class rollTime : MonoBehaviour
         if (drawCharacterCard.IsMyTurn)
         {
             checkSkillChanger();
-            changeSkillChangerList();
-        }
-    }
-    public void removeSkillChanger(string whichTurnSent,int which)
-    {
-        if (which == 2)
-        {
-            foreach (SkillEffector skillEffect in skillEffectorsList)
+            GameObject copy = Instantiate(skillTemplate, transform.position, Quaternion.identity);
+            copy.transform.SetParent(skillChangerEliment.transform, false);
+            if (Amount < 0)
             {
-                if (whichTurnSent == skillEffect.turnNumber)
-                {
-                    skillEffectorsList.Remove(skillEffect);
-                }
+                copy.GetComponent<Text>().text = "Skill Name: " + whichSkill + "\nAmount Change: " + Amount.ToString() + "\nIn turn:" + whichTurn;
+            }
+            else
+            {
+                copy.GetComponent<Text>().text = "Skill Name: " + whichSkill + "\nAmount Change: +" + Amount.ToString() + "\nIn turn:" + whichTurn;
             }
         }
-        changeSkillChangerList();
     }
     public void checkSkillChanger()
     {
         foreach (SkillEffector skillEffect in skillEffectorsList)
         {
-            if ((Mathf.RoundToInt(drawCharacterCard.TurnNumber / 2 + 1)).ToString() == skillEffect.turnNumber || "All"== skillEffect.turnNumber)
+            if ((Mathf.RoundToInt(drawCharacterCard.TurnNumber / 2 )).ToString() == skillEffect.turnNumber)
             {
                 if(WhichSkill.text == skillEffect.skillName)
                 {
                     string holdString = RollMustBeLess.text;
                     if (skillEffect.amount < 0)
                     {
-                        RollMustBeLess.text = holdString + " - " + skillEffect.amount;
+                        RollMustBeLess.text = holdString + skillEffect.amount;
                     }
                     else
                     {
                         RollMustBeLess.text = holdString + " + " + skillEffect.amount;
                     }
                     rollLessThanTask += skillEffect.amount;
-                    object[] rollMustBeLessTast = new object[] { RollMustBeLess.text };
-                    PhotonNetwork.RaiseEvent((byte)PhotonEventCode.thereIsSkillChangerMission, rollMustBeLessTast, AllOtherThanMePeopleOptions, SendOptions.SendReliable);
-                }
-            }
-            if ((Mathf.RoundToInt(drawCharacterCard.TurnNumber / 2 + 1)).ToString() == skillEffect.turnNumber || "All" == skillEffect.turnNumber)
-            {
-                for (int i = 0; i < whichTasks.Length; i++)
-                {
-                    if (whichTasks[i] != null)
+                    for (int i = 0; i < whichTasks.Length; i++)
                     {
                         if (whichTasks[i] == skillEffect.skillName)
                         {
@@ -329,30 +316,10 @@ public class rollTime : MonoBehaviour
                             }
                         }
                     }
+                    object[] rollMustBeLessTast = new object[] { RollMustBeLess.text };
+                    PhotonNetwork.RaiseEvent((byte)PhotonEventCode.thereIsSkillChangerMission, rollMustBeLessTast, AllOtherThanMePeopleOptions, SendOptions.SendReliable);
                 }
             }
-        }
-    }
-    public void changeSkillChangerList()
-    {
-        skillChangerEliment.SetActive(true);
-        foreach (Transform child in skillChangerEliment.transform)
-        {
-            GameObject.Destroy(child.gameObject);
-        }
-        foreach (SkillEffector skillEffect in skillEffectorsList)
-        {
-            GameObject copy = Instantiate(skillTemplate, transform.position, Quaternion.identity);
-            copy.transform.SetParent(skillChangerEliment.transform, false);
-            if (skillEffect.amount < 0)
-            {
-                copy.GetComponent<Text>().text = "Skill Name: " + skillEffect.skillName + "\nAmount Change: " + skillEffect.amount.ToString() + "\nIn turn:" + skillEffect.turnNumber;
-            }
-            else
-            {
-                copy.GetComponent<Text>().text = "Skill Name: " + skillEffect.skillName + "\nAmount Change: +" + skillEffect.amount.ToString() + "\nIn turn:" + skillEffect.turnNumber;
-            }
-            
         }
     }
     public void setCurrentCardScript(MissionCardScript missionCardScript,int ActorNumber)
@@ -553,7 +520,7 @@ public class rollTime : MonoBehaviour
     {
         if (currentMissionCardScript.Mission_code == "M01")
         {
-            addSkillChanger(currentMissionCardScript.other_failure_things,currentMissionCardScript.other_failure_how_much, (Mathf.RoundToInt(drawCharacterCard.TurnNumber / 2 + 2)).ToString());
+            addSkillChanger(currentMissionCardScript.other_failure_things,currentMissionCardScript.other_failure_how_much, (Mathf.RoundToInt(drawCharacterCard.TurnNumber / 2)).ToString());
         }
         else if (currentMissionCardScript.Mission_code == "M14")
         {
@@ -619,6 +586,10 @@ public class rollTime : MonoBehaviour
     }
     public void resetPlayGameAgain()
     {
+        foreach (Transform child in skillChangerEliment.transform)
+        {
+            GameObject.Destroy(child.gameObject);
+        }
         skillEffectorsList.Clear();
         restRollTime();
     }
@@ -646,7 +617,6 @@ public class rollTime : MonoBehaviour
         currentTime = 0;
         popupcardwindowEntro.setBoolcanAttack(false);
         popupcardwindowEntro.setBoolcanPlay(false);
-        removeSkillChanger((Mathf.RoundToInt((drawCharacterCard.TurnNumber / 2 + 1))-1).ToString() , 2);
         rollMissionTime.SetActive(false);
         panelToTrade.RestTrades();
         popupcardwindowMissionScript.setONLYLOOK(false);

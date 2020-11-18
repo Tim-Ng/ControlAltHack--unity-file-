@@ -425,13 +425,13 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
             if (TurnNumber %2 != 0)
             {
                 gameTurnIndicator.SetActive(true);
-                if ((TurnNumber / 2) > (GameProperties )) 
+                if (Mathf.RoundToInt(TurnNumber / 2) > (GameProperties )) 
                 {
-                    gameTurnIndicator.GetComponent<Text>().text = "Tie Breaker Round " + ((TurnNumber / 2) + 1);
+                    gameTurnIndicator.GetComponent<Text>().text = "Tie Breaker Round " + (Mathf.RoundToInt(TurnNumber / 2));
                 }
                 else
                 {
-                    gameTurnIndicator.GetComponent<Text>().text = "Round " + ((TurnNumber / 2) + 1);
+                    gameTurnIndicator.GetComponent<Text>().text = "Round " + (Mathf.RoundToInt(TurnNumber / 2));
                 }
             }
             else if (TurnNumber %2 == 0)
@@ -491,13 +491,13 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
                 if (NumberOfselectedPlayer == PhotonNetwork.CurrentRoom.PlayerCount)
                 {
                     gameTurnIndicator.SetActive(true);
-                    if (Mathf.Round(TurnNumber / 2) > (GameProperties + 1))
+                    if (Mathf.RoundToInt(TurnNumber / 2) > (GameProperties))
                     {
-                        gameTurnIndicator.GetComponent<Text>().text = "Tie Breaker Round " + ((TurnNumber / 2) + 1);
+                        gameTurnIndicator.GetComponent<Text>().text = "Tie Breaker Round " + (Mathf.RoundToInt(TurnNumber / 2));
                     }
                     else
                     {
-                        gameTurnIndicator.GetComponent<Text>().text = "Round " + ((TurnNumber / 2) + 1);
+                        gameTurnIndicator.GetComponent<Text>().text = "Round " + (Mathf.RoundToInt(TurnNumber / 2));
                     }
                     Debug.Log("Entropy Draw");
                     if (TurnNumber == 1)
@@ -734,7 +734,7 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
     {
         setWinnerList();
         Thread.Sleep(100);
-        if ((TurnNumber / 2 >= (GameProperties + 1)))
+        if (Mathf.RoundToInt(TurnNumber / 2)>= (GameProperties ))
         {
             if (AllPlayerPoint[0] != AllPlayerPoint[1])
             {

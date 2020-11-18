@@ -8,7 +8,7 @@ public class MissionCardDisplay : MonoBehaviour
     public MissionCardScript mission_script;
     public Image artwork_back;
     public Image artwork_front_info;
-
+    [SerializeField] private Button infoClick;
 
     public GameObject InfoSide;
     public GameObject FrontSide;
@@ -20,5 +20,9 @@ public class MissionCardDisplay : MonoBehaviour
     {
         artwork_back.sprite = mission_script.artwork_back;
         artwork_front_info.sprite = mission_script.artwork_front_info;
+    }
+    public void cantPressOnMissionButton(bool value)
+    {
+        infoClick.interactable = value;
     }
 }

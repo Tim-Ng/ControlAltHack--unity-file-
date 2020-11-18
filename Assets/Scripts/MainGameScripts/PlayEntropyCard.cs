@@ -72,8 +72,8 @@ public class PlayEntropyCard : MonoBehaviour
             {
                 if ((int)whatEffect[1] == 1)
                 {
-                    RollTime.addSkillChanger("Network Ninja", (-2), (Mathf.RoundToInt(drawCharacterCard.TurnNumber / 2 + 1)).ToString());
-                    RollTime.addSkillChanger("Social Engineering", (-2), (Mathf.RoundToInt(drawCharacterCard.TurnNumber / 2 + 1)).ToString());
+                    RollTime.addSkillChanger("Network Ninja", (-2), (Mathf.RoundToInt(drawCharacterCard.TurnNumber / 2 )).ToString());
+                    RollTime.addSkillChanger("Social Engineering", (-2), (Mathf.RoundToInt(drawCharacterCard.TurnNumber / 2)).ToString());
                 }
                 else if ((int)whatEffect[1] == 2)
                 {
@@ -104,10 +104,10 @@ public class PlayEntropyCard : MonoBehaviour
         {
             if (entropyCardScript.SkillEffecter)
             {
-                RollTime.addSkillChanger(entropyCardScript.whichSkillIncrease1, entropyCardScript.byHowMuchSkillIncrease1, (Mathf.RoundToInt(drawCharacterCard.TurnNumber / 2 + 1)).ToString());
+                RollTime.addSkillChanger(entropyCardScript.whichSkillIncrease1, entropyCardScript.byHowMuchSkillIncrease1, (Mathf.RoundToInt(drawCharacterCard.TurnNumber / 2 )).ToString());
                 if (entropyCardScript.increaseSecondSkill)
                 {
-                    RollTime.addSkillChanger(entropyCardScript.whichSkillIncrease2, entropyCardScript.byHowMuchSkillIncrease2, (Mathf.RoundToInt(drawCharacterCard.TurnNumber / 2 + 1)).ToString());
+                    RollTime.addSkillChanger(entropyCardScript.whichSkillIncrease2, entropyCardScript.byHowMuchSkillIncrease2, (Mathf.RoundToInt(drawCharacterCard.TurnNumber / 2)).ToString());
                 }
                 removeCard(entropyCardScript);
             }
@@ -120,7 +120,7 @@ public class PlayEntropyCard : MonoBehaviour
                 }
                 else if (entropyCardScript.EntropyCardID == 2)
                 {
-                    RollTime.addSkillChanger("Hardware Hacking", 9999, (Mathf.RoundToInt(drawCharacterCard.TurnNumber / 2 + 1)).ToString());
+                    RollTime.addSkillChanger("Hardware Hacking", 9999, (Mathf.RoundToInt(drawCharacterCard.TurnNumber / 2 )).ToString());
                     removeCard(entropyCardScript);
                 }
                 else if (entropyCardScript.EntropyCardID == 4)
@@ -193,7 +193,7 @@ public class PlayEntropyCard : MonoBehaviour
                 {
                     howMuch = 12 - drawCharacterCard.getMyCharScript().find_which(entropyCardScript.Title);
                 }
-                RollTime.addSkillChanger(entropyCardScript.Title, howMuch, (Mathf.RoundToInt(drawCharacterCard.TurnNumber / 2 + 1)).ToString());
+                RollTime.addSkillChanger(entropyCardScript.Title, howMuch, (Mathf.RoundToInt(drawCharacterCard.TurnNumber / 2 )).ToString());
             }
             else
             {

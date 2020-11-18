@@ -95,13 +95,15 @@ public class EntropyRollTime : MonoBehaviour
             currentRollerCharCardScript = drawCharacterCard.getWhichOtherCharScript(main_Game_Before_Start.findPlayerPosition(main_Game_Before_Start.FindPlayerUsingActorId(ActorNumber)));
             RollButton.SetActive(false);
         }
-        WhichSkill.text = currentEntropyCardScript.RollVSWhich;
+        WhichSkill.text = "only one task";
+        WhichTask.text = currentEntropyCardScript.RollVSWhich;
         rollLessThanTask = currentRollerCharCardScript.find_which(currentEntropyCardScript.RollVSWhich);
         if (rollLessThanTask == 0)
         {
             rollLessThanTask = currentRollerCharCardScript.find_which("Kitchen Sink");
         }
         rollingPlayerNickName.text = main_Game_Before_Start.FindPlayerUsingActorId(ActorNumber).NickName;
+        RollMustBeLess.text = rollLessThanTask.ToString();
         TaskStatus.text = "Task : waiting";
         ChancesLeft.text = "Reroll chances = " + rollchancesNumber;
     }

@@ -27,6 +27,7 @@ public class popupcardwindowMission : MonoBehaviour
     public void openMissionCard(MissionCardScript input_MissionCard, CharCardScript input_charCard)
     {
         Start();
+        missionCardDisplay.cantPressOnMissionButton(false);
         pop_input_mission = input_MissionCard;
         pop_input_character = input_charCard;
         if (input_charCard.character_code == 9 && !(cardselected))
@@ -56,6 +57,7 @@ public class popupcardwindowMission : MonoBehaviour
     public void closePopup()
     {
         PopUpCard.SetActive(false);
+        missionCardDisplay.cantPressOnMissionButton(true);
     }
     public MissionCardScript GetMissionCardScript()
     {

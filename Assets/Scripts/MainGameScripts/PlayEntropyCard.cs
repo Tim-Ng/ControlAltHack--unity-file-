@@ -214,6 +214,7 @@ public class PlayEntropyCard : MonoBehaviour
             removeCard(entropyCardScript);
         }
     }
+
     public void clickOnDiscardCard()
     {
         entropyCardScript = popUpEntropy.GetEntropyCardScript();

@@ -35,4 +35,5 @@ public class EntropyCardScript : ScriptableObject
     public int minus_how_much_cred;
     public string RollVSWhich;
     
+    public bool removeAfterPlay;
 }

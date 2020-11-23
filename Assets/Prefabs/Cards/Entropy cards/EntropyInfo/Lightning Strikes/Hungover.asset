@@ -39,3 +39,4 @@ MonoBehaviour:
   Failure: 
   minus_how_much_cred: 0
   RollVSWhich: 
+  removeAfterPlay: 1

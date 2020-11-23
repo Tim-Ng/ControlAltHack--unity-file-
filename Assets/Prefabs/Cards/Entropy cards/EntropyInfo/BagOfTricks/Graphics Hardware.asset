@@ -15,7 +15,7 @@ MonoBehaviour:
   EntropyCardID: 21
   IsBagOfTricks: 1
   IsLigthingStrikes: 0
-  IsSharedFate: 1
+  IsSharedFate: 0
   IsExtensiveExperience: 0
   Title: Graphics Hardware
   discription: 'Video cards are very fast at doing certain things: drawing pictures

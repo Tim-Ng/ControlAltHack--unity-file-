@@ -6565,6 +6565,8 @@ MonoBehaviour:
   currentGameStatus: {fileID: 81772189}
   drawEntropyCard: {fileID: 499456411}
   popUpMission: {fileID: 7013831139461939040}
+  playEntropyCard: {fileID: 499456417}
+  card1: {fileID: 11400000, guid: d8d80ab5d3156754fbaf1d35c25179f7, type: 2}
 --- !u!114 &499456417
 MonoBehaviour:
   m_ObjectHideFlags: 0

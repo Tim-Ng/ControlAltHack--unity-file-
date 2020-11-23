@@ -90,8 +90,17 @@ public class rollTime : MonoBehaviour
         if (obj.Code == (byte)PhotonEventCode.whoRollingMission)
         {
             object[] receiveData = (object[])obj.CustomData;
-            rollchancesNumber = (int)receiveData[1];
-            whichIsCurrentTask((string)receiveData[0]);
+            if ((string)receiveData[0] == "UpdateRoll")
+            {
+                rollchancesNumber = (int)receiveData[1];
+                ChancesLeft.text = "Reroll chances = " + rollchancesNumber;
+            }
+            else
+            {
+                rollchancesNumber = (int)receiveData[1];
+                ChancesLeft.text = "Reroll chances = " + rollchancesNumber;
+                whichIsCurrentTask((string)receiveData[0]);
+            }
         }
         else if (obj.Code == (byte)PhotonEventCode.rolledNumberMission)
         {
@@ -408,7 +417,6 @@ public class rollTime : MonoBehaviour
     public void whichIsCurrentTask(string taskNum)
     {
         whichTaskName = taskNum;
-        ChancesLeft.text = "Reroll chances = " + rollchancesNumber;
         if (currentRollerCharCardScript != null)
         {
             if (taskNum == "Task1")
@@ -713,40 +721,35 @@ public class rollTime : MonoBehaviour
         {
             if (howManyTask != 0)
             {
-                object[] dataRollWhich = new object[] { 2 };
-                PhotonNetwork.RaiseEvent((byte)PhotonEventCode.startToRollToEnd, dataRollWhich, AllPeople, SendOptions.SendReliable);
-                rollchancesNumber += 1;
-                if (whichTaskName == "Task1" && currentMissionCardScript.hasSecondMission)
-                {
-                    object[] dataRoll = new object[] { "Task2", rollchancesNumber };
-                    PhotonNetwork.RaiseEvent((byte)PhotonEventCode.whoRollingMission, dataRoll, AllPeople, SendOptions.SendReliable);
-                }
-                else if (whichTaskName == "Task2")
-                {
-                    object[] dataRoll = new object[] { "Task3", rollchancesNumber };
-                    PhotonNetwork.RaiseEvent((byte)PhotonEventCode.whoRollingMission, dataRoll, AllPeople, SendOptions.SendReliable);
-                }
+                sendToReroll();
             }
         }
         sendIfPassingOrFailing();
     }
+    public void sendToReroll()
+    {
+        object[] dataRollWhich = new object[] { 2 };
+        PhotonNetwork.RaiseEvent((byte)PhotonEventCode.startToRollToEnd, dataRollWhich, AllPeople, SendOptions.SendReliable);
+        rollchancesNumber += 1;
+        if (whichTaskName == "Task1" && currentMissionCardScript.hasSecondMission)
+        {
+            object[] dataRoll = new object[] { "Task2", rollchancesNumber };
+            PhotonNetwork.RaiseEvent((byte)PhotonEventCode.whoRollingMission, dataRoll, AllPeople, SendOptions.SendReliable);
+        }
+        else if (whichTaskName == "Task2")
+        {
+            object[] dataRoll = new object[] { "Task3", rollchancesNumber };
+            PhotonNetwork.RaiseEvent((byte)PhotonEventCode.whoRollingMission, dataRoll, AllPeople, SendOptions.SendReliable);
+        }
+    }
     public void addToRollChance(int howMuch)
     {
         rollchancesNumber += howMuch;
+        object[] dataRoll = new object[] { "UpdateRoll", rollchancesNumber };
+        PhotonNetwork.RaiseEvent((byte)PhotonEventCode.whoRollingMission, dataRoll, AllPeople, SendOptions.SendReliable);
         if (endTurnTime)
         {
-            object[] dataRollWhich = new object[] { 2 };
-            PhotonNetwork.RaiseEvent((byte)PhotonEventCode.startToRollToEnd, dataRollWhich, AllPeople, SendOptions.SendReliable);
-            if (whichTaskName == "Task1" && currentMissionCardScript.hasSecondMission)
-            {
-                object[] dataRoll = new object[] { "Task2", rollchancesNumber };
-                PhotonNetwork.RaiseEvent((byte)PhotonEventCode.whoRollingMission, dataRoll, AllPeople, SendOptions.SendReliable);
-            }
-            else if (whichTaskName == "Task2")
-            {
-                object[] dataRoll = new object[] { "Task3", rollchancesNumber };
-                PhotonNetwork.RaiseEvent((byte)PhotonEventCode.whoRollingMission, dataRoll, AllPeople, SendOptions.SendReliable);
-            }
+            sendToReroll();
         }
     }
     public void openMissionDuringRoll()

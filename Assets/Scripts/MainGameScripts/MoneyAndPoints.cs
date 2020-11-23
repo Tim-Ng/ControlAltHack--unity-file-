@@ -38,7 +38,7 @@ public class MoneyAndPoints : MonoBehaviour
     private List<GameObject> opponentEntorpyCardsAreaList = new List<GameObject>();
 
     [SerializeField] private DrawCharacterCard drawCharacterCard;
-
+    [SerializeField] private Text MyMoneyDuringTrade;
     [SerializeField] private Main_Game_before_start main_Game_Before_Start;
     private RaiseEventOptions AllOtherThanMePeopleOptions = new RaiseEventOptions()
     {
@@ -156,6 +156,7 @@ public class MoneyAndPoints : MonoBehaviour
     private void sendAllMyCurrentMON()
     {
         MyMoneyOBJ.text = "$" + MyMoney.ToString();
+        MyMoneyDuringTrade.text = "My current Amount of money is $" + MyMoney.ToString();
         object[] dataMyMoney = new object[] { MyMoney , PhotonNetwork.LocalPlayer };
         PhotonNetwork.RaiseEvent((byte)PhotonEventCode.receiverMoney, dataMyMoney, AllOtherThanMePeopleOptions, SendOptions.SendReliable);
     }

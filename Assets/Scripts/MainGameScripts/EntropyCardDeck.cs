@@ -17,7 +17,7 @@ public class EntropyCardDeck : MonoBehaviour
     public EntropyCardScript entropyCardBagScript18;
     public EntropyCardScript entropyCardBagScript19;
     //Lighting
-    public EntropyCardScript entropyCardLightingScript1;
+    //public EntropyCardScript entropyCardLightingScript1;
     //public EntropyCardScript entropyCardLightingScript2;
     public EntropyCardScript entropyCardLightingScript3;
     public EntropyCardScript entropyCardLightingScript4;
@@ -67,7 +67,7 @@ public class EntropyCardDeck : MonoBehaviour
         entropyCardDeck.Add(entropyCardBagScript18);
         entropyCardDeck.Add(entropyCardBagScript19);
 
-        entropyCardDeck.Add(entropyCardLightingScript1);
+        //entropyCardDeck.Add(entropyCardLightingScript1);
         //entropyCardDeck.Add(entropyCardLightingScript2);
         entropyCardDeck.Add(entropyCardLightingScript3);
         entropyCardDeck.Add(entropyCardLightingScript4);

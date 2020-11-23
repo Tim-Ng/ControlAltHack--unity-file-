@@ -153,7 +153,7 @@ public class PlayEntropyCard : MonoBehaviour
             {
                 if (entropyCardScript.EntropyCardID == 14)
                 {
-                    object[] dataRoll = new object[] { 3,1 };
+                    object[] dataRoll = new object[] { 3, 1 };
                     PhotonNetwork.RaiseEvent((byte)PhotonEventCode.entropytoOthers, dataRoll, new RaiseEventOptions { TargetActors = new int[] { drawCharacterCard.PlayerIdToMakeThisTurn } }, SendOptions.SendReliable);
                 }
                 else if (entropyCardScript.EntropyCardID == 16)
@@ -161,10 +161,6 @@ public class PlayEntropyCard : MonoBehaviour
                     //The Mission is canceled. You have no Mission for the turn, and therefore get no reward and suffer no penalty.
                     object[] dataRoll = new object[] { 3, 2 };
                     PhotonNetwork.RaiseEvent((byte)PhotonEventCode.entropytoOthers, dataRoll, new RaiseEventOptions { TargetActors = new int[] { drawCharacterCard.PlayerIdToMakeThisTurn } }, SendOptions.SendReliable);
-                }
-                else if (entropyCardScript.EntropyCardID == 17)
-                {
-                    //All required Network Ninja or Social Engineering tasks for this Mission must be performed twice...and both must succeed.
                 }
                 else if (entropyCardScript.EntropyCardID == 13)
                 {

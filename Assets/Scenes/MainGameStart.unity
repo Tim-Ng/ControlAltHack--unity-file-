@@ -6310,7 +6310,6 @@ MonoBehaviour:
   entropyCardBagScript17: {fileID: 11400000, guid: 70b7c310454175c439a022f48f308302, type: 2}
   entropyCardBagScript18: {fileID: 11400000, guid: a9fafe99b6689844cabbc52ed12b1154, type: 2}
   entropyCardBagScript19: {fileID: 11400000, guid: 11dd5550818fb2147b0173845c505379, type: 2}
-  entropyCardLightingScript1: {fileID: 11400000, guid: 4ded4df6c2345804294bc15fe9d8c1a6, type: 2}
   entropyCardLightingScript3: {fileID: 11400000, guid: b97fc565cba198b439cda576d5abbec3, type: 2}
   entropyCardLightingScript4: {fileID: 11400000, guid: b877db3f9aa5cf44ea6ff403a78bbf68, type: 2}
   entropyCardLightingScript5: {fileID: 11400000, guid: 63b89d0efe10d27479bd7deb09845d6d, type: 2}
@@ -6426,6 +6425,7 @@ MonoBehaviour:
   opponent5EntropyCardsArea: {fileID: 776908797}
   entropyICON: {fileID: 868263316590686274, guid: 57404b35aaf665e4ca86e79ef6eee608, type: 3}
   drawCharacterCard: {fileID: 499456407}
+  MyMoneyDuringTrade: {fileID: 1514487229}
   main_Game_Before_Start: {fileID: 277830163}
 --- !u!114 &499456415
 MonoBehaviour:

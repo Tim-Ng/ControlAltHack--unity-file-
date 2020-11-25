@@ -123,12 +123,18 @@ public class PanelToTrade : MonoBehaviour
                 cancelAskToTrade(false);
                 if ((bool)receiveData[0])
                 {
+                    moneyAndPoints.subMyMoney(MoneyBribedint);
+                    MoneyBribedint = 0;
                     exchangeCards(main_Game_Before_Start.FindPlayerUsingActorId((int)receiveData[1]), main_Game_Before_Start.FindPlayerUsingActorId((int)receiveData[2]));
                 }
                 else
                 {
                     declineTrade(main_Game_Before_Start.findPlayerPosition(main_Game_Before_Start.FindPlayerUsingActorId((int)receiveData[2])));
                 }
+            }
+            else
+            {
+                exchangeCards(main_Game_Before_Start.FindPlayerUsingActorId((int)receiveData[1]), main_Game_Before_Start.FindPlayerUsingActorId((int)receiveData[2]));
             }
         }
         else if (obj.Code == (byte)PhotonEventCode.doneTrading)
@@ -579,7 +585,6 @@ public class PanelToTrade : MonoBehaviour
         MissionCardScript holdMission;
         if (player1 == PhotonNetwork.LocalPlayer)
         {
-            moneyAndPoints.subMyMoney(MoneyBribedint);
             holdMission = userScript;
             userScript = opponentScriptList[playerLoc2];
             drawCharCard.setCurrentMissionScript(userScript);

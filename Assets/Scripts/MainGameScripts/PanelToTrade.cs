@@ -543,7 +543,7 @@ public class PanelToTrade : MonoBehaviour
                     }
                     else
                     {
-                        amountWantedToBribeList[BoxNum] = Amount;
+                        amountWantedToBribeList[main_Game_Before_Start.findPlayerPosition(main_Game_Before_Start.FindPlayerUsingActorId(SenderID))] = Amount;
                         delineTradeButtonList[BoxNum].interactable = true;
                         confirmTradeButtonList[BoxNum].interactable = true;
                         getAskTextList[BoxNum].text = "This player " + CheckPlayer.NickName + " wants to trade with the amount of $" + Amount;

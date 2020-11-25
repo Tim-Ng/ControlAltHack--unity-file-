@@ -196,6 +196,16 @@ public class rollTime : MonoBehaviour
             {
                 moneyAndPoints.subPoints(1);
             }
+            else if ((int)startRollEndOBJ[0] == 6)
+            {
+                popupcardwindowEntro.setBoolcanAttack(false);
+                rollingTimeOBJ.SetActive(true);
+                EndOfRollOBJ.SetActive(false);
+                StartRollOBJ.SetActive(false);
+                rollchancesNumber = (int)startRollEndOBJ[2];
+                ChancesLeft.text = "Reroll chances = " + rollchancesNumber;
+                whichIsCurrentTask((string)startRollEndOBJ[1]);
+            }
         }
     }
     public void startRollTurn()
@@ -239,7 +249,7 @@ public class rollTime : MonoBehaviour
         else
         {
             currentTime -= 1 * Time.deltaTime;
-            doneStartButtonOBJ.GetComponent<Button>().interactable = false;
+            doneStartButtonOBJ.GetComponent<Button>().interactable = true;
             object[] dataRollWhich = new object[] { 4, currentTime.ToString("0") };
             PhotonNetwork.RaiseEvent((byte)PhotonEventCode.startToRollToEnd, dataRollWhich, AllPeople, SendOptions.SendReliable);
         }
@@ -527,10 +537,6 @@ public class rollTime : MonoBehaviour
             {
                 Debug.LogError("Problem with task name");
             }
-            if (removeEntroCard4)
-            {
-                playEntropyCard.removeCard(card1);
-            }
             checkWhichIfAnyFailed();
         }
     }
@@ -563,17 +569,18 @@ public class rollTime : MonoBehaviour
     {
         if (TaskDone[0] && TaskDone[1] && TaskDone[2])
         {
+            howManyTask -= 1;
+            removeEntroCard4 = true;
             if (whichTaskName == "Task1" && currentMissionCardScript.hasSecondMission)
             {
                 object[] dataRoll = new object[] { "Task2", rollchancesNumber };
                 PhotonNetwork.RaiseEvent((byte)PhotonEventCode.whoRollingMission, dataRoll, AllPeople, SendOptions.SendReliable);
             }
-            else if (whichTaskName == "Task2")
+            else if (whichTaskName == "Task2" && currentMissionCardScript.hasThirdMission)
             {
                 object[] dataRoll = new object[] { "Task3", rollchancesNumber };
                 PhotonNetwork.RaiseEvent((byte)PhotonEventCode.whoRollingMission, dataRoll, AllPeople, SendOptions.SendReliable);
             }
-            howManyTask -= 1;
             if (howManyTask == 0)
             {
                 sendIfPassingOrFailing();
@@ -581,6 +588,10 @@ public class rollTime : MonoBehaviour
         }
         else
         {
+            if (removeEntroCard4)
+            {
+                playEntropyCard.removeCard(card1);
+            }
             sendIfPassingOrFailing();
         }
     }
@@ -592,15 +603,7 @@ public class rollTime : MonoBehaviour
         }
         else
         {
-            if (rollchancesNumber > 0)
-            {
-                object[] dataRoll = new object[] { whichTaskName, rollchancesNumber };
-                PhotonNetwork.RaiseEvent((byte)PhotonEventCode.whoRollingMission, dataRoll, AllPeople, SendOptions.SendReliable);
-            }
-            else
-            {
-                openRollDone("Falied");
-            }
+            openRollDone("Falied");
         }
     }
     public void openRollDone(string WinOrNot)
@@ -631,6 +634,7 @@ public class rollTime : MonoBehaviour
     }
     public void clickOnDoneTurn()
     {
+
         if (TaskDone[0] && TaskDone[1] && TaskDone[2])
         {
             successTaskItems();
@@ -672,23 +676,21 @@ public class rollTime : MonoBehaviour
         {
             if (TaskSkillName == whichTasks[i] && TaskDone[i]==false)
             {
-                object[] dataRollWhich = new object[] { 2 };
-                PhotonNetwork.RaiseEvent((byte)PhotonEventCode.startToRollToEnd, dataRollWhich, AllPeople, SendOptions.SendReliable);
-                rollchancesNumber += 1;
+                rollchancesNumber = 1;
                 if (i == 0)
                 {
-                    object[] dataRoll = new object[] { "Task1", rollchancesNumber };
-                    PhotonNetwork.RaiseEvent((byte)PhotonEventCode.whoRollingMission, dataRoll, AllPeople, SendOptions.SendReliable);
+                    object[] dataRollWhich = new object[] { 6, "Task1", rollchancesNumber };
+                    PhotonNetwork.RaiseEvent((byte)PhotonEventCode.startToRollToEnd, dataRollWhich, AllPeople, SendOptions.SendReliable);
                 }
                 else if (i == 1)
                 {
-                    object[] dataRoll = new object[] { "Task2", rollchancesNumber };
-                    PhotonNetwork.RaiseEvent((byte)PhotonEventCode.whoRollingMission, dataRoll, AllPeople, SendOptions.SendReliable);
+                    object[] dataRollWhich = new object[] { 6, "Task2", rollchancesNumber };
+                    PhotonNetwork.RaiseEvent((byte)PhotonEventCode.startToRollToEnd, dataRollWhich, AllPeople, SendOptions.SendReliable);
                 }
                 else if (i == 2)
                 {
-                    object[] dataRoll = new object[] { "Task3", rollchancesNumber };
-                    PhotonNetwork.RaiseEvent((byte)PhotonEventCode.whoRollingMission, dataRoll, AllPeople, SendOptions.SendReliable);
+                    object[] dataRollWhich = new object[] { 6, "Task3", rollchancesNumber };
+                    PhotonNetwork.RaiseEvent((byte)PhotonEventCode.startToRollToEnd, dataRollWhich, AllPeople, SendOptions.SendReliable);
                 }
                 removeEntroCard4 = removeIfFail;
             }
@@ -698,57 +700,57 @@ public class rollTime : MonoBehaviour
     {
         for (int i = 0; i < whichTasks.Length; i++)
         {
-            if (whichTasks[i] == whichTask)
+            if (whichTasks[i] != null)
             {
-                if (drawCharacterCard.IsMyTurn)
+                if (whichTasks[i].Equals(whichTask))
                 {
-                    TaskDone[i] = true;
-                }
-                if (i == 0)
-                {
-                    TaskOneStatus.text = "Task 1 : passed";
-                    TaskStats1.GetComponent<Text>().text = TaskOneStatus.text;
-                }
-                else if (i == 1)
-                {
-                    TaskTwoStatus.text = "Task 2 : passed";
-                    TaskStats2.GetComponent<Text>().text = TaskTwoStatus.text;
-                }
-                else if (i == 2)
-                {
-                    TaskThreeStatus.text = "Task 3 : passed";
-                    TaskStats3.GetComponent<Text>().text = TaskThreeStatus.text;
-                }
-                if (!All)
-                {
-                    break;
+                    if (i == 0)
+                    {
+                        TaskOneStatus.text = "Task 1 : passed";
+                        TaskStats1.GetComponent<Text>().text = TaskOneStatus.text;
+                        TaskDone[0] = true;
+                    }
+                    else if (i == 1)
+                    {
+                        TaskTwoStatus.text = "Task 2 : passed";
+                        TaskStats2.GetComponent<Text>().text = TaskTwoStatus.text;
+                        TaskDone[1] = true;
+                    }
+                    else if (i == 2)
+                    {
+                        TaskThreeStatus.text = "Task 3 : passed";
+                        TaskStats3.GetComponent<Text>().text = TaskThreeStatus.text;
+                        TaskDone[2] = true;
+                    }
+                    howManyTask -= 1;
+                    if (!All)
+                    {
+                        rollchancesNumber = 1;
+                        if (i == 0 && currentMissionCardScript.hasSecondMission)
+                        {
+                            object[] dataRollWhich = new object[] { 6, "Task2", rollchancesNumber };
+                            PhotonNetwork.RaiseEvent((byte)PhotonEventCode.startToRollToEnd, dataRollWhich, AllPeople, SendOptions.SendReliable);
+                        }
+                        else if (i == 1 && currentMissionCardScript.hasThirdMission)
+                        {
+                            object[] dataRollWhich = new object[] { 6, "Task3", rollchancesNumber };
+                            PhotonNetwork.RaiseEvent((byte)PhotonEventCode.startToRollToEnd, dataRollWhich, AllPeople, SendOptions.SendReliable);
+                        }
+                        else
+                        {
+                            sendIfPassingOrFailing();
+                        }
+                        break;
+                    }
                 }
             }
         }
-        if (drawCharacterCard.IsMyTurn)
-        {
-            if (howManyTask != 0)
-            {
-                sendToReroll();
-            }
-        }
-        sendIfPassingOrFailing();
     }
     public void sendToReroll()
     {
-        object[] dataRollWhich = new object[] { 2 };
-        PhotonNetwork.RaiseEvent((byte)PhotonEventCode.startToRollToEnd, dataRollWhich, AllPeople, SendOptions.SendReliable);
         rollchancesNumber += 1;
-        if (whichTaskName == "Task1" && currentMissionCardScript.hasSecondMission)
-        {
-            object[] dataRoll = new object[] { "Task2", rollchancesNumber };
-            PhotonNetwork.RaiseEvent((byte)PhotonEventCode.whoRollingMission, dataRoll, AllPeople, SendOptions.SendReliable);
-        }
-        else if (whichTaskName == "Task2")
-        {
-            object[] dataRoll = new object[] { "Task3", rollchancesNumber };
-            PhotonNetwork.RaiseEvent((byte)PhotonEventCode.whoRollingMission, dataRoll, AllPeople, SendOptions.SendReliable);
-        }
+        object[] dataRollWhich = new object[] { 6, "Task3", whichTaskName, rollchancesNumber };
+        PhotonNetwork.RaiseEvent((byte)PhotonEventCode.startToRollToEnd, dataRollWhich, AllPeople, SendOptions.SendReliable);
     }
     public void addToRollChance(int howMuch)
     {

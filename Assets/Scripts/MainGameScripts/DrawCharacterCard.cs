@@ -734,7 +734,7 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
     {
         setWinnerList();
         Thread.Sleep(100);
-        if (Mathf.RoundToInt((TurnNumber / 2)+1)>= (GameProperties ))
+        if (Mathf.RoundToInt((TurnNumber / 2))> (GameProperties ))
         {
             if (AllPlayerPoint[0] != AllPlayerPoint[1])
             {

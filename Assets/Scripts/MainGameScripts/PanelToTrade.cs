@@ -537,7 +537,7 @@ public class PanelToTrade : MonoBehaviour
                 if (CheckPlayer.ActorNumber == SenderID)
                 {
                     peopleWhoAskedTrade.Add(SenderID);
-                    if (NewbJob && ((int)OtherPlayerPoints > (int)moneyAndPoints.getMyPoints()))
+                    /*if (NewbJob && ((int)OtherPlayerPoints > (int)moneyAndPoints.getMyPoints()))
                     {
                         getAskTextList[BoxNum].text = "A Got newb job,and you've less points so...";
                         object[] data = new object[] { true, SenderID, PhotonNetwork.LocalPlayer.ActorNumber };
@@ -546,14 +546,11 @@ public class PanelToTrade : MonoBehaviour
                         moneyAndPoints.addMyMoney(amountWantedToBribeList[main_Game_Before_Start.findPlayerPosition(main_Game_Before_Start.FindPlayerUsingActorId(SenderID))]);
                         exchangeCards(PhotonNetwork.LocalPlayer, otherPlayerList[findPositionOfBoxUsingInt(SenderID)]);
                         //swaped card 
-                    }
-                    else
-                    {
-                        amountWantedToBribeList[main_Game_Before_Start.findPlayerPosition(main_Game_Before_Start.FindPlayerUsingActorId(SenderID))] = Amount;
-                        delineTradeButtonList[BoxNum].interactable = true;
-                        confirmTradeButtonList[BoxNum].interactable = true;
-                        getAskTextList[BoxNum].text = "This player " + CheckPlayer.NickName + " wants to trade with the amount of $" + Amount;
-                    }
+                    }*/
+                    amountWantedToBribeList[main_Game_Before_Start.findPlayerPosition(main_Game_Before_Start.FindPlayerUsingActorId(SenderID))] = Amount;
+                    delineTradeButtonList[BoxNum].interactable = true;
+                    confirmTradeButtonList[BoxNum].interactable = true;
+                    getAskTextList[BoxNum].text = "This player " + CheckPlayer.NickName + " wants to trade with the amount of $" + Amount;
                 }
                 BoxNum++;
             }
@@ -716,7 +713,6 @@ public class PanelToTrade : MonoBehaviour
         RestTrades();
         setHoldDoneList(true, null);
         setPannelDoneList(true, null);
-        peopleWhoAskedTrade.Clear();
         peopleWhoAskedTrade.Clear();
         everyoneIsDone = 0;
         allDoneTrading = 0;

@@ -14,6 +14,7 @@ public class MissionCardButton : MonoBehaviour
     private popupcardwindowMission popUpScript;
     private CharCardScript CharCardInfo;
     private MissionCardScript MissionCardInfo;
+    [SerializeField] rollTime RollTime;
 
     private void Start()
     {
@@ -29,7 +30,7 @@ public class MissionCardButton : MonoBehaviour
     }
     public void whenClickOnInfo()
     {
-        CharCardInfo = drawCharacterCard.getPlayerCharterSet(PhotonNetwork.LocalPlayer);
+        CharCardInfo = drawCharacterCard.getMyCharScript();
         MissionCardInfo = myparent.mission_script;
         drawCharacterCard.setCurrentMissionScript(MissionCardInfo);
         popUpScript.openMissionCard(MissionCardInfo, CharCardInfo);

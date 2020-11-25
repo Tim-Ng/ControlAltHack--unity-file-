@@ -3562,6 +3562,18 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5725043452525160338, guid: 4f9d39f992c85f4409675cdf17f252ff, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 499456416}
+    - target: {fileID: 5725043452525160338, guid: 4f9d39f992c85f4409675cdf17f252ff, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: openMissionDuringRoll
+      objectReference: {fileID: 0}
+    - target: {fileID: 5725043452525160338, guid: 4f9d39f992c85f4409675cdf17f252ff, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: rollTime, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 8273974207048469665, guid: 4f9d39f992c85f4409675cdf17f252ff, type: 3}
       propertyPath: m_LocalScale.z
       value: 0
@@ -27545,7 +27557,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -155.375, y: 0.45508}
+  m_AnchoredPosition: {x: -155.375, y: 0.45507812}
   m_SizeDelta: {x: 292.21124, y: 128.0528}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &5132570365836124971

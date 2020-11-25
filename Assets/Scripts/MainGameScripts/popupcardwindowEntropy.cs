@@ -19,7 +19,7 @@ public class popupcardwindowEntropy : MonoBehaviour
         set { ifbeforeRoll = value; }
         get { return ifbeforeRoll; }
     }
-    private int[] beforeMissionRollTime ={ 10,19,24,9,6,33,5,18,22,21,3,2,25,23 ,20 ,26,27,28,29,30};
+    private int[] beforeMissionRollTime ={ 10,19,24,9,6,33,5,18,22,21,3,2,25,23 ,20 ,26,27,28,29,30,2};
     private int[] afterMissionRollTime = { 8, 7, 4, 1 , 26, 27, 28, 29, 30 };
     private List<int> oneTimeRoll=new List<int>();//1,4,7,8,26,27,28,29,30
     private void Start()

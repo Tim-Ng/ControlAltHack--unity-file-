@@ -698,12 +698,22 @@ public class rollTime : MonoBehaviour
     }
     public void convertFailedToPassed(string whichTask ,bool All)
     {
+        int howMuch = 0;
+        for (int k = 0; k < whichTasks.Length; k++)
+        {
+            if (whichTasks[k].Equals(whichTask))
+            {
+                k++;
+            }
+        }
+        int howMuchCheck = 0;
         for (int i = 0; i < whichTasks.Length; i++)
         {
             if (whichTasks[i] != null)
             {
                 if (whichTasks[i].Equals(whichTask))
                 {
+                    howMuchCheck += 1;
                     if (i == 0)
                     {
                         TaskOneStatus.text = "Task 1 : passed";
@@ -723,9 +733,9 @@ public class rollTime : MonoBehaviour
                         TaskDone[2] = true;
                     }
                     howManyTask -= 1;
-                    if (!All)
+                    rollchancesNumber = 1;
+                    if (!All || howMuchCheck == howMuch)
                     {
-                        rollchancesNumber = 1;
                         if (i == 0 && currentMissionCardScript.hasSecondMission)
                         {
                             object[] dataRollWhich = new object[] { 6, "Task2", rollchancesNumber };
@@ -745,6 +755,7 @@ public class rollTime : MonoBehaviour
                 }
             }
         }
+        
     }
     public void sendToReroll()
     {

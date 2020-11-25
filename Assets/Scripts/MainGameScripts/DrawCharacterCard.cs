@@ -427,11 +427,11 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
                 gameTurnIndicator.SetActive(true);
                 if (Mathf.RoundToInt(TurnNumber / 2) > (GameProperties )) 
                 {
-                    gameTurnIndicator.GetComponent<Text>().text = "Tie Breaker Round " + (Mathf.Round(TurnNumber / 2)+1);
+                    gameTurnIndicator.GetComponent<Text>().text = "Tie Breaker Round " + (Mathf.Round(TurnNumber / 2 + 1));
                 }
                 else
                 {
-                    gameTurnIndicator.GetComponent<Text>().text = "Round " + (Mathf.Round(TurnNumber / 2)+1);
+                    gameTurnIndicator.GetComponent<Text>().text = "Round " + (Mathf.Round(TurnNumber / 2 + 1));
                 }
             }
             else if (TurnNumber %2 == 0)

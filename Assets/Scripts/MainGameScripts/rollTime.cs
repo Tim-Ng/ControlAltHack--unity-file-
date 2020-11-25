@@ -726,12 +726,17 @@ public class rollTime : MonoBehaviour
                     if (!All)
                     {
                         rollchancesNumber = 1;
-                        if (i == 0 && currentMissionCardScript.hasSecondMission)
+                        if (i == 0 )
+                        {
+                            object[] dataRollWhich = new object[] { 6, "Task1", rollchancesNumber };
+                            PhotonNetwork.RaiseEvent((byte)PhotonEventCode.startToRollToEnd, dataRollWhich, AllPeople, SendOptions.SendReliable);
+                        }
+                        else if (i == 1)
                         {
                             object[] dataRollWhich = new object[] { 6, "Task2", rollchancesNumber };
                             PhotonNetwork.RaiseEvent((byte)PhotonEventCode.startToRollToEnd, dataRollWhich, AllPeople, SendOptions.SendReliable);
                         }
-                        else if (i == 1 && currentMissionCardScript.hasThirdMission)
+                        else if (i == 2 )
                         {
                             object[] dataRollWhich = new object[] { 6, "Task3", rollchancesNumber };
                             PhotonNetwork.RaiseEvent((byte)PhotonEventCode.startToRollToEnd, dataRollWhich, AllPeople, SendOptions.SendReliable);

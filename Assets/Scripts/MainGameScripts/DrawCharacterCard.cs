@@ -422,10 +422,10 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
     {
         if (main_Game_Before_Start.ifYouAreDead)
         {
-            if (TurnNumber %2 != 0)
+            if (TurnNumber % 2 != 0)
             {
                 gameTurnIndicator.SetActive(true);
-                if (Mathf.RoundToInt((TurnNumber / 2) + 1) > (GameProperties )) 
+                if ((Mathf.RoundToInt((TurnNumber / 2) + 1)) > (GameProperties))
                 {
                     gameTurnIndicator.GetComponent<Text>().text = "Tie Breaker Round " + (Mathf.RoundToInt((TurnNumber / 2) + 1));
                 }
@@ -491,9 +491,9 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
                 if (NumberOfselectedPlayer == PhotonNetwork.CurrentRoom.PlayerCount)
                 {
                     gameTurnIndicator.SetActive(true);
-                    if (Mathf.RoundToInt(TurnNumber / 2) > (GameProperties))
+                    if ((Mathf.RoundToInt((TurnNumber / 2) + 1)) > (GameProperties))
                     {
-                        gameTurnIndicator.GetComponent<Text>().text = "Tie Breaker Round " + (Mathf.RoundToInt((TurnNumber / 2)+1));
+                        gameTurnIndicator.GetComponent<Text>().text = "Tie Breaker Round \n" + (Mathf.RoundToInt((TurnNumber / 2)+1));
                     }
                     else
                     {
@@ -734,7 +734,7 @@ public class DrawCharacterCard : MonoBehaviourPunCallbacks
     {
         setWinnerList();
         Thread.Sleep(100);
-        if (Mathf.RoundToInt(TurnNumber / 2)>= (GameProperties ))
+        if (Mathf.RoundToInt((TurnNumber / 2)+1)>= (GameProperties ))
         {
             if (AllPlayerPoint[0] != AllPlayerPoint[1])
             {

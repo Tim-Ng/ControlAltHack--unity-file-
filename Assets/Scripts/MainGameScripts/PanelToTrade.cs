@@ -537,20 +537,23 @@ public class PanelToTrade : MonoBehaviour
                 if (CheckPlayer.ActorNumber == SenderID)
                 {
                     peopleWhoAskedTrade.Add(SenderID);
-                    /*if (NewbJob && ((int)OtherPlayerPoints > (int)moneyAndPoints.getMyPoints()))
+                    if (NewbJob && ((int)OtherPlayerPoints > (int)moneyAndPoints.getMyPoints()))
                     {
                         getAskTextList[BoxNum].text = "A Got newb job,and you've less points so...";
                         object[] data = new object[] { true, SenderID, PhotonNetwork.LocalPlayer.ActorNumber };
                         PhotonNetwork.RaiseEvent((byte)PhotonEventCode.confirmOrDecline, data, AllOtherThanMePeopleOptions, SendOptions.SendReliable);
                         peopleWhoAskedTrade.Remove(SenderID);
-                        moneyAndPoints.addMyMoney(amountWantedToBribeList[main_Game_Before_Start.findPlayerPosition(main_Game_Before_Start.FindPlayerUsingActorId(SenderID))]);
-                        exchangeCards(PhotonNetwork.LocalPlayer, otherPlayerList[findPositionOfBoxUsingInt(SenderID)]);
-                        //swaped card 
-                    }*/
-                    amountWantedToBribeList[main_Game_Before_Start.findPlayerPosition(main_Game_Before_Start.FindPlayerUsingActorId(SenderID))] = Amount;
-                    delineTradeButtonList[BoxNum].interactable = true;
-                    confirmTradeButtonList[BoxNum].interactable = true;
-                    getAskTextList[BoxNum].text = "This player " + CheckPlayer.NickName + " wants to trade with the amount of $" + Amount;
+                        delineTradeButtonList[BoxNum].interactable = false;
+                        confirmTradeButtonList[BoxNum].interactable = false;
+                        rejectButton(BoxNum);
+                    }
+                    else
+                    {
+                        amountWantedToBribeList[main_Game_Before_Start.findPlayerPosition(main_Game_Before_Start.FindPlayerUsingActorId(SenderID))] = Amount;
+                        delineTradeButtonList[BoxNum].interactable = true;
+                        confirmTradeButtonList[BoxNum].interactable = true;
+                        getAskTextList[BoxNum].text = "This player " + CheckPlayer.NickName + " wants to trade with the amount of $" + Amount;
+                    }
                 }
                 BoxNum++;
             }

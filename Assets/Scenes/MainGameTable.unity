@@ -685,6 +685,7 @@ GameObject:
   - component: {fileID: 356750434}
   - component: {fileID: 356750432}
   - component: {fileID: 356750437}
+  - component: {fileID: 356750433}
   m_Layer: 0
   m_Name: Game Interface
   m_TagString: Untagged
@@ -734,10 +735,41 @@ MonoBehaviour:
   userArea4: {fileID: 1819177377}
   userArea5: {fileID: 519689917}
   numberOfRounds_input: {fileID: 1178066555}
+  numberOfPeople: {fileID: 1333536038}
   startGameItems: {fileID: 1739242966}
   setRoundsButton: {fileID: 159736534}
   startGameButton: {fileID: 1798805988}
   roomCode: {fileID: 629076306}
+--- !u!114 &356750433
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 356750430}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51136438e7c603043a31ab564664e0c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cardArea: {fileID: 1837927799}
+  cardTemplate: {fileID: 5072119685807109904, guid: 858540b55ce847a4c9765e75b4278d35, type: 3}
+  card1: {fileID: 11400000, guid: 576ad6cb22adc2e4297ab2d5b9e44b9e, type: 2}
+  card2: {fileID: 11400000, guid: 5a806a26011b8f640986b0af0fa27c6b, type: 2}
+  card3: {fileID: 11400000, guid: e4d23441b684fc446bf001ba6b7ba9f5, type: 2}
+  card4: {fileID: 11400000, guid: 6deb990ea50a7be4f9cb4b90c82a23ef, type: 2}
+  card5: {fileID: 11400000, guid: 2590567144fdfbb4994896f1aba767f9, type: 2}
+  card6: {fileID: 11400000, guid: b79eaa0ddf048594691e7b3c5bd9353f, type: 2}
+  card7: {fileID: 11400000, guid: 55fc0a6f62ab1694c911d3f93eb6bec3, type: 2}
+  card8: {fileID: 11400000, guid: e01efd4bd69c62943b3ee3b466c83da2, type: 2}
+  card9: {fileID: 11400000, guid: 1b2c0713db5d39d4481de5586b558f26, type: 2}
+  card10: {fileID: 11400000, guid: 5dc780b62d66bd747890cc1f9dfa5079, type: 2}
+  card11: {fileID: 11400000, guid: 26bd6438bab40fe4b8d0cf2ae79bfb15, type: 2}
+  card12: {fileID: 11400000, guid: d507a5ef1f43270438fa1a8493e22bb1, type: 2}
+  card13: {fileID: 11400000, guid: 1f8069cee2441214e80c0ea692648ce5, type: 2}
+  card14: {fileID: 11400000, guid: 0ae97a877d99afa4286451b396ea4d54, type: 2}
+  card15: {fileID: 11400000, guid: c075d5df8a466a846877e5219c081dec, type: 2}
+  card16: {fileID: 11400000, guid: bd18a493eef39834ea4f8d2982dd9f3b, type: 2}
 --- !u!114 &356750434
 MonoBehaviour:
   m_ObjectHideFlags: 0

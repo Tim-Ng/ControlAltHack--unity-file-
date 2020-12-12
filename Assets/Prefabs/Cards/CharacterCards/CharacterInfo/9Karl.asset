@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c2053c226a84e34398687075dca077e, type: 3}
+  m_Name: 9Karl
+  m_EditorClassIdentifier: 
+  character_code: 9
+  character_card_name: KARL
+  artwork_back: {fileID: 21300000, guid: bf3de59c9fc3a314d99bd0b6df7aa81b, type: 3}
+  artwork_front_info: {fileID: 21300000, guid: b2bb802858a8db846876b395f4e0f726, type: 3}
+  image_Avertar: {fileID: 21300000, guid: e95895545fca52e4c83d8d9a75d36822, type: 3}
+  input_hardware: 13
+  input_cryptanalysis: 11
+  input_network: 10
+  input_socal: 9
+  input_kitchen: 10
+  input_software: 13
+  ad_disadvantages: Bag of tricks:Acting class then social 9999
+  special: Forensics
+  input_special: 12
+  special2: 
+  input_special2: 0

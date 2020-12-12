@@ -1,6 +1,10 @@
 ﻿using System.Collections;
+using UserAreas;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
+using System;
+
 namespace DrawCards
 {
     public class drawCharacterCard : MonoBehaviour
@@ -25,7 +29,28 @@ namespace DrawCards
             card14,
             card15,
             card16;
+        public static List<CharCardScript> cardDeck = new List<CharCardScript>(16);
         private void Start()
+        {
+            cardDeck.Add(card1);
+            cardDeck.Add(card2);
+            cardDeck.Add(card3);
+            cardDeck.Add(card4);
+            cardDeck.Add(card5);
+            cardDeck.Add(card6);
+            cardDeck.Add(card7);
+            cardDeck.Add(card8);
+            cardDeck.Add(card9);
+            cardDeck.Add(card10);
+            cardDeck.Add(card11);
+            cardDeck.Add(card12);
+            cardDeck.Add(card13);
+            cardDeck.Add(card14);
+            cardDeck.Add(card15);
+            cardDeck.Add(card16);
+            startDraw();
+        }
+        private void startDraw()
         {
             characterCardID.Clear();
             characterCardID.Add(1);
@@ -45,9 +70,25 @@ namespace DrawCards
             characterCardID.Add(15);
             characterCardID.Add(16);
         }
-        public static void drawCard(int number)
+        public void drawCharCards(int howmuch)
         {
-
+            Debug.Log("Drawing Character cards ");
+            for (var i = 0; i < howmuch; i++)
+            {
+                System.Random rand = new System.Random((int)DateTime.Now.Ticks);
+                int x = rand.Next(0, characterCardID.Count);
+                Debug.Log("Random Number this loop is:" + x);
+                GameObject characterPlayerCard1 = Instantiate(cardTemplate, transform.position, Quaternion.identity);
+                characterPlayerCard1.GetComponent<characterCardDisplay>().setID(x);
+                characterPlayerCard1.gameObject.transform.localScale += new Vector3(-0.75f, -0.75f, 0);
+                characterPlayerCard1.transform.SetParent(cardArea.transform, false);
+                UserAreaControlers.pv.RPC("removeFormDeck", RpcTarget.All, x);
+            }
+        }
+        [PunRPC]
+        private void removeFormDeck(int which)
+        {
+            characterCardID.Remove(which);
         }
     }
 }

@@ -16,6 +16,7 @@ namespace UserAreas
         [SerializeField] private TMP_InputField numberOfRounds_input;
         [SerializeField] private Text numberOfPeople;
         [SerializeField] private GameObject startGameItems, setRoundsButton,startGameButton,roomCode;
+        [SerializeField] private DrawCards.drawCharacterCard drawCard;
         public static int AmountOfRounds;
         public static PhotonView pv;
         public static bool GameHasStarted { get; set; }
@@ -179,6 +180,13 @@ namespace UserAreas
         public void startGame()
         {
             GameHasStarted = true;
+            pv.RPC("startingGame", RpcTarget.All);
+        }
+        [PunRPC]
+        public void startingGame()
+        {
+            startGameItems.SetActive(false);
+            drawCard.drawCharCards(2);
         }
     }
 }

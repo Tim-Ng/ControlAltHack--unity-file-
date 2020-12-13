@@ -24,7 +24,7 @@ MonoBehaviour:
   input_kitchen: 9
   input_software: 10
   ad_disadvantages: 9999 for lockpicking
-  special: LockPicking
-  input_special: 999
-  special2: 
+  special1: 11
+  input_special1: 999
+  special2: 0
   input_special2: 0

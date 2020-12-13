@@ -24,7 +24,7 @@ MonoBehaviour:
   input_kitchen: 10
   input_software: 999
   ad_disadvantages: 999 for software
-  special: Connnections
-  input_special: 12
-  special2: Barista
+  special1: 8
+  input_special1: 12
+  special2: 7
   input_special2: 8

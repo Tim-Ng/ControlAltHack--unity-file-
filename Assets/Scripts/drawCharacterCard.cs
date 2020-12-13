@@ -76,13 +76,14 @@ namespace DrawCards
             for (var i = 0; i < howmuch; i++)
             {
                 System.Random rand = new System.Random((int)DateTime.Now.Ticks);
-                int x = rand.Next(0, characterCardID.Count);
-                Debug.Log("Random Number this loop is:" + x);
+                int x = rand.Next(1, characterCardID.Count);
+                Debug.Log("Card number is:" + characterCardID[x]);
                 GameObject characterPlayerCard1 = Instantiate(cardTemplate, transform.position, Quaternion.identity);
-                characterPlayerCard1.GetComponent<characterCardDisplay>().setID(x);
+                characterPlayerCard1.GetComponent<characterCardDisplay>().setID(characterCardID[x]);
                 characterPlayerCard1.gameObject.transform.localScale += new Vector3(-0.75f, -0.75f, 0);
                 characterPlayerCard1.transform.SetParent(cardArea.transform, false);
-                UserAreaControlers.pv.RPC("removeFormDeck", RpcTarget.All, x);
+                characterCardID.Remove(characterCardID[x]);
+                UserAreaControlers.pv.RPC("removeFormDeck", RpcTarget.Others, characterCardID[x]);
             }
         }
         [PunRPC]

@@ -24,7 +24,7 @@ MonoBehaviour:
   input_kitchen: 8
   input_software: 10
   ad_disadvantages: two mission cards
-  special: LockPicking
-  input_special: 14
-  special2: 
+  special1: 11
+  input_special1: 14
+  special2: 0
   input_special2: 0

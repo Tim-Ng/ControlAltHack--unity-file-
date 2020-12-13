@@ -43,7 +43,7 @@ namespace UserAreas
             if (PhotonNetwork.IsMasterClient)
             {
                 startGameButton.SetActive(true);
-                if (PhotonNetwork.CurrentRoom.PlayerCount >= 2)
+                if (PhotonNetwork.CurrentRoom.PlayerCount >= 1)
                     startGameButton.GetComponent<Button>().interactable = true;
                 else
                     startGameButton.GetComponent<Button>().interactable = false;

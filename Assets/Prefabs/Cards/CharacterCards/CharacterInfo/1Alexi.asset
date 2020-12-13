@@ -24,7 +24,7 @@ MonoBehaviour:
   input_kitchen: 19
   input_software: 19
   ad_disadvantages: 1 extra free roll
-  special: Connnections
-  input_special: 11
-  special2: 
+  special1: 8
+  input_special1: 11
+  special2: 0
   input_special2: 0

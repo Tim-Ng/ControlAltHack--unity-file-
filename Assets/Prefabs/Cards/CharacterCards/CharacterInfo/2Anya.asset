@@ -24,7 +24,7 @@ MonoBehaviour:
   input_kitchen: 10
   input_software: 10
   ad_disadvantages: 1k or 2k for entropy
-  special: 
-  input_special: 0
-  special2: 
+  special1: 0
+  input_special1: 0
+  special2: 0
   input_special2: 0

@@ -24,7 +24,7 @@ MonoBehaviour:
   input_kitchen: 10
   input_software: 13
   ad_disadvantages: Bag of tricks:Acting class then social 9999
-  special: Forensics
-  input_special: 12
-  special2: 
+  special1: 10
+  input_special1: 12
+  special2: 0
   input_special2: 0

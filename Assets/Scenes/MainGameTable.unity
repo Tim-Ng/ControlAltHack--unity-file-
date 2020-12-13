@@ -736,10 +736,11 @@ MonoBehaviour:
   userArea5: {fileID: 519689917}
   numberOfRounds_input: {fileID: 1178066555}
   numberOfPeople: {fileID: 1333536038}
-  startGameItems: {fileID: 1739242966}
+  startGameItems: {fileID: 1311418613}
   setRoundsButton: {fileID: 159736534}
   startGameButton: {fileID: 1798805988}
   roomCode: {fileID: 629076306}
+  drawCard: {fileID: 356750433}
 --- !u!114 &356750433
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4785,7 +4786,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1798805990}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 356750432}
+        m_TargetAssemblyTypeName: UserAreas.UserAreaControlers, Assembly-CSharp
+        m_MethodName: startingGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1798805990
 MonoBehaviour:
   m_ObjectHideFlags: 0

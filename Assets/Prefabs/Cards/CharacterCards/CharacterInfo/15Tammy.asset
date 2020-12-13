@@ -24,7 +24,7 @@ MonoBehaviour:
   input_kitchen: 11
   input_software: 8
   ad_disadvantages: 
-  special: WebProcurement
-  input_special: 13
-  special2: 
+  special1: 9
+  input_special1: 13
+  special2: 0
   input_special2: 0

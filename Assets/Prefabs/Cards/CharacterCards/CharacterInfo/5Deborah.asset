@@ -24,7 +24,7 @@ MonoBehaviour:
   input_kitchen: 9
   input_software: 10
   ad_disadvantages: subskills
-  special: SearchFU
-  input_special: 11
-  special2: 
+  special1: 12
+  input_special1: 11
+  special2: 0
   input_special2: 0

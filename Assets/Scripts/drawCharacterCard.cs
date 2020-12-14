@@ -1,53 +1,19 @@
-﻿using System.Collections;
-using UserAreas;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using System;
+using ExitGames.Client.Photon;
+using main;
 
 namespace DrawCards
 {
     public class drawCharacterCard : MonoBehaviour
     {
         private List<int> characterCardID = new List<int>();
-        [SerializeField] private GameObject cardArea,cardTemplate;
-        [SerializeField]
-        private CharCardScript
-            card1,
-            card2,
-            card3,
-            card4,
-            card5,
-            card6,
-            card7,
-            card8,
-            card9,
-            card10,
-            card11,
-            card12,
-            card13,
-            card14,
-            card15,
-            card16;
-        public static List<CharCardScript> cardDeck = new List<CharCardScript>(16);
+        [SerializeField] private GameObject cardArea = null, cardTemplate = null;
+        [SerializeField] private EventHandeler EventManager = null;
         private void Start()
         {
-            cardDeck.Add(card1);
-            cardDeck.Add(card2);
-            cardDeck.Add(card3);
-            cardDeck.Add(card4);
-            cardDeck.Add(card5);
-            cardDeck.Add(card6);
-            cardDeck.Add(card7);
-            cardDeck.Add(card8);
-            cardDeck.Add(card9);
-            cardDeck.Add(card10);
-            cardDeck.Add(card11);
-            cardDeck.Add(card12);
-            cardDeck.Add(card13);
-            cardDeck.Add(card14);
-            cardDeck.Add(card15);
-            cardDeck.Add(card16);
             startDraw();
         }
         private void startDraw()
@@ -76,18 +42,18 @@ namespace DrawCards
             for (var i = 0; i < howmuch; i++)
             {
                 System.Random rand = new System.Random((int)DateTime.Now.Ticks);
-                int x = rand.Next(1, characterCardID.Count);
+                int x = rand.Next(0, characterCardID.Count -1 );
                 Debug.Log("Card number is:" + characterCardID[x]);
                 GameObject characterPlayerCard1 = Instantiate(cardTemplate, transform.position, Quaternion.identity);
                 characterPlayerCard1.GetComponent<characterCardDisplay>().setID(characterCardID[x]);
                 characterPlayerCard1.gameObject.transform.localScale += new Vector3(-0.75f, -0.75f, 0);
                 characterPlayerCard1.transform.SetParent(cardArea.transform, false);
+                object[] cardID = new object[] { characterCardID[x] };
                 characterCardID.Remove(characterCardID[x]);
-                UserAreaControlers.pv.RPC("removeFormDeck", RpcTarget.Others, characterCardID[x]);
+                PhotonNetwork.RaiseEvent((byte)PhotonEventCode.drawCharacterRemove, cardID, EventManager.AllPeople, SendOptions.SendReliable);
             }
         }
-        [PunRPC]
-        private void removeFormDeck(int which)
+        public void removeFormDeck(int which)
         {
             characterCardID.Remove(which);
         }

@@ -3080,17 +3080,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 3666602672157587566, guid: 858540b55ce847a4c9765e75b4278d35, type: 3}
   m_PrefabInstance: {fileID: 222890369}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &222890371 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5072119685807109905, guid: 858540b55ce847a4c9765e75b4278d35, type: 3}
-  m_PrefabInstance: {fileID: 222890369}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 222890372}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b1d4f1770d3404345a25c88579ec8ff3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &222890372 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5072119685807109904, guid: 858540b55ce847a4c9765e75b4278d35, type: 3}
@@ -3109,7 +3098,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CharactercardOBJ: {fileID: 222890372}
-  CharactercardUI: {fileID: 222890371}
+  CharactercardUI: {fileID: 0}
   PopUpCard: {fileID: 1692396080}
   SelectChar: {fileID: 1940780710}
   skillChangerListOBJ: {fileID: 66864151}
@@ -3602,8 +3591,6 @@ GameObject:
   - component: {fileID: 277830162}
   - component: {fileID: 277830161}
   - component: {fileID: 277830160}
-  - component: {fileID: 277830163}
-  - component: {fileID: 277830164}
   m_Layer: 0
   m_Name: Game Interface
   m_TagString: Untagged
@@ -3700,61 +3687,6 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
---- !u!114 &277830163
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 277830158}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 334fb79772c35944088e8d124db76fd5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  startButtonOBJ: {fileID: 5132570365836124971}
-  player_username: {fileID: 655703978}
-  opponent1_username: {fileID: 1302560670}
-  opponent2_username: {fileID: 660637765}
-  opponent3_username: {fileID: 1043619466}
-  opponent4_username: {fileID: 1234587975}
-  opponent5_username: {fileID: 12445371}
-  Roomtext: {fileID: 289626136}
-  oppententNameTextInfo: []
-  amount_of_people: {fileID: 854439822}
-  Start_Button: {fileID: 4334109394784263526}
-  Leave_Button: {fileID: 1819265644}
-  panelToTrade: {fileID: 499456415}
-  gameEntoropyArea: {fileID: 2874756393525619206}
-  gameMissionArea: {fileID: 1074838377}
-  numberOfRounds_input: {fileID: 2144033323}
-  setRoundsButton: {fileID: 2029548105}
-  leaveButtonAfterFired: {fileID: 1361702735}
-  RollTime: {fileID: 499456416}
-  moneyAndPoints: {fileID: 499456414}
-  drawCharacterCard: {fileID: 499456407}
---- !u!114 &277830164
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 277830158}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObservedComponentsFoldoutOpen: 1
-  Group: 0
-  prefixField: -1
-  observableSearch: 2
-  Synchronization: 3
-  OwnershipTransfer: 0
-  ObservedComponents: []
-  viewIdField: 1
-  InstantiationId: 0
-  isRuntimeInstantiated: 0
 --- !u!1 &285305998
 GameObject:
   m_ObjectHideFlags: 0
@@ -4208,7 +4140,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 277830163}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Main_Game_before_start, Assembly-CSharp
         m_MethodName: clickOnLeaveGame
         m_Mode: 1
@@ -5504,7 +5436,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 277830163}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Main_Game_before_start, Assembly-CSharp
         m_MethodName: ResetMainGameBeforeStart
         m_Mode: 1
@@ -6267,7 +6199,7 @@ MonoBehaviour:
   rollTimeScript: {fileID: 499456416}
   playButtonOBJ: {fileID: 426295412}
   drawMissionCard: {fileID: 499456413}
-  main_Game_Before_Start: {fileID: 277830163}
+  main_Game_Before_Start: {fileID: 0}
   gameWinArea: {fileID: 1177829921}
   firstPlaceOBJ: {fileID: 122195889}
   sendPlaceOBJ: {fileID: 1659811918}
@@ -6470,7 +6402,7 @@ MonoBehaviour:
   entropyICON: {fileID: 868263316590686274, guid: 57404b35aaf665e4ca86e79ef6eee608, type: 3}
   drawCharacterCard: {fileID: 499456407}
   MyMoneyDuringTrade: {fileID: 1514487229}
-  main_Game_Before_Start: {fileID: 277830163}
+  main_Game_Before_Start: {fileID: 0}
 --- !u!114 &499456415
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6507,7 +6439,7 @@ MonoBehaviour:
   opponentSkipped5: {fileID: 805641741}
   drawCharCard: {fileID: 499456407}
   popupcardwindowMissionScript: {fileID: 7013831139461939040}
-  main_Game_Before_Start: {fileID: 277830163}
+  main_Game_Before_Start: {fileID: 0}
   panelTrade: {fileID: 1269437447}
   drawEntropyCard: {fileID: 499456411}
   bribeOpponent1: {fileID: 29301565}
@@ -6585,7 +6517,7 @@ MonoBehaviour:
   drawCharacterCard: {fileID: 499456407}
   popupcardwindowEntro: {fileID: 4474021401755880698}
   panelToTrade: {fileID: 499456415}
-  main_Game_Before_Start: {fileID: 277830163}
+  main_Game_Before_Start: {fileID: 0}
   moneyAndPoints: {fileID: 499456414}
   TaskOneStatus: {fileID: 1912998811}
   TaskTwoStatus: {fileID: 979131869}
@@ -6654,7 +6586,7 @@ MonoBehaviour:
   RollButton: {fileID: 556607900}
   drawCharacterCard: {fileID: 499456407}
   drawEntropyCard: {fileID: 499456411}
-  main_Game_Before_Start: {fileID: 277830163}
+  main_Game_Before_Start: {fileID: 0}
   RollTime: {fileID: 499456416}
   moneyAndPoints: {fileID: 499456414}
 --- !u!1 &507648865
@@ -12606,17 +12538,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 3666602672157587566, guid: 858540b55ce847a4c9765e75b4278d35, type: 3}
   m_PrefabInstance: {fileID: 942697708}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &942697710 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5072119685807109905, guid: 858540b55ce847a4c9765e75b4278d35, type: 3}
-  m_PrefabInstance: {fileID: 942697708}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b1d4f1770d3404345a25c88579ec8ff3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &951383669
 GameObject:
   m_ObjectHideFlags: 0
@@ -19012,7 +18933,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 277830163}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Main_Game_before_start, Assembly-CSharp
         m_MethodName: clickOnLeaveGame
         m_Mode: 1
@@ -23683,7 +23604,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 277830163}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Main_Game_before_start, Assembly-CSharp
         m_MethodName: clickOnLeaveGame
         m_Mode: 1
@@ -25630,7 +25551,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 277830163}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Main_Game_before_start, Assembly-CSharp
         m_MethodName: onSetRoundInputButton
         m_Mode: 1
@@ -26913,7 +26834,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 277830163}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Main_Game_before_start, Assembly-CSharp
         m_MethodName: whenRoundsInputChange
         m_Mode: 1
@@ -27815,7 +27736,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PopUpCard: {fileID: 7013831139461939039}
   missionCardDisplay: {fileID: 635472389}
-  charCardDisplay: {fileID: 942697710}
+  charCardDisplay: {fileID: 0}
   selectMissionCard: {fileID: 951383669}
   UserMissionCardArea: {fileID: 1074838377}
   AttendOrNot: {fileID: 1205551454}

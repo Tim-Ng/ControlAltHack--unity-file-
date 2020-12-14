@@ -86,14 +86,14 @@ GameObject:
   - component: {fileID: 5072119685754737961}
   - component: {fileID: 5072119685754737959}
   - component: {fileID: 5072119685754737958}
-  - component: {fileID: 1644883257400101222}
+  - component: {fileID: 4755148761460810695}
   m_Layer: 0
   m_Name: FrontSide
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &5072119685754737961
 RectTransform:
   m_ObjectHideFlags: 0
@@ -151,7 +151,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &1644883257400101222
+--- !u!114 &4755148761460810695
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -196,7 +196,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 28909356396686326}
         m_TargetAssemblyTypeName: DrawCards.characterCardDisplay, Assembly-CSharp
-        m_MethodName: clickOnBackSide
+        m_MethodName: clickOnInfo
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

@@ -2,13 +2,14 @@
 using Photon.Realtime;
 using UnityEngine;
 using UnityEngine.UI;
+using DrawCards;
 
 namespace UserAreas
 {
     public class PlayerInfo : MonoBehaviourPunCallbacks
     {
-        [SerializeField] private GameObject Avertar, AmountOfCards, Username, HackerCred, Cash;
-        public Player playerPhoton { get; set; }
+        [SerializeField] private GameObject Avertar = null, AmountOfCards = null, Username = null, HackerCred = null, Cash = null;
+        public Player playerPhoton {get; set;}
         private string nickname;
         public string Nickname
         {
@@ -28,8 +29,25 @@ namespace UserAreas
             get { return AmountOfMoney; }
             set { AmountOfMoney = value; Cash.GetComponent<Text>().text = "$" + AmountOfMoney.ToString(); }
         }
-        public int characterID { get; set; }
+        private CharCardScript CharScript;
+        public CharCardScript characterScript 
+        {
+            get 
+            { 
+                return CharScript; 
+            }
+            set 
+            { 
+                CharScript = value;
+                Avertar.GetComponent<Image>().sprite = CharScript.image_Avertar;
+                Avertar.GetComponent<Button>().interactable = true;
+            } 
+        }
         public bool filled { get; set; }
-        
+        private void Start()
+        {
+            Avertar.GetComponent<Button>().interactable = false;
+        }
+
     }
 }

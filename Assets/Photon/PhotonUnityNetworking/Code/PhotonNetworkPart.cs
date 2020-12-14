@@ -180,6 +180,11 @@ namespace Photon.Pun
 
         private static IPunPrefabPool prefabPool;
 
+        public static void RaiseEvent(byte startGame, RaiseEventOptions allPeople, SendOptions sendReliable)
+        {
+            throw new NotImplementedException();
+        }
+
         /// <summary>
         /// While enabled, the MonoBehaviours on which we call RPCs are cached, avoiding costly GetComponents&lt;MonoBehaviour&gt;() calls.
         /// </summary>

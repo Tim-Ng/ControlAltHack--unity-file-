@@ -7,23 +7,24 @@ using TMPro;
 using System.Linq;
 using UnityEngine.UI;
 using ExitGames.Client.Photon;
+using main;
+using DrawCards;
 
 namespace UserAreas
 {
     public class UserAreaControlers : MonoBehaviourPunCallbacks
     {
-        [SerializeField] private PlayerInfo thisUserArea,userArea1, userArea2, userArea3, userArea4, userArea5;
-        [SerializeField] private TMP_InputField numberOfRounds_input;
-        [SerializeField] private Text numberOfPeople;
-        [SerializeField] private GameObject startGameItems, setRoundsButton,startGameButton,roomCode;
-        [SerializeField] private DrawCards.drawCharacterCard drawCard;
+        [SerializeField] private PlayerInfo thisUserArea = null, userArea1 = null, userArea2 = null, userArea3 = null, userArea4 = null, userArea5 = null;
+        [SerializeField] private TMP_InputField numberOfRounds_input = null;
+        [SerializeField] private Text numberOfPeople = null;
+        [SerializeField] private TurnManager turn = null;
+        [SerializeField] private EventHandeler EventManager = null;
+        [SerializeField] private GameObject startGameItems = null, setRoundsButton = null, startGameButton = null, roomCode = null;
         public static int AmountOfRounds;
-        public static PhotonView pv;
         public static bool GameHasStarted { get; set; }
-        private List<PlayerInfo> users = new List<PlayerInfo>();
+        public List<PlayerInfo> users = new List<PlayerInfo>();
         private void Start()
         {
-            pv = GetComponent<PhotonView>();
             AmountOfRounds = 6;
             startGameItems.SetActive(true);
             GameHasStarted = false;
@@ -50,7 +51,8 @@ namespace UserAreas
                 setRoundsButton.SetActive(true);
                 setRoundsButton.GetComponent<Button>().interactable = false;
                 numberOfRounds_input.interactable = true;
-                pv.RPC("upDateOtherOnGameRounds", RpcTarget.All, AmountOfRounds);
+                object[] round = new object[] { AmountOfRounds };
+                PhotonNetwork.RaiseEvent((byte)PhotonEventCode.upDateOtherOnGameRounds, round, EventManager.AllPeople, SendOptions.SendReliable);
             }
             else
             {
@@ -67,7 +69,7 @@ namespace UserAreas
             Player[] listHoldCurrentPlayer = PhotonNetwork.PlayerListOthers;
             for (int i = 0; i < 5; i++)
             {
-                if ((i+1) <= listHoldCurrentPlayer.Length)
+                if ((i + 1) <= listHoldCurrentPlayer.Length)
                 {
                     users[i + 1].playerPhoton = listHoldCurrentPlayer[i];
                     users[i + 1].Nickname = listHoldCurrentPlayer[i].NickName;
@@ -118,6 +120,7 @@ namespace UserAreas
                 int userposition = findPlayerPosition(otherPlayer);
                 users[userposition].Nickname = "Player Left";
                 users[userposition].filled = false;
+                turn.playerLeft(otherPlayer.ActorNumber);
             }
         }
         public int findPlayerPosition(Player whichPlayer)
@@ -160,33 +163,39 @@ namespace UserAreas
             {
                 AmountOfRounds = int.Parse(numberOfRounds_input.text);
                 numberOfRounds_input.text = AmountOfRounds.ToString();
-                pv.RPC("upDateOtherOnGameRounds", RpcTarget.Others, AmountOfRounds);
+                object[] round = new object[] { AmountOfRounds };
+                PhotonNetwork.RaiseEvent((byte)PhotonEventCode.upDateOtherOnGameRounds, round, EventManager.AllPeople, SendOptions.SendReliable);
             }
             else
             {
                 numberOfRounds_input.text = AmountOfRounds.ToString();
             }
+            setRoundsButton.GetComponent<Button>().interactable = false;
         }
-        [PunRPC]
         public void upDateOtherOnGameRounds(int num_rounds)
         {
             AmountOfRounds = num_rounds;
             numberOfRounds_input.text = AmountOfRounds.ToString();
         }
-        public override void OnRoomPropertiesUpdate(Hashtable propertiesThatChanged)
-        {
-            numberOfRounds_input.text = propertiesThatChanged["NumberRounds"].ToString();
-        }
         public void startGame()
         {
-            GameHasStarted = true;
-            pv.RPC("startingGame", RpcTarget.All);
+            PhotonNetwork.RaiseEvent((byte)PhotonEventCode.startGame, null, EventManager.AllPeople, SendOptions.SendReliable);
+            turn.setArrangementForTurn();
         }
-        [PunRPC]
         public void startingGame()
         {
+            GameHasStarted = true;
             startGameItems.SetActive(false);
-            drawCard.drawCharCards(2);
+        }
+        public void setMyCharacter(CharCardScript whichCharacter)
+        {
+            users[0].characterScript = whichCharacter;
+            object[] sendCharactertToOther = new object[] { PhotonNetwork.LocalPlayer, whichCharacter.character_code };
+            PhotonNetwork.RaiseEvent((byte)PhotonEventCode.setMyChar, sendCharactertToOther, EventManager.AllOtherThanMePeopleOptions, SendOptions.SendReliable);
+        }
+        public void setOtherCharacter(Player whichPlayer, int whichCard)
+        {
+            users[findPlayerPosition(whichPlayer)].characterScript = charCardDeck.cardDeck[whichCard-1];
         }
     }
 }

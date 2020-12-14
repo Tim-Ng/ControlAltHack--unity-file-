@@ -14,12 +14,13 @@ namespace MainMenu
     public class NickNameRoom : MonoBehaviourPunCallbacks
     {
         [SerializeField] private TMP_InputField join_input = null, host_input = null, nameInputFeild = null;
-        [SerializeField] private GameObject HostJoin, Nickname, Status, message;
+        [SerializeField] private GameObject HostJoin=null, Nickname=null, Status = null, message = null,reconnectToInternet = null;
+        private bool connected = false;
         public string setStatus
         {
             set { Status.GetComponent<Text>().text = "Status: " + value; }
         }
-        [SerializeField] private Button join_button, host_button, continueButton;
+        [SerializeField] private Button join_button = null, host_button = null, continueButton = null;
         public static byte MinimumPeople = 2, MaximumPeople = 6;
         private const string PlayerPrefsNameKey = "PlayerName";
         private const string GameVersion = "0.1";
@@ -30,9 +31,27 @@ namespace MainMenu
         {
             Nickname.SetActive(true);
             HostJoin.SetActive(false);
-            PhotonNetwork.ConnectUsingSettings();
-            PhotonNetwork.GameVersion = GameVersion;
+            checkInternet();
             SetUpInputFeild();
+        }
+        public void checkInternet()
+        {
+            if (connected == false)
+            {
+                if (Application.internetReachability != NetworkReachability.NotReachable)
+                {
+                    Debug.Log("Network Available");
+                    reconnectToInternet.SetActive(false);
+                    PhotonNetwork.ConnectUsingSettings();
+                    PhotonNetwork.GameVersion = GameVersion;
+                }
+                else
+                {
+                    Debug.Log("Network Not Available");
+                    reconnectToInternet.SetActive(true);
+                    setStatus = "No wifi...Click Button To reconnect";
+                }
+            }
         }
         private void SetUpInputFeild()
         {
@@ -58,14 +77,16 @@ namespace MainMenu
         }
         public override void OnConnectedToMaster()
         {
+            connected = true;
             Debug.Log("We are now connected to " + PhotonNetwork.CloudRegion + "sever!");
             setStatus = " Connected to Server";
             checkInputJoin();
             checkInputHost();
+            checkInputNickname();
         }
-        public void checkInputNickname() => continueButton.interactable = !string.IsNullOrEmpty(nameInputFeild.text);
-        public void checkInputHost() => host_button.interactable = !string.IsNullOrEmpty(host_input.text);
-        public void checkInputJoin() => join_button.interactable = !string.IsNullOrEmpty(join_input.text);
+        public void checkInputNickname() => continueButton.interactable = !string.IsNullOrEmpty(nameInputFeild.text) && connected;
+        public void checkInputHost() => host_button.interactable = !string.IsNullOrEmpty(host_input.text) && connected;
+        public void checkInputJoin() => join_button.interactable = !string.IsNullOrEmpty(join_input.text) && connected;
 
         //Start Hosting room functions 
         public void clickOnHostButton()

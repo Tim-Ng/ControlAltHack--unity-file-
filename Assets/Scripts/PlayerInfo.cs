@@ -8,7 +8,7 @@ namespace UserAreas
 {
     public class PlayerInfo : MonoBehaviourPunCallbacks
     {
-        [SerializeField] private GameObject Avertar = null, AmountOfCards = null, Username = null, HackerCred = null, Cash = null;
+        [SerializeField] private GameObject Avertar = null, AmountOfCardArea = null, Username = null, HackerCred = null, Cash = null,EntorpyTemplate = null;
         public Player playerPhoton {get; set;}
         private string nickname;
         public string Nickname
@@ -42,6 +42,27 @@ namespace UserAreas
                 Avertar.GetComponent<Image>().sprite = CharScript.image_Avertar;
                 Avertar.GetComponent<Button>().interactable = true;
             } 
+        }
+        private int numberOfEntroCards;
+        public int NumberOfCards 
+        {
+            get { return numberOfEntroCards; }
+            set 
+            {
+                numberOfEntroCards = value;
+                if (!(playerPhoton == PhotonNetwork.LocalPlayer))
+                {
+                    foreach (Transform child in AmountOfCardArea.transform)
+                    {
+                        GameObject.Destroy(child.gameObject);
+                    }
+                    for (int i = 0; i < numberOfEntroCards; i++)
+                    {
+                        GameObject missionCard = Instantiate(EntorpyTemplate, transform.position, Quaternion.identity);
+                        missionCard.transform.SetParent(AmountOfCardArea.transform, false);
+                    }
+                }
+            }
         }
         public bool filled { get; set; }
         private void Start()

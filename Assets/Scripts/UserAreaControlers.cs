@@ -64,6 +64,7 @@ namespace UserAreas
             users[0].Nickname = PhotonNetwork.LocalPlayer.NickName;
             users[0].ActorID = PhotonNetwork.LocalPlayer.ActorNumber;
             users[0].amountOfCred = 0;
+            users[0].NumberOfCards = 0;
             users[0].amountOfMoney = 0;
             users[0].filled = true;
             Player[] listHoldCurrentPlayer = PhotonNetwork.PlayerListOthers;
@@ -76,6 +77,7 @@ namespace UserAreas
                     users[i + 1].ActorID = listHoldCurrentPlayer[i].ActorNumber;
                     users[i + 1].amountOfCred = 0;
                     users[i + 1].amountOfMoney = 0;
+                    users[i + 1].NumberOfCards = 0;
                     users[i + 1].filled = true;
                 }
                 else
@@ -85,6 +87,7 @@ namespace UserAreas
                     users[i + 1].ActorID = 7;
                     users[i + 1].amountOfCred = 0;
                     users[i + 1].amountOfMoney = 0;
+                    users[i + 1].NumberOfCards = 0;
                     users[i + 1].filled = false;
                 }
             }
@@ -196,6 +199,48 @@ namespace UserAreas
         public void setOtherCharacter(Player whichPlayer, int whichCard)
         {
             users[findPlayerPosition(whichPlayer)].characterScript = charCardDeck.cardDeck[whichCard-1];
+        }
+
+        public void addMyMoney(int Howmuch)
+        {
+            users[0].amountOfMoney += Howmuch;
+            object[] amount = new object[] { PhotonNetwork.LocalPlayer, users[0].amountOfMoney };
+            PhotonNetwork.RaiseEvent((byte)PhotonEventCode.playerMoney, amount, EventManager.AllOtherThanMePeopleOptions, SendOptions.SendReliable);
+        }
+        public void subMyMoney(int Howmuch)
+        {
+            users[0].amountOfMoney -= Howmuch;
+            object[] amount = new object[] { PhotonNetwork.LocalPlayer, users[0].amountOfMoney };
+            PhotonNetwork.RaiseEvent((byte)PhotonEventCode.playerMoney, amount, EventManager.AllOtherThanMePeopleOptions, SendOptions.SendReliable);
+        }
+        public void receiveOtherMoney(Player whichPlayer, int amount)
+        {
+            users[findPlayerPosition(whichPlayer)].amountOfMoney = amount;
+        }
+        public void addMyCred(int Howmuch)
+        {
+            users[0].amountOfCred += Howmuch;
+            object[] amount = new object[] { PhotonNetwork.LocalPlayer, users[0].amountOfCred };
+            PhotonNetwork.RaiseEvent((byte)PhotonEventCode.playerCred, amount, EventManager.AllOtherThanMePeopleOptions, SendOptions.SendReliable);
+        }
+        public void subMyCred(int Howmuch)
+        {
+            users[0].amountOfCred -= Howmuch;
+            object[] amount = new object[] { PhotonNetwork.LocalPlayer, users[0].amountOfCred };
+            PhotonNetwork.RaiseEvent((byte)PhotonEventCode.playerCred, amount, EventManager.AllOtherThanMePeopleOptions, SendOptions.SendReliable);
+        }
+        public void receiveOtherCred(Player whichPlayer, int amount)
+        {
+            users[findPlayerPosition(whichPlayer)].amountOfCred = amount;
+        }
+        public void sendAmountOfCards()
+        {
+            object[] amount = new object[] { PhotonNetwork.LocalPlayer, users[0].NumberOfCards };
+            PhotonNetwork.RaiseEvent((byte)PhotonEventCode.sendAmountOfEntropy, amount, EventManager.AllOtherThanMePeopleOptions, SendOptions.SendReliable);
+        }
+        public void receiveOtherAmountOfCards(Player whichPlayer, int amount)
+        {
+            users[findPlayerPosition(whichPlayer)].NumberOfCards = amount;
         }
     }
 }

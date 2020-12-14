@@ -14,12 +14,14 @@ namespace main
     {
         [SerializeField] private UserAreaControlers userContorlAreas = null;
         [SerializeField] private drawCharacterCard drawCard = null;
+        [SerializeField] private drawEntropyCard drawEntro= null;
         [SerializeField] private EventHandeler EventManager = null;
         private int CurrentTurn;
         private List<int> arrangedActors = new List<int>();
         public int PlayerIdToMakeThisTurn;
         public int currentPositionInArray;
         private int TurnNumber = 0;
+        private bool waiting= false;
         private List<int> actorsDone = new List<int>();
         public bool IsMyTurn
         {
@@ -110,13 +112,11 @@ namespace main
         public void playerChanged()
         {
             CurrentTurn += 1;
-            if (CurrentTurn == arrangedActors.Count)
+            if (CurrentTurn >= arrangedActors.Count)
             {
                 TurnNumber += 1;
-                if (PhotonNetwork.IsMasterClient)
-                {
-                    //setArrangementForTurn();
-                }
+                waiting = true;
+                actorsDone.Clear();
             }
             else
             {
@@ -128,15 +128,53 @@ namespace main
                 }
             }
         }
+        public void actorsDoneEdit(int Actorid, bool left)
+        {
+            if (left)
+            {
+                for (int i = 0; i < actorsDone.Count; i++)
+                {
+                    if (actorsDone[i] == Actorid)
+                    {
+                        actorsDone.Remove(Actorid);
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                actorsDone.Add(Actorid);
+            }
+            //check 
+            if (actorsDone.Count == PhotonNetwork.CurrentRoom.PlayerCount)
+            {
+                waiting = false;
+                if (PhotonNetwork.IsMasterClient)
+                {
+                    setArrangementForTurn();
+                }
+            }
+        }
         public void playerLeft(int ActorID)
         {
-            for (int i = CurrentTurn; i < arrangedActors.Count; i++)
+            if (PlayerIdToMakeThisTurn == ActorID)
             {
-                if (arrangedActors[i] == ActorID)
+                playerChanged();
+            }
+            else
+            {
+                for (int i = CurrentTurn; i < arrangedActors.Count; i++)
                 {
-                    arrangedActors.Remove(ActorID);
-                    break;
+                    if (arrangedActors[i] == ActorID)
+                    {
+                        arrangedActors.Remove(ActorID);
+                        break;
+                    }
                 }
+            }
+            if (waiting)
+            {
+                actorsDoneEdit(ActorID, true);
             }
         }
         public void checkTurn()
@@ -150,6 +188,24 @@ namespace main
                 else
                 {
                     drawCard.drawCharCards(3);
+                }
+            }
+            else if (TurnNumber % 2 == 1)
+            {
+                if (TurnNumber == 1)
+                {
+                    userContorlAreas.addMyCred(6);
+                    drawEntro.drawEntropyCards(5);
+                }
+                if (userContorlAreas.users[0].characterScript.character_code == 3)
+                    userContorlAreas.addMyMoney(1000);
+                else if (userContorlAreas.users[0].characterScript.character_code == 16)
+                    userContorlAreas.addMyMoney(3000);
+                else
+                    userContorlAreas.addMyMoney(2000);
+                if (userContorlAreas.users[0].characterScript.character_code == 7)
+                {
+                    //2 cards
                 }
             }
             PhotonNetwork.RaiseEvent((byte)PhotonEventCode.playerChanged,null, EventManager.AllPeople, SendOptions.SendReliable);

@@ -12,8 +12,9 @@ namespace DrawCards
     public class CharCardPopup : MonoBehaviour
     {
         [SerializeField] private UserAreaControlers userAreaControlers = null;
-        [SerializeField] private GameObject popUp = null,cardInpopUp = null,buttonSelect;
-        private CharCardScript whichScript;
+        [SerializeField] private GameObject popUp = null,cardInpopUp = null,buttonSelect=null,playingCardArea=null;
+        [SerializeField] private EventHandeler EventManger = null;
+        private CharCardScript whichScript = null;
         public void opendCharCard(CharCardScript info)
         {
             buttonSelect.SetActive(true);
@@ -28,7 +29,13 @@ namespace DrawCards
         public void selectThisChar()
         {
             userAreaControlers.setMyCharacter(whichScript);
+            foreach (Transform child in playingCardArea.transform)
+            {
+                Destroy(child.gameObject);
+            }
             closePopUp();
+            object[] player = new object[] { PhotonNetwork.LocalPlayer.ActorNumber };
+            PhotonNetwork.RaiseEvent((byte)PhotonEventCode.setWaiting, player, EventManger.AllPeople, SendOptions.SendReliable);
         }
         public void clickOnAvertar(int which)
         {

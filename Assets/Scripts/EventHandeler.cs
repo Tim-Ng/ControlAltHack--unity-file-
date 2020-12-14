@@ -15,12 +15,19 @@ namespace main
         playerChanged = 3,
         drawCharacterRemove= 4,
         setMyChar = 5,
+        setWaiting= 6,
+        playerMoney = 7,
+        playerCred  = 8,
+        drawEntropyRemove = 9,
+        drawEntropyUsed = 10,
+        sendAmountOfEntropy = 11,
     }
     public class EventHandeler : MonoBehaviour
     {
         [SerializeField] private UserAreaControlers userControler = null;
-        [SerializeField] private drawCharacterCard drawChar;
+        [SerializeField] private drawCharacterCard drawChar = null;
         [SerializeField] private TurnManager turnManager= null;
+        [SerializeField] private drawEntropyCard drawEntropy = null;
         public RaiseEventOptions AllOtherThanMePeopleOptions = new RaiseEventOptions()
         {
             CachingOption = EventCaching.DoNotCache,
@@ -77,6 +84,36 @@ namespace main
             {
                 object[] charStuff = (object[])obj.CustomData;
                 userControler.setOtherCharacter((Player)charStuff[0],(int)charStuff[1]);
+            }
+            else if (obj.Code == (byte)PhotonEventCode.setWaiting)
+            {
+                object[] player = (object[])obj.CustomData;
+                turnManager.actorsDoneEdit((int)player[0],false);
+            }
+            else if (obj.Code == (byte)PhotonEventCode.playerMoney)
+            {
+                object[] amount = (object[])obj.CustomData;
+                userControler.receiveOtherMoney((Player)amount[0], (int)amount[1]);
+            }
+            else if (obj.Code == (byte)PhotonEventCode.playerCred)
+            {
+                object[] amount = (object[])obj.CustomData;
+                userControler.receiveOtherCred((Player)amount[0], (int)amount[1]);
+            }
+            else if (obj.Code == (byte)PhotonEventCode.drawEntropyRemove)
+            {
+                object[] whichCard = (object[])obj.CustomData;
+                drawEntropy.removeFormDeck((int)whichCard[0]);
+            }
+            else if (obj.Code == (byte)PhotonEventCode.drawEntropyUsed)
+            {
+                object[] whichCard = (object[])obj.CustomData;
+                drawEntropy.addToPlayedDeck((int)whichCard[0]);
+            }
+            else if (obj.Code == (byte)PhotonEventCode.sendAmountOfEntropy)
+            {
+                object[] amount = (object[])obj.CustomData;
+                userControler.receiveOtherAmountOfCards((Player)amount[0], (int)amount[1]);
             }
         }
     }

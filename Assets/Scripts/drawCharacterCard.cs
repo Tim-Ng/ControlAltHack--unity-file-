@@ -39,7 +39,7 @@ namespace DrawCards
         public void drawCharCards(int howmuch)
         {
             Debug.Log("Drawing Character cards ");
-            for (var i = 0; i < howmuch; i++)
+            for (int i = 0; i < howmuch; i++)
             {
                 System.Random rand = new System.Random((int)DateTime.Now.Ticks);
                 int x = rand.Next(0, characterCardID.Count -1 );

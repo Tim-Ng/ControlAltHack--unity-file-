@@ -8381,17 +8381,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4f9d39f992c85f4409675cdf17f252ff, type: 3}
---- !u!114 &635472389 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4159284580279269687, guid: 4f9d39f992c85f4409675cdf17f252ff, type: 3}
-  m_PrefabInstance: {fileID: 635472388}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e00331bb1d6ba1c49b6db7e9987254da, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &639166806
 GameObject:
   m_ObjectHideFlags: 0
@@ -21639,33 +21628,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1639574270}
   m_CullTransparentMesh: 0
---- !u!114 &1639649698 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1913353173256634204, guid: 5fd9301e663e40145b062de0287463a8, type: 3}
-  m_PrefabInstance: {fileID: 4474021401755880697}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1639649701}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d44f326b8047cb24f8a2b0638f1cd402, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!1 &1639649699 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7551903844555654822, guid: 5fd9301e663e40145b062de0287463a8, type: 3}
-  m_PrefabInstance: {fileID: 4474021401755880697}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1639649700 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5440332264935372663, guid: 5fd9301e663e40145b062de0287463a8, type: 3}
-  m_PrefabInstance: {fileID: 4474021401755880697}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1639649699}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1639649701 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1913353173256634203, guid: 5fd9301e663e40145b062de0287463a8, type: 3}
@@ -27372,15 +27334,15 @@ PrefabInstance:
     - target: {fileID: 4474021401820085533, guid: 5fd9301e663e40145b062de0287463a8, type: 3}
       propertyPath: playCardButton
       value: 
-      objectReference: {fileID: 1639649700}
+      objectReference: {fileID: 0}
     - target: {fileID: 4474021401820085533, guid: 5fd9301e663e40145b062de0287463a8, type: 3}
       propertyPath: EntropyDisplayUI
       value: 
-      objectReference: {fileID: 1639649698}
+      objectReference: {fileID: 0}
     - target: {fileID: 4474021401820085533, guid: 5fd9301e663e40145b062de0287463a8, type: 3}
       propertyPath: playCardButtonOBJ
       value: 
-      objectReference: {fileID: 1639649699}
+      objectReference: {fileID: 0}
     - target: {fileID: 5440332264935372663, guid: 5fd9301e663e40145b062de0287463a8, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 1
@@ -27735,7 +27697,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PopUpCard: {fileID: 7013831139461939039}
-  missionCardDisplay: {fileID: 635472389}
+  missionCardDisplay: {fileID: 0}
   charCardDisplay: {fileID: 0}
   selectMissionCard: {fileID: 951383669}
   UserMissionCardArea: {fileID: 1074838377}

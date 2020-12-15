@@ -9,6 +9,7 @@ using UnityEngine.UI;
 using ExitGames.Client.Photon;
 using main;
 using DrawCards;
+using TradeScripts;
 
 namespace UserAreas
 {
@@ -20,6 +21,7 @@ namespace UserAreas
         [SerializeField] private TurnManager turn = null;
         [SerializeField] private EventHandeler EventManager = null;
         [SerializeField] private GameObject startGameItems = null, setRoundsButton = null, startGameButton = null, roomCode = null;
+        [SerializeField] private TradeControler tradeControler= null;
         public static int AmountOfRounds;
         public static bool GameHasStarted { get; set; }
         public List<PlayerInfo> users = new List<PlayerInfo>();
@@ -79,6 +81,7 @@ namespace UserAreas
                     users[i + 1].amountOfMoney = 0;
                     users[i + 1].NumberOfCards = 0;
                     users[i + 1].filled = true;
+                    users[i + 1].attendingOrNot = false;
                 }
                 else
                 {
@@ -89,6 +92,7 @@ namespace UserAreas
                     users[i + 1].amountOfMoney = 0;
                     users[i + 1].NumberOfCards = 0;
                     users[i + 1].filled = false;
+                    users[i + 1].attendingOrNot = false;
                 }
             }
         }
@@ -241,6 +245,30 @@ namespace UserAreas
         public void receiveOtherAmountOfCards(Player whichPlayer, int amount)
         {
             users[findPlayerPosition(whichPlayer)].NumberOfCards = amount;
+        }
+        public void setandsendIfNotAttending()
+        {
+            users[0].attendingOrNot = false;
+            object[] yesOrNOBool = new object[] { PhotonNetwork.LocalPlayer};
+            PhotonNetwork.RaiseEvent((byte)PhotonEventCode.tradeNotAttending, yesOrNOBool, EventManager.AllOtherThanMePeopleOptions, SendOptions.SendReliable);
+        }
+        public void receiveOtherNotAttending(Player whichPlayer)
+        {
+            int PlayerPosition=  findPlayerPosition(whichPlayer);
+            users[PlayerPosition].attendingOrNot = false;
+            tradeControler.PlayerAttentingChange(PlayerPosition);
+        }
+        public void setandsendIfAttending()
+        {
+            users[0].attendingOrNot = true;
+            object[] yesOrNOBool = new object[] { PhotonNetwork.LocalPlayer, users[0].missionScript.Mission_code };
+            PhotonNetwork.RaiseEvent((byte)PhotonEventCode.tradeAttending, yesOrNOBool, EventManager.AllOtherThanMePeopleOptions, SendOptions.SendReliable);
+        }
+        public void receiveOtherAttending(Player whichPlayer,int missionCardCode)
+        {
+            int PlayerPosition = findPlayerPosition(whichPlayer);
+            users[PlayerPosition].attendingOrNot = true;
+            tradeControler.PlayerAttentingChange(PlayerPosition, missionCardCode);
         }
     }
 }

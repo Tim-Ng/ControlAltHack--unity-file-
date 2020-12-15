@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f0b0947859b34c43aedd4b25aaae3d3, type: 3}
+  m_Name: 22 Magstripe Mischief
+  m_EditorClassIdentifier: 
+  Mission_code: 22
+  MissonTitle: Magstripe Mischief
+  Newb_job: 0
+  skill_name_1: 1
+  fist_change_hardnum: 0
+  hasSecondMission: 1
+  skill_name_2: 4
+  second_change_hardnum: 0
+  hasThirdMission: 0
+  skill_name_3: 0
+  third_change_hardnum: 0
+  success_amount_hacker_cread: 1
+  other_success_things: 
+  other_success_how_much: 0
+  failure_amount_hacker_cread: 1
+  other_failure_things: 
+  other_failure_how_much: 0
+  artwork_back: {fileID: 21300000, guid: 9c71e06e254806a4481fb78c07c9c1fc, type: 3}
+  artwork_front_info: {fileID: 21300000, guid: e134949f6515ce647b3a63482319a1cd, type: 3}

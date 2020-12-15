@@ -21,6 +21,10 @@ namespace main
         drawEntropyRemove = 9,
         drawEntropyUsed = 10,
         sendAmountOfEntropy = 11,
+        drawMissionRemove = 12,
+        drawMissionUsed = 13,
+        tradeNotAttending = 14,
+        tradeAttending = 15,
     }
     public class EventHandeler : MonoBehaviour
     {
@@ -28,6 +32,7 @@ namespace main
         [SerializeField] private drawCharacterCard drawChar = null;
         [SerializeField] private TurnManager turnManager= null;
         [SerializeField] private drawEntropyCard drawEntropy = null;
+        [SerializeField] private drawMissionCard drawMission = null;
         public RaiseEventOptions AllOtherThanMePeopleOptions = new RaiseEventOptions()
         {
             CachingOption = EventCaching.DoNotCache,
@@ -114,6 +119,26 @@ namespace main
             {
                 object[] amount = (object[])obj.CustomData;
                 userControler.receiveOtherAmountOfCards((Player)amount[0], (int)amount[1]);
+            }
+            else if (obj.Code == (byte)PhotonEventCode.drawMissionRemove)
+            {
+                object[] whichCard = (object[])obj.CustomData;
+                drawMission.removeFormDeck((int)whichCard[0]);
+            }
+            else if (obj.Code == (byte)PhotonEventCode.drawMissionUsed)
+            {
+                object[] whichCard = (object[])obj.CustomData;
+                drawMission.addToPlayedDeck((int)whichCard[0]);
+            }
+            else if (obj.Code == (byte)PhotonEventCode.tradeAttending)
+            {
+                object[] info = (object[])obj.CustomData;
+                userControler.receiveOtherAttending((Player)info[0], (int)info[1]);
+            }
+            else if (obj.Code == (byte)PhotonEventCode.tradeNotAttending)
+            {
+                object[] info = (object[])obj.CustomData;
+                userControler.receiveOtherNotAttending((Player)info[0]);
             }
         }
     }

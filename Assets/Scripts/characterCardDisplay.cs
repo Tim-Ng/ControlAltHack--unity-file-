@@ -11,7 +11,7 @@ namespace DrawCards
         [SerializeField] private GameObject BackSide = null, InfoSide = null;
         public void setID(int which)
         {
-            infoChar =charCardDeck.cardDeck[which];
+            infoChar =charCardDeck.cardDeck[which-1];
             BackSide.GetComponent<Image>().sprite = infoChar.artwork_back;
             InfoSide.GetComponent<Image>().sprite = infoChar.artwork_back;
             setBackSide(true);

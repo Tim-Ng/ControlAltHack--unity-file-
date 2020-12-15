@@ -10,7 +10,6 @@ using UserAreas;
 
 public class entropyCardPopup : MonoBehaviour
 {
-    [SerializeField] private UserAreaControlers userAreaControlers = null;
     [SerializeField] private GameObject popUp = null, cardInpopUpEntropy = null,playButton = null;
     [SerializeField] private drawEntropyCard drawEntro = null;
     private EntropyCardScript  whichScript = null;

@@ -69,6 +69,8 @@ namespace UserAreas
         {
             Avertar.GetComponent<Button>().interactable = false;
         }
-
+        public int MissionCards { get; set; }
+        public MissionCardScript missionScript { get; set; }
+        public bool attendingOrNot { get; set; }
     }
 }

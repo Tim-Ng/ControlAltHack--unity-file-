@@ -16,11 +16,12 @@ namespace main
         [SerializeField] private drawCharacterCard drawCard = null;
         [SerializeField] private drawEntropyCard drawEntro= null;
         [SerializeField] private EventHandeler EventManager = null;
+        [SerializeField] private drawMissionCard drawMission = null;
         private int CurrentTurn;
         private List<int> arrangedActors = new List<int>();
         public int PlayerIdToMakeThisTurn;
         public int currentPositionInArray;
-        private int TurnNumber = 0;
+        public int TurnNumber = 0;
         private bool waiting= false;
         private List<int> actorsDone = new List<int>();
         public bool IsMyTurn
@@ -114,7 +115,6 @@ namespace main
             CurrentTurn += 1;
             if (CurrentTurn >= arrangedActors.Count)
             {
-                TurnNumber += 1;
                 waiting = true;
                 actorsDone.Clear();
             }
@@ -148,6 +148,7 @@ namespace main
             //check 
             if (actorsDone.Count == PhotonNetwork.CurrentRoom.PlayerCount)
             {
+                TurnNumber += 1;
                 waiting = false;
                 if (PhotonNetwork.IsMasterClient)
                 {
@@ -196,6 +197,14 @@ namespace main
                 {
                     userContorlAreas.addMyCred(6);
                     drawEntro.drawEntropyCards(5);
+                    if (userContorlAreas.users[0].characterScript.character_code == 7)
+                    {
+                        drawMission.drawMissionCards(2);
+                    }
+                    else
+                    {
+                        drawMission.drawMissionCards(1);
+                    }
                 }
                 if (userContorlAreas.users[0].characterScript.character_code == 3)
                     userContorlAreas.addMyMoney(1000);

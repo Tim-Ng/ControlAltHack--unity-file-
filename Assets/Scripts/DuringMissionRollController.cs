@@ -1,0 +1,174 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using DrawCards;
+using UnityEngine.UI;
+
+public class DuringMissionRollController : MonoBehaviour
+{
+    [SerializeField] GameObject MissionCard = null;
+    [SerializeField] GameObject beforeMission = null, duringMission = null, afterMission = null, currentRollerName = null;
+    [SerializeField] GameObject task1beforeText = null, task2beforeText = null, task3beforeText = null,startMissionButton = null , timeText = null;
+    [SerializeField] GameObject currentTaskText = null, rolledNumber = null, task1duringText = null, task2duringText = null, task3duringText = null, rollGoalText = null,chancesLeft = null,whichTask = null;
+    [SerializeField] GameObject currentMissionStatusText = null, TaskOneStatus = null, TaskTwoStatus = null,TaskThreeStatus = null;
+    private string rollerName;
+    public string setgetCurrentRollerName
+    {
+        get { return rollerName; }
+        set
+        {
+            rollerName = value;
+            currentRollerName.GetComponent<Text>().text = rollerName;
+        }
+    }
+    private int currentMissionID;
+    public int setgetMissionCard
+    {
+        get { return currentMissionID; }
+        set 
+        {   currentMissionID = value;
+            MissionCard.GetComponent<Image>().sprite = missionCardDeck.cardDeck[currentMissionID - 1].artwork_front_info;
+            MissionCard.GetComponent<Button>().interactable = true;
+        }
+    }
+    public string settask1beforeText
+    {
+        set { task1beforeText.GetComponent<Text>().text = value; }
+    }
+    public string settask2beforeText
+    {
+        set { task2beforeText.GetComponent<Text>().text = value; }
+    }
+    public string settask3beforeText
+    {
+        set { task3beforeText.GetComponent<Text>().text = value; }
+    }
+    public bool setStartMissionButton
+    {
+        set { startMissionButton.GetComponent<Button>().interactable = value; }
+    }
+    public int setTimerText
+    {
+        set { timeText.GetComponent<Text>().text = value + "s"; }
+    }
+    private bool beforeMissionStatus;
+    public bool setbeforeMission
+    {
+        get { return beforeMissionStatus; }
+        set
+        { 
+            beforeMissionStatus = value;
+            beforeMission.SetActive(beforeMissionStatus);
+        }
+    }
+
+    private bool DuringMissionStatus;
+    public bool setDuringMission
+    {
+        get { return DuringMissionStatus; }
+        set
+        {
+            DuringMissionStatus = value;
+            duringMission.SetActive(DuringMissionStatus);
+        }
+    }
+    public string setCurrentText
+    {
+        set { currentTaskText.GetComponent<Text>().text = value; }
+    }
+    public int setRolledNumber
+    {
+        set { rolledNumber.GetComponent<Text>().text = value.ToString(); }
+    }
+    public string settask1duringText
+    {
+        set { task1duringText.GetComponent<Text>().text = value; }
+    }
+    public string settask2duringText
+    {
+        set { task2duringText.GetComponent<Text>().text = value; }
+    }
+    public string settask3duringText
+    {
+        set { task3duringText.GetComponent<Text>().text = value; }
+    }
+    public int setNumberOfChances
+    {
+        set { chancesLeft.GetComponent<Text>().text = "Chances left: " + value; }
+    }
+    public string setWhichIsCurrentTask
+    {
+        set { whichTask.GetComponent<Text>().text = value; }
+    }
+    public string setrollGoalText
+    {
+        set { rollGoalText.GetComponent<Text>().text = value; }
+    }
+    private bool afterMissionStatus;
+    public bool setAfterMission
+    {
+        get { return afterMissionStatus; }
+        set
+        {
+            afterMissionStatus = value;
+            afterMission.SetActive(afterMissionStatus);
+        }
+    }
+
+    public string setcurrentMissionStatusText
+    {
+        set { currentMissionStatusText.GetComponent<Text>().text = value; }
+    }
+    private bool TaskOneStatusValue;
+    public bool setTaskOneStatus
+    {
+        get { return TaskOneStatusValue; }
+        set 
+        {
+            TaskOneStatusValue = value;
+            if (TaskOneStatusValue)
+            {
+                TaskOneStatus.GetComponent<Text>().text = "Passed";
+            }
+            else
+            {
+                TaskOneStatus.GetComponent<Text>().text = "Failed";
+            }
+        }
+    }
+    private bool TaskTwoStatusValue;
+    public bool setTaskTwoStatusStatus
+    {
+        get { return TaskTwoStatusValue; }
+        set
+        {
+            TaskTwoStatusValue = value;
+            if (TaskTwoStatusValue)
+            {
+                TaskTwoStatus.GetComponent<Text>().text = "Passed";
+            }
+            else
+            {
+                TaskTwoStatus.GetComponent<Text>().text = "Failed";
+            }
+        }
+    }
+    private bool TaskThreeStatusValue;
+    public bool setTaskThreeStatusStatus
+    {
+        get { return TaskThreeStatusValue; }
+        set
+        {
+            TaskThreeStatusValue = value;
+            if (TaskThreeStatusValue)
+            {
+                TaskThreeStatus.GetComponent<Text>().text = "Passed";
+            }
+            else
+            {
+                TaskThreeStatus.GetComponent<Text>().text = "Failed";
+            }
+        }
+    }
+
+}

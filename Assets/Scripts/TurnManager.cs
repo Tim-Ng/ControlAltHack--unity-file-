@@ -212,10 +212,10 @@ namespace main
                     userContorlAreas.addMyMoney(3000);
                 else
                     userContorlAreas.addMyMoney(2000);
-                if (userContorlAreas.users[0].characterScript.character_code == 7)
-                {
-                    //2 cards
-                }
+            }
+            else if (TurnNumber %2 == 0)
+            {
+
             }
             PhotonNetwork.RaiseEvent((byte)PhotonEventCode.playerChanged,null, EventManager.AllPeople, SendOptions.SendReliable);
         }

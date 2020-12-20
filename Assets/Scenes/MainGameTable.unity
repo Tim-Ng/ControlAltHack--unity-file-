@@ -205,14 +205,14 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: PanelToTrade, Assembly-CSharp
-        m_MethodName: declineTrade5
-        m_Mode: 1
+      - m_Target: {fileID: 356750447}
+        m_TargetAssemblyTypeName: TradeScripts.TradeControler, Assembly-CSharp
+        m_MethodName: clickOnDeclineTrade
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 4
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -859,7 +859,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 58712170}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 356750447}
+        m_TargetAssemblyTypeName: TradeScripts.TradeControler, Assembly-CSharp
+        m_MethodName: clickOnAskTrade
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &58712170
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1421,7 +1433,19 @@ MonoBehaviour:
       m_Calls: []
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 461939016}
+        m_TargetAssemblyTypeName: TradeScripts.TradeArea, Assembly-CSharp
+        m_MethodName: OnDetectInputchange
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_OnTouchScreenKeyboardStatusChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -2302,14 +2326,14 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: PanelToTrade, Assembly-CSharp
-        m_MethodName: clickOnToTradeOpponent4
-        m_Mode: 1
+      - m_Target: {fileID: 356750447}
+        m_TargetAssemblyTypeName: TradeScripts.TradeControler, Assembly-CSharp
+        m_MethodName: clickOnAccenptTrade
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 3
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -2619,14 +2643,14 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: PanelToTrade, Assembly-CSharp
-        m_MethodName: declineTrade4
-        m_Mode: 1
+      - m_Target: {fileID: 356750447}
+        m_TargetAssemblyTypeName: TradeScripts.TradeControler, Assembly-CSharp
+        m_MethodName: clickOnDeclineTrade
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 3
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -2901,14 +2925,14 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: PanelToTrade, Assembly-CSharp
-        m_MethodName: clickOnToTradeOpponent5
-        m_Mode: 1
+      - m_Target: {fileID: 356750447}
+        m_TargetAssemblyTypeName: TradeScripts.TradeControler, Assembly-CSharp
+        m_MethodName: clickOnAskTrade
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 4
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -3780,7 +3804,19 @@ MonoBehaviour:
       m_Calls: []
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2043908292}
+        m_TargetAssemblyTypeName: TradeScripts.TradeArea, Assembly-CSharp
+        m_MethodName: OnDetectInputchange
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_OnTouchScreenKeyboardStatusChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -3918,7 +3954,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 345146117}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 356750447}
+        m_TargetAssemblyTypeName: TradeScripts.TradeControler, Assembly-CSharp
+        m_MethodName: clickOnAccenptTrade
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &345146117
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4039,14 +4087,14 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: PanelToTrade, Assembly-CSharp
-        m_MethodName: confirmTrade5
-        m_Mode: 1
+      - m_Target: {fileID: 356750447}
+        m_TargetAssemblyTypeName: TradeScripts.TradeControler, Assembly-CSharp
+        m_MethodName: clickOnAccenptTrade
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 4
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -4315,6 +4363,7 @@ MonoBehaviour:
   turnManager: {fileID: 356750438}
   drawEntropy: {fileID: 356750441}
   drawMission: {fileID: 356750446}
+  tradeControl: {fileID: 356750447}
 --- !u!114 &356750440
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4517,6 +4566,7 @@ MonoBehaviour:
   opponent3: {fileID: 461939016}
   opponent4: {fileID: 2043908292}
   opponent5: {fileID: 519099635}
+  missionCardArea: {fileID: 1734377028}
   missionPOPUP: {fileID: 356750445}
   tradePanel: {fileID: 974634417}
   MyNickName: {fileID: 1573674534}
@@ -7150,10 +7200,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: PanelToTrade, Assembly-CSharp
-        m_MethodName: clickOnToCancelTradeOpponent1
-        m_Mode: 1
+      - m_Target: {fileID: 356750447}
+        m_TargetAssemblyTypeName: TradeScripts.TradeControler, Assembly-CSharp
+        m_MethodName: clickOnCancelAskTrade
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -7871,7 +7921,19 @@ MonoBehaviour:
       m_Calls: []
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 519099635}
+        m_TargetAssemblyTypeName: TradeScripts.TradeArea, Assembly-CSharp
+        m_MethodName: OnDetectInputchange
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_OnTouchScreenKeyboardStatusChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -9488,10 +9550,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: PanelToTrade, Assembly-CSharp
-        m_MethodName: declineTrade1
-        m_Mode: 1
+      - m_Target: {fileID: 356750447}
+        m_TargetAssemblyTypeName: TradeScripts.TradeControler, Assembly-CSharp
+        m_MethodName: clickOnDeclineTrade
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -9699,14 +9761,14 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: PanelToTrade, Assembly-CSharp
-        m_MethodName: clickOnToCancelTradeOpponent3
-        m_Mode: 1
+      - m_Target: {fileID: 356750447}
+        m_TargetAssemblyTypeName: TradeScripts.TradeControler, Assembly-CSharp
+        m_MethodName: clickOnCancelAskTrade
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 2
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -11505,7 +11567,19 @@ MonoBehaviour:
       m_Calls: []
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 232278746}
+        m_TargetAssemblyTypeName: TradeScripts.TradeArea, Assembly-CSharp
+        m_MethodName: OnDetectInputchange
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_OnTouchScreenKeyboardStatusChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -14050,14 +14124,14 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: PanelToTrade, Assembly-CSharp
-        m_MethodName: confirmTrade2
-        m_Mode: 1
+      - m_Target: {fileID: 356750447}
+        m_TargetAssemblyTypeName: TradeScripts.TradeControler, Assembly-CSharp
+        m_MethodName: clickOnAccenptTrade
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 1
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -15091,14 +15165,14 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: PanelToTrade, Assembly-CSharp
-        m_MethodName: clickOnToCancelTradeOpponent4
-        m_Mode: 1
+      - m_Target: {fileID: 356750447}
+        m_TargetAssemblyTypeName: TradeScripts.TradeControler, Assembly-CSharp
+        m_MethodName: clickOnCancelAskTrade
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 3
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -15628,14 +15702,14 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: PanelToTrade, Assembly-CSharp
-        m_MethodName: declineTrade2
-        m_Mode: 1
+      - m_Target: {fileID: 356750447}
+        m_TargetAssemblyTypeName: TradeScripts.TradeControler, Assembly-CSharp
+        m_MethodName: clickOnDeclineTrade
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 1
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -15972,14 +16046,14 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: PanelToTrade, Assembly-CSharp
-        m_MethodName: clickOnToTradeOpponent4
-        m_Mode: 1
+      - m_Target: {fileID: 356750447}
+        m_TargetAssemblyTypeName: TradeScripts.TradeControler, Assembly-CSharp
+        m_MethodName: clickOnAskTrade
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 3
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -16603,14 +16677,14 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: PanelToTrade, Assembly-CSharp
-        m_MethodName: clickOnToTradeOpponent2
-        m_Mode: 1
+      - m_Target: {fileID: 356750447}
+        m_TargetAssemblyTypeName: TradeScripts.TradeControler, Assembly-CSharp
+        m_MethodName: clickOnAskTrade
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 1
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -18113,7 +18187,19 @@ MonoBehaviour:
       m_Calls: []
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 995353769}
+        m_TargetAssemblyTypeName: TradeScripts.TradeArea, Assembly-CSharp
+        m_MethodName: OnDetectInputchange
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_OnTouchScreenKeyboardStatusChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -18424,14 +18510,14 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: PanelToTrade, Assembly-CSharp
-        m_MethodName: clickOnToCancelTradeOpponent2
-        m_Mode: 1
+      - m_Target: {fileID: 356750447}
+        m_TargetAssemblyTypeName: TradeScripts.TradeControler, Assembly-CSharp
+        m_MethodName: clickOnCancelAskTrade
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 1
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -18720,14 +18806,14 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: PanelToTrade, Assembly-CSharp
-        m_MethodName: confirmTrade3
-        m_Mode: 1
+      - m_Target: {fileID: 356750447}
+        m_TargetAssemblyTypeName: TradeScripts.TradeControler, Assembly-CSharp
+        m_MethodName: clickOnAccenptTrade
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 2
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -18852,14 +18938,14 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: PanelToTrade, Assembly-CSharp
-        m_MethodName: clickOnToCancelTradeOpponent5
-        m_Mode: 1
+      - m_Target: {fileID: 356750447}
+        m_TargetAssemblyTypeName: TradeScripts.TradeControler, Assembly-CSharp
+        m_MethodName: clickOnCancelAskTrade
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 4
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -19830,14 +19916,14 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: PanelToTrade, Assembly-CSharp
-        m_MethodName: declineTrade3
-        m_Mode: 1
+      - m_Target: {fileID: 356750447}
+        m_TargetAssemblyTypeName: TradeScripts.TradeControler, Assembly-CSharp
+        m_MethodName: clickOnDeclineTrade
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 2
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -19962,14 +20048,14 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: PanelToTrade, Assembly-CSharp
-        m_MethodName: clickOnToTradeOpponent3
-        m_Mode: 1
+      - m_Target: {fileID: 356750447}
+        m_TargetAssemblyTypeName: TradeScripts.TradeControler, Assembly-CSharp
+        m_MethodName: clickOnAskTrade
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 2
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0

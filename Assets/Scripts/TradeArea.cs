@@ -21,6 +21,7 @@ namespace TradeScripts
                 NickName.GetComponent<Text>().text = nickname;
             }
         }
+        public int MyMoney {get; set;}
         private bool Attending;
         public bool attending
         {
@@ -39,7 +40,6 @@ namespace TradeScripts
             {
                 askingButton = value;
                 AskToTradeButton.GetComponent<Button>().interactable = askingButton;
-                inputBribe.GetComponent<TMP_InputField>().interactable = askingButton;
             }
         }
         private bool cancelAskButton;
@@ -102,7 +102,57 @@ namespace TradeScripts
                 missionCard.GetComponent<Image>().sprite = missionCardDeck.cardDeck[missionID - 1].artwork_front_info;
             }
         }
+        private bool bribeInput;
+        public bool BribeInput
+        {
+            get { return bribeInput; }
+            set
+            {
+                bribeInput = value;
+                inputBribe.GetComponent<TMP_InputField>().interactable = bribeInput;
+            }
+        }
+        public string setBribeInputValue
+        {
+            set
+            {
+                inputBribe.GetComponent<TMP_InputField>().text = value;
+            }
+        }
         public int amountAskingBribing { get; set; }
         public int amountBeingBribed { get; set; }
+        public void OnDetectInputchange()
+        {
+            int convertedToInt;
+            bool isNumeric = int.TryParse(inputBribe.GetComponent<TMP_InputField>().text, out convertedToInt);
+            if (isNumeric)
+            {
+                if (convertedToInt > MyMoney)
+                {
+                    setAskingText = "Error input is more than your amount of money";
+                    askButton = false;
+                }
+                else if (convertedToInt < 0)
+                {
+                    setAskingText = "Error input is lesser than 0";
+                    askButton = false;
+                }
+                else
+                {
+                    setAskingText = "Money Bribe " + convertedToInt ;
+                    askButton = true;
+                }
+            }
+            else
+            {
+                setAskingText = "Error input is string";
+                askButton = false;
+            }
+        }
+        public void setAskTrade()
+        {
+            amountAskingBribing = int.Parse(inputBribe.GetComponent<TMP_InputField>().text);
+            cancelAskButton = true;
+        }
     }
 }

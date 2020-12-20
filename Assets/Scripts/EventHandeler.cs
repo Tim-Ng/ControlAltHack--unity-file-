@@ -4,7 +4,7 @@ using Photon.Pun;
 using UnityEngine;
 using UserAreas;
 using DrawCards;
-
+using TradeScripts;
 namespace main
 {
     enum PhotonEventCode
@@ -25,6 +25,12 @@ namespace main
         drawMissionUsed = 13,
         tradeNotAttending = 14,
         tradeAttending = 15,
+        receiveSomeoneAskToTrade =16,
+        receiveSoneoneCancelAsk = 17,
+        declineSomeoneAsk = 18,
+        AcceptSomeoneAsk = 19,
+        sendMissionCardChanged = 20,
+
     }
     public class EventHandeler : MonoBehaviour
     {
@@ -33,6 +39,7 @@ namespace main
         [SerializeField] private TurnManager turnManager= null;
         [SerializeField] private drawEntropyCard drawEntropy = null;
         [SerializeField] private drawMissionCard drawMission = null;
+        [SerializeField] private TradeControler tradeControl = null;
         public RaiseEventOptions AllOtherThanMePeopleOptions = new RaiseEventOptions()
         {
             CachingOption = EventCaching.DoNotCache,
@@ -139,6 +146,36 @@ namespace main
             {
                 object[] info = (object[])obj.CustomData;
                 userControler.receiveOtherNotAttending((Player)info[0]);
+            }
+            else if (obj.Code == (byte)PhotonEventCode.receiveSomeoneAskToTrade)
+            {
+                Debug.Log("Receive Ask Trade");
+                object[] info = (object[])obj.CustomData;
+                tradeControl.receiveAskFromOtherPlayer((int)userControler.findPlayerPosition((Player)info[0]),(int)info[1]);
+            }
+            else if (obj.Code == (byte)PhotonEventCode.receiveSoneoneCancelAsk)
+            {
+                Debug.Log("Receive Cancel Trade");
+                object[] info = (object[])obj.CustomData;
+                tradeControl.receiveCancelAskFromOtherPlayer((int)userControler.findPlayerPosition((Player)info[0]));
+            }
+            else if (obj.Code == (byte)PhotonEventCode.declineSomeoneAsk)
+            {
+                Debug.Log("Receive Trade Was Decline");
+                object[] info = (object[])obj.CustomData;
+                tradeControl.ReceiveDeclineTrade((int)userControler.findPlayerPosition((Player)info[0]),"This player has decline your trade.");
+            }
+            else if (obj.Code == (byte)PhotonEventCode.AcceptSomeoneAsk)
+            {
+                Debug.Log("Receive Trade Was Accept");
+                object[] info = (object[])obj.CustomData;
+                tradeControl.ReceiveOnSomeoneAcceptYourTrade((int)userControler.findPlayerPosition((Player)info[0]));
+            } 
+            else if (obj.Code == (byte)PhotonEventCode.sendMissionCardChanged)
+            {
+                Debug.Log("Someone change cards");
+                object[] info = (object[])obj.CustomData;
+                tradeControl.onReceiveChangeMissionCard((int)userControler.findPlayerPosition((Player)info[0]),(int)info[1]);
             }
         }
     }

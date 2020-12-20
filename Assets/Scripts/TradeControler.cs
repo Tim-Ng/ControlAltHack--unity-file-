@@ -14,8 +14,10 @@ namespace TradeScripts
     {
         [SerializeField] private UserAreaControlers userControler = null;
         [SerializeField] private EventHandeler EventManger = null;
+        [SerializeField] private drawEntropyCard drawEntroy = null;
         [SerializeField] private TradeArea opponent1=null, opponent2 = null, opponent3 = null, opponent4 = null, opponent5 = null;
         [SerializeField] private missionPopup missionPOPUP = null;
+        private int HowManyPeople = 0;
         private List<TradeArea> tradeAreaContollers = new List<TradeArea>();
         [SerializeField] private GameObject tradePanel = null, MyNickName = null, MyMoney = null, myMissionCard = null;
         private void Start()
@@ -29,6 +31,7 @@ namespace TradeScripts
         }
         public void setAllAreas()
         {
+            HowManyPeople = 0;
             myMissionCard.GetComponent<Image>().sprite = userControler.users[0].missionScript.artwork_front_info;
             MyMoney.GetComponent<Text>().text = userControler.users[0].amountOfMoney.ToString();
             for (int i = 1; i <6; i++)
@@ -37,6 +40,10 @@ namespace TradeScripts
                 tradeAreaContollers[i-1].setAskingText = "You have asked anyone";
                 tradeAreaContollers[i-1].setgettingAskText = "No players have asked you yet";
                 tradeAreaContollers[i-1].attending = userControler.users[i].attendingOrNot;
+                if (tradeAreaContollers[i - 1].attending == true)
+                {
+                    HowManyPeople = +1;
+                }
                 tradeAreaContollers[i-1].acceptButton = false;
                 tradeAreaContollers[i-1].rejectButton = false;
                 tradeAreaContollers[i-1].askButton = true;
@@ -51,6 +58,10 @@ namespace TradeScripts
         public void PlayerAttentingChange(int which,int cardID)
         {
             tradeAreaContollers[which - 1].attending = userControler.users[which].attendingOrNot;
+            if (tradeAreaContollers[which - 1].attending)
+            {
+                HowManyPeople = +1;
+            }
             tradeAreaContollers[which - 1].setgetmissionID = cardID;
         }
         public void controlAllAskButton(bool how)
@@ -76,12 +87,21 @@ namespace TradeScripts
         {
             tradePanel.SetActive(false);
             userControler.setandsendIfNotAttending();
+            if (HowManyPeople == 0)
+            {
+                drawEntroy.drawEntropyCards(1);
+            }
+            drawEntroy.drawEntropyCards(1);
             object[] player = new object[] { PhotonNetwork.LocalPlayer.ActorNumber };
             PhotonNetwork.RaiseEvent((byte)PhotonEventCode.setWaiting, player, EventManger.AllPeople, SendOptions.SendReliable);
         }
         public void clickOncard(int which)
         {
-            missionPOPUP.clickOnCard(tradeAreaContollers[which].setgetmissionID, 0);
+            missionPOPUP.clickOnCard(missionCardDeck.cardDeck[tradeAreaContollers[which].setgetmissionID - 1], 0,false);
+        }
+        public void clickOnMycard()
+        {
+            missionPOPUP.clickOnCard(userControler.users[0].missionScript, 0,false);
         }
     }
 }

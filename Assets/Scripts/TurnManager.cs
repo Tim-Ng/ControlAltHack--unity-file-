@@ -21,7 +21,7 @@ namespace main
         private List<int> arrangedActors = new List<int>();
         public int PlayerIdToMakeThisTurn;
         public int currentPositionInArray;
-        public int TurnNumber = 0;
+        private int TurnNumber = 0;
         private bool waiting= false;
         private List<int> actorsDone = new List<int>();
         public bool IsMyTurn

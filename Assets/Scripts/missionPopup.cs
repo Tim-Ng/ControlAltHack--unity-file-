@@ -14,7 +14,6 @@ namespace DrawCards {
         [SerializeField] private UserAreaControlers userAreaControlers = null;
         [SerializeField] private GameObject popUp = null, missionCardInpopUp = null,cardCharInpopUp = null, exitButton = null,selectButton =null,attendOrNot = null,missionStuffs = null,infoStuffs = null;
         [SerializeField] private TradeControler tradeControler=null;
-        [SerializeField] private TurnManager turnManager = null;
         [SerializeField] private drawMissionCard drawMission = null;
         [SerializeField] private EventHandeler EventManger = null;
         private MissionCardScript whichScript = null;
@@ -22,7 +21,7 @@ namespace DrawCards {
         {
             popUp.SetActive(false);
         }
-        public void clickOnCard(MissionCardScript missionScript,int whichPerson )
+        public void clickOnCard(MissionCardScript missionScript,int whichPerson ,bool noExit)
         {
             popUp.SetActive(true);
             missionStuffs.SetActive(true);
@@ -30,7 +29,7 @@ namespace DrawCards {
             whichScript = missionScript;
             missionCardInpopUp.GetComponent<Image>().sprite = whichScript.artwork_front_info;
             cardCharInpopUp.GetComponent<Image>().sprite = userAreaControlers.users[whichPerson].characterScript.artwork_front_info;
-            if (turnManager.TurnNumber % 2 == 1)
+            if (noExit)
             {
                 if (userAreaControlers.users[0].MissionCards >= 2)
                 {
@@ -52,21 +51,7 @@ namespace DrawCards {
                 selectButton.SetActive(false);
                 attendOrNot.SetActive(false);
             }
-            
         }
-        public void clickOnCard(int missionID, int whichPerson)
-        {
-            popUp.SetActive(true);
-            missionStuffs.SetActive(true);
-            infoStuffs.SetActive(false);
-            whichScript = missionCardDeck.cardDeck[missionID-1];
-            missionCardInpopUp.GetComponent<Image>().sprite = whichScript.artwork_front_info;
-            cardCharInpopUp.GetComponent<Image>().sprite = userAreaControlers.users[whichPerson].characterScript.artwork_front_info;
-            exitButton.SetActive(true);
-            selectButton.SetActive(false);
-            attendOrNot.SetActive(false);
-        }
-
         public void selectThisMission()
         {
             userAreaControlers.users[0].missionScript = whichScript;

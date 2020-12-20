@@ -1938,6 +1938,7 @@ GameObject:
   - component: {fileID: 187774238}
   - component: {fileID: 187774240}
   - component: {fileID: 187774239}
+  - component: {fileID: 187774241}
   m_Layer: 0
   m_Name: MissionCard
   m_TagString: Untagged
@@ -2002,6 +2003,61 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 187774237}
   m_CullTransparentMesh: 0
+--- !u!114 &187774241
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 187774237}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 3
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 187774239}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 356750447}
+        m_TargetAssemblyTypeName: TradeScripts.TradeControler, Assembly-CSharp
+        m_MethodName: clickOnMycard
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &192341622
 GameObject:
   m_ObjectHideFlags: 0
@@ -4242,7 +4298,6 @@ MonoBehaviour:
   drawMission: {fileID: 356750446}
   PlayerIdToMakeThisTurn: 0
   currentPositionInArray: 0
-  TurnNumber: 0
 --- !u!114 &356750439
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4424,7 +4479,6 @@ MonoBehaviour:
   missionStuffs: {fileID: 1014095585}
   infoStuffs: {fileID: 1227672051}
   tradeControler: {fileID: 356750447}
-  turnManager: {fileID: 356750438}
   drawMission: {fileID: 356750446}
   EventManger: {fileID: 356750439}
 --- !u!114 &356750446
@@ -4457,12 +4511,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   userControler: {fileID: 356750432}
   EventManger: {fileID: 356750439}
+  drawEntroy: {fileID: 356750441}
   opponent1: {fileID: 232278746}
   opponent2: {fileID: 995353769}
   opponent3: {fileID: 461939016}
   opponent4: {fileID: 2043908292}
   opponent5: {fileID: 519099635}
-  missionPOPUP: {fileID: 0}
+  missionPOPUP: {fileID: 356750445}
   tradePanel: {fileID: 974634417}
   MyNickName: {fileID: 1573674534}
   MyMoney: {fileID: 1644923758}
@@ -9921,7 +9976,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &974634418
 RectTransform:
   m_ObjectHideFlags: 0

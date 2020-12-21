@@ -20,24 +20,82 @@ namespace DrawCards
         LockPicking,
         SearchFU
     }
+    public static class GetStringOfTask
+    {
+        private static string HardHackSTR = "Hardware Hacking";
+        public static string CryptSTR = "Cryptanalysis";
+        public static string NetNinjaSTR = "Network Ninja";
+        public static string SocialEngSTR = "Social Engineering";
+        public static string KitchenSTR = "Kitchen Sink";
+        public static string SoftWizSTR = "Software Wizardry";
+        public static string BaristaSTR = "Barista";
+        public static string ConnnectionsSTR = "Connnections";
+        public static string WebProcurementSTR = "WebProcurement";
+        public static string ForensicsSTR = "Forensics";
+        public static string LockPickingSTR = "LockPicking";
+        public static string SearchFUSTR = "SearchFU";
+        public static string nullySTR = "Null ERROR";
+        public static string get_string_of_job(AllJobs WhichJob)
+        {
+            if (WhichJob == AllJobs.HardHack)
+            {
+                return HardHackSTR;
+            }
+            else if (WhichJob == AllJobs.Crypt)
+            {
+                return CryptSTR;
+            }
+            else if (WhichJob == AllJobs.NetNinja)
+            {
+                return NetNinjaSTR;
+            }
+            else if (WhichJob == AllJobs.SocialEng)
+            {
+                return SocialEngSTR;
+            }
+            else if (WhichJob == AllJobs.Kitchen)
+            {
+                return KitchenSTR;
+            }
+            else if (WhichJob == AllJobs.SoftWiz)
+            {
+                return SoftWizSTR;
+            }
+            else if (WhichJob == AllJobs.Barista)
+            {
+                return BaristaSTR;
+            }
+            else if (WhichJob == AllJobs.Connnections)
+            {
+                return ConnnectionsSTR;
+            }
+            else if (WhichJob == AllJobs.WebProcurement)
+            {
+                return WebProcurementSTR;
+            }
+            else if (WhichJob == AllJobs.Forensics)
+            {
+                return ForensicsSTR;
+            }
+            else if (WhichJob == AllJobs.LockPicking)
+            {
+                return LockPickingSTR;
+            }
+            else if (WhichJob == AllJobs.SearchFU)
+            {
+                return SearchFUSTR;
+            }
+            else
+            {
+                return nullySTR;
+            }
+        }
+    }
     [CreateAssetMenu(fileName = "New Card", menuName = "CharacterCard")]
     public class CharCardScript : ScriptableObject
     {
-        /*public static string HardHack = "Hardware Hacking";
-        public static string Crypt = "Cryptanalysis";
-        public static string NetNinja = "Network Ninja";
-        public static string SocialEng = "Social Engineering";
-        public static string Kitchen = "Kitchen Sink";
-        public static string SoftWiz = "Software Wizardry";
-        public static string Barista = "Barista";
-        public static string Connnections = "Connnections";
-        public static string WebProcurement = "WebProcurement";
-        public static string Forensics = "Forensics";
-        public static string LockPicking = "LockPicking";
-        public static string SearchFU = "SearchFU";
-        public static string nully = "Null";
-        public static List<string> allWorkName = new List<string>() { nully,HardHack, Crypt, NetNinja, SocialEng, Kitchen, SoftWiz, Barista, Connnections, WebProcurement, Forensics, LockPicking, SearchFU };
-        public static List<string> allspecials = new List<string>() { nully,SoftWiz, Barista, Connnections, WebProcurement, Forensics, LockPicking, SearchFU };*/
+        
+        
 
         public int character_code;
         public string character_card_name;

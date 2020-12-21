@@ -16,6 +16,7 @@ namespace DrawCards {
         [SerializeField] private TradeControler tradeControler=null;
         [SerializeField] private drawMissionCard drawMission = null;
         [SerializeField] private EventHandeler EventManger = null;
+        public bool AttendingOrNot = false;
         private MissionCardScript whichScript = null;
         public void closePopUp()
         {
@@ -63,18 +64,16 @@ namespace DrawCards {
         public void clickOnAttend()
         {
             popUp.SetActive(false);
+            AttendingOrNot = true;
             userAreaControlers.setandsendIfAttending();
             tradeControler.setAllAreas();
         }
         public void clickOnNotAttend()
         {
             popUp.SetActive(false);
+            AttendingOrNot = false;
             object[] player = new object[] { PhotonNetwork.LocalPlayer.ActorNumber };
             PhotonNetwork.RaiseEvent((byte)PhotonEventCode.setWaiting, player, EventManger.AllPeople, SendOptions.SendReliable);
-        }
-        public void clickOnInfo()
-        {
-
         }
     }
 }

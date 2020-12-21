@@ -68,7 +68,7 @@ namespace TradeScripts
         }
         public void playerAskToTrade(Player which,int amountBribed)
         {
-            int playerPosition = userControler.findPlayerPosition(which) - 1;
+            int playerPosition = (userControler.findPlayerPosition(which)) - 1;
             tradeAreaContollers[playerPosition].amountBeingBribed = amountBribed;
             tradeAreaContollers[playerPosition].acceptButton = false;
             tradeAreaContollers[playerPosition].rejectButton = false;
@@ -143,7 +143,7 @@ namespace TradeScripts
             userControler.users[0].missionScript = missionCardDeck.cardDeck[tradeAreaContollers[which].setgetmissionID-1];
             changeMyMissionCardOnPlayArea();
             userControler.addMyMoney(tradeAreaContollers[which].amountBeingBribed);
-            MyNickName.GetComponent<Text>().text = userControler.users[0].Nickname;
+            MyMoney.GetComponent<Text>().text = userControler.users[0].amountOfMoney.ToString();
             tradeAreaContollers[which].amountBeingBribed = 0;
             object[] playerChangedMission = new object[] { PhotonNetwork.LocalPlayer,userControler.users[0].missionScript.Mission_code };
             PhotonNetwork.RaiseEvent((byte)PhotonEventCode.sendMissionCardChanged, playerChangedMission, EventManger.AllOtherThanMePeopleOptions, SendOptions.SendReliable);
@@ -153,7 +153,7 @@ namespace TradeScripts
             userControler.users[0].missionScript = missionCardDeck.cardDeck[tradeAreaContollers[which-1].setgetmissionID - 1];
             changeMyMissionCardOnPlayArea();
             userControler.subMyMoney(tradeAreaContollers[which-1].amountAskingBribing);
-            MyNickName.GetComponent<Text>().text = userControler.users[0].Nickname;
+            MyMoney.GetComponent<Text>().text = userControler.users[0].amountOfMoney.ToString();
             tradeAreaContollers[which-1].amountAskingBribing = 0;
             tradeAreaContollers[which-1].setgettingAskText = "Your trade is accepted";
             object[] playerChangedMission = new object[] { PhotonNetwork.LocalPlayer, userControler.users[0].missionScript.Mission_code };

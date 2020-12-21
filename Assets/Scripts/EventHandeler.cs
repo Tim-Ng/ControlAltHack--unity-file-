@@ -5,6 +5,8 @@ using UnityEngine;
 using UserAreas;
 using DrawCards;
 using TradeScripts;
+using rollmissions;
+
 namespace main
 {
     enum PhotonEventCode
@@ -30,6 +32,10 @@ namespace main
         declineSomeoneAsk = 18,
         AcceptSomeoneAsk = 19,
         sendMissionCardChanged = 20,
+        setTimerForRoll = 21,
+        sendWhoRolling = 22,
+        textForTextBeforeRoll = 23,
+        setToDuringRoll = 24,
 
     }
     public class EventHandeler : MonoBehaviour
@@ -40,6 +46,7 @@ namespace main
         [SerializeField] private drawEntropyCard drawEntropy = null;
         [SerializeField] private drawMissionCard drawMission = null;
         [SerializeField] private TradeControler tradeControl = null;
+        [SerializeField] private rollingMissionControl rollingMission = null;
         public RaiseEventOptions AllOtherThanMePeopleOptions = new RaiseEventOptions()
         {
             CachingOption = EventCaching.DoNotCache,
@@ -176,6 +183,30 @@ namespace main
                 Debug.Log("Someone change cards");
                 object[] info = (object[])obj.CustomData;
                 tradeControl.onReceiveChangeMissionCard((int)userControler.findPlayerPosition((Player)info[0]),(int)info[1]);
+            }
+            else if (obj.Code == (byte)PhotonEventCode.setTimerForRoll)
+            {
+                Debug.Log("Timerset");
+                object[] timer = (object[])obj.CustomData;
+                rollingMission.setTimer((string)timer[0]);
+            }
+            else if (obj.Code == (byte)PhotonEventCode.sendWhoRolling)
+            {
+                Debug.Log("Receive someone rolling");
+                object[] playerInfo = (object[])obj.CustomData;
+                rollingMission.onReceiveSetOtherPlayerRoll((Player)playerInfo[0],(int)playerInfo[1],(int)playerInfo[2]);
+            }
+            else if (obj.Code == (byte)PhotonEventCode.textForTextBeforeRoll)
+            {
+                Debug.Log("Receive text before rolling");
+                object[] taskInfo = (object[])obj.CustomData;
+                rollingMission.onReceiveTextBeforeRollTasks((string)taskInfo[0], (bool)taskInfo[1], (string)taskInfo[2], (bool)taskInfo[3], (string)taskInfo[4]);
+            }
+            else if (obj.Code == (byte)PhotonEventCode.setToDuringRoll)
+            {
+                Debug.Log("Receive text during rolling");
+                object[] playerDuringdata = (object[])obj.CustomData;
+                rollingMission.onReceiveChangeToDuringTask();
             }
         }
     }

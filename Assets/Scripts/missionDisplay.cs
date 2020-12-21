@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using main;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,7 +10,6 @@ namespace DrawCards
     public class missionDisplay : MonoBehaviour
     {
         private MissionCardScript infoMission = null;
-        private bool noExit = true;
         [SerializeField] private GameObject BackSide = null, InfoSide = null;
         public void setID(int which)
         {
@@ -31,11 +31,10 @@ namespace DrawCards
         public void clickOnInfo()
         {
             GameObject popUp = GameObject.Find("/MainGame/Game Interface");
-            popUp.GetComponent<missionPopup>().clickOnCard(infoMission,0, noExit);
-            if (popUp.GetComponent < UserAreaControlers>().users[0].MissionCards == 1)
-            {
-                noExit = false;
-            }
+            if (popUp.GetComponent <TurnManager>().TurnNumber %2 == 1)
+                popUp.GetComponent<missionPopup>().clickOnCard(infoMission, 0, true);
+            else
+                popUp.GetComponent<missionPopup>().clickOnCard(infoMission, 0, false);
         }
         public void setBackSide(bool TorF)
         {

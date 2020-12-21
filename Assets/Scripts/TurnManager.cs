@@ -7,6 +7,8 @@ using UserAreas;
 using DrawCards;
 using ExitGames.Client.Photon;
 using System.Threading;
+using rollmissions;
+using UnityEngine.UI;
 
 namespace main
 {
@@ -17,11 +19,13 @@ namespace main
         [SerializeField] private drawEntropyCard drawEntro= null;
         [SerializeField] private EventHandeler EventManager = null;
         [SerializeField] private drawMissionCard drawMission = null;
+        [SerializeField] private rollingMissionControl rollingMission = null;
+        [SerializeField] private GameObject roundIndicator = null;
         private int CurrentTurn;
         private List<int> arrangedActors = new List<int>();
         public int PlayerIdToMakeThisTurn;
         public int currentPositionInArray;
-        private int TurnNumber = 0;
+        public int TurnNumber = 0;
         private bool waiting= false;
         private List<int> actorsDone = new List<int>();
         public bool IsMyTurn
@@ -149,6 +153,13 @@ namespace main
             if (actorsDone.Count == PhotonNetwork.CurrentRoom.PlayerCount)
             {
                 TurnNumber += 1;
+                if (TurnNumber %2 == 1)
+                {
+                    roundIndicator.SetActive(true);
+                    roundIndicator.GetComponent<Text>().text = "Round " + (TurnNumber % 2);
+                }
+                else  if (TurnNumber % 2 == 0)
+                    roundIndicator.SetActive(false);
                 waiting = false;
                 if (PhotonNetwork.IsMasterClient)
                 {
@@ -190,11 +201,12 @@ namespace main
                 {
                     drawCard.drawCharCards(3);
                 }
+                EndTurn();
             }
             else if (TurnNumber % 2 == 1)
             {
                 if (TurnNumber == 1)
-                {
+                { 
                     userContorlAreas.addMyCred(6);
                     drawEntro.drawEntropyCards(5);
                     if (userContorlAreas.users[0].characterScript.character_code == 7)
@@ -212,13 +224,17 @@ namespace main
                     userContorlAreas.addMyMoney(3000);
                 else
                     userContorlAreas.addMyMoney(2000);
+                EndTurn();
             }
             else if (TurnNumber %2 == 0)
             {
-
+                rollingMission.setRollTimeIsMyTurn();
             }
-            PhotonNetwork.RaiseEvent((byte)PhotonEventCode.playerChanged,null, EventManager.AllPeople, SendOptions.SendReliable);
+            
         }
-        
+        public void EndTurn()
+        {
+            PhotonNetwork.RaiseEvent((byte)PhotonEventCode.playerChanged, null, EventManager.AllPeople, SendOptions.SendReliable);
+        }
     }
 }

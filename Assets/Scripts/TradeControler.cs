@@ -53,10 +53,7 @@ namespace TradeScripts
             }
             tradePanel.SetActive(true);
         }
-        public void PlayerAttentingChange(int which)
-        {
-            tradeAreaContollers[which - 1].attending = userControler.users[which].attendingOrNot;
-        }
+        public void PlayerAttentingChange(int which) => tradeAreaContollers[which - 1].attending = userControler.users[which].attendingOrNot;
         public void PlayerAttentingChange(int which,int cardID)
         {
             tradeAreaContollers[which - 1].attending = userControler.users[which].attendingOrNot;
@@ -85,14 +82,8 @@ namespace TradeScripts
             object[] player = new object[] { PhotonNetwork.LocalPlayer.ActorNumber };
             PhotonNetwork.RaiseEvent((byte)PhotonEventCode.setWaiting, player, EventManger.AllPeople, SendOptions.SendReliable);
         }
-        public void clickOncard(int which)
-        {
-            missionPOPUP.clickOnCard(missionCardDeck.cardDeck[tradeAreaContollers[which].setgetmissionID - 1], 0,false);
-        }
-        public void clickOnMycard()
-        {
-            missionPOPUP.clickOnCard(userControler.users[0].missionScript, 0,false);
-        }
+        public void clickOncard(int which) => missionPOPUP.clickOnCard(missionCardDeck.cardDeck[tradeAreaContollers[which].setgetmissionID - 1], 0, false);
+        public void clickOnMycard() => missionPOPUP.clickOnCard(userControler.users[0].missionScript, 0, false);
         public void clickOnAskTrade(int which)
         {
             tradeAreaContollers[which].setAskTrade();

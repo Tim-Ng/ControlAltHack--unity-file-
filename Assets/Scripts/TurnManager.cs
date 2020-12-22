@@ -9,6 +9,7 @@ using ExitGames.Client.Photon;
 using System.Threading;
 using rollmissions;
 using UnityEngine.UI;
+using System;
 
 namespace main
 {
@@ -26,6 +27,7 @@ namespace main
         public int PlayerIdToMakeThisTurn;
         public int currentPositionInArray;
         public int TurnNumber = 0;
+        public int RoundNumber;
         private bool waiting= false;
         private List<int> actorsDone = new List<int>();
         public bool IsMyTurn
@@ -153,10 +155,11 @@ namespace main
             if (actorsDone.Count == PhotonNetwork.CurrentRoom.PlayerCount)
             {
                 TurnNumber += 1;
+                RoundNumber = (TurnNumber/2)+1;
                 if (TurnNumber %2 == 1)
                 {
                     roundIndicator.SetActive(true);
-                    roundIndicator.GetComponent<Text>().text = "Round " + (TurnNumber % 2);
+                    roundIndicator.GetComponent<Text>().text ="Round " + RoundNumber ;
                 }
                 else  if (TurnNumber % 2 == 0)
                     roundIndicator.SetActive(false);

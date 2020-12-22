@@ -36,6 +36,13 @@ namespace main
         sendWhoRolling = 22,
         textForTextBeforeRoll = 23,
         setToDuringRoll = 24,
+        setDuringRollText= 25,
+        setProcessText = 26,
+        setStatusText = 27,
+        rolledNumberMission = 28,
+        setCurrentMissionStatus =29,
+        setEndScene = 30,
+        setNumberOfChances =31,
 
     }
     public class EventHandeler : MonoBehaviour
@@ -194,7 +201,7 @@ namespace main
             {
                 Debug.Log("Receive someone rolling");
                 object[] playerInfo = (object[])obj.CustomData;
-                rollingMission.onReceiveSetOtherPlayerRoll((Player)playerInfo[0],(int)playerInfo[1],(int)playerInfo[2]);
+                rollingMission.onReceiveSetOtherPlayerRoll((Player)playerInfo[0],(int)playerInfo[1]);
             }
             else if (obj.Code == (byte)PhotonEventCode.textForTextBeforeRoll)
             {
@@ -208,6 +215,48 @@ namespace main
                 object[] playerDuringdata = (object[])obj.CustomData;
                 rollingMission.onReceiveChangeToDuringTask();
             }
+            else if (obj.Code == (byte)PhotonEventCode.setDuringRollText)
+            {
+                Debug.Log("Receive set text during rolling");
+                object[] playerDuringtextdata = (object[])obj.CustomData;
+                rollingMission.onReceiveControllText((string)playerDuringtextdata[0], (string)playerDuringtextdata[1], (string)playerDuringtextdata[2]);
+            }
+            else if (obj.Code == (byte)PhotonEventCode.setProcessText)
+            {
+                Debug.Log("Receive set text progress during rolling");
+                object[] setProcessTextdata = (object[])obj.CustomData;
+                rollingMission.onReceiveDuringTaskProgressText((int)setProcessTextdata[0], (string )setProcessTextdata[1]);
+            }
+            else if (obj.Code == (byte)PhotonEventCode.setStatusText)
+            {
+                Debug.Log("Receive set text status during rolling");
+                object[] setStatusTextdata = (object[])obj.CustomData;
+                rollingMission.onReceiveTaskStatusText((int)setStatusTextdata[0], (bool )setStatusTextdata[1]);
+            }
+            else if (obj.Code == (byte)PhotonEventCode.rolledNumberMission)
+            {
+                Debug.Log("Receive player RolledNumber rolling");
+                object[] rolledData = (object[])obj.CustomData;
+                rollingMission.onReceiveRolledValue((int)rolledData[0]);
+            }
+            else if (obj.Code == (byte)PhotonEventCode.setCurrentMissionStatus)
+            {
+                Debug.Log("Receive current mission status rolling");
+                object[] CurrentMissionStatusData = (object[])obj.CustomData;
+                rollingMission.onReceiveCurrentMissionStatus((string)CurrentMissionStatusData[0]);
+            }
+            else if (obj.Code == (byte)PhotonEventCode.setEndScene)
+            {
+                Debug.Log("Receive end rolling scene");
+                rollingMission.onReceiveEndScene();
+            }
+            else if (obj.Code == (byte)PhotonEventCode.setNumberOfChances)
+            {
+                Debug.Log("Receive number of chances ");
+                object[] numberOfChanceData = (object[])obj.CustomData;
+                rollingMission.onReceiveNumberOfChances((string)numberOfChanceData[0]);
+            }
+            
         }
     }
 }

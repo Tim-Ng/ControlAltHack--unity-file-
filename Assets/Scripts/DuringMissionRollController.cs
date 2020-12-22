@@ -11,8 +11,8 @@ namespace rollmissions
         [SerializeField] GameObject MissionCard = null;
         [SerializeField] GameObject beforeMission = null, duringMission = null, afterMission = null, currentRollerName = null;
         [SerializeField] GameObject task1beforeText = null, task2beforeText = null, task3beforeText = null, startMissionButton = null, timeText = null;
-        [SerializeField] GameObject currentTaskText = null, rolledNumber = null, task1duringText = null, task2duringText = null, task3duringText = null, rollGoalText = null, chancesLeft = null, whichTask = null;
-        [SerializeField] GameObject currentMissionStatusText = null, TaskOneStatus = null, TaskTwoStatus = null, TaskThreeStatus = null;
+        [SerializeField] GameObject currentTaskText = null, rolledNumber = null, task1duringText = null, task2duringText = null, task3duringText = null, rollGoalText = null, chancesLeft = null, whichTask = null,rollButton = null;
+        [SerializeField] GameObject currentMissionStatusText = null, TaskOneStatus = null, TaskTwoStatus = null, TaskThreeStatus = null,endMissionButton = null;
         private string rollerName;
         public string setgetCurrentRollerName
         {
@@ -121,13 +121,13 @@ namespace rollmissions
         {
             set { task3duringText.GetComponent<Text>().text = "Task 3: "+value; }
         }
-        public int setNumberOfChances
+        public string setNumberOfChances
         {
             set { chancesLeft.GetComponent<Text>().text = "Chances left: " + value; }
         }
         public string setWhichIsCurrentTask
         {
-            set { whichTask.GetComponent<Text>().text = value; }
+            set { whichTask.GetComponent<Text>().text = "Current task :" + value; }
         }
         public string setrollGoalText
         {
@@ -143,9 +143,13 @@ namespace rollmissions
                 afterMission.SetActive(afterMissionStatus);
             }
         }
-
+        public bool setActiveRollButton
+        {
+            set { rollButton.SetActive(value); }
+        }
         public string setcurrentMissionStatusText
         {
+            get { return currentMissionStatusText.GetComponent<Text>().text; }
             set { currentMissionStatusText.GetComponent<Text>().text = value; }
         }
         private bool TaskOneStatusValue;
@@ -157,11 +161,11 @@ namespace rollmissions
                 TaskOneStatusValue = value;
                 if (TaskOneStatusValue)
                 {
-                    TaskOneStatus.GetComponent<Text>().text = "Passed";
+                    TaskOneStatus.GetComponent<Text>().text = "Task 1: Passed";
                 }
                 else
                 {
-                    TaskOneStatus.GetComponent<Text>().text = "Failed";
+                    TaskOneStatus.GetComponent<Text>().text = "Task 1: Failed";
                 }
             }
         }
@@ -174,11 +178,11 @@ namespace rollmissions
                 TaskTwoStatusValue = value;
                 if (TaskTwoStatusValue)
                 {
-                    TaskTwoStatus.GetComponent<Text>().text = "Passed";
+                    TaskTwoStatus.GetComponent<Text>().text = "Task 2: Passed";
                 }
                 else
                 {
-                    TaskTwoStatus.GetComponent<Text>().text = "Failed";
+                    TaskTwoStatus.GetComponent<Text>().text = "Task 2: Failed";
                 }
             }
         }
@@ -191,13 +195,17 @@ namespace rollmissions
                 TaskThreeStatusValue = value;
                 if (TaskThreeStatusValue)
                 {
-                    TaskThreeStatus.GetComponent<Text>().text = "Passed";
+                    TaskThreeStatus.GetComponent<Text>().text = "Task 3: Passed";
                 }
                 else
                 {
-                    TaskThreeStatus.GetComponent<Text>().text = "Failed";
+                    TaskThreeStatus.GetComponent<Text>().text = "Task 3: Failed";
                 }
             }
+        }
+        public bool setActiveendMissionButton
+        {
+            set { endMissionButton.SetActive(value); }
         }
 
     }

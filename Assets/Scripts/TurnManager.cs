@@ -212,6 +212,7 @@ namespace main
                 { 
                     userContorlAreas.addMyCred(6);
                     drawEntro.drawEntropyCards(5);
+                    drawMission.removeAllCard();
                     if (userContorlAreas.users[0].characterScript.character_code == 7)
                     {
                         drawMission.drawMissionCards(2);

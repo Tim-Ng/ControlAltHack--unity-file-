@@ -93,6 +93,16 @@ namespace DrawCards {
             Debug.Log("Added card to the used card : " + which);
             missionCardIDUsed.Add(which);
         }
+        public void removeAllCard()
+        {
+            foreach (Transform child in cardArea.transform)
+            {
+                object[] whichCard = new object[] { child.gameObject.GetComponent<MissionCardScript>().Mission_code };
+                PhotonNetwork.RaiseEvent((byte)PhotonEventCode.drawMissionUsed, whichCard, EventManager.AllPeople, SendOptions.SendReliable);
+                GameObject.Destroy(child.gameObject);
+                userControler.users[0].MissionCards -= 1;
+            }
+        }
         public void removeAnMissionCard(MissionCardScript whichScript)
         {
             foreach (Transform child in cardArea.transform)

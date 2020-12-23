@@ -6,6 +6,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UserAreas;
+using rollmissions;
 namespace DrawCards {
     public class drawEntropyCard : MonoBehaviour
     {
@@ -14,6 +15,7 @@ namespace DrawCards {
         [SerializeField] private UserAreaControlers userControler = null;
         [SerializeField] private GameObject cardArea = null, cardTemplate = null;
         [SerializeField] private EventHandeler EventManager = null;
+        [SerializeField] private rollingMissionControl rollingMission = null;
         private void Start()
         {
             startDraw();
@@ -106,6 +108,7 @@ namespace DrawCards {
             object[] whichCard = new object[] { whichScript.EntropyCardID };
             PhotonNetwork.RaiseEvent((byte)PhotonEventCode.drawEntropyUsed, whichCard, EventManager.AllPeople, SendOptions.SendReliable);
             userControler.sendAmountOfCards();
+            rollingMission.removedAnEntropy();
         }
     }
 }

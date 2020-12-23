@@ -6,13 +6,14 @@ using ExitGames.Client.Photon;
 using main;
 using UserAreas;
 using UnityEngine.UI;
+using rollmissions;
 
 namespace DrawCards
 {
     public class CharCardPopup : MonoBehaviour
     {
         [SerializeField] private UserAreaControlers userAreaControlers = null;
-        [SerializeField] private GameObject popUp = null,cardInpopUp = null,buttonSelect=null,playingCardArea=null;
+        [SerializeField] private GameObject popUp = null, cardInpopUp = null, buttonSelect = null, playingCardArea = null, skillChangerEliment = null;
         [SerializeField] private EventHandeler EventManger = null;
         private CharCardScript whichScript = null;
         public void opendCharCard(CharCardScript info)
@@ -21,6 +22,7 @@ namespace DrawCards
             popUp.SetActive(true);
             whichScript = info;
             cardInpopUp.GetComponent<Image>().sprite = whichScript.artwork_front_info;
+            skillChangerEliment.SetActive(false);
         }
         public void closePopUp()
         {
@@ -43,6 +45,14 @@ namespace DrawCards
             popUp.SetActive(true);
             whichScript = userAreaControlers.users[which].characterScript;
             cardInpopUp.GetComponent<Image>().sprite = whichScript.artwork_front_info;
+            if (which == 0 )
+            {
+                skillChangerEliment.SetActive(true);
+            }
+            else
+            {
+                skillChangerEliment.SetActive(false);
+            }
         }
     }
 }

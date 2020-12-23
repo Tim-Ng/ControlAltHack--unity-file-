@@ -32,6 +32,9 @@ namespace DrawCards {
 
         public Sprite artwork_back;
         public Sprite artwork_front_info;
-
+        [Multiline]
+        public string ifpassText;
+        [Multiline]
+        public string iffailText;
     }
 }

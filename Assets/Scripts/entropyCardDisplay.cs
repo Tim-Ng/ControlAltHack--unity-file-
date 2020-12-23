@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using main;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,7 +9,12 @@ namespace DrawCards
     public class entropyCardDisplay : MonoBehaviour
     {
         private EntropyCardScript infoEntro = null;
-        [SerializeField] private GameObject BackSide = null, InfoSide = null;
+        [SerializeField] private GameObject BackSide = null, InfoSide = null, gameInterfaceOBJ = null;
+        public int turnPlayed = 0;
+        private void Start()
+        {
+            gameInterfaceOBJ = GameObject.Find("/MainGame/Game Interface");
+        }
         public void setID(int which)
         {
             infoEntro = entropyCardDeck.cardDeck[which-1];
@@ -26,11 +32,8 @@ namespace DrawCards
             setBackSide(false);
             setInfoSide(true);
         }
-        public void clickOnInfo()
-        {
-            GameObject popUp = GameObject.Find("/MainGame/Game Interface");
-            popUp.GetComponent<entropyCardPopup>().opendCharCard(infoEntro, false);
-        }
+        public void clickOnInfo() => gameInterfaceOBJ.GetComponent<entropyCardPopup>().opendCharCard(infoEntro, this, turnPlayed);
+        public void ifThisIsPlayed() => turnPlayed = gameInterfaceOBJ.GetComponent<TurnManager>().RoundNumber;
         public void setBackSide(bool TorF)
         {
             BackSide.SetActive(TorF);

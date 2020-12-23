@@ -31,3 +31,5 @@ MonoBehaviour:
   other_failure_how_much: 0
   artwork_back: {fileID: 21300000, guid: 9c71e06e254806a4481fb78c07c9c1fc, type: 3}
   artwork_front_info: {fileID: 21300000, guid: 92022b13adc9f1440a77caf78d5ef5a5, type: 3}
+  ifpassText: Plus 1 creds.
+  iffailText: Minus 1 creds.

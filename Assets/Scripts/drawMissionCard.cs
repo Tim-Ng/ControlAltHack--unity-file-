@@ -97,9 +97,10 @@ namespace DrawCards {
         {
             foreach (Transform child in cardArea.transform)
             {
-                object[] whichCard = new object[] { child.gameObject.GetComponent<MissionCardScript>().Mission_code };
+                GameObject gameItem = child.gameObject;
+                object[] whichCard = new object[] { gameItem.GetComponent<missionDisplay>().getInfo().Mission_code };
                 PhotonNetwork.RaiseEvent((byte)PhotonEventCode.drawMissionUsed, whichCard, EventManager.AllPeople, SendOptions.SendReliable);
-                GameObject.Destroy(child.gameObject);
+                GameObject.Destroy(gameItem);
                 userControler.users[0].MissionCards -= 1;
             }
         }

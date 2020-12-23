@@ -12,7 +12,7 @@ namespace rollmissions
         [SerializeField] GameObject beforeMission = null, duringMission = null, afterMission = null, currentRollerName = null;
         [SerializeField] GameObject task1beforeText = null, task2beforeText = null, task3beforeText = null, startMissionButton = null, timeText = null;
         [SerializeField] GameObject currentTaskText = null, rolledNumber = null, task1duringText = null, task2duringText = null, task3duringText = null, rollGoalText = null, chancesLeft = null, whichTask = null,rollButton = null;
-        [SerializeField] GameObject currentMissionStatusText = null, TaskOneStatus = null, TaskTwoStatus = null, TaskThreeStatus = null,endMissionButton = null;
+        [SerializeField] GameObject currentMissionStatusText = null, TaskOneStatus = null, TaskTwoStatus = null, TaskThreeStatus = null,endMissionButton = null,missionStatusOutPut = null;
         private string rollerName;
         public string setgetCurrentRollerName
         {
@@ -80,26 +80,16 @@ namespace rollmissions
         {
             set { timeText.GetComponent<Text>().text = value + "s"; }
         }
-        private bool beforeMissionStatus;
         public bool setbeforeMission
         {
-            get { return beforeMissionStatus; }
-            set
-            {
-                beforeMissionStatus = value;
-                beforeMission.SetActive(beforeMissionStatus);
-            }
+            get { return beforeMission.activeSelf; }
+            set { beforeMission.SetActive(value); }
         }
 
-        private bool DuringMissionStatus;
         public bool setDuringMission
         {
-            get { return DuringMissionStatus; }
-            set
-            {
-                DuringMissionStatus = value;
-                duringMission.SetActive(DuringMissionStatus);
-            }
+            get { return duringMission.activeSelf; }
+            set { duringMission.SetActive(value); }
         }
         public string setCurrentText
         {
@@ -133,15 +123,10 @@ namespace rollmissions
         {
             set { rollGoalText.GetComponent<Text>().text = value; }
         }
-        private bool afterMissionStatus;
         public bool setAfterMission
         {
-            get { return afterMissionStatus; }
-            set
-            {
-                afterMissionStatus = value;
-                afterMission.SetActive(afterMissionStatus);
-            }
+            get { return afterMission.activeSelf; }
+            set { afterMission.SetActive(value); }
         }
         public bool setActiveRollButton
         {
@@ -206,6 +191,15 @@ namespace rollmissions
         public bool setActiveendMissionButton
         {
             set { endMissionButton.SetActive(value); }
+        }
+        public bool setInteractableendMissionButton
+        {
+            set { endMissionButton.GetComponent<Button>().interactable = value; }
+        }
+        public string setGetMissionStatusOutPut
+        {
+            get { return missionStatusOutPut.GetComponent<Text>().text; }
+            set { missionStatusOutPut.GetComponent<Text>().text = value; }
         }
 
     }

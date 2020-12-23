@@ -121,8 +121,16 @@ namespace main
             CurrentTurn += 1;
             if (CurrentTurn >= arrangedActors.Count)
             {
-                waiting = true;
-                actorsDone.Clear();
+                if (TurnNumber == 0 || TurnNumber % 2 == 1)
+                {
+                    waiting = true;
+                    actorsDone.Clear();
+                }
+                else
+                {
+                    waiting = false;
+                    setNextRound();
+                }
             }
             else
             {
@@ -154,20 +162,25 @@ namespace main
             //check 
             if (actorsDone.Count == PhotonNetwork.CurrentRoom.PlayerCount)
             {
-                TurnNumber += 1;
-                RoundNumber = (TurnNumber/2)+1;
-                if (TurnNumber %2 == 1)
-                {
-                    roundIndicator.SetActive(true);
-                    roundIndicator.GetComponent<Text>().text ="Round " + RoundNumber ;
-                }
-                else  if (TurnNumber % 2 == 0)
-                    roundIndicator.SetActive(false);
-                waiting = false;
-                if (PhotonNetwork.IsMasterClient)
-                {
-                    setArrangementForTurn();
-                }
+                setNextRound();
+            }
+        }
+        public void setNextRound()
+        {
+            TurnNumber += 1;
+            RoundNumber =(int)Math.Ceiling(TurnNumber / 2.0);
+            if (TurnNumber % 2 == 1)
+            {
+                rollingMission.switchStage(4);
+                roundIndicator.SetActive(true);
+                roundIndicator.GetComponent<Text>().text = "Round " + RoundNumber;
+            }
+            else if (TurnNumber % 2 == 0)
+                roundIndicator.SetActive(false);
+            waiting = false;
+            if (PhotonNetwork.IsMasterClient)
+            {
+                setArrangementForTurn();
             }
         }
         public void playerLeft(int ActorID)
@@ -209,18 +222,18 @@ namespace main
             else if (TurnNumber % 2 == 1)
             {
                 if (TurnNumber == 1)
-                { 
+                {
                     userContorlAreas.addMyCred(6);
                     drawEntro.drawEntropyCards(5);
-                    drawMission.removeAllCard();
-                    if (userContorlAreas.users[0].characterScript.character_code == 7)
-                    {
-                        drawMission.drawMissionCards(2);
-                    }
-                    else
-                    {
-                        drawMission.drawMissionCards(1);
-                    }
+                }
+                drawMission.removeAllCard();
+                if (userContorlAreas.users[0].characterScript.character_code == 7)
+                {
+                    drawMission.drawMissionCards(2);
+                }
+                else
+                {
+                    drawMission.drawMissionCards(1);
                 }
                 if (userContorlAreas.users[0].characterScript.character_code == 3)
                     userContorlAreas.addMyMoney(1000);

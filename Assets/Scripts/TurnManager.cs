@@ -226,6 +226,10 @@ namespace main
                     userContorlAreas.addMyCred(6);
                     drawEntro.drawEntropyCards(5);
                 }
+                else
+                {
+                    drawEntro.drawEntropyCards(1);
+                }
                 drawMission.removeAllCard();
                 if (userContorlAreas.users[0].characterScript.character_code == 7)
                 {
@@ -234,6 +238,14 @@ namespace main
                 else
                 {
                     drawMission.drawMissionCards(1);
+                }
+                if (arrangedActors[0] == PhotonNetwork.LocalPlayer.ActorNumber)
+                {
+
+                    if (userContorlAreas.users[0].amountOfCred > userContorlAreas.users[userContorlAreas.findPlayerPosition(arrangedActors[1])].amountOfCred)
+                    {
+                        userContorlAreas.addMyMoney(1000);
+                    }
                 }
                 if (userContorlAreas.users[0].characterScript.character_code == 3)
                     userContorlAreas.addMyMoney(1000);

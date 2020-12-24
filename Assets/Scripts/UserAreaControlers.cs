@@ -142,6 +142,19 @@ namespace UserAreas
             Debug.LogError("Can't Find Player");
             return 7;
         }
+        public int findPlayerPosition(int whichPlayer)
+        {
+            for (int i = 0; i < users.Count; i++)
+            {
+                if (users[i].playerPhoton.ActorNumber == whichPlayer)
+                {
+                    return i;
+                }
+            }
+            Debug.LogError("Can't Find Player");
+            return 7;
+        }
+
         public bool ifRoundInputCanUse()
         {
             if (!(string.IsNullOrEmpty(numberOfRounds_input.text)))

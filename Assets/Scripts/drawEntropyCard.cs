@@ -94,7 +94,7 @@ namespace DrawCards {
             Debug.Log("Added card to the used card : " + which);
             entropyCardIDUsed.Add(which);
         }
-        public void removeAnEntropyCard(EntropyCardScript whichScript)
+        public void removeAnEntropyCard(EntropyCardScript whichScript,bool discarding)
         {
             foreach (Transform child in cardArea.transform)
             {

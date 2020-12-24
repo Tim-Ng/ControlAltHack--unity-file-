@@ -64,6 +64,7 @@ namespace rollmissions
             }
         }
         private int numberOfChances = 0, whoTurn, currentTask = 0, entropyRemove = 0;
+        public int numberOfEntroCardsRemoved = 0;
         private int setgetnumberOfChances
         {
             get { return numberOfChances; }
@@ -97,6 +98,7 @@ namespace rollmissions
         public void setRollTimeIsMyTurn()
         {
             switchStage(1);
+            numberOfEntroCardsRemoved = 0;
             missionRollController.setActiveStartMissionButton = true;
             missionRollController.setStartMissionButton = false;
             setGetCurrentCard = userArea.users[0].missionScript;
@@ -160,6 +162,10 @@ namespace rollmissions
             else
             {
                 setgetnumberOfChances = 2;
+            }
+            if (userArea.users[0].characterScript.character_code == 1)
+            {
+                setgetnumberOfChances += 1;
             }
             currentTime = 3;
             missionRollController.setgetCurrentRollerName = PhotonNetwork.LocalPlayer.NickName;
@@ -240,6 +246,20 @@ namespace rollmissions
             onReceiveTaskStatusText(2, false);
             onReceiveTaskStatusText(3, false);
             missionRollController.setActiveRollButton = false;
+        }
+        public void chanceToReroll()
+        {
+            for (int i =0;i < JobInfoList.Count; i++)
+            {
+                if (!JobInfoList[i].passingOrNot)
+                {
+                    currentTask = i;
+                }
+            }
+            setCurrentTask();
+            setDuringProgessText(currentTask + 1, "In progress");
+            switchStage(2);
+            PhotonNetwork.RaiseEvent((byte)PhotonEventCode.setSceneForReRoll, null, EventManger.AllOtherThanMePeopleOptions, SendOptions.SendReliable);
         }
         public void setCurrentTask()
         {
@@ -422,7 +442,19 @@ namespace rollmissions
             }
             if (CurrentMissionStatus == false && setGetCurrentCard.Mission_code == 2)
             {
-                entropyRemove = 2;
+                if (userArea.users[0].NumberOfCards >= 2)
+                {
+                    entropyRemove = 2;
+                }
+                else if (userArea.users[0].NumberOfCards == 1)
+                {
+                    entropyRemove = 1;
+                }
+                else if (userArea.users[0].NumberOfCards ==0)
+                {
+                    entropyRemove = 0;
+                }
+
                 missionRollController.setInteractableendMissionButton = false;
                 setCurrentMissionOutputText("Remove " + entropyRemove + " entropy cards to continue");
             }
@@ -462,6 +494,14 @@ namespace rollmissions
         }
         public void removedAnEntropy()
         {
+            if (userArea.users[0].characterScript.character_code== 8)
+            {
+                setgetnumberOfChances += 1;
+                if (missionRollController.setAfterMission)
+                {
+                    chanceToReroll();
+                }
+            }
             if (entropyRemove != 0)
                 entropyRemove -= 1;
             if (entropyRemove != 0)
@@ -473,6 +513,7 @@ namespace rollmissions
             {
                 missionRollController.setInteractableendMissionButton = true;
             }
+            numberOfEntroCardsRemoved += 1;
         }
         public void onReceiveCurrentMissionStatus(string text) => missionRollController.setcurrentMissionStatusText = text;
         public void onClickEndTurnButton()
@@ -480,6 +521,17 @@ namespace rollmissions
             if (CurrentMissionStatus)
             {
                 userArea.addMyCred(setGetCurrentCard.success_amount_hacker_cread);
+                if (userArea.users[0].characterScript.character_code == 11)
+                {
+                    for (int i = 0; i < JobInfoList.Count; i++)
+                    {
+                        if (JobInfoList[i].skillName == AllJobs.HardHack)
+                        {
+                            userArea.addMyCred(1);
+                            break;
+                        }
+                    }
+                }
                 if (setGetCurrentCard.Mission_code == 2 || setGetCurrentCard.Mission_code == 14 || setGetCurrentCard.Mission_code == 18 || setGetCurrentCard.Mission_code == 19 || setGetCurrentCard.Mission_code == 33 || setGetCurrentCard.Mission_code == 35 || setGetCurrentCard.Mission_code == 37)
                 {
                     drawEntropy.drawEntropyCards(1);
@@ -492,6 +544,10 @@ namespace rollmissions
             else
             {
                 userArea.subMyCred(setGetCurrentCard.failure_amount_hacker_cread);
+                if (userArea.users[0].characterScript.character_code== 11)
+                {
+                    userArea.subMyCred(1);
+                }
                 if (setGetCurrentCard.Mission_code == 7 || setGetCurrentCard.Mission_code == 27)
                 {
                     userArea.subMyMoney(setGetCurrentCard.other_success_how_much);

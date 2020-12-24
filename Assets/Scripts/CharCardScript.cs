@@ -90,6 +90,61 @@ namespace DrawCards
                 return nullySTR;
             }
         }
+        public static AllJobs get_AllJobs_usingString(string WhichJob)
+        {
+            if (WhichJob == HardHackSTR)
+            {
+                return AllJobs.HardHack;
+            }
+            else if (WhichJob == CryptSTR )
+            {
+                return AllJobs.Crypt;
+            }
+            else if (WhichJob == NetNinjaSTR)
+            {
+                return AllJobs.NetNinja;
+            }
+            else if (WhichJob == SocialEngSTR)
+            {
+                return AllJobs.SocialEng ;
+            }
+            else if (WhichJob == KitchenSTR )
+            {
+                return AllJobs.Kitchen;
+            }
+            else if (WhichJob == SoftWizSTR )
+            {
+                return AllJobs.SoftWiz;
+            }
+            else if (WhichJob == BaristaSTR )
+            {
+                return AllJobs.Barista;
+            }
+            else if (WhichJob == ConnnectionsSTR)
+            {
+                return AllJobs.Connnections;
+            }
+            else if (WhichJob == WebProcurementSTR)
+            {
+                return AllJobs.WebProcurement;
+            }
+            else if (WhichJob == ForensicsSTR )
+            {
+                return AllJobs.Forensics;
+            }
+            else if (WhichJob == LockPickingSTR)
+            {
+                return AllJobs.LockPicking;
+            }
+            else if (WhichJob == SearchFUSTR )
+            {
+                return AllJobs.SearchFU;
+            }
+            else
+            {
+                return AllJobs.Null;
+            }
+        }
     }
     [CreateAssetMenu(fileName = "New Card", menuName = "CharacterCard")]
     public class CharCardScript : ScriptableObject

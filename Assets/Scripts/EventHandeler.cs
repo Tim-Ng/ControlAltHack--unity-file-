@@ -44,7 +44,7 @@ namespace main
         setEndScene = 30,
         setNumberOfChances =31,
         setStatusOutput = 32,
-
+        setSceneForReRoll = 33,
     }
     public class EventHandeler : MonoBehaviour
     {
@@ -262,6 +262,10 @@ namespace main
                 Debug.Log("Receive output");
                 object[] CurrentMissionStatusOutputData = (object[])obj.CustomData;
                 rollingMission.onReceiveCurrentMissionOutputText((string)CurrentMissionStatusOutputData[0]);
+            }
+            else if (obj.Code == (byte)PhotonEventCode.setSceneForReRoll)
+            {
+                rollingMission.switchStage(2);
             }
         }
     }

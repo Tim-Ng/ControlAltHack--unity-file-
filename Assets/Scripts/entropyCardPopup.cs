@@ -86,7 +86,7 @@ public class entropyCardPopup : MonoBehaviour
     public void clickOnDiscard()
     {
         closePopUp();
-        drawEntro.removeAnEntropyCard(whichScript);
+        drawEntro.removeAnEntropyCard(whichScript,true);
     }
     public void clickOnPlayButton()
     {

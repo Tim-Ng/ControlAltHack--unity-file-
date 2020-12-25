@@ -233,7 +233,6 @@ namespace main
                     {
                         if (userContorlAreas.users[0].amountOfCred > userContorlAreas.users[userContorlAreas.findPlayerPosition(arrangedActors[1])].amountOfCred)
                         {
-                            Debug.LogError(userContorlAreas.users[0].amountOfCred + "VS" + userContorlAreas.users[userContorlAreas.findPlayerPosition(arrangedActors[1])].amountOfCred);
                             userContorlAreas.addMyMoney(1000);
                         }
                     }

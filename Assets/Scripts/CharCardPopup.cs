@@ -31,7 +31,7 @@ namespace DrawCards
         [SerializeField] private EventHandeler EventManger = null;
         [SerializeField] private TurnManager turnManager = null;
         [SerializeField] private drawEntropyCard drawEntropy = null;
-        private readonly List<AllJobs> SkillsToSwapFor12 = new List<AllJobs>() { AllJobs.HardHack, AllJobs.Crypt, AllJobs.NetNinja, AllJobs.SocialEng, AllJobs.SoftWiz, AllJobs.Kitchen };
+        private readonly List<AllJobs> SkillsToSwapFor12 = new List<AllJobs>() { AllJobs.Crypt, AllJobs.NetNinja, AllJobs.SocialEng, AllJobs.SoftWiz, AllJobs.Kitchen };
         private readonly List<AllJobs> SkillsToSwapFor5 = new List<AllJobs>() { AllJobs.HardHack, AllJobs.Crypt, AllJobs.NetNinja, AllJobs.SearchFU, AllJobs.Kitchen, AllJobs.SoftWiz, AllJobs.SocialEng };
         private readonly List<AllJobs> SkillSwapToFor13 = new List<AllJobs>() { AllJobs.HardHack, AllJobs.SocialEng };
         private skillToSwap skill1;

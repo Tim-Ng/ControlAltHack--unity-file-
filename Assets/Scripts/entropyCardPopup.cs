@@ -14,19 +14,34 @@ public class entropyCardPopup : MonoBehaviour
     [SerializeField] private GameObject popUp = null, cardInpopUpEntropy = null,playButton = null;
     [SerializeField] private drawEntropyCard drawEntro = null;
     [SerializeField] private DuringMissionRollController missionRollController = null;
+    [SerializeField] private rollingMissionControl rollingContoler = null;
+    [SerializeField] private UserAreaControlers userArea = null;
+    [SerializeField] private playEntropyCard playEntropy = null;
     private entropyCardDisplay thisEntorpyCardDisplay = null;
     [SerializeField] private TurnManager turnManager = null;
     private EntropyCardScript  whichScript = null;
-    private int[] Before = { 1,2,4,6,7,8,9,11,12,13,16,17,18,20,21,22,23,24};
+    private int[] Before = { 1,2,4,5,6,7,8,9,11,12,13,16,17,18,20,21,22,23,24};
     private int[] LightingStrike = { 25,26,27,28,29};
-    private int[] After = { 3, 5, 10, 14, 15, 20, 2,1, 22, 23, 24 };
+    private int[] After = { 3, 10, 14, 15, 20, 2,1, 22, 23, 24 };
     public void opendCharCard(EntropyCardScript info, entropyCardDisplay EntorpyCardDisplay,int Roundnumber)
     {
         thisEntorpyCardDisplay = EntorpyCardDisplay;
         whichScript = info;
         playButton.SetActive(checkIfCanPlay(Roundnumber));
+        checkMoney();
         cardInpopUpEntropy.GetComponent<Image>().sprite = whichScript.artwork_info;
         popUp.SetActive(true);
+    }
+    public void checkMoney()
+    {
+        if (userArea.users[0].amountOfMoney >= whichScript.Cost)
+        {
+            playButton.GetComponent<Button>().interactable = true;
+        }
+        else
+        {
+            playButton.GetComponent<Button>().interactable = false;
+        }
     }
     public bool checkIfCanPlay(int Roundnumber)
     {
@@ -51,10 +66,13 @@ public class entropyCardPopup : MonoBehaviour
                     }
                     else if (missionRollController.setAfterMission)
                     {
-                        for (int i = 0; i < After.Length; i++)
+                        if (rollingContoler.CurrentMissionStatus == false)
                         {
-                            if (checkValue == After[i])
-                                return true;
+                            for (int i = 0; i < After.Length; i++)
+                            {
+                                if (checkValue == After[i])
+                                    return true;
+                            }
                         }
                     }
                     else
@@ -91,5 +109,8 @@ public class entropyCardPopup : MonoBehaviour
     public void clickOnPlayButton()
     {
         thisEntorpyCardDisplay.ifThisIsPlayed();
+        playEntropy.onPlayEntropyCard(whichScript);
+        userArea.subMyMoney(whichScript.Cost);
+        closePopUp();
     }
 }

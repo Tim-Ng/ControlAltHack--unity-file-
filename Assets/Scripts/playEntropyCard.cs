@@ -1,0 +1,167 @@
+﻿using ExitGames.Client.Photon;
+using main;
+using Photon.Pun;
+using Photon.Realtime;
+using rollmissions;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UserAreas;
+
+namespace DrawCards
+{
+    public class playEntropyCard : MonoBehaviour
+    {
+        [SerializeField] private rollingMissionControl rollingControl = null;
+        [SerializeField] private DuringMissionRollController missionRollController = null;
+        [SerializeField] private UserAreaControlers userArea = null;
+        [SerializeField] private EventHandeler EventManager = null;
+        [SerializeField] private TurnManager turnManager = null;
+        [SerializeField] private drawEntropyCard drawEntropy = null;
+        private readonly List<int> extendSive = new List<int> { 20, 21, 22, 23, 24 };
+        public void onPlayEntropyCard(EntropyCardScript whichScript)
+        {
+            int entropyID = whichScript.EntropyCardID;
+            if (whichScript.SkillEffecter)
+            {
+                rollingControl.addSkillEffector(whichScript.whichSkillIncrease1, turnManager.RoundNumber, whichScript.byHowMuchSkillIncrease1);
+                if (whichScript.AnotherSecondSkill)
+                {
+                    rollingControl.addSkillEffector(whichScript.whichSkillIncrease2, turnManager.RoundNumber, whichScript.byHowMuchSkillIncrease2);
+                }
+                if (userArea.users[0].characterScript.character_code == 9)
+                {
+                    rollingControl.addSkillEffector(AllJobs.SocialEng, turnManager.RoundNumber,999);
+                }
+            }
+            else if (entropyID == 14)
+            {
+                rollingControl.convertFailedToPass(AllJobs.Connnections, whichScript.Cost);
+            }
+            else if (entropyID == 15)
+            {
+                rollingControl.convertFailedToPass(AllJobs.Crypt, whichScript.Cost);
+            }
+            else if (entropyID == 10)
+            {
+                rollingControl.checkIfCanReroll(AllJobs.LockPicking,whichScript.Cost, 10);
+            }
+            else if (entropyID == 3)
+            {
+                rollingControl.checkIfCanReroll(AllJobs.NetNinja, whichScript.Cost, 3);
+            }
+            else if (extendSive.Contains(entropyID))
+            {
+                if (missionRollController.setbeforeMission)
+                {
+                    if (entropyID == 20)
+                    {
+                        if (userArea.users[0].characterScript.find_which(AllJobs.Crypt)>= 12)
+                        {
+                            rollingControl.addSkillEffector(AllJobs.Crypt, turnManager.RoundNumber, 1);
+                        }
+                        else
+                        {
+                            rollingControl.addSkillEffector(AllJobs.Crypt, turnManager.RoundNumber,( 12 - userArea.users[0].characterScript.find_which(AllJobs.Crypt)));
+                        }
+                    }
+                    else if (entropyID == 21)
+                    {
+                        if (userArea.users[0].characterScript.find_which(AllJobs.HardHack) >= 12)
+                        {
+                            rollingControl.addSkillEffector(AllJobs.HardHack, turnManager.RoundNumber, 1);
+                        }
+                        else
+                        {
+                            rollingControl.addSkillEffector(AllJobs.HardHack, turnManager.RoundNumber, (12 - userArea.users[0].characterScript.find_which(AllJobs.HardHack)));
+                        }
+                    }
+                    else if (entropyID == 22)
+                    {
+                        if (userArea.users[0].characterScript.find_which(AllJobs.NetNinja) >= 12)
+                        {
+                            rollingControl.addSkillEffector(AllJobs.NetNinja, turnManager.RoundNumber, 1);
+                        }
+                        else
+                        {
+                            rollingControl.addSkillEffector(AllJobs.NetNinja, turnManager.RoundNumber, (12 - userArea.users[0].characterScript.find_which(AllJobs.NetNinja)));
+                        }
+                    }
+                    else if (entropyID == 23)
+                    {
+                        if (userArea.users[0].characterScript.find_which(AllJobs.SocialEng) >= 12)
+                        {
+                            rollingControl.addSkillEffector(AllJobs.SocialEng, turnManager.RoundNumber, 1);
+                        }
+                        else
+                        {
+                            rollingControl.addSkillEffector(AllJobs.SocialEng, turnManager.RoundNumber, (12 - userArea.users[0].characterScript.find_which(AllJobs.SocialEng)));
+                        }
+                    }
+                    else if (entropyID == 24)
+                    {
+                        if (userArea.users[0].characterScript.find_which(AllJobs.SoftWiz) >= 12)
+                        {
+                            rollingControl.addSkillEffector(AllJobs.SoftWiz, turnManager.RoundNumber, 1);
+                        }
+                        else
+                        {
+                            rollingControl.addSkillEffector(AllJobs.SoftWiz, turnManager.RoundNumber, (12 - userArea.users[0].characterScript.find_which(AllJobs.SoftWiz)));
+                        }
+                    }
+                }
+                else if (missionRollController.setAfterMission)
+                {
+                    if (entropyID == 20)
+                    {
+                        rollingControl.convertFailedToPass(AllJobs.Crypt, whichScript.Cost);
+                    }
+                    else if (entropyID == 21)
+                    {
+                        rollingControl.convertFailedToPass(AllJobs.HardHack, whichScript.Cost);
+                    }
+                    else if (entropyID == 22)
+                    {
+                        rollingControl.convertFailedToPass(AllJobs.NetNinja, whichScript.Cost);
+                    }
+                    else if (entropyID == 23)
+                    {
+                        rollingControl.convertFailedToPass(AllJobs.SocialEng, whichScript.Cost);
+                    }
+                    else if (entropyID == 24)
+                    {
+                        rollingControl.convertFailedToPass(AllJobs.SoftWiz, whichScript.Cost);
+                    }
+                }
+            }
+            else if (entropyID == 26)
+            {
+                PhotonNetwork.RaiseEvent((byte)PhotonEventCode.skillChangeID26, null, new RaiseEventOptions() { TargetActors = new int[] { turnManager.PlayerIdToMakeThisTurn } }, SendOptions.SendReliable);
+            }
+            else if (entropyID == 28)
+            {
+                PhotonNetwork.RaiseEvent((byte)PhotonEventCode.cancelMissionID28, null, new RaiseEventOptions() { TargetActors = new int[] { turnManager.PlayerIdToMakeThisTurn } }, SendOptions.SendReliable);
+            }
+            else if (entropyID == 29)
+            {
+                PhotonNetwork.RaiseEvent((byte)PhotonEventCode.goZeroMoneyID29, null, new RaiseEventOptions() { TargetActors = new int[] { turnManager.PlayerIdToMakeThisTurn } }, SendOptions.SendReliable);
+            }
+            else if (entropyID == 30)
+            {
+                object[] Amount = new object[] { 2 };
+                PhotonNetwork.RaiseEvent((byte)PhotonEventCode.shareFate, Amount, EventManager.AllPeople, SendOptions.SendReliable);
+            }
+            else if (entropyID == 31)
+            {
+                object[] Amount = new object[] { -2 };
+                PhotonNetwork.RaiseEvent((byte)PhotonEventCode.shareFate, Amount, EventManager.AllPeople, SendOptions.SendReliable);
+            }
+
+            if (whichScript.removeAfterPlay)
+            {
+                drawEntropy.removeAnEntropyCard(whichScript,false);
+            }
+        }
+    }
+}
+

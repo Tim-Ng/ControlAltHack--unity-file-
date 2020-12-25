@@ -66,12 +66,13 @@ namespace DrawCards {
                     System.Random rand = new System.Random((int)DateTime.Now.Ticks);
                     int x = rand.Next(0, entropyCardID.Count - 1);
                     Debug.Log("Card number is:" + entropyCardID[x]);
+                    int entropyID = entropyCardID[x];
                     GameObject characterPlayerCard1 = Instantiate(cardTemplate, transform.position, Quaternion.identity);
-                    characterPlayerCard1.GetComponent<entropyCardDisplay>().setID(entropyCardID[x]);
+                    characterPlayerCard1.GetComponent<entropyCardDisplay>().setID(entropyID);
                     characterPlayerCard1.gameObject.transform.localScale += new Vector3(-0.75f, -0.75f, 0);
                     characterPlayerCard1.transform.SetParent(cardArea.transform, false);
-                    object[] cardID = new object[] { entropyCardID[x] };
-                    entropyCardID.Remove(entropyCardID[x]);
+                    object[] cardID = new object[] { entropyID };
+                    entropyCardID.Remove(entropyID);
                     PhotonNetwork.RaiseEvent((byte)PhotonEventCode.drawEntropyRemove, cardID, EventManager.AllOtherThanMePeopleOptions, SendOptions.SendReliable);
                     userControler.users[0].NumberOfCards += 1;
                 }
@@ -108,7 +109,8 @@ namespace DrawCards {
             object[] whichCard = new object[] { whichScript.EntropyCardID };
             PhotonNetwork.RaiseEvent((byte)PhotonEventCode.drawEntropyUsed, whichCard, EventManager.AllPeople, SendOptions.SendReliable);
             userControler.sendAmountOfCards();
-            rollingMission.removedAnEntropy();
+            if (discarding)
+                rollingMission.removedAnEntropy();
         }
     }
 }

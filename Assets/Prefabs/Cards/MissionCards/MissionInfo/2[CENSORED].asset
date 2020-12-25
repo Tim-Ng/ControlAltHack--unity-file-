@@ -17,10 +17,10 @@ MonoBehaviour:
   Newb_job: 0
   skill_name_1: 3
   fist_change_hardnum: 0
-  hasSecondMission: 0
+  hasSecondMission: 1
   skill_name_2: 6
   second_change_hardnum: 0
-  hasThirdMission: 0
+  hasThirdMission: 1
   skill_name_3: 2
   third_change_hardnum: 0
   success_amount_hacker_cread: 2

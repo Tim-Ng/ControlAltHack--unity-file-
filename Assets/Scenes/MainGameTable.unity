@@ -2487,7 +2487,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 20
+    m_FontSize: 15
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
@@ -3722,7 +3722,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 245039034}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 356750443}
+        m_TargetAssemblyTypeName: entropyCardPopup, Assembly-CSharp
+        m_MethodName: clickOnPlayButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &245039034
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5392,6 +5404,7 @@ GameObject:
   - component: {fileID: 356750446}
   - component: {fileID: 356750447}
   - component: {fileID: 356750448}
+  - component: {fileID: 356750449}
   m_Layer: 0
   m_Name: Game Interface
   m_TagString: Untagged
@@ -5711,6 +5724,9 @@ MonoBehaviour:
   playButton: {fileID: 245039029}
   drawEntro: {fileID: 356750441}
   missionRollController: {fileID: 129418574}
+  rollingContoler: {fileID: 356750448}
+  userArea: {fileID: 356750432}
+  playEntropy: {fileID: 356750449}
   turnManager: {fileID: 356750438}
 --- !u!114 &356750444
 MonoBehaviour:
@@ -5824,6 +5840,7 @@ MonoBehaviour:
   opponent5: {fileID: 519099635}
   missionCardArea: {fileID: 1734377028}
   missionPOPUP: {fileID: 356750445}
+  HowManyPeople: 0
   tradePanel: {fileID: 974634417}
   MyNickName: {fileID: 1573674534}
   MyMoney: {fileID: 1644923758}
@@ -5848,9 +5865,29 @@ MonoBehaviour:
   EventManger: {fileID: 356750439}
   turnManager: {fileID: 356750438}
   drawEntropy: {fileID: 356750441}
+  tradeControl: {fileID: 356750447}
   skillTemplate: {fileID: 1245390301027341354, guid: d1e03abe59f958449a43d90afd50a7e9, type: 3}
   skillChangerEliment: {fileID: 1239850084}
+  CurrentMissionStatus: 0
   numberOfEntroCardsRemoved: 0
+--- !u!114 &356750449
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 356750430}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3419cadf17756184abfc71481c71b81e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rollingControl: {fileID: 356750448}
+  missionRollController: {fileID: 129418574}
+  userArea: {fileID: 356750432}
+  EventManager: {fileID: 356750439}
+  turnManager: {fileID: 356750438}
+  drawEntropy: {fileID: 356750441}
 --- !u!1 &357457101
 GameObject:
   m_ObjectHideFlags: 0
@@ -19407,7 +19444,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 20
+    m_FontSize: 15
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
@@ -25816,7 +25853,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 20
+    m_FontSize: 15
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0

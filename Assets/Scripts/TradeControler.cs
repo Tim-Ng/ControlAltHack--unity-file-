@@ -17,7 +17,7 @@ namespace TradeScripts
         [SerializeField] private TradeArea opponent1=null, opponent2 = null, opponent3 = null, opponent4 = null, opponent5 = null;
         [SerializeField] private GameObject missionCardArea = null;
         [SerializeField] private missionPopup missionPOPUP = null;
-        private int HowManyPeople = 0;
+        public int HowManyPeople = 0;
         private List<TradeArea> tradeAreaContollers = new List<TradeArea>();
         [SerializeField] private GameObject tradePanel = null, MyNickName = null, MyMoney = null, myMissionCard = null;
         private void Start()
@@ -57,10 +57,7 @@ namespace TradeScripts
         public void PlayerAttentingChange(int which,int cardID)
         {
             tradeAreaContollers[which - 1].attending = userControler.users[which].attendingOrNot;
-            if (tradeAreaContollers[which - 1].attending)
-            {
-                HowManyPeople = +1;
-            }
+            HowManyPeople = +1;
             tradeAreaContollers[which - 1].setgetmissionID = cardID;
         }
         public void playerAskToTrade(Player which,int amountBribed)
@@ -74,10 +71,6 @@ namespace TradeScripts
         {
             tradePanel.SetActive(false);
             userControler.setandsendIfNotAttending();
-            if (HowManyPeople == 0)
-            {
-                drawEntroy.drawEntropyCards(1);
-            }
             drawEntroy.drawEntropyCards(1);
             object[] player = new object[] { PhotonNetwork.LocalPlayer.ActorNumber };
             PhotonNetwork.RaiseEvent((byte)PhotonEventCode.setWaiting, player, EventManger.AllPeople, SendOptions.SendReliable);

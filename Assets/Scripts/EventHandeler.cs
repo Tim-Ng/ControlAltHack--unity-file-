@@ -45,6 +45,10 @@ namespace main
         setNumberOfChances =31,
         setStatusOutput = 32,
         setSceneForReRoll = 33,
+        shareFate = 34,
+        cancelMissionID28 = 35,
+        skillChangeID26 = 36,
+        goZeroMoneyID29 = 37,
     }
     public class EventHandeler : MonoBehaviour
     {
@@ -266,6 +270,24 @@ namespace main
             else if (obj.Code == (byte)PhotonEventCode.setSceneForReRoll)
             {
                 rollingMission.switchStage(2);
+            }
+            else if (obj.Code == (byte)PhotonEventCode.shareFate)
+            {
+                object[] Amount = (object[])obj.CustomData;
+                userControler.addMyCred((int)Amount[0]);
+            }
+            else if (obj.Code == (byte)PhotonEventCode.cancelMissionID28)
+            {
+                turnManager.EndTurn();
+            }
+            else if (obj.Code == (byte)PhotonEventCode.skillChangeID26)
+            {
+                rollingMission.addSkillEffector(AllJobs.NetNinja, turnManager.RoundNumber, -2);
+                rollingMission.addSkillEffector(AllJobs.SocialEng, turnManager.RoundNumber, -2);
+            }
+            else if (obj.Code == (byte)PhotonEventCode.goZeroMoneyID29)
+            {
+                userControler.subMyMoney(userControler.users[0].amountOfMoney);
             }
         }
     }

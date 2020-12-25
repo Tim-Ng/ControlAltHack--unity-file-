@@ -9,6 +9,7 @@ using main;
 using ExitGames.Client.Photon;
 using Photon.Pun;
 using System;
+using TradeScripts;
 
 namespace rollmissions
 {
@@ -49,11 +50,13 @@ namespace rollmissions
         [SerializeField] private EventHandeler EventManger = null;
         [SerializeField] private TurnManager turnManager = null;
         [SerializeField] private drawEntropyCard drawEntropy = null;
+        [SerializeField] private TradeControler tradeControl = null;
         [SerializeField] private GameObject skillTemplate = null, skillChangerEliment = null;
         private List<SkillEffector> skillEffectorsList = new List<SkillEffector>();
         public List<jobInfos> JobInfoList = new List<jobInfos>();
         private MissionCardScript currentCard = null;
-        private bool CurrentMissionStatus = true;
+        public bool CurrentMissionStatus = false;
+        private bool entopy3 = false;
         private MissionCardScript setGetCurrentCard
         {
             get { return currentCard; }
@@ -105,7 +108,7 @@ namespace rollmissions
             missionRollController.setActivetask2 = setGetCurrentCard.hasSecondMission;
             missionRollController.setActivetask3 = setGetCurrentCard.hasThirdMission;
             JobInfoList.Clear();
-            JobInfoList.Add(new jobInfos(1, setGetCurrentCard.skill_name_1, userArea.users[0].characterScript.find_which(setGetCurrentCard.skill_name_1), true));
+            JobInfoList.Add(new jobInfos(1, setGetCurrentCard.skill_name_1, userArea.users[0].characterScript.find_which(setGetCurrentCard.skill_name_1), false));
             missionRollController.settask1beforeText = "1] TaskName: " + GetStringOfTask.get_string_of_job(JobInfoList[0].skillName) + "\n   Amonunt: " + JobInfoList[0].amount;
             if (setGetCurrentCard.fist_change_hardnum != 0)
             {
@@ -118,7 +121,7 @@ namespace rollmissions
             }
             if (setGetCurrentCard.hasSecondMission)
             {
-                JobInfoList.Add(new jobInfos(2, setGetCurrentCard.skill_name_2, userArea.users[0].characterScript.find_which(setGetCurrentCard.skill_name_2), true));
+                JobInfoList.Add(new jobInfos(2, setGetCurrentCard.skill_name_2, userArea.users[0].characterScript.find_which(setGetCurrentCard.skill_name_2), false));
                 missionRollController.settask2beforeText = "2] TaskName: " + GetStringOfTask.get_string_of_job(JobInfoList[1].skillName) + "\n   Amonunt: " + JobInfoList[1].amount;
                 if (setGetCurrentCard.second_change_hardnum != 0)
                 {
@@ -132,7 +135,7 @@ namespace rollmissions
             }
             if (setGetCurrentCard.hasThirdMission)
             {
-                JobInfoList.Add(new jobInfos(3, setGetCurrentCard.skill_name_3, userArea.users[0].characterScript.find_which(setGetCurrentCard.skill_name_3), true));
+                JobInfoList.Add(new jobInfos(3, setGetCurrentCard.skill_name_3, userArea.users[0].characterScript.find_which(setGetCurrentCard.skill_name_3), false));
                 missionRollController.settask3beforeText = "3] TaskName: " + GetStringOfTask.get_string_of_job(JobInfoList[2].skillName) + "\n   Amonunt: " + JobInfoList[2].amount;
                 if (setGetCurrentCard.third_change_hardnum != 0)
                 {
@@ -144,20 +147,19 @@ namespace rollmissions
                     JobInfoList[2].addSkillAmount(setGetCurrentCard.third_change_hardnum);
                 }
             }
-            CurrentMissionStatus = true;
+            CurrentMissionStatus = false;
             object[] textForBeforeTask = new object[] { missionRollController.settask1beforeText, setGetCurrentCard.hasSecondMission, missionRollController.settask2beforeText, setGetCurrentCard.hasThirdMission, missionRollController.settask3beforeText };
             PhotonNetwork.RaiseEvent((byte)PhotonEventCode.textForTextBeforeRoll, textForBeforeTask, EventManger.AllOtherThanMePeopleOptions, SendOptions.SendReliable);
             checkSkillEffector();
-            addSkillEffector(AllJobs.Crypt, turnManager.RoundNumber, 100);
-            addSkillEffector(AllJobs.HardHack, turnManager.RoundNumber, 100);
-            addSkillEffector(AllJobs.NetNinja, turnManager.RoundNumber, 100);
-            addSkillEffector(AllJobs.Connnections, turnManager.RoundNumber, 100);
-            addSkillEffector(AllJobs.SocialEng, turnManager.RoundNumber, 100);
             whoTurn = 0;
             numberOfChances = 0;
             if (popup.AttendingOrNot)
             {
                 setgetnumberOfChances = 1;
+                if (tradeControl.HowManyPeople == 0)
+                {
+                    setgetnumberOfChances += 1;
+                }
             }
             else
             {
@@ -245,9 +247,9 @@ namespace rollmissions
         public void onReceiveChangeToDuringTask()
         {
             switchStage(2);
-            setDuringProgessText(1, "In prograss ");
-            setDuringProgessText(2, "waiting");
-            setDuringProgessText(3, "waiting");
+            onReceiveDuringTaskProgressText(1, "In prograss ");
+            onReceiveDuringTaskProgressText(2, "waiting");
+            onReceiveDuringTaskProgressText(3, "waiting");
             missionRollController.setActiveRollButton = false;
         }
         public void chanceToReroll()
@@ -257,6 +259,7 @@ namespace rollmissions
                 if (!JobInfoList[i].passingOrNot)
                 {
                     currentTask = i;
+                    break;
                 }
             }
             setCurrentTask();
@@ -266,17 +269,35 @@ namespace rollmissions
         }
         public void setCurrentTask()
         {
-            missionRollController.setCurrentText = GetStringOfTask.get_string_of_job(JobInfoList[currentTask].skillName);
-            missionRollController.setWhichIsCurrentTask = (currentTask + 1).ToString();
-            missionRollController.setrollGoalText = JobInfoList[currentTask].amount.ToString();
-            object[] playerDuringtextdata = new object[] { GetStringOfTask.get_string_of_job(JobInfoList[currentTask].skillName), (currentTask + 1).ToString(), JobInfoList[currentTask].amount.ToString() };
-            PhotonNetwork.RaiseEvent((byte)PhotonEventCode.setDuringRollText, playerDuringtextdata, EventManger.AllOtherThanMePeopleOptions, SendOptions.SendReliable);
+            if (JobInfoList[currentTask].passingOrNot)
+            {
+                setDuringProgessText(currentTask + 1, "Passed");
+                setDuringStatusText(currentTask + 1, "Passed");
+                currentTask += 1;
+                if ((currentTask + 1) <= JobInfoList.Count)
+                {
+                    setCurrentTask();
+                }
+                else
+                {
+                    setEndScene();
+                }
+            }
+            else
+            {
+                setDuringProgessText(currentTask + 1, "In progress");
+                missionRollController.setCurrentText = GetStringOfTask.get_string_of_job(JobInfoList[currentTask].skillName);
+                missionRollController.setWhichIsCurrentTask = (currentTask + 1).ToString();
+                missionRollController.setrollGoalText = JobInfoList[currentTask].amount.ToString();
+                object[] playerDuringtextdata = new object[] { GetStringOfTask.get_string_of_job(JobInfoList[currentTask].skillName), (currentTask + 1).ToString(), JobInfoList[currentTask].amount.ToString() };
+                PhotonNetwork.RaiseEvent((byte)PhotonEventCode.setDuringRollText, playerDuringtextdata, EventManger.AllOtherThanMePeopleOptions, SendOptions.SendReliable);
+            }
         }
-        public void onReceiveControllText(string currentTaskName, string whichIsCurrentTask, string mustbemorethan)
+        public void onReceiveControllText(string currentTaskName, string whichIsCurrentTask, string mustbeLessthan)
         {
             missionRollController.setCurrentText = currentTaskName;
             missionRollController.setWhichIsCurrentTask = whichIsCurrentTask;
-            missionRollController.setrollGoalText = mustbemorethan;
+            missionRollController.setrollGoalText = mustbeLessthan;
 
         }
         public void onReceiveNumberOfChances(string value)
@@ -419,12 +440,16 @@ namespace rollmissions
                 missionRollController.setRolledNumber = x;
                 object[] dataDice = new object[] { x };
                 PhotonNetwork.RaiseEvent((byte)PhotonEventCode.rolledNumberMission, dataDice, EventManger.AllOtherThanMePeopleOptions, SendOptions.SendReliable);
-                if (JobInfoList[currentTask].amount <= x)
+                if (JobInfoList[currentTask].amount >= x)
                 {
                     setDuringProgessText(currentTask + 1, "Passed");
                     JobInfoList[currentTask].passingOrNot = true;
                     setDuringStatusText(currentTask + 1, "Passed");
                     currentTask += 1;
+                    if (entopy3)
+                    {
+                        entopy3 = false;
+                    }
                 }
                 else
                 {
@@ -432,6 +457,11 @@ namespace rollmissions
                     JobInfoList[currentTask].passingOrNot = false;
                     setDuringStatusText(currentTask + 1, "Failed");
                     setgetnumberOfChances -= 1;
+                    if (entopy3)
+                    {
+                        drawEntropy.removeAnEntropyCard(entropyCardDeck.cardDeck[2],false ); // remove for entorpy 3 if failed
+                        entopy3 = false;
+                    }
                 }
                 if ((currentTask + 1) <= JobInfoList.Count && numberOfChances != 0)
                 {
@@ -634,6 +664,79 @@ namespace rollmissions
                 }
             }
             checkSkillEffector(whichPosition);
+        }
+        public void convertFailedToPass(AllJobs whichTask, int cost)
+        {
+            bool ifCanChange = false;
+            for (int i = 0; i < JobInfoList.Count; i++)
+            {
+                if (!JobInfoList[i].passingOrNot)
+                {
+                    if (JobInfoList[i].skillName == whichTask)
+                    {
+                        ifCanChange = true;
+                        break;
+                    }
+                    else
+                    {
+                        ifCanChange = false;
+                        break;
+                    }
+                }
+            }
+            if (ifCanChange)
+            {
+                for (int i = 0; i < JobInfoList.Count; i++)
+                {
+                    if (JobInfoList[i].skillName == whichTask)
+                    {
+                        JobInfoList[i].passingOrNot = true;
+                        setDuringStatusText(i + 1, "Passed");
+                        setDuringProgessText(i + 1, "Passed");
+                        ifCanChange = true;
+                    }
+                }
+                checkCurrentMissionStatus();
+                if (!CurrentMissionStatus)
+                {
+                    setgetnumberOfChances += 1;
+                    chanceToReroll();
+                }
+            }
+            else
+            {
+                userArea.addMyMoney(cost);
+            }
+        }
+        public void checkIfCanReroll(AllJobs whichTask,int cost,int cardID)
+        {
+            bool CantReroll = true;
+            for (int i = 0; i < JobInfoList.Count; i++)
+            {
+                if (!JobInfoList[i].passingOrNot)
+                {
+                    if (JobInfoList[i].skillName == whichTask)
+                    {
+                        CantReroll = false;
+                        setgetnumberOfChances += 1;
+                        chanceToReroll();
+                        break;
+                    }
+                    else
+                    {
+                        CantReroll = true;
+                        break;
+                    }
+                }
+            }
+            if (!CantReroll)
+            {
+                if (cardID == 3)
+                {
+                    entopy3 = true;
+                }
+                userArea.addMyMoney(cost);
+            }
         }
     }
 }

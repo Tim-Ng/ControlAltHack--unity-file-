@@ -229,6 +229,14 @@ namespace main
                 else
                 {
                     drawEntro.drawEntropyCards(1);
+                    if (arrangedActors[0] == PhotonNetwork.LocalPlayer.ActorNumber)
+                    {
+                        if (userContorlAreas.users[0].amountOfCred > userContorlAreas.users[userContorlAreas.findPlayerPosition(arrangedActors[1])].amountOfCred)
+                        {
+                            Debug.LogError(userContorlAreas.users[0].amountOfCred + "VS" + userContorlAreas.users[userContorlAreas.findPlayerPosition(arrangedActors[1])].amountOfCred);
+                            userContorlAreas.addMyMoney(1000);
+                        }
+                    }
                 }
                 drawMission.removeAllCard();
                 if (userContorlAreas.users[0].characterScript.character_code == 7)
@@ -239,20 +247,13 @@ namespace main
                 {
                     drawMission.drawMissionCards(1);
                 }
-                if (arrangedActors[0] == PhotonNetwork.LocalPlayer.ActorNumber)
-                {
-
-                    if (userContorlAreas.users[0].amountOfCred > userContorlAreas.users[userContorlAreas.findPlayerPosition(arrangedActors[1])].amountOfCred)
-                    {
-                        userContorlAreas.addMyMoney(1000);
-                    }
-                }
                 if (userContorlAreas.users[0].characterScript.character_code == 3)
                     userContorlAreas.addMyMoney(1000);
                 else if (userContorlAreas.users[0].characterScript.character_code == 16)
                     userContorlAreas.addMyMoney(3000);
                 else
                     userContorlAreas.addMyMoney(2000);
+                
                 EndTurn();
             }
             else if (TurnNumber %2 == 0)

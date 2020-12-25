@@ -137,55 +137,36 @@ namespace rollmissions
             get { return currentMissionStatusText.GetComponent<Text>().text; }
             set { currentMissionStatusText.GetComponent<Text>().text = value; }
         }
-        private bool TaskOneStatusValue;
-        public bool setTaskOneStatus
+        private string TaskOneStatusValue;
+        public string setTaskOneStatus
         {
             get { return TaskOneStatusValue; }
             set
             {
                 TaskOneStatusValue = value;
-                if (TaskOneStatusValue)
-                {
-                    TaskOneStatus.GetComponent<Text>().text = "Task 1: Passed";
-                }
-                else
-                {
-                    TaskOneStatus.GetComponent<Text>().text = "Task 1: Failed";
-                }
+                TaskOneStatus.GetComponent<Text>().text = TaskOneStatusValue;
             }
         }
-        private bool TaskTwoStatusValue;
-        public bool setTaskTwoStatusStatus
+        private string TaskTwoStatusValue;
+        public string setTaskTwoStatusStatus
         {
             get { return TaskTwoStatusValue; }
             set
             {
                 TaskTwoStatusValue = value;
-                if (TaskTwoStatusValue)
-                {
-                    TaskTwoStatus.GetComponent<Text>().text = "Task 2: Passed";
-                }
-                else
-                {
-                    TaskTwoStatus.GetComponent<Text>().text = "Task 2: Failed";
-                }
+                TaskTwoStatus.GetComponent<Text>().text = TaskTwoStatusValue;
+                
             }
         }
-        private bool TaskThreeStatusValue;
-        public bool setTaskThreeStatusStatus
+        private string TaskThreeStatusValue;
+        public string setTaskThreeStatusStatus
         {
             get { return TaskThreeStatusValue; }
             set
             {
                 TaskThreeStatusValue = value;
-                if (TaskThreeStatusValue)
-                {
-                    TaskThreeStatus.GetComponent<Text>().text = "Task 3: Passed";
-                }
-                else
-                {
-                    TaskThreeStatus.GetComponent<Text>().text = "Task 3: Failed";
-                }
+                TaskThreeStatus.GetComponent<Text>().text = value;
+                
             }
         }
         public bool setActiveendMissionButton

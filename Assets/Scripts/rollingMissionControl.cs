@@ -51,7 +51,7 @@ namespace rollmissions
         [SerializeField] private drawEntropyCard drawEntropy = null;
         [SerializeField] private GameObject skillTemplate = null, skillChangerEliment = null;
         private List<SkillEffector> skillEffectorsList = new List<SkillEffector>();
-        private List<jobInfos> JobInfoList = new List<jobInfos>();
+        public List<jobInfos> JobInfoList = new List<jobInfos>();
         private MissionCardScript currentCard = null;
         private bool CurrentMissionStatus = true;
         private MissionCardScript setGetCurrentCard
@@ -227,9 +227,15 @@ namespace rollmissions
             onReceiveDuringTaskProgressText(1, "In prograss ");
             onReceiveDuringTaskProgressText(2, "waiting");
             onReceiveDuringTaskProgressText(3, "waiting");
-            onReceiveTaskStatusText(1, false);
-            onReceiveTaskStatusText(2, false);
-            onReceiveTaskStatusText(3, false);
+            setDuringStatusText(1, "Failed");
+            if (JobInfoList.Count >= 2)
+            {
+                setDuringStatusText(2, "Failed");
+            }
+            else if(JobInfoList.Count == 3)
+            {
+                setDuringStatusText(3, "Failed");
+            }
             missionRollController.setActiveRollButton = true;
             currentTask = 0;
             setCurrentTask();
@@ -242,9 +248,6 @@ namespace rollmissions
             setDuringProgessText(1, "In prograss ");
             setDuringProgessText(2, "waiting");
             setDuringProgessText(3, "waiting");
-            onReceiveTaskStatusText(1, false);
-            onReceiveTaskStatusText(2, false);
-            onReceiveTaskStatusText(3, false);
             missionRollController.setActiveRollButton = false;
         }
         public void chanceToReroll()
@@ -300,18 +303,19 @@ namespace rollmissions
             else if (which == 3)
                 missionRollController.settask3duringText = text;
         }
-        public void setDuringStatusText(int which, bool text)
+        public void setDuringStatusText(int which, string text)
         {
+            string tempstring = GetStringOfTask.get_string_of_job(JobInfoList[which - 1].skillName);
             if (which == 1)
-                missionRollController.setTaskOneStatus = text;
+                missionRollController.setTaskOneStatus = tempstring + ":"+text;
             else if (which == 2)
-                missionRollController.setTaskTwoStatusStatus = text;
+                missionRollController.setTaskTwoStatusStatus = tempstring + ":" + text;
             else if (which == 3)
-                missionRollController.setTaskThreeStatusStatus = text;
-            object[] setStatusTextdata = new object[] { which, text };
+                missionRollController.setTaskThreeStatusStatus = tempstring + ":" + text;
+            object[] setStatusTextdata = new object[] { which, tempstring + ":" + text };
             PhotonNetwork.RaiseEvent((byte)PhotonEventCode.setStatusText, setStatusTextdata, EventManger.AllOtherThanMePeopleOptions, SendOptions.SendReliable);
         }
-        public void onReceiveTaskStatusText(int which, bool text)
+        public void onReceiveTaskStatusText(int which, string text)
         {
             if (which == 1)
                 missionRollController.setTaskOneStatus = text;
@@ -368,6 +372,21 @@ namespace rollmissions
                 PhotonNetwork.RaiseEvent((byte)PhotonEventCode.textForTextBeforeRoll, textForBeforeTask, EventManger.AllOtherThanMePeopleOptions, SendOptions.SendReliable);
             }
         }
+        public void checkSkillEffector(int position)
+        {
+            foreach (SkillEffector skillEffector in skillEffectorsList)
+            {
+                if (turnManager.RoundNumber == skillEffector.RoundNumber)
+                {
+                    if (skillEffector.skillName == JobInfoList[position - 1].skillName)
+                    {
+                        upDateSkillAmount(position, skillEffector.amount);
+                    }
+                }
+                object[] textForBeforeTask = new object[] { missionRollController.settask1beforeText, setGetCurrentCard.hasSecondMission, missionRollController.settask2beforeText, setGetCurrentCard.hasThirdMission, missionRollController.settask3beforeText };
+                PhotonNetwork.RaiseEvent((byte)PhotonEventCode.textForTextBeforeRoll, textForBeforeTask, EventManger.AllOtherThanMePeopleOptions, SendOptions.SendReliable);
+            }
+        }
         public void addSkillEffector(AllJobs whichJob, int whichTurn, int amount)
         {
             SkillEffector tempEffector= new SkillEffector(whichJob, amount, whichTurn);
@@ -404,14 +423,14 @@ namespace rollmissions
                 {
                     setDuringProgessText(currentTask + 1, "Passed");
                     JobInfoList[currentTask].passingOrNot = true;
-                    setDuringStatusText(currentTask + 1, JobInfoList[currentTask].passingOrNot);
+                    setDuringStatusText(currentTask + 1, "Passed");
                     currentTask += 1;
                 }
                 else
                 {
                     setDuringProgessText(currentTask + 1, "Failed");
                     JobInfoList[currentTask].passingOrNot = false;
-                    setDuringStatusText(currentTask + 1, JobInfoList[currentTask].passingOrNot);
+                    setDuringStatusText(currentTask + 1, "Failed");
                     setgetnumberOfChances -= 1;
                 }
                 if ((currentTask + 1) <= JobInfoList.Count && numberOfChances != 0)
@@ -566,6 +585,55 @@ namespace rollmissions
                 }
             }
             turnManager.EndTurn();
+        }
+        public void swapSkill(skillToSwap skill1,AllJobs skill2)
+        {
+            int whichPosition = skill1.info.position;
+            JobInfoList[whichPosition - 1].skillName = skill2;
+            JobInfoList[whichPosition - 1].amount = userArea.users[0].characterScript.find_which(JobInfoList[whichPosition - 1].skillName);
+            if (whichPosition == 1)
+            {
+                missionRollController.settask2beforeText = "1] TaskName: " + GetStringOfTask.get_string_of_job(JobInfoList[0].skillName) + "\n   Amonunt: " + JobInfoList[0].amount;
+                setDuringStatusText(1, "Failed");
+                if (setGetCurrentCard.fist_change_hardnum != 0)
+                {
+                    if (setGetCurrentCard.fist_change_hardnum > 0)
+                        missionRollController.settask1beforeText += "+" + setGetCurrentCard.fist_change_hardnum;
+
+                    else
+                        missionRollController.settask1beforeText += setGetCurrentCard.fist_change_hardnum;
+                    JobInfoList[0].addSkillAmount(setGetCurrentCard.fist_change_hardnum);
+                }
+            }
+            else if (whichPosition == 2)
+            {
+                setDuringStatusText(2, "Failed");
+                missionRollController.settask2beforeText = "2] TaskName: " + GetStringOfTask.get_string_of_job(JobInfoList[1].skillName) + "\n   Amonunt: " + JobInfoList[1].amount;
+                if (setGetCurrentCard.second_change_hardnum != 0)
+                {
+                    if (setGetCurrentCard.second_change_hardnum > 0)
+                        missionRollController.settask2beforeText += "+" + setGetCurrentCard.second_change_hardnum;
+
+                    else
+                        missionRollController.settask2beforeText += setGetCurrentCard.second_change_hardnum;
+                    JobInfoList[1].addSkillAmount(setGetCurrentCard.second_change_hardnum);
+                }
+            }
+            else if (whichPosition == 3)
+            {
+                setDuringStatusText(3, "Failed");
+                missionRollController.settask3beforeText = "3] TaskName: " + GetStringOfTask.get_string_of_job(JobInfoList[2].skillName) + "\n   Amonunt: " + JobInfoList[2].amount;
+                if (setGetCurrentCard.third_change_hardnum != 0)
+                {
+                    if (setGetCurrentCard.third_change_hardnum > 0)
+                        missionRollController.settask3beforeText += "+" + setGetCurrentCard.third_change_hardnum;
+
+                    else
+                        missionRollController.settask3beforeText += setGetCurrentCard.third_change_hardnum;
+                    JobInfoList[2].addSkillAmount(setGetCurrentCard.third_change_hardnum);
+                }
+            }
+            checkSkillEffector(whichPosition);
         }
     }
 }

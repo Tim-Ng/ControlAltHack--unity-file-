@@ -232,7 +232,7 @@ namespace main
             {
                 Debug.Log("Receive set text status during rolling");
                 object[] setStatusTextdata = (object[])obj.CustomData;
-                rollingMission.onReceiveTaskStatusText((int)setStatusTextdata[0], (bool )setStatusTextdata[1]);
+                rollingMission.onReceiveTaskStatusText((int)setStatusTextdata[0], (string )setStatusTextdata[1]);
             }
             else if (obj.Code == (byte)PhotonEventCode.rolledNumberMission)
             {

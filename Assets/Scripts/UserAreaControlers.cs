@@ -146,7 +146,7 @@ namespace UserAreas
         {
             for (int i = 0; i < users.Count; i++)
             {
-                if (users[i].playerPhoton.ActorNumber == whichPlayer)
+                if (users[i].ActorID == whichPlayer)
                 {
                     return i;
                 }

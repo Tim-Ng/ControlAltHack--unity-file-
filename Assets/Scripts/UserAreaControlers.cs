@@ -10,6 +10,7 @@ using ExitGames.Client.Photon;
 using main;
 using DrawCards;
 using TradeScripts;
+using System.Threading;
 
 namespace UserAreas
 {
@@ -20,15 +21,20 @@ namespace UserAreas
         [SerializeField] private Text numberOfPeople = null;
         [SerializeField] private TurnManager turn = null;
         [SerializeField] private EventHandeler EventManager = null;
-        [SerializeField] private GameObject startGameItems = null, setRoundsButton = null, startGameButton = null, roomCode = null;
+        [SerializeField] private GameObject startGameItems = null, setRoundsButton = null, startGameButton = null, roomCode = null,firedLeaveButton = null;
         [SerializeField] private TradeControler tradeControler= null;
-        public static int AmountOfRounds;
+        [SerializeField] private drawEntropyCard drawEntropy = null;
+        [SerializeField] private drawMissionCard drawMission= null;
+        [SerializeField] private winCanvasController winCanvas = null;
+        public int AmountOfRounds;
         public static bool GameHasStarted { get; set; }
         public List<PlayerInfo> users = new List<PlayerInfo>();
-        private void Start()
+        public void Start()
         {
             AmountOfRounds = 6;
             startGameItems.SetActive(true);
+            firedLeaveButton.SetActive(false);
+            winCanvas.setWinCanvas = false;
             GameHasStarted = false;
             roomCode.GetComponent<Text>().text = PhotonNetwork.CurrentRoom.Name;
             users.Clear();
@@ -46,7 +52,7 @@ namespace UserAreas
             if (PhotonNetwork.IsMasterClient)
             {
                 startGameButton.SetActive(true);
-                if (PhotonNetwork.CurrentRoom.PlayerCount >= 1)
+                if (PhotonNetwork.CurrentRoom.PlayerCount >= 2)
                     startGameButton.GetComponent<Button>().interactable = true;
                 else
                     startGameButton.GetComponent<Button>().interactable = false;
@@ -67,8 +73,11 @@ namespace UserAreas
             users[0].ActorID = PhotonNetwork.LocalPlayer.ActorNumber;
             users[0].amountOfCred = 0;
             users[0].NumberOfCards = 0;
+            users[0].MissionCards= 0;
             users[0].amountOfMoney = 0;
+            users[0].characterScript = null;
             users[0].filled = true;
+            users[0].fired = false;
             Player[] listHoldCurrentPlayer = PhotonNetwork.PlayerListOthers;
             for (int i = 0; i < 5; i++)
             {
@@ -80,8 +89,11 @@ namespace UserAreas
                     users[i + 1].amountOfCred = 0;
                     users[i + 1].amountOfMoney = 0;
                     users[i + 1].NumberOfCards = 0;
+                    users[i + 1].MissionCards = 0;
+                    users[i + 1].characterScript = null;
                     users[i + 1].filled = true;
                     users[i + 1].attendingOrNot = false;
+                    users[i + 1].fired = false;
                 }
                 else
                 {
@@ -91,8 +103,11 @@ namespace UserAreas
                     users[i + 1].amountOfCred = 0;
                     users[i + 1].amountOfMoney = 0;
                     users[i + 1].NumberOfCards = 0;
+                    users[i + 1].MissionCards = 0;
+                    users[i + 1].characterScript = null;
                     users[i + 1].filled = false;
                     users[i + 1].attendingOrNot = false;
+                    users[i + 1].fired = false;
                 }
             }
         }
@@ -112,6 +127,13 @@ namespace UserAreas
                 Debug.Log("Host named " + otherPlayer.NickName + " has left the room");
                 Debug.Log("Host is changed to player named " + PhotonNetwork.PlayerList[0].NickName);
                 PhotonNetwork.SetMasterClient(PhotonNetwork.PlayerList[0]);
+                if (!winCanvas.setWinCanvas)
+                {
+                    if (PhotonNetwork.IsMasterClient)
+                    {
+                        winCanvas.setInteractablePlayAgainButton = true;
+                    }
+                }
             }
             if (!GameHasStarted)
             {
@@ -237,12 +259,20 @@ namespace UserAreas
         public void addMyCred(int Howmuch)
         {
             users[0].amountOfCred += Howmuch;
+            if (users[0].amountOfCred <= 0)
+            {
+                youAreFired();
+            }
             object[] amount = new object[] { PhotonNetwork.LocalPlayer, users[0].amountOfCred };
             PhotonNetwork.RaiseEvent((byte)PhotonEventCode.playerCred, amount, EventManager.AllOtherThanMePeopleOptions, SendOptions.SendReliable);
         }
         public void subMyCred(int Howmuch)
         {
             users[0].amountOfCred -= Howmuch;
+            if (users[0].amountOfCred <= 0)
+            {
+                youAreFired();
+            }
             object[] amount = new object[] { PhotonNetwork.LocalPlayer, users[0].amountOfCred };
             PhotonNetwork.RaiseEvent((byte)PhotonEventCode.playerCred, amount, EventManager.AllOtherThanMePeopleOptions, SendOptions.SendReliable);
         }
@@ -283,6 +313,21 @@ namespace UserAreas
             users[PlayerPosition].attendingOrNot = true;
             tradeControler.PlayerAttentingChange(PlayerPosition, missionCardCode);
         }
+        public void youAreFired()
+        {
+            users[0].fired = true;
+            firedLeaveButton.SetActive(true);
+            drawMission.removeAllCard();
+            drawEntropy.removeAllEntropyCard();
+            object[] playerFired = new object[] { PhotonNetwork.LocalPlayer};
+            PhotonNetwork.RaiseEvent((byte)PhotonEventCode.sendPlayerFired, playerFired, EventManager.AllOtherThanMePeopleOptions, SendOptions.SendReliable);
+        }
+        public void onReceiveFiredPlayer (Player whichPlayer)
+        {
+            int playerPosition = findPlayerPosition(whichPlayer);
+            users[playerPosition].fired = true;
+            users[playerPosition].Nickname = "Player Fired";
+        }
         public void clickOnLeaveGame()
         {
             PhotonNetwork.LeaveRoom();
@@ -293,5 +338,103 @@ namespace UserAreas
             Debug.Log("Changing scene");
             PhotonNetwork.LoadLevel(0);
         }
+        public void onReceiveWinner1(int Player1)
+        {
+            winCanvas.setWinCanvas = true;
+            winCanvas.setfirstPlaceHolder = true;
+            winCanvas.setsecondPlaceHolder = false;
+            winCanvas.setThirdPlaceHolder= false;
+            setWinnerInfo1(Player1);
+            if (PhotonNetwork.IsMasterClient)
+            {
+                winCanvas.setInteractablePlayAgainButton = true;
+            }
+            else
+            {
+                winCanvas.setInteractablePlayAgainButton = false;
+            }
+        }
+        public void onReceiveWinner2(int Player1, int Player2)
+        {
+            winCanvas.setWinCanvas = true;
+            winCanvas.setfirstPlaceHolder = true;
+            winCanvas.setsecondPlaceHolder = true;
+            winCanvas.setThirdPlaceHolder = false;
+            setWinnerInfo1(Player1);
+            setWinnerInfo2(Player2);
+            if (PhotonNetwork.IsMasterClient)
+            {
+                winCanvas.setInteractablePlayAgainButton = true;
+            }
+            else
+            {
+                winCanvas.setInteractablePlayAgainButton = false;
+            }
+        }
+        public void onReceiveWinner3(int Player1, int Player2,int Player3)
+        {
+            winCanvas.setWinCanvas = true;
+            winCanvas.setfirstPlaceHolder = true;
+            winCanvas.setsecondPlaceHolder = true;
+            winCanvas.setThirdPlaceHolder = true;
+            setWinnerInfo1(Player1);
+            setWinnerInfo2(Player2);
+            setWinnerInfo3(Player3);
+            if (PhotonNetwork.IsMasterClient)
+            {
+                winCanvas.setInteractablePlayAgainButton = true;
+            }
+            else
+            {
+                winCanvas.setInteractablePlayAgainButton = false;
+            }
+        }
+        public void setWinnerInfo1(int PlayerID)
+        {
+            int position = findPlayerPosition(PlayerID);
+            winCanvas.setFirstPlaceAmountOfCred = users[position].amountOfCred;
+            winCanvas.setFirstPlaceNickName = users[position].Nickname;
+            if (users[position].characterScript == null)
+            {
+                winCanvas.setFirstPlaceAvertar = null;
+            }
+            else
+            {
+                winCanvas.setFirstPlaceAvertar = users[position].characterScript.image_Avertar;
+            }
+        }
+        public void setWinnerInfo2(int PlayerID)
+        {
+            int position = findPlayerPosition(PlayerID);
+            winCanvas.setSecondPlaceAmountOfCred = users[position].amountOfCred;
+            winCanvas.setSecondPlaceNickName = users[position].Nickname;
+            if (users[position].characterScript == null)
+            {
+                winCanvas.setSecondPlaceAvertar = null;
+            }
+            else
+            {
+                winCanvas.setSecondPlaceAvertar = users[position].characterScript.image_Avertar;
+            }
+        }
+        public void setWinnerInfo3(int PlayerID)
+        {
+            int position = findPlayerPosition(PlayerID);
+            winCanvas.setThirdPlaceAmountOfCred = users[position].amountOfCred;
+            winCanvas.setThirdPlaceNickName = users[position].Nickname;
+            if (users[position].characterScript == null)
+            {
+                winCanvas.setThirdPlaceAvertar = null;
+            }
+            else
+            {
+                winCanvas.setThirdPlaceAvertar = users[position].characterScript.image_Avertar;
+            }
+        }
+        public void clickOnPlayAgain()
+        {
+            PhotonNetwork.RaiseEvent((byte)PhotonEventCode.resetGame, null, EventManager.AllPeople, SendOptions.SendReliable);
+        }
+
     }
 }

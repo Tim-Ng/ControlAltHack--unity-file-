@@ -16,7 +16,7 @@ namespace DrawCards
         {
             startDraw();
         }
-        private void startDraw()
+        public void startDraw()
         {
             characterCardID.Clear();
             characterCardID.Add(1);
@@ -42,7 +42,7 @@ namespace DrawCards
             for (int i = 0; i < howmuch; i++)
             {
                 System.Random rand = new System.Random((int)DateTime.Now.Ticks);
-                int x = rand.Next(0, characterCardID.Count -1 );
+                int x = rand.Next(0, characterCardID.Count - 1);
                 Debug.Log("Card number is:" + characterCardID[x]);
                 GameObject characterPlayerCard1 = Instantiate(cardTemplate, transform.position, Quaternion.identity);
                 characterPlayerCard1.GetComponent<characterCardDisplay>().setID(characterCardID[x]);

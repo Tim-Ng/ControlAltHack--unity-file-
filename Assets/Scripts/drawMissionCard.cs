@@ -19,7 +19,7 @@ namespace DrawCards {
         {
             startDraw();
         }
-        private void startDraw()
+        public void startDraw()
         {
             missionCardIDUsed.Clear();
             missionCardID.Clear();

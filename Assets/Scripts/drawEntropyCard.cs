@@ -22,7 +22,7 @@ namespace DrawCards {
         {
             startDraw();
         }
-        private void startDraw()
+        public void startDraw()
         {
             entropyCardIDUsed.Clear();
             entropyCardID.Clear();
@@ -120,6 +120,17 @@ namespace DrawCards {
             userControler.sendAmountOfCards();
             if (discarding)
                 rollingMission.removedAnEntropy();
+        }
+        public void removeAllEntropyCard()
+        {
+            foreach (Transform child in cardArea.transform)
+            {
+                object[] whichCard = new object[] { child.gameObject.GetComponent<entropyCardDisplay>().getInfo().EntropyCardID };
+                PhotonNetwork.RaiseEvent((byte)PhotonEventCode.drawEntropyUsed, whichCard, EventManager.AllPeople, SendOptions.SendReliable);
+                GameObject.Destroy(child.gameObject);
+                userControler.users[0].NumberOfCards -= 1;
+            }
+            userControler.sendAmountOfCards();
         }
     }
 }

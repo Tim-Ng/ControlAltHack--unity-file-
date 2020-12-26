@@ -6,21 +6,22 @@ using Photon.Realtime;
 using UserAreas;
 using DrawCards;
 using ExitGames.Client.Photon;
-using System.Threading;
 using rollmissions;
 using UnityEngine.UI;
 using System;
+using TradeScripts;
 
 namespace main
 {
     public class TurnManager : MonoBehaviourPunCallbacks
     {
-        [SerializeField] private UserAreaControlers userContorlAreas = null;
         [SerializeField] private drawCharacterCard drawCard = null;
         [SerializeField] private drawEntropyCard drawEntro= null;
         [SerializeField] private EventHandeler EventManager = null;
         [SerializeField] private drawMissionCard drawMission = null;
         [SerializeField] private rollingMissionControl rollingMission = null;
+        [SerializeField] private UserAreaControlers userContorlAreas = null;
+        [SerializeField] private TradeControler tradeController= null;
         [SerializeField] private GameObject roundIndicator = null;
         private int CurrentTurn;
         private List<int> arrangedActors = new List<int>();
@@ -42,56 +43,65 @@ namespace main
             List<PlayerInfo> userTemp = new List<PlayerInfo>();
             for (int i = 0; i< userContorlAreas.users.Count; i++)
             {
-                if (userContorlAreas.users[i].filled)
+                if (userContorlAreas.users[i].filled && !userContorlAreas.users[i].fired)
                 {
                     userTemp.Add(userContorlAreas.users[i]);
                 }
             }
-            PlayerInfo holdInfo;
-            for (int j = 0; j <= userTemp.Count - 2; j++)
+            Debug.LogWarning(userTemp.Count);
+            if (userTemp.Count != 1)
             {
-                for (int i = 0; i <= userTemp.Count - 2; i++)
+                PlayerInfo holdInfo;
+                for (int j = 0; j <= userTemp.Count - 2; j++)
                 {
-                    if (userTemp[i].amountOfCred > userTemp[i + 1].amountOfCred)
+                    for (int i = 0; i <= userTemp.Count - 2; i++)
                     {
-                        holdInfo = userTemp[i];
-                        userTemp[i] = userTemp[i + 1];
-                        userTemp[i + 1] = holdInfo;
-                    }
-                    else if (userTemp[i].amountOfCred == userTemp[i + 1].amountOfCred)
-                    {
-                        if (userTemp[i].ActorID < userTemp[i + 1].ActorID)
+                        if (userTemp[i].amountOfCred > userTemp[i + 1].amountOfCred)
                         {
                             holdInfo = userTemp[i];
                             userTemp[i] = userTemp[i + 1];
                             userTemp[i + 1] = holdInfo;
                         }
+                        else if (userTemp[i].amountOfCred == userTemp[i + 1].amountOfCred)
+                        {
+                            if (userTemp[i].ActorID < userTemp[i + 1].ActorID)
+                            {
+                                holdInfo = userTemp[i];
+                                userTemp[i] = userTemp[i + 1];
+                                userTemp[i + 1] = holdInfo;
+                            }
+                        }
+                    }
+                }
+                userTemp.Reverse();
+                for (int i = 0; i < userTemp.Count; i++)
+                {
+                    Debug.Log("In Host " + userTemp[i].ActorID);
+                }
+                for (int i = 0; i < userTemp.Count; i++)
+                {
+                    if (i == userTemp.Count - 1)
+                    {
+                        object[] arrangement = new object[] { userTemp[i].ActorID, false, true };
+                        PhotonNetwork.RaiseEvent((byte)PhotonEventCode.inputArrangement, arrangement, EventManager.AllPeople, SendOptions.SendReliable);
+                    }
+                    else if (i == 0)
+                    {
+                        object[] arrangement = new object[] { userTemp[i].ActorID, true, false };
+                        PhotonNetwork.RaiseEvent((byte)PhotonEventCode.inputArrangement, arrangement, EventManager.AllPeople, SendOptions.SendReliable);
+                    }
+                    else
+                    {
+                        object[] arrangement = new object[] { userTemp[i].ActorID, false, false };
+                        PhotonNetwork.RaiseEvent((byte)PhotonEventCode.inputArrangement, arrangement, EventManager.AllPeople, SendOptions.SendReliable);
                     }
                 }
             }
-            userTemp.Reverse();
-            for (int i = 0; i < userTemp.Count; i++)
+            else
             {
-                Debug.Log("In Host " + userTemp[i].ActorID);
+                setWinnerList();
             }
-            for (int i = 0; i<userTemp.Count; i++)
-            {
-                if (i == userTemp.Count - 1)
-                {
-                    object[] arrangement = new object[] { userTemp[i].ActorID, false, true };
-                    PhotonNetwork.RaiseEvent((byte)PhotonEventCode.inputArrangement, arrangement, EventManager.AllPeople, SendOptions.SendReliable);
-                }
-                else if (i == 0)
-                {
-                    object[] arrangement = new object[] { userTemp[i].ActorID, true, false };
-                    PhotonNetwork.RaiseEvent((byte)PhotonEventCode.inputArrangement, arrangement, EventManager.AllPeople, SendOptions.SendReliable);
-                }
-                else
-                {
-                    object[] arrangement = new object[] { userTemp[i].ActorID, false, false };
-                    PhotonNetwork.RaiseEvent((byte)PhotonEventCode.inputArrangement, arrangement, EventManager.AllPeople, SendOptions.SendReliable);
-                }
-            }
+            
         }
         public void inputArrangement(int actorID,bool first,bool last)
         {
@@ -159,7 +169,7 @@ namespace main
                 }
             }
             //check 
-            if (actorsDone.Count == PhotonNetwork.CurrentRoom.PlayerCount)
+            if (actorsDone.Count == arrangedActors.Count)
             {
                 setNextRound();
             }
@@ -172,14 +182,24 @@ namespace main
             {
                 rollingMission.switchStage(4);
                 roundIndicator.SetActive(true);
-                roundIndicator.GetComponent<Text>().text = "Round " + RoundNumber;
+                if (RoundNumber > userContorlAreas.AmountOfRounds)
+                    roundIndicator.GetComponent<Text>().text = "Tie Breaker Round";
+                else
+                    roundIndicator.GetComponent<Text>().text = "Round " + RoundNumber;
             }
             else if (TurnNumber % 2 == 0)
                 roundIndicator.SetActive(false);
             waiting = false;
             if (PhotonNetwork.IsMasterClient)
             {
-                setArrangementForTurn();
+                if (RoundNumber > userContorlAreas.AmountOfRounds && (userContorlAreas.users[userContorlAreas.findPlayerPosition(arrangedActors[0])] != userContorlAreas.users[userContorlAreas.findPlayerPosition(arrangedActors[1])]))
+                {
+                    setWinnerList();
+                }
+                else
+                {
+                    setArrangementForTurn();
+                }
             }
         }
         public void playerLeft(int ActorID)
@@ -194,6 +214,10 @@ namespace main
                 {
                     arrangedActors.Remove(ActorID);
                 }
+            }
+            if (PhotonNetwork.CurrentRoom.PlayerCount == 1)
+            {
+                setWinnerList();
             }
             if (waiting)
             {
@@ -216,6 +240,7 @@ namespace main
             }
             else if (TurnNumber % 2 == 1)
             {
+                tradeController.HowManyPeople = 0;
                 if (TurnNumber == 1)
                 {
                     userContorlAreas.addMyCred(6);
@@ -247,18 +272,42 @@ namespace main
                     userContorlAreas.addMyMoney(3000);
                 else
                     userContorlAreas.addMyMoney(2000);
-                
+
                 EndTurn();
             }
-            else if (TurnNumber %2 == 0)
+            else if (TurnNumber % 2 == 0)
             {
                 rollingMission.setRollTimeIsMyTurn();
             }
-            
         }
         public void EndTurn()
         {
             PhotonNetwork.RaiseEvent((byte)PhotonEventCode.playerChanged, null, EventManager.AllPeople, SendOptions.SendReliable);
+        }
+        public void setWinnerList()
+        {
+            if (PhotonNetwork.CurrentRoom.PlayerCount == 1)
+            {
+                userContorlAreas.onReceiveWinner1(PhotonNetwork.LocalPlayer.ActorNumber);
+            }
+            else
+            {
+                if (arrangedActors.Count == 1)
+                {
+                    object[] winnerData = new object[] { arrangedActors.Count, arrangedActors[0] };
+                    PhotonNetwork.RaiseEvent((byte)PhotonEventCode.receiveWinner, winnerData, EventManager.AllPeople, SendOptions.SendReliable);
+                }
+                else if (arrangedActors.Count == 2)
+                {
+                    object[] winnerData = new object[] { arrangedActors.Count, arrangedActors[0], arrangedActors[1] };
+                    PhotonNetwork.RaiseEvent((byte)PhotonEventCode.receiveWinner, winnerData, EventManager.AllPeople, SendOptions.SendReliable);
+                }
+                else if (arrangedActors.Count == 3)
+                {
+                    object[] winnerData = new object[] { arrangedActors.Count, arrangedActors[0], arrangedActors[1], arrangedActors[2] };
+                    PhotonNetwork.RaiseEvent((byte)PhotonEventCode.receiveWinner, winnerData, EventManager.AllPeople, SendOptions.SendReliable);
+                }
+            }
         }
     }
 }

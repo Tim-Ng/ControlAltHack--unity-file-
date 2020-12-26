@@ -52,6 +52,9 @@ namespace main
         lightningRoll = 38,
         sendLightingStrikeRoll = 39,
         sendLightingStrikeRolled = 40,
+        sendPlayerFired = 41,
+        receiveWinner = 42,
+        resetGame = 43,
     }
     public class EventHandeler : MonoBehaviour
     {
@@ -63,6 +66,7 @@ namespace main
         [SerializeField] private TradeControler tradeControl = null;
         [SerializeField] private rollingMissionControl rollingMission = null;
         [SerializeField] private playEntropyCard playEntropy= null;
+        [SerializeField] private GameObject cardArea= null,roundNumberOBJ = null;
         public RaiseEventOptions AllOtherThanMePeopleOptions = new RaiseEventOptions()
         {
             CachingOption = EventCaching.DoNotCache,
@@ -307,6 +311,41 @@ namespace main
             {
                 object[] entropyLightningRolledJData = (object[])obj.CustomData;
                 playEntropy.onReceiveRolled((string)entropyLightningRolledJData[0]);
+            }
+            else if (obj.Code == (byte)PhotonEventCode.sendPlayerFired)
+            {
+                object[] playerFired = (object[])obj.CustomData;
+                userControler.onReceiveFiredPlayer((Player)playerFired[0]);
+            }
+            else if (obj.Code == (byte)PhotonEventCode.receiveWinner)
+            {
+                object[] winnerData = (object[])obj.CustomData;
+                if ((int)winnerData[0] == 1)
+                {
+                    userControler.onReceiveWinner1((int)winnerData[1]);
+                }
+                else if ((int)winnerData[0] == 2)
+                {
+                    userControler.onReceiveWinner2((int)winnerData[1], (int)winnerData[2]);
+                }
+                else if ((int)winnerData[0] == 3)
+                {
+                    userControler.onReceiveWinner3((int)winnerData[1], (int)winnerData[2],(int)winnerData[3]);
+                }
+            }
+            else if (obj.Code == (byte)PhotonEventCode.resetGame)
+            {
+                turnManager.TurnNumber = 0;
+                roundNumberOBJ.SetActive(false);
+                userControler.Start();
+                foreach (Transform child in cardArea.transform)
+                {
+                    GameObject.Destroy(child.gameObject);
+                }
+                drawMission.removeAllCard();
+                drawEntropy.startDraw();
+                drawMission.startDraw();
+                drawChar.startDraw();
             }
         }
     }

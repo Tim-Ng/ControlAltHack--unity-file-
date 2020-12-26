@@ -31,7 +31,6 @@ namespace TradeScripts
         }
         public void setAllAreas()
         {
-            HowManyPeople = 0;
             myMissionCard.GetComponent<Image>().sprite = userControler.users[0].missionScript.artwork_front_info;
             MyMoney.GetComponent<Text>().text = userControler.users[0].amountOfMoney.ToString();
             for (int i = 1; i <6; i++)

@@ -39,8 +39,11 @@ namespace UserAreas
             set 
             { 
                 CharScript = value;
-                Avertar.GetComponent<Image>().sprite = CharScript.image_Avertar;
-                Avertar.GetComponent<Button>().interactable = true;
+                if (CharScript == null)
+                    Avertar.GetComponent<Image>().sprite = null;
+                else
+                    Avertar.GetComponent<Image>().sprite = CharScript.image_Avertar;
+                Avertar.GetComponent<Button>().interactable = (CharScript != null);
             } 
         }
         private int numberOfEntroCards;
@@ -72,5 +75,6 @@ namespace UserAreas
         public int MissionCards { get; set; }
         public MissionCardScript missionScript { get; set; }
         public bool attendingOrNot { get; set; }
+        public bool fired { get; set; }
     }
 }

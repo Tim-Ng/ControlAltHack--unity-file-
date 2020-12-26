@@ -7,11 +7,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UserAreas;
 using rollmissions;
+using System.Threading;
+
 namespace DrawCards {
     public class drawEntropyCard : MonoBehaviour
     {
-        private List<int> entropyCardID = new List<int>();
-        private List<int> entropyCardIDUsed = new List<int>();
+        public List<int> entropyCardID = new List<int>();
+        public List<int> entropyCardIDUsed = new List<int>();
         [SerializeField] private UserAreaControlers userControler = null;
         [SerializeField] private GameObject cardArea = null, cardTemplate = null;
         [SerializeField] private EventHandeler EventManager = null;
@@ -63,6 +65,12 @@ namespace DrawCards {
             {
                 if (userControler.users[0].NumberOfCards <= 4)
                 {
+                    if (entropyCardID.Count == 0)
+                    {
+                        entropyCardID.AddRange(entropyCardIDUsed);
+                        entropyCardIDUsed.Clear();
+                        Debug.LogWarning("Reimport deck entropy");
+                    }
                     System.Random rand = new System.Random((int)DateTime.Now.Ticks);
                     int x = rand.Next(0, entropyCardID.Count - 1);
                     Debug.Log("Card number is:" + entropyCardID[x]);
@@ -72,8 +80,8 @@ namespace DrawCards {
                     characterPlayerCard1.gameObject.transform.localScale += new Vector3(-0.75f, -0.75f, 0);
                     characterPlayerCard1.transform.SetParent(cardArea.transform, false);
                     object[] cardID = new object[] { entropyID };
-                    entropyCardID.Remove(entropyID);
                     PhotonNetwork.RaiseEvent((byte)PhotonEventCode.drawEntropyRemove, cardID, EventManager.AllOtherThanMePeopleOptions, SendOptions.SendReliable);
+                    entropyCardID.Remove(entropyID);
                     userControler.users[0].NumberOfCards += 1;
                 }
                 else 
@@ -86,8 +94,9 @@ namespace DrawCards {
             entropyCardID.Remove(which);
             if (entropyCardID.Count == 0)
             {
-                entropyCardID = entropyCardIDUsed;
+                entropyCardID.AddRange(entropyCardIDUsed);
                 entropyCardIDUsed.Clear();
+                Debug.LogWarning("Reimport deck entropy");
             }
         }
         public void addToPlayedDeck(int which)
@@ -101,13 +110,13 @@ namespace DrawCards {
             {
                 if (child.gameObject.GetComponent<entropyCardDisplay>().getInfo() == whichScript)
                 {
+                    object[] whichCard = new object[] { child.gameObject.GetComponent<entropyCardDisplay>().getInfo().EntropyCardID };
+                    PhotonNetwork.RaiseEvent((byte)PhotonEventCode.drawEntropyUsed, whichCard, EventManager.AllPeople, SendOptions.SendReliable);
                     GameObject.Destroy(child.gameObject);
                     userControler.users[0].NumberOfCards -= 1;
                     break;
                 }
             }
-            object[] whichCard = new object[] { whichScript.EntropyCardID };
-            PhotonNetwork.RaiseEvent((byte)PhotonEventCode.drawEntropyUsed, whichCard, EventManager.AllPeople, SendOptions.SendReliable);
             userControler.sendAmountOfCards();
             if (discarding)
                 rollingMission.removedAnEntropy();

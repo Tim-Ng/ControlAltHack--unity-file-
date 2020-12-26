@@ -30,5 +30,5 @@ MonoBehaviour:
   Failure: 
   minus_how_much_cred: 0
   use_usage: 1
-  usageDiscription: failed connections turn to pass
-  removeAfterPlay: 1
+  usageDiscription: failed connections turn to pass //note will remove if used
+  removeAfterPlay: 0

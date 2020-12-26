@@ -3,9 +3,11 @@ using main;
 using Photon.Pun;
 using Photon.Realtime;
 using rollmissions;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UserAreas;
 
 namespace DrawCards
@@ -18,6 +20,18 @@ namespace DrawCards
         [SerializeField] private EventHandeler EventManager = null;
         [SerializeField] private TurnManager turnManager = null;
         [SerializeField] private drawEntropyCard drawEntropy = null;
+        [SerializeField] private GameObject lightningRollOBJs = null, entropyRollCard = null, whichSkillAgainst = null, amountRolled = null, amountNeeded= null,rollButtonEntropy = null;
+        private int amountNeededToRoll = 0;
+        private EntropyCardScript entropyRollStrike = null;
+        public int setamountNeededToRoll
+        {
+            get { return amountNeededToRoll; }
+            set
+            {
+                amountNeededToRoll = value;
+                amountNeeded.GetComponent<Text>().text = amountNeededToRoll.ToString();
+            }
+        }
         private readonly List<int> extendSive = new List<int> { 20, 21, 22, 23, 24 };
         public void onPlayEntropyCard(EntropyCardScript whichScript)
         {
@@ -36,11 +50,11 @@ namespace DrawCards
             }
             else if (entropyID == 14)
             {
-                rollingControl.convertFailedToPass(AllJobs.Connnections, whichScript.Cost);
+                rollingControl.convertFailedToPass(AllJobs.Connnections, whichScript.Cost,whichScript);
             }
             else if (entropyID == 15)
             {
-                rollingControl.convertFailedToPass(AllJobs.Crypt, whichScript.Cost);
+                rollingControl.convertFailedToPass(AllJobs.Crypt, whichScript.Cost, whichScript);
             }
             else if (entropyID == 10)
             {
@@ -114,29 +128,39 @@ namespace DrawCards
                 {
                     if (entropyID == 20)
                     {
-                        rollingControl.convertFailedToPass(AllJobs.Crypt, whichScript.Cost);
+                        rollingControl.convertFailedToPass(AllJobs.Crypt, whichScript.Cost, whichScript);
                     }
                     else if (entropyID == 21)
                     {
-                        rollingControl.convertFailedToPass(AllJobs.HardHack, whichScript.Cost);
+                        rollingControl.convertFailedToPass(AllJobs.HardHack, whichScript.Cost, whichScript);
                     }
                     else if (entropyID == 22)
                     {
-                        rollingControl.convertFailedToPass(AllJobs.NetNinja, whichScript.Cost);
+                        rollingControl.convertFailedToPass(AllJobs.NetNinja, whichScript.Cost, whichScript);
                     }
                     else if (entropyID == 23)
                     {
-                        rollingControl.convertFailedToPass(AllJobs.SocialEng, whichScript.Cost);
+                        rollingControl.convertFailedToPass(AllJobs.SocialEng, whichScript.Cost, whichScript);
                     }
                     else if (entropyID == 24)
                     {
-                        rollingControl.convertFailedToPass(AllJobs.SoftWiz, whichScript.Cost);
+                        rollingControl.convertFailedToPass(AllJobs.SoftWiz, whichScript.Cost, whichScript);
                     }
                 }
+            }
+            else if (entropyID == 25)
+            {
+                object[] entropyOBJData = new object[] { entropyID };
+                PhotonNetwork.RaiseEvent((byte)PhotonEventCode.lightningRoll, entropyOBJData, new RaiseEventOptions() { TargetActors = new int[] { turnManager.PlayerIdToMakeThisTurn } }, SendOptions.SendReliable);
             }
             else if (entropyID == 26)
             {
                 PhotonNetwork.RaiseEvent((byte)PhotonEventCode.skillChangeID26, null, new RaiseEventOptions() { TargetActors = new int[] { turnManager.PlayerIdToMakeThisTurn } }, SendOptions.SendReliable);
+            }
+            else if (entropyID == 27) 
+            {
+                object[] entropyOBJData = new object[] { entropyID };
+                PhotonNetwork.RaiseEvent((byte)PhotonEventCode.lightningRoll, entropyOBJData, new RaiseEventOptions() { TargetActors = new int[] { turnManager.PlayerIdToMakeThisTurn } }, SendOptions.SendReliable);
             }
             else if (entropyID == 28)
             {
@@ -161,6 +185,58 @@ namespace DrawCards
             {
                 drawEntropy.removeAnEntropyCard(whichScript,false);
             }
+        }
+        public void lightningRoll(int whichCard)
+        {
+            lightningRollOBJs.SetActive(true);
+            entropyRollStrike = entropyCardDeck.cardDeck[whichCard - 1];
+            entropyRollCard.GetComponent<Image>().sprite = entropyRollStrike.artwork_info;
+            rollButtonEntropy.SetActive(true);
+            if (whichCard == 25)
+            {
+                whichSkillAgainst.GetComponent<Text>().text = GetStringOfTask.get_string_of_job(AllJobs.SocialEng);
+                setamountNeededToRoll = userArea.users[0].characterScript.find_which(AllJobs.SocialEng);
+            }
+            else if (whichCard == 27)
+            {
+                whichSkillAgainst.GetComponent<Text>().text = GetStringOfTask.get_string_of_job(AllJobs.HardHack);
+                setamountNeededToRoll = userArea.users[0].characterScript.find_which(AllJobs.HardHack);
+            }
+            object[] entropyLightningRollJData = new object[] { whichCard, whichSkillAgainst.GetComponent<Text>().text , setamountNeededToRoll };
+            PhotonNetwork.RaiseEvent((byte)PhotonEventCode.sendLightingStrikeRoll, entropyLightningRollJData, EventManager.AllOtherThanMePeopleOptions, SendOptions.SendReliable);
+        }
+        public void clickOnRollButtonlightningRoll()
+        {
+            System.Random rand = new System.Random((int)DateTime.Now.Ticks);
+            int x = rand.Next(0, 18);
+            amountRolled.GetComponent<Text>().text = x.ToString();
+            object[] entropyLightningRolledJData = new object[] { amountRolled.GetComponent<Text>().text };
+            PhotonNetwork.RaiseEvent((byte)PhotonEventCode.sendLightingStrikeRolled, entropyLightningRolledJData, EventManager.AllOtherThanMePeopleOptions, SendOptions.SendReliable);
+            if (x < amountNeededToRoll)
+            {
+                if (entropyRollStrike.EntropyCardID == 25)
+                {
+                    userArea.subMyCred(1);
+                    lightningRollOBJs.SetActive(false);
+                }
+                else
+                {
+                    rollingControl.onClickEndTurnButton();
+                }
+            }
+            lightningRollOBJs.SetActive(false);
+        }
+        public void onReceiveSomeoneLightningRoll(int whichCard,string whichSkill, int whichAmount)
+        {
+            lightningRollOBJs.SetActive(true);
+            entropyRollCard.GetComponent<Image>().sprite = entropyCardDeck.cardDeck[whichCard - 1].artwork_info;
+            setamountNeededToRoll = whichAmount;
+            whichSkillAgainst.GetComponent<Text>().text = whichSkill;
+        }
+        public void onReceiveRolled(string amountRolledText)
+        {
+            amountRolled.GetComponent<Text>().text = amountRolledText;
+            lightningRollOBJs.SetActive(false);
         }
     }
 }

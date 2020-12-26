@@ -49,6 +49,9 @@ namespace main
         cancelMissionID28 = 35,
         skillChangeID26 = 36,
         goZeroMoneyID29 = 37,
+        lightningRoll = 38,
+        sendLightingStrikeRoll = 39,
+        sendLightingStrikeRolled = 40,
     }
     public class EventHandeler : MonoBehaviour
     {
@@ -59,6 +62,7 @@ namespace main
         [SerializeField] private drawMissionCard drawMission = null;
         [SerializeField] private TradeControler tradeControl = null;
         [SerializeField] private rollingMissionControl rollingMission = null;
+        [SerializeField] private playEntropyCard playEntropy= null;
         public RaiseEventOptions AllOtherThanMePeopleOptions = new RaiseEventOptions()
         {
             CachingOption = EventCaching.DoNotCache,
@@ -288,6 +292,21 @@ namespace main
             else if (obj.Code == (byte)PhotonEventCode.goZeroMoneyID29)
             {
                 userControler.subMyMoney(userControler.users[0].amountOfMoney);
+            }
+            else if (obj.Code == (byte)PhotonEventCode.lightningRoll)
+            {
+                object[] entropyOBJData = (object[])obj.CustomData;
+                playEntropy.lightningRoll((int)entropyOBJData[0]);
+            }
+            else if (obj.Code == (byte)PhotonEventCode.sendLightingStrikeRoll)
+            {
+                object[] entropyLightningRollJData = (object[])obj.CustomData;
+                playEntropy.onReceiveSomeoneLightningRoll((int)entropyLightningRollJData[0], (string)entropyLightningRollJData[1], (int)entropyLightningRollJData[2]);
+            }
+            else if (obj.Code == (byte)PhotonEventCode.sendLightingStrikeRolled)
+            {
+                object[] entropyLightningRolledJData = (object[])obj.CustomData;
+                playEntropy.onReceiveRolled((string)entropyLightningRolledJData[0]);
             }
         }
     }

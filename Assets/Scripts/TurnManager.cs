@@ -146,18 +146,17 @@ namespace main
         {
             if (left)
             {
-                for (int i = 0; i < actorsDone.Count; i++)
+                if (actorsDone.Contains(Actorid))
                 {
-                    if (actorsDone[i] == Actorid)
-                    {
-                        actorsDone.Remove(Actorid);
-                        break;
-                    }
+                    actorsDone.Remove(Actorid);
                 }
             }
             else
             {
-                actorsDone.Add(Actorid);
+                if (!actorsDone.Contains(Actorid))
+                {
+                    actorsDone.Add(Actorid);
+                }
             }
             //check 
             if (actorsDone.Count == PhotonNetwork.CurrentRoom.PlayerCount)
@@ -191,13 +190,9 @@ namespace main
             }
             else
             {
-                for (int i = CurrentTurn; i < arrangedActors.Count; i++)
+                if (arrangedActors.Contains(ActorID))
                 {
-                    if (arrangedActors[i] == ActorID)
-                    {
-                        arrangedActors.Remove(ActorID);
-                        break;
-                    }
+                    arrangedActors.Remove(ActorID);
                 }
             }
             if (waiting)

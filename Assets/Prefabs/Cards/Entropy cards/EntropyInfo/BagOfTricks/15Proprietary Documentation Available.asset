@@ -30,5 +30,5 @@ MonoBehaviour:
   Failure: 
   minus_how_much_cred: 0
   use_usage: 1
-  usageDiscription: Turn failed cryp to success
-  removeAfterPlay: 1
+  usageDiscription: Turn failed cryp to success //note will remove if used
+  removeAfterPlay: 0

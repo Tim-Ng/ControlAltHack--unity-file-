@@ -283,5 +283,15 @@ namespace UserAreas
             users[PlayerPosition].attendingOrNot = true;
             tradeControler.PlayerAttentingChange(PlayerPosition, missionCardCode);
         }
+        public void clickOnLeaveGame()
+        {
+            PhotonNetwork.LeaveRoom();
+            Debug.Log("PlayerLeftRoom... loading scene");
+        }
+        public override void OnLeftRoom()
+        {
+            Debug.Log("Changing scene");
+            PhotonNetwork.LoadLevel(0);
+        }
     }
 }

@@ -234,7 +234,7 @@ namespace rollmissions
             {
                 setDuringStatusText(2, "Failed");
             }
-            else if(JobInfoList.Count == 3)
+            if(JobInfoList.Count == 3)
             {
                 setDuringStatusText(3, "Failed");
             }
@@ -570,7 +570,7 @@ namespace rollmissions
             if (CurrentMissionStatus)
             {
                 userArea.addMyCred(setGetCurrentCard.success_amount_hacker_cread);
-                if (userArea.users[0].characterScript.character_code == 11)
+                if (userArea.users[0].characterScript.character_code == 14)
                 {
                     for (int i = 0; i < JobInfoList.Count; i++)
                     {
@@ -665,7 +665,7 @@ namespace rollmissions
             }
             checkSkillEffector(whichPosition);
         }
-        public void convertFailedToPass(AllJobs whichTask, int cost)
+        public void convertFailedToPass(AllJobs whichTask, int cost,EntropyCardScript entropyCard)
         {
             bool ifCanChange = false;
             for (int i = 0; i < JobInfoList.Count; i++)
@@ -702,6 +702,10 @@ namespace rollmissions
                     setgetnumberOfChances += 1;
                     chanceToReroll();
                 }
+                if (entropyCard.EntropyCardID == 14 || entropyCard.EntropyCardID == 15)
+                {
+                    drawEntropy.removeAnEntropyCard(entropyCard, false);
+                }
             }
             else
             {
@@ -729,13 +733,16 @@ namespace rollmissions
                     }
                 }
             }
-            if (!CantReroll)
+            if (CantReroll)
+            {
+                userArea.addMyMoney(cost);
+            }
+            else
             {
                 if (cardID == 3)
                 {
                     entopy3 = true;
                 }
-                userArea.addMyMoney(cost);
             }
         }
     }

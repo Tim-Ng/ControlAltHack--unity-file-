@@ -4,6 +4,7 @@ using Photon.Pun;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 using UserAreas;
 namespace DrawCards {
@@ -65,6 +66,12 @@ namespace DrawCards {
             Debug.Log("Drawing Character cards ");
             for (int i = 0; i < howmuch; i++)
             {
+                if (missionCardID.Count == 0)
+                {
+                    missionCardID.AddRange( missionCardIDUsed);
+                    missionCardIDUsed.Clear();
+                    Debug.LogWarning("Reimport deck mission");
+                }
                 System.Random rand = new System.Random((int)DateTime.Now.Ticks);
                 int x = rand.Next(0, missionCardID.Count - 1);
                 Debug.Log("Card number is:" + missionCardID[x]);
@@ -73,8 +80,8 @@ namespace DrawCards {
                 characterPlayerCard1.gameObject.transform.localScale += new Vector3(-0.75f, -0.75f, 0);
                 characterPlayerCard1.transform.SetParent(cardArea.transform, false);
                 object[] cardID = new object[] { missionCardID[x] };
-                missionCardID.Remove(missionCardID[x]);
                 PhotonNetwork.RaiseEvent((byte)PhotonEventCode.drawMissionRemove, cardID, EventManager.AllOtherThanMePeopleOptions, SendOptions.SendReliable);
+                missionCardID.Remove(missionCardID[x]);
                 userControler.users[0].MissionCards += 1;
             }
             userControler.sendAmountOfCards();
@@ -84,8 +91,9 @@ namespace DrawCards {
             missionCardID.Remove(which);
             if (missionCardID.Count == 0)
             {
-                missionCardID = missionCardIDUsed;
+                missionCardID.AddRange(missionCardIDUsed);
                 missionCardIDUsed.Clear();
+                Debug.LogWarning("Reimport deck mission");
             }
         }
         public void addToPlayedDeck(int which)

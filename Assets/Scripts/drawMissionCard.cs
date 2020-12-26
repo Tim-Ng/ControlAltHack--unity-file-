@@ -4,6 +4,7 @@ using Photon.Pun;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using UnityEngine;
 using UserAreas;
@@ -60,6 +61,7 @@ namespace DrawCards {
             missionCardID.Add(35);
             missionCardID.Add(36);
             missionCardID.Add(37);
+            missionCardID = missionCardID.OrderBy(i => Guid.NewGuid()).ToList();
         }
         public void drawMissionCards(int howmuch)
         {

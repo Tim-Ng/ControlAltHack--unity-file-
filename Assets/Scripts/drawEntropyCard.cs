@@ -8,6 +8,7 @@ using UnityEngine;
 using UserAreas;
 using rollmissions;
 using System.Threading;
+using System.Linq;
 
 namespace DrawCards {
     public class drawEntropyCard : MonoBehaviour
@@ -57,6 +58,11 @@ namespace DrawCards {
             entropyCardID.Add(29);
             entropyCardID.Add(30);
             entropyCardID.Add(31);
+            entropyCardID = entropyCardID.OrderBy(i => Guid.NewGuid()).ToList();
+            for (int i = 0; i < entropyCardID.Count; i++)
+            {
+                Debug.LogWarning("After" + entropyCardID[i].ToString());
+            }
         }
         public void drawEntropyCards(int howmuch)
         {

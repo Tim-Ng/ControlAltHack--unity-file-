@@ -4,6 +4,7 @@ using Photon.Pun;
 using System;
 using ExitGames.Client.Photon;
 using main;
+using System.Linq;
 
 namespace DrawCards
 {
@@ -35,6 +36,7 @@ namespace DrawCards
             characterCardID.Add(14);
             characterCardID.Add(15);
             characterCardID.Add(16);
+            characterCardID = characterCardID.OrderBy(i => Guid.NewGuid()).ToList();
         }
         public void drawCharCards(int howmuch)
         {

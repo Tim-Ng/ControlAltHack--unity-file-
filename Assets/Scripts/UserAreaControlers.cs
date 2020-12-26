@@ -31,11 +31,12 @@ namespace UserAreas
         public List<PlayerInfo> users = new List<PlayerInfo>();
         public void Start()
         {
-            AmountOfRounds = 6;
+            GameHasStarted = false;
+            AmountOfRounds = 1;
+            PhotonNetwork.CurrentRoom.IsOpen = true;
             startGameItems.SetActive(true);
             firedLeaveButton.SetActive(false);
             winCanvas.setWinCanvas = false;
-            GameHasStarted = false;
             roomCode.GetComponent<Text>().text = PhotonNetwork.CurrentRoom.Name;
             users.Clear();
             users.Add(thisUserArea);
@@ -222,6 +223,7 @@ namespace UserAreas
         public void startGame()
         {
             PhotonNetwork.RaiseEvent((byte)PhotonEventCode.startGame, null, EventManager.AllPeople, SendOptions.SendReliable);
+            PhotonNetwork.CurrentRoom.IsOpen = false;
             turn.setArrangementForTurn();
         }
         public void startingGame()
@@ -340,6 +342,7 @@ namespace UserAreas
         }
         public void onReceiveWinner1(int Player1)
         {
+            GameHasStarted = false;
             winCanvas.setWinCanvas = true;
             winCanvas.setfirstPlaceHolder = true;
             winCanvas.setsecondPlaceHolder = false;
@@ -356,6 +359,7 @@ namespace UserAreas
         }
         public void onReceiveWinner2(int Player1, int Player2)
         {
+            GameHasStarted = false;
             winCanvas.setWinCanvas = true;
             winCanvas.setfirstPlaceHolder = true;
             winCanvas.setsecondPlaceHolder = true;
@@ -373,6 +377,7 @@ namespace UserAreas
         }
         public void onReceiveWinner3(int Player1, int Player2,int Player3)
         {
+            GameHasStarted = false;
             winCanvas.setWinCanvas = true;
             winCanvas.setfirstPlaceHolder = true;
             winCanvas.setsecondPlaceHolder = true;

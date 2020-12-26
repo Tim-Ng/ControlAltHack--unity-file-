@@ -70,7 +70,6 @@ namespace DrawCards
             cardDeck.Add(card26);
             cardDeck.Add(card27);
             cardDeck.Add(card28);
-            cardDeck.Add(card28);
             cardDeck.Add(card29);
             cardDeck.Add(card30);
             cardDeck.Add(card31);

@@ -72,8 +72,7 @@ namespace DrawCards {
                         Debug.LogWarning("Reimport deck entropy");
                     }
                     System.Random rand = new System.Random((int)DateTime.Now.Ticks);
-                    int x = rand.Next(0, entropyCardID.Count - 1);
-                    Debug.Log("Card number is:" + entropyCardID[x]);
+                    int x = rand.Next(0, entropyCardID.Count-1);
                     int entropyID = entropyCardID[x];
                     GameObject characterPlayerCard1 = Instantiate(cardTemplate, transform.position, Quaternion.identity);
                     characterPlayerCard1.GetComponent<entropyCardDisplay>().setID(entropyID);

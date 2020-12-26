@@ -336,6 +336,7 @@ namespace main
             else if (obj.Code == (byte)PhotonEventCode.resetGame)
             {
                 turnManager.TurnNumber = 0;
+                turnManager.RoundNumber = 1;
                 roundNumberOBJ.SetActive(false);
                 userControler.Start();
                 foreach (Transform child in cardArea.transform)

@@ -93,8 +93,9 @@ namespace rollmissions
                 currentTime -= 1 * Time.deltaTime;
                 missionRollController.setStartMissionButton = false;
                 setTimer(currentTime.ToString("0"));
-                object[] timer = new object[] { currentTime.ToString("0") };
-                PhotonNetwork.RaiseEvent((byte)PhotonEventCode.setTimerForRoll, timer, EventManger.AllOtherThanMePeopleOptions, SendOptions.SendReliable);
+                //This causes issues with the game therefore removed to chage it to a function;
+                //object[] timer = new object[] { currentTime.ToString("0") };
+                //PhotonNetwork.RaiseEvent((byte)PhotonEventCode.setTimerForRoll, timer, EventManger.AllOtherThanMePeopleOptions, SendOptions.SendReliable);
             }
         }
         public void setTimer(string time) => missionRollController.setTimerText = time;
@@ -169,15 +170,20 @@ namespace rollmissions
             {
                 setgetnumberOfChances += 1;
             }
-            currentTime = 3;
+            startTimer();
             missionRollController.setgetCurrentRollerName = PhotonNetwork.LocalPlayer.NickName;
             RollingMissionOBJ.SetActive(true);
             object[] playerRollingdata = new object[] { PhotonNetwork.LocalPlayer, userArea.users[0].missionScript.Mission_code };
             PhotonNetwork.RaiseEvent((byte)PhotonEventCode.sendWhoRolling, playerRollingdata, EventManger.AllOtherThanMePeopleOptions, SendOptions.SendReliable);
         }
+        public void startTimer()
+        {
+            currentTime = 3;
+        }
         public void onReceiveSetOtherPlayerRoll(Player whichPlayer, int MissionCardCode)
         {
             switchStage(1);
+            startTimer();
             whoTurn = userArea.findPlayerPosition(whichPlayer);
             missionRollController.setgetCurrentRollerName = whichPlayer.NickName;
             setGetCurrentCard = missionCardDeck.cardDeck[MissionCardCode - 1];

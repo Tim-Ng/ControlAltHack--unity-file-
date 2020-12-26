@@ -229,6 +229,7 @@ namespace DrawCards
         public void onReceiveSomeoneLightningRoll(int whichCard,string whichSkill, int whichAmount)
         {
             lightningRollOBJs.SetActive(true);
+            rollButtonEntropy.SetActive(false);
             entropyRollCard.GetComponent<Image>().sprite = entropyCardDeck.cardDeck[whichCard - 1].artwork_info;
             setamountNeededToRoll = whichAmount;
             whichSkillAgainst.GetComponent<Text>().text = whichSkill;

@@ -87,15 +87,22 @@ namespace DrawCards
                 else if (whichScript.character_code == 10 && turnManager.TurnNumber != 0)
                 {
                     activateSkillButton.SetActive(true);
-                    swapSkills.SetActive(false);
-                    forChar10.SetActive(false);
-                    if (userAreaControlers.users[0].NumberOfCards <= 4)
+                    if (RoundNumber == turnManager.RoundNumber)
                     {
-                        activateSkillButton.GetComponent<Button>().interactable = true;
+                        activateSkillButton.GetComponent<Button>().interactable = false;
                     }
                     else
                     {
-                        activateSkillButton.GetComponent<Button>().interactable = false;
+                        swapSkills.SetActive(false);
+                        forChar10.SetActive(false);
+                        if (userAreaControlers.users[0].NumberOfCards <= 4)
+                        {
+                            activateSkillButton.GetComponent<Button>().interactable = true;
+                        }
+                        else
+                        {
+                            activateSkillButton.GetComponent<Button>().interactable = false;
+                        }
                     }
                 }
                 else if (missionRollItems.setbeforeMission && turnManager.IsMyTurn)

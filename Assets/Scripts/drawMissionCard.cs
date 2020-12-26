@@ -63,7 +63,7 @@ namespace DrawCards {
         }
         public void drawMissionCards(int howmuch)
         {
-            Debug.Log("Drawing Character cards ");
+            Debug.Log("Drawing Mission cards ");
             for (int i = 0; i < howmuch; i++)
             {
                 if (missionCardID.Count == 0)

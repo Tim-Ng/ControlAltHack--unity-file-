@@ -28,7 +28,7 @@ namespace main
         public int PlayerIdToMakeThisTurn;
         public int currentPositionInArray;
         public int TurnNumber = 0;
-        public int RoundNumber;
+        public int RoundNumber=1;
         private bool waiting= false;
         private List<int> actorsDone = new List<int>();
         public bool IsMyTurn
@@ -76,10 +76,6 @@ namespace main
                 userTemp.Reverse();
                 for (int i = 0; i < userTemp.Count; i++)
                 {
-                    Debug.Log("In Host " + userTemp[i].ActorID);
-                }
-                for (int i = 0; i < userTemp.Count; i++)
-                {
                     if (i == userTemp.Count - 1)
                     {
                         object[] arrangement = new object[] { userTemp[i].ActorID, false, true };
@@ -101,7 +97,6 @@ namespace main
             {
                 setWinnerList();
             }
-            
         }
         public void inputArrangement(int actorID,bool first,bool last)
         {
@@ -120,6 +115,10 @@ namespace main
                 PlayerIdToMakeThisTurn = arrangedActors[0];
                 Debug.Log("Set turn to " + CurrentTurn + " actor ID "+PlayerIdToMakeThisTurn);
                 Debug.Log("My ID is" + PhotonNetwork.LocalPlayer.ActorNumber);
+                if (PhotonNetwork.IsMasterClient && RoundNumber > userContorlAreas.AmountOfRounds && (userContorlAreas.users[userContorlAreas.findPlayerPosition(arrangedActors[0])] != userContorlAreas.users[userContorlAreas.findPlayerPosition(arrangedActors[1])]))
+                {
+                    setWinnerList();
+                }
                 if (IsMyTurn)
                 {
                     checkTurn();
@@ -192,14 +191,7 @@ namespace main
             waiting = false;
             if (PhotonNetwork.IsMasterClient)
             {
-                if (RoundNumber > userContorlAreas.AmountOfRounds && (userContorlAreas.users[userContorlAreas.findPlayerPosition(arrangedActors[0])] != userContorlAreas.users[userContorlAreas.findPlayerPosition(arrangedActors[1])]))
-                {
-                    setWinnerList();
-                }
-                else
-                {
-                    setArrangementForTurn();
-                }
+                setArrangementForTurn();
             }
         }
         public void playerLeft(int ActorID)

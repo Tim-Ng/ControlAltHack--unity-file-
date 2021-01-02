@@ -14,12 +14,14 @@ namespace DrawCards
 {
     public class playEntropyCard : MonoBehaviour
     {
-        [SerializeField] private rollingMissionControl rollingControl = null;
+        [SerializeField] private GameObject ScriptsODJ = null;
+        private rollingMissionControl rollingControl = null;
+        private UserAreaControlers userArea = null;
+        private EventHandeler EventManager = null;
+        private TurnManager turnManager = null;
+        private drawEntropyCard drawEntropy = null;
+
         [SerializeField] private DuringMissionRollController missionRollController = null;
-        [SerializeField] private UserAreaControlers userArea = null;
-        [SerializeField] private EventHandeler EventManager = null;
-        [SerializeField] private TurnManager turnManager = null;
-        [SerializeField] private drawEntropyCard drawEntropy = null;
         [SerializeField] private GameObject lightningRollOBJs = null, entropyRollCard = null, whichSkillAgainst = null, amountRolled = null, amountNeeded= null,rollButtonEntropy = null;
         private int amountNeededToRoll = 0;
         private EntropyCardScript entropyRollStrike = null;
@@ -33,6 +35,14 @@ namespace DrawCards
             }
         }
         private readonly List<int> extendSive = new List<int> { 20, 21, 22, 23, 24 };
+        private void Start()
+        {
+            userArea = ScriptsODJ.GetComponent<UserAreaControlers>();
+            rollingControl = ScriptsODJ.GetComponent<rollingMissionControl>();
+            EventManager = ScriptsODJ.GetComponent<EventHandeler>();
+            turnManager = ScriptsODJ.GetComponent<TurnManager>();
+            drawEntropy = ScriptsODJ.GetComponent<drawEntropyCard>();
+        }
         public void onPlayEntropyCard(EntropyCardScript whichScript)
         {
             int entropyID = whichScript.EntropyCardID;

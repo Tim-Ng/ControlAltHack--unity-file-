@@ -12,16 +12,21 @@ namespace TradeScripts
     public class TradeControler : MonoBehaviour
     {
         [SerializeField] private UserAreaControlers userControler = null;
-        [SerializeField] private EventHandeler EventManger = null;
-        [SerializeField] private drawEntropyCard drawEntroy = null;
-        [SerializeField] private TradeArea opponent1=null, opponent2 = null, opponent3 = null, opponent4 = null, opponent5 = null;
         [SerializeField] private GameObject missionCardArea = null;
-        [SerializeField] private missionPopup missionPOPUP = null;
+        [SerializeField] private GameObject ScriptsODJ = null;
+        private EventHandeler EventManger = null;
+        private drawEntropyCard drawEntroy = null;
+        private missionPopup missionPOPUP = null;
+
+        [SerializeField] private TradeArea opponent1 = null, opponent2 = null, opponent3 = null, opponent4 = null, opponent5 = null;
         public int HowManyPeople = 0;
         private List<TradeArea> tradeAreaContollers = new List<TradeArea>();
         [SerializeField] private GameObject tradePanel = null, MyNickName = null, MyMoney = null, myMissionCard = null;
         private void Start()
         {
+            EventManger = ScriptsODJ.GetComponent<EventHandeler>();
+            missionPOPUP = ScriptsODJ.GetComponent<missionPopup>();
+            drawEntroy = ScriptsODJ.GetComponent<drawEntropyCard>();
             MyNickName.GetComponent<Text>().text = userControler.users[0].Nickname;
             tradeAreaContollers.Add(opponent1);
             tradeAreaContollers.Add(opponent2);

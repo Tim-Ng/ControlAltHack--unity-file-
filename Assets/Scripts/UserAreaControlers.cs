@@ -16,23 +16,35 @@ namespace UserAreas
 {
     public class UserAreaControlers : MonoBehaviourPunCallbacks
     {
+        [SerializeField] private GameObject ScriptsODJ = null;
+        [SerializeField] private winCanvasController winCanvas = null;
+
         [SerializeField] private PlayerInfo thisUserArea = null, userArea1 = null, userArea2 = null, userArea3 = null, userArea4 = null, userArea5 = null;
         [SerializeField] private TMP_InputField numberOfRounds_input = null;
         [SerializeField] private Text numberOfPeople = null;
-        [SerializeField] private TurnManager turn = null;
-        [SerializeField] private EventHandeler EventManager = null;
-        [SerializeField] private GameObject startGameItems = null, setRoundsButton = null, startGameButton = null, roomCode = null,firedLeaveButton = null;
-        [SerializeField] private TradeControler tradeControler= null;
-        [SerializeField] private drawEntropyCard drawEntropy = null;
-        [SerializeField] private drawMissionCard drawMission= null;
-        [SerializeField] private winCanvasController winCanvas = null;
+        [SerializeField] private GameObject startGameItems = null, setRoundsButton = null, startGameButton = null, roomCode = null, firedLeaveButton = null;
+
+        private TurnManager turn = null;
+        private EventHandeler EventManager = null;
+        private TradeControler tradeControler= null;
+        private drawEntropyCard drawEntropy = null;
+        private drawMissionCard drawMission= null;
         public int AmountOfRounds;
         public static bool GameHasStarted { get; set; }
         public List<PlayerInfo> users = new List<PlayerInfo>();
-        public void Start()
+        private void Start()
+        {
+            turn = ScriptsODJ.GetComponent<TurnManager>();
+            EventManager = ScriptsODJ.GetComponent<EventHandeler>();
+            tradeControler = ScriptsODJ.GetComponent<TradeControler>();
+            drawEntropy = ScriptsODJ.GetComponent<drawEntropyCard>();
+            drawMission = ScriptsODJ.GetComponent<drawMissionCard>();
+            startOBJs();
+        }
+        public void startOBJs()
         {
             GameHasStarted = false;
-            AmountOfRounds = 1;
+            AmountOfRounds = 6;
             PhotonNetwork.CurrentRoom.IsOpen = true;
             startGameItems.SetActive(true);
             firedLeaveButton.SetActive(false);

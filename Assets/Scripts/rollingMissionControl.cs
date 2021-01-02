@@ -45,18 +45,28 @@ namespace rollmissions
     {
         [SerializeField] private DuringMissionRollController missionRollController = null;
         [SerializeField] private UserAreaControlers userArea = null;
-        [SerializeField] private missionPopup popup = null;
         [SerializeField] private GameObject MissionCard = null, RollingMissionOBJ = null;
-        [SerializeField] private EventHandeler EventManger = null;
-        [SerializeField] private TurnManager turnManager = null;
-        [SerializeField] private drawEntropyCard drawEntropy = null;
-        [SerializeField] private TradeControler tradeControl = null;
         [SerializeField] private GameObject skillTemplate = null, skillChangerEliment = null;
+
+        [SerializeField] private GameObject ScriptsODJ = null;
+        private missionPopup popup = null;
+        private EventHandeler EventManger = null;
+        private TurnManager turnManager = null;
+        private drawEntropyCard drawEntropy = null;
+        private TradeControler tradeControl = null;
         private List<SkillEffector> skillEffectorsList = new List<SkillEffector>();
         public List<jobInfos> JobInfoList = new List<jobInfos>();
         private MissionCardScript currentCard = null;
         public bool CurrentMissionStatus = false;
         private bool entopy3 = false;
+        private void Start()
+        {
+            tradeControl = ScriptsODJ.GetComponent<TradeControler>();
+            popup = ScriptsODJ.GetComponent<missionPopup>();
+            EventManger = ScriptsODJ.GetComponent<EventHandeler>();
+            turnManager = ScriptsODJ.GetComponent<TurnManager>();
+            drawEntropy = ScriptsODJ.GetComponent<drawEntropyCard>();
+        }
         private MissionCardScript setGetCurrentCard
         {
             get { return currentCard; }
@@ -176,10 +186,7 @@ namespace rollmissions
             object[] playerRollingdata = new object[] { PhotonNetwork.LocalPlayer, userArea.users[0].missionScript.Mission_code };
             PhotonNetwork.RaiseEvent((byte)PhotonEventCode.sendWhoRolling, playerRollingdata, EventManger.AllOtherThanMePeopleOptions, SendOptions.SendReliable);
         }
-        public void startTimer()
-        {
-            currentTime = 3;
-        }
+        public void startTimer() => currentTime = 30;
         public void onReceiveSetOtherPlayerRoll(Player whichPlayer, int MissionCardCode)
         {
             switchStage(1);

@@ -11,13 +11,22 @@ using TradeScripts;
 namespace DrawCards {
     public class missionPopup : MonoBehaviour
     {
-        [SerializeField] private UserAreaControlers userAreaControlers = null;
         [SerializeField] private GameObject popUp = null, missionCardInpopUp = null,cardCharInpopUp = null, exitButton = null,selectButton =null,attendOrNot = null,missionStuffs = null,infoStuffs = null;
-        [SerializeField] private TradeControler tradeControler=null;
-        [SerializeField] private drawMissionCard drawMission = null;
-        [SerializeField] private EventHandeler EventManger = null;
+
+        [SerializeField] private GameObject ScriptsODJ = null;
+        private UserAreaControlers userAreaControlers = null;
+        private TradeControler tradeController = null;
+        private drawMissionCard drawMission = null;
+        private EventHandeler EventManger = null;
         public bool AttendingOrNot = false;
         private MissionCardScript whichScript = null;
+        private void Start()
+        {
+            userAreaControlers = ScriptsODJ.GetComponent<UserAreaControlers>();
+            EventManger = ScriptsODJ.GetComponent<EventHandeler>();
+            drawMission = ScriptsODJ.GetComponent<drawMissionCard>();
+            tradeController = ScriptsODJ.GetComponent<TradeControler>();
+        }
         public void closePopUp()
         {
             popUp.SetActive(false);
@@ -66,7 +75,7 @@ namespace DrawCards {
             popUp.SetActive(false);
             AttendingOrNot = true;
             userAreaControlers.setandsendIfAttending();
-            tradeControler.setAllAreas();
+            tradeController.setAllAreas();
         }
         public void clickOnNotAttend()
         {

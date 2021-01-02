@@ -15,13 +15,16 @@ namespace main
 {
     public class TurnManager : MonoBehaviourPunCallbacks
     {
-        [SerializeField] private drawCharacterCard drawCard = null;
-        [SerializeField] private drawEntropyCard drawEntro= null;
-        [SerializeField] private EventHandeler EventManager = null;
-        [SerializeField] private drawMissionCard drawMission = null;
-        [SerializeField] private rollingMissionControl rollingMission = null;
-        [SerializeField] private UserAreaControlers userContorlAreas = null;
-        [SerializeField] private TradeControler tradeController= null;
+        [SerializeField] private GameObject ScriptsODJ = null;
+
+        private drawCharacterCard drawCard = null;
+        private drawEntropyCard drawEntro= null;
+        private EventHandeler EventManager = null;
+        private drawMissionCard drawMission = null;
+        private rollingMissionControl rollingMission = null;
+        private UserAreaControlers userContorlAreas = null;
+        private TradeControler tradeController= null;
+
         [SerializeField] private GameObject roundIndicator = null;
         private int CurrentTurn;
         private List<int> arrangedActors = new List<int>();
@@ -31,6 +34,16 @@ namespace main
         public int RoundNumber=1;
         private bool waiting= false;
         private List<int> actorsDone = new List<int>();
+        private void Start()
+        {
+            drawCard = ScriptsODJ.GetComponent<drawCharacterCard>();
+            drawEntro = ScriptsODJ.GetComponent<drawEntropyCard>();
+            EventManager = ScriptsODJ.GetComponent<EventHandeler>();
+            drawMission = ScriptsODJ.GetComponent<drawMissionCard>();
+            rollingMission = ScriptsODJ.GetComponent<rollingMissionControl>();
+            userContorlAreas = ScriptsODJ.GetComponent<UserAreaControlers>();
+            tradeController = ScriptsODJ.GetComponent<TradeControler>();
+        }
         public bool IsMyTurn
         {
             get

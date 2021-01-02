@@ -13,14 +13,19 @@ using System.Linq;
 namespace DrawCards {
     public class drawEntropyCard : MonoBehaviour
     {
-        public List<int> entropyCardID = new List<int>();
-        public List<int> entropyCardIDUsed = new List<int>();
-        [SerializeField] private UserAreaControlers userControler = null;
+        [SerializeField] private GameObject ScriptsODJ = null;
+        private List<int> entropyCardID = new List<int>();
+        private List<int> entropyCardIDUsed = new List<int>();
         [SerializeField] private GameObject cardArea = null, cardTemplate = null;
-        [SerializeField] private EventHandeler EventManager = null;
-        [SerializeField] private rollingMissionControl rollingMission = null;
+
+        private UserAreaControlers userControler = null;
+        private EventHandeler EventManager = null;
+        private rollingMissionControl rollingMission = null;
         private void Start()
         {
+            userControler = ScriptsODJ.GetComponent<UserAreaControlers>();
+            EventManager = ScriptsODJ.GetComponent<EventHandeler>();
+            rollingMission = ScriptsODJ.GetComponent<rollingMissionControl>();
             startDraw();
         }
         public void startDraw()
@@ -59,10 +64,6 @@ namespace DrawCards {
             entropyCardID.Add(30);
             entropyCardID.Add(31);
             entropyCardID = entropyCardID.OrderBy(i => Guid.NewGuid()).ToList();
-            for (int i = 0; i < entropyCardID.Count; i++)
-            {
-                Debug.LogWarning("After" + entropyCardID[i].ToString());
-            }
         }
         public void drawEntropyCards(int howmuch)
         {

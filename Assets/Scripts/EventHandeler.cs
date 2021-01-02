@@ -58,14 +58,28 @@ namespace main
     }
     public class EventHandeler : MonoBehaviour
     {
-        [SerializeField] private UserAreaControlers userControler = null;
-        [SerializeField] private drawCharacterCard drawChar = null;
-        [SerializeField] private TurnManager turnManager= null;
-        [SerializeField] private drawEntropyCard drawEntropy = null;
-        [SerializeField] private drawMissionCard drawMission = null;
-        [SerializeField] private TradeControler tradeControl = null;
-        [SerializeField] private rollingMissionControl rollingMission = null;
-        [SerializeField] private playEntropyCard playEntropy= null;
+        [SerializeField] private GameObject ScriptsODJ = null;
+
+        private UserAreaControlers userControler = null;
+        private drawCharacterCard drawChar = null;
+        private TurnManager turnManager= null;
+        private drawEntropyCard drawEntropy = null;
+        private drawMissionCard drawMission = null;
+        private TradeControler tradeControl = null;
+        private rollingMissionControl rollingMission = null;
+        private playEntropyCard playEntropy= null;
+
+        private void Start()
+        {
+            drawChar = ScriptsODJ.GetComponent<drawCharacterCard>();
+            turnManager = ScriptsODJ.GetComponent<TurnManager>();
+            userControler = ScriptsODJ.GetComponent<UserAreaControlers>();
+            drawMission = ScriptsODJ.GetComponent<drawMissionCard>();
+            rollingMission = ScriptsODJ.GetComponent<rollingMissionControl>();
+            drawEntropy = ScriptsODJ.GetComponent<drawEntropyCard>();
+            playEntropy = ScriptsODJ.GetComponent<playEntropyCard>();
+            tradeControl = ScriptsODJ.GetComponent<TradeControler>();
+        }
         [SerializeField] private GameObject cardArea= null,roundNumberOBJ = null;
         public RaiseEventOptions AllOtherThanMePeopleOptions = new RaiseEventOptions()
         {
@@ -338,7 +352,7 @@ namespace main
                 turnManager.TurnNumber = 0;
                 turnManager.RoundNumber = 1;
                 roundNumberOBJ.SetActive(false);
-                userControler.Start();
+                userControler.startOBJs();
                 foreach (Transform child in cardArea.transform)
                 {
                     GameObject.Destroy(child.gameObject);

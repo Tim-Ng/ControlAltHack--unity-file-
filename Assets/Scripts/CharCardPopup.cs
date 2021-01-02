@@ -22,15 +22,19 @@ namespace DrawCards
     }
     public class CharCardPopup : MonoBehaviour
     {
-        [SerializeField] private UserAreaControlers userAreaControlers = null;
         [SerializeField] private GameObject popUp = null, cardInpopUp = null, buttonSelect = null, playingCardArea = null, skillChangerEliment = null, activateSkillButton = null;
         [SerializeField] private GameObject forChar10 = null, rollRollButton = null,rolledValue = null, statusfor10OBJ = null;
         [SerializeField] private GameObject swapSkills = null, swapButton = null, skillToSwapOptions = null, skillSwapToOptions = null, statusSwapOBJ = null;
+
         [SerializeField] private DuringMissionRollController missionRollItems = null;
-        [SerializeField] private rollingMissionControl missionRollController = null;
-        [SerializeField] private EventHandeler EventManger = null;
-        [SerializeField] private TurnManager turnManager = null;
-        [SerializeField] private drawEntropyCard drawEntropy = null;
+
+        [SerializeField] private GameObject ScriptsODJ = null;
+        private UserAreaControlers userAreaControlers = null;
+        private rollingMissionControl missionRollController = null;
+        private EventHandeler EventManger = null;
+        private TurnManager turnManager = null;
+        private drawEntropyCard drawEntropy = null;
+
         private readonly List<AllJobs> SkillsToSwapFor12 = new List<AllJobs>() { AllJobs.Crypt, AllJobs.NetNinja, AllJobs.SocialEng, AllJobs.SoftWiz, AllJobs.Kitchen };
         private readonly List<AllJobs> SkillsToSwapFor5 = new List<AllJobs>() { AllJobs.HardHack, AllJobs.Crypt, AllJobs.NetNinja, AllJobs.SearchFU, AllJobs.Kitchen, AllJobs.SoftWiz, AllJobs.SocialEng };
         private readonly List<AllJobs> SkillSwapToFor13 = new List<AllJobs>() { AllJobs.HardHack, AllJobs.SocialEng };
@@ -38,6 +42,14 @@ namespace DrawCards
         private AllJobs skill2;
         private int RoundNumber = 0;
         private CharCardScript whichScript = null;
+        private void Start()
+        {
+            userAreaControlers = ScriptsODJ.GetComponent<UserAreaControlers>();
+            missionRollController = ScriptsODJ.GetComponent<rollingMissionControl>();
+            EventManger = ScriptsODJ.GetComponent<EventHandeler>();
+            turnManager = ScriptsODJ.GetComponent<TurnManager>();
+            drawEntropy = ScriptsODJ.GetComponent<drawEntropyCard>();
+        }
         public void opendCharCard(CharCardScript info)
         {
             buttonSelect.SetActive(true);

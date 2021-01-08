@@ -31,7 +31,7 @@ namespace DrawCards
         [SerializeField] private GameObject ScriptsODJ = null;
         private UserAreaControlers userAreaControlers = null;
         private rollingMissionControl missionRollController = null;
-        private EventHandeler EventManger = null;
+        private EventHandeler EventManager = null;
         private TurnManager turnManager = null;
         private drawEntropyCard drawEntropy = null;
 
@@ -46,7 +46,7 @@ namespace DrawCards
         {
             userAreaControlers = ScriptsODJ.GetComponent<UserAreaControlers>();
             missionRollController = ScriptsODJ.GetComponent<rollingMissionControl>();
-            EventManger = ScriptsODJ.GetComponent<EventHandeler>();
+            EventManager = ScriptsODJ.GetComponent<EventHandeler>();
             turnManager = ScriptsODJ.GetComponent<TurnManager>();
             drawEntropy = ScriptsODJ.GetComponent<drawEntropyCard>();
         }
@@ -71,7 +71,9 @@ namespace DrawCards
             }
             closePopUp();
             object[] player = new object[] { PhotonNetwork.LocalPlayer.ActorNumber };
-            PhotonNetwork.RaiseEvent((byte)PhotonEventCode.setWaiting, player, EventManger.AllPeople, SendOptions.SendReliable);
+            PhotonNetwork.RaiseEvent((byte)PhotonEventCode.setWaiting, player, EventManager.AllPeople, SendOptions.SendReliable);
+            object[] chatInfo = new object[] {PhotonNetwork.LocalPlayer.NickName + " has selected "+whichScript.character_card_name+".", null, false };
+            PhotonNetwork.RaiseEvent((byte)PhotonEventCode.forChat, chatInfo, EventManager.AllPeople, SendOptions.SendReliable);
         }
         public void clickOnAvertar(int which)
         {

@@ -76,5 +76,6 @@ namespace UserAreas
         public MissionCardScript missionScript { get; set; }
         public bool attendingOrNot { get; set; }
         public bool fired { get; set; }
+        public void setNickNameColour(Color whatColor) => Username.GetComponent<Text>().color = whatColor;
     }
 }

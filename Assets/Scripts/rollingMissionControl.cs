@@ -185,6 +185,8 @@ namespace rollmissions
             RollingMissionOBJ.SetActive(true);
             object[] playerRollingdata = new object[] { PhotonNetwork.LocalPlayer, userArea.users[0].missionScript.Mission_code };
             PhotonNetwork.RaiseEvent((byte)PhotonEventCode.sendWhoRolling, playerRollingdata, EventManger.AllOtherThanMePeopleOptions, SendOptions.SendReliable);
+            object[] chatInfo = new object[] { "It's "+PhotonNetwork.LocalPlayer.NickName+" turn to roll their mission.", null, false };
+            PhotonNetwork.RaiseEvent((byte)PhotonEventCode.forChat, chatInfo, EventManger.AllPeople, SendOptions.SendReliable);
         }
         public void startTimer() => currentTime = 30;
         public void onReceiveSetOtherPlayerRoll(Player whichPlayer, int MissionCardCode)
@@ -602,6 +604,8 @@ namespace rollmissions
                 {
                     userArea.addMyMoney(setGetCurrentCard.other_success_how_much);
                 }
+                object[] chatInfo = new object[] { PhotonNetwork.LocalPlayer.NickName + " has pass their mission.", null, false };
+                PhotonNetwork.RaiseEvent((byte)PhotonEventCode.forChat, chatInfo, EventManger.AllPeople, SendOptions.SendReliable);
             }
             else
             {
@@ -618,6 +622,8 @@ namespace rollmissions
                 {
                     addSkillEffector(AllJobs.SoftWiz, turnManager.RoundNumber + 1, -2);
                 }
+                object[] chatInfo = new object[] { PhotonNetwork.LocalPlayer.NickName + " has failed their mission.", null, false };
+                PhotonNetwork.RaiseEvent((byte)PhotonEventCode.forChat, chatInfo, EventManger.AllPeople, SendOptions.SendReliable);
             }
             foreach (Transform child in skillChangerEliment.transform)
             {

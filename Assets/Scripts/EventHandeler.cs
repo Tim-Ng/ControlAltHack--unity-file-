@@ -55,6 +55,7 @@ namespace main
         sendPlayerFired = 41,
         receiveWinner = 42,
         resetGame = 43,
+        forChat = 44,
     }
     public class EventHandeler : MonoBehaviour
     {
@@ -68,6 +69,7 @@ namespace main
         private TradeControler tradeControl = null;
         private rollingMissionControl rollingMission = null;
         private playEntropyCard playEntropy= null;
+        private ChatController chatController = null;
 
         private void Start()
         {
@@ -79,6 +81,7 @@ namespace main
             drawEntropy = ScriptsODJ.GetComponent<drawEntropyCard>();
             playEntropy = ScriptsODJ.GetComponent<playEntropyCard>();
             tradeControl = ScriptsODJ.GetComponent<TradeControler>();
+            chatController = ScriptsODJ.GetComponent<ChatController>();
         }
         [SerializeField] private GameObject cardArea= null,roundNumberOBJ = null;
         public RaiseEventOptions AllOtherThanMePeopleOptions = new RaiseEventOptions()
@@ -361,6 +364,11 @@ namespace main
                 drawEntropy.startDraw();
                 drawMission.startDraw();
                 drawChar.startDraw();
+            }
+            else if (obj.Code == (byte)PhotonEventCode.forChat)
+            {
+                object[] chatInfo = (object[])obj.CustomData;
+                chatController.onReceiveMessage((string)chatInfo[0], (Player)chatInfo[1], (bool)chatInfo[2]);
             }
         }
     }

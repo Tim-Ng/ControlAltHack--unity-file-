@@ -29,6 +29,7 @@ namespace UserAreas
         private TradeControler tradeControler= null;
         private drawEntropyCard drawEntropy = null;
         private drawMissionCard drawMission= null;
+        private ChatController chatController = null;
         public int AmountOfRounds;
         public static bool GameHasStarted { get; set; }
         public List<PlayerInfo> users = new List<PlayerInfo>();
@@ -39,6 +40,8 @@ namespace UserAreas
             tradeControler = ScriptsODJ.GetComponent<TradeControler>();
             drawEntropy = ScriptsODJ.GetComponent<drawEntropyCard>();
             drawMission = ScriptsODJ.GetComponent<drawMissionCard>();
+            chatController = ScriptsODJ.GetComponent<ChatController>();
+            chatController.onReceiveMessage("You have joined the room :"+PhotonNetwork.CurrentRoom.Name, null, false);
             startOBJs();
         }
         public void startOBJs()
@@ -123,9 +126,12 @@ namespace UserAreas
                     users[i + 1].fired = false;
                 }
             }
+            setMasterTextColour();
+            chatController.setUpDropdownList();
         }
         public override void OnPlayerEnteredRoom(Player newPlayer)
         {
+            chatController.onReceiveMessage(newPlayer.NickName + " has enter this room.", null, false);
             if (PhotonNetwork.CurrentRoom.PlayerCount == NickNameRoom.MaximumPeople)
             {
                 PhotonNetwork.CurrentRoom.IsOpen = false;
@@ -135,11 +141,14 @@ namespace UserAreas
         }
         public override void OnPlayerLeftRoom(Player otherPlayer)
         {
+            chatController.onReceiveMessage(otherPlayer.NickName + " has left this room.", null, false);
             if (otherPlayer.IsMasterClient)
             {
                 Debug.Log("Host named " + otherPlayer.NickName + " has left the room");
                 Debug.Log("Host is changed to player named " + PhotonNetwork.PlayerList[0].NickName);
                 PhotonNetwork.SetMasterClient(PhotonNetwork.PlayerList[0]);
+                chatController.onReceiveMessage("Host has left the room host is changed to "+otherPlayer.NickName, null, false);
+                setMasterTextColour();
                 if (!winCanvas.setWinCanvas)
                 {
                     if (PhotonNetwork.IsMasterClient)
@@ -235,6 +244,8 @@ namespace UserAreas
         public void startGame()
         {
             PhotonNetwork.RaiseEvent((byte)PhotonEventCode.startGame, null, EventManager.AllPeople, SendOptions.SendReliable);
+            object[] chatInfo = new object[] { "Game is Starting", null, false };
+            PhotonNetwork.RaiseEvent((byte)PhotonEventCode.forChat, chatInfo, EventManager.AllPeople, SendOptions.SendReliable);
             PhotonNetwork.CurrentRoom.IsOpen = false;
             turn.setArrangementForTurn();
         }
@@ -275,6 +286,8 @@ namespace UserAreas
             users[0].amountOfCred += Howmuch;
             if (users[0].amountOfCred <= 0)
             {
+                object[] chatInfo = new object[] { "Due to poor mission record "+PhotonNetwork.LocalPlayer.NickName+ " is fired.", null, false };
+                PhotonNetwork.RaiseEvent((byte)PhotonEventCode.forChat, chatInfo, EventManager.AllPeople, SendOptions.SendReliable);
                 youAreFired();
             }
             object[] amount = new object[] { PhotonNetwork.LocalPlayer, users[0].amountOfCred };
@@ -285,6 +298,8 @@ namespace UserAreas
             users[0].amountOfCred -= Howmuch;
             if (users[0].amountOfCred <= 0)
             {
+                object[] chatInfo = new object[] { "Due to poor mission record " + PhotonNetwork.LocalPlayer.NickName + " is fired.", null, false };
+                PhotonNetwork.RaiseEvent((byte)PhotonEventCode.forChat, chatInfo, EventManager.AllPeople, SendOptions.SendReliable);
                 youAreFired();
             }
             object[] amount = new object[] { PhotonNetwork.LocalPlayer, users[0].amountOfCred };
@@ -451,6 +466,21 @@ namespace UserAreas
         public void clickOnPlayAgain()
         {
             PhotonNetwork.RaiseEvent((byte)PhotonEventCode.resetGame, null, EventManager.AllPeople, SendOptions.SendReliable);
+        }
+        public void setMasterTextColour()
+        {
+            for(int i = 0; i < 6; i++)
+            {
+                if (users[i].filled)
+                {
+                    if (users[i].playerPhoton.IsMasterClient)
+                        users[i].setNickNameColour(Color.green);
+                    else
+                        users[i].setNickNameColour(Color.black);
+                }
+                else
+                    users[i].setNickNameColour(Color.black);
+            }
         }
 
     }

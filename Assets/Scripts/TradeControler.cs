@@ -78,6 +78,8 @@ namespace TradeScripts
             drawEntroy.drawEntropyCards(1);
             object[] player = new object[] { PhotonNetwork.LocalPlayer.ActorNumber };
             PhotonNetwork.RaiseEvent((byte)PhotonEventCode.setWaiting, player, EventManger.AllPeople, SendOptions.SendReliable);
+            object[] chatInfo = new object[] { PhotonNetwork.LocalPlayer.NickName + " is done trading.", null, false };
+            PhotonNetwork.RaiseEvent((byte)PhotonEventCode.forChat, chatInfo, EventManger.AllPeople, SendOptions.SendReliable);
         }
         public void clickOncard(int which) => missionPOPUP.clickOnCard(missionCardDeck.cardDeck[tradeAreaContollers[which].setgetmissionID - 1], 0, false);
         public void clickOnMycard() => missionPOPUP.clickOnCard(userControler.users[0].missionScript, 0, false);

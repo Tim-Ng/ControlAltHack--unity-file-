@@ -5,15 +5,6 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
-  - enabled: 0
-    path: Assets/Scenes/Host_Join.unity
-    guid: 3e904e4be07db99488433624e89d5016
-  - enabled: 0
-    path: Assets/Scenes/MainGameStart.unity
-    guid: e8a5b8912c625f34888da0a18ce3410f
   - enabled: 1
     path: Assets/Scenes/NickName&JoinHost.unity
     guid: 4306f283b1cd1f143a8112b5b2d1d950

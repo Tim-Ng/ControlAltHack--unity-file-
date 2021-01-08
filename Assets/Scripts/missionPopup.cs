@@ -76,6 +76,8 @@ namespace DrawCards {
             AttendingOrNot = true;
             userAreaControlers.setandsendIfAttending();
             tradeController.setAllAreas();
+            object[] chatInfo = new object[] { PhotonNetwork.LocalPlayer.NickName + " is attending this meeting. ", null, false };
+            PhotonNetwork.RaiseEvent((byte)PhotonEventCode.forChat, chatInfo, EventManger.AllPeople, SendOptions.SendReliable);
         }
         public void clickOnNotAttend()
         {
@@ -83,6 +85,8 @@ namespace DrawCards {
             AttendingOrNot = false;
             object[] player = new object[] { PhotonNetwork.LocalPlayer.ActorNumber };
             PhotonNetwork.RaiseEvent((byte)PhotonEventCode.setWaiting, player, EventManger.AllPeople, SendOptions.SendReliable);
+            object[] chatInfo = new object[] { PhotonNetwork.LocalPlayer.NickName + " is not attending this meeting. ", null, false };
+            PhotonNetwork.RaiseEvent((byte)PhotonEventCode.forChat, chatInfo, EventManger.AllPeople, SendOptions.SendReliable);
         }
     }
 }

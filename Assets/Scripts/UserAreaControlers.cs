@@ -240,6 +240,7 @@ namespace UserAreas
         {
             AmountOfRounds = num_rounds;
             numberOfRounds_input.text = AmountOfRounds.ToString();
+            chatController.onReceiveMessage("Number of rounds is " +num_rounds , null, false);
         }
         public void startGame()
         {

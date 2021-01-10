@@ -48,6 +48,7 @@ namespace UserAreas
         {
             GameHasStarted = false;
             AmountOfRounds = 6;
+            chatController.onReceiveMessage("Number of rounds is " + AmountOfRounds, null, false);
             PhotonNetwork.CurrentRoom.IsOpen = true;
             startGameItems.SetActive(true);
             firedLeaveButton.SetActive(false);
@@ -148,7 +149,6 @@ namespace UserAreas
                 Debug.Log("Host is changed to player named " + PhotonNetwork.PlayerList[0].NickName);
                 PhotonNetwork.SetMasterClient(PhotonNetwork.PlayerList[0]);
                 chatController.onReceiveMessage("Host has left the room host is changed to "+otherPlayer.NickName, null, false);
-                setMasterTextColour();
                 if (!winCanvas.setWinCanvas)
                 {
                     if (PhotonNetwork.IsMasterClient)
@@ -173,6 +173,7 @@ namespace UserAreas
                 users[userposition].filled = false;
                 turn.playerLeft(otherPlayer.ActorNumber);
             }
+            setMasterTextColour();
         }
         public int findPlayerPosition(Player whichPlayer)
         {
@@ -238,9 +239,13 @@ namespace UserAreas
         }
         public void upDateOtherOnGameRounds(int num_rounds)
         {
+            if (AmountOfRounds != num_rounds)
+            {
+                chatController.onReceiveMessage("Number of rounds is set to " + num_rounds, null, false);
+            }
             AmountOfRounds = num_rounds;
             numberOfRounds_input.text = AmountOfRounds.ToString();
-            chatController.onReceiveMessage("Number of rounds is " +num_rounds , null, false);
+            
         }
         public void startGame()
         {
@@ -349,6 +354,7 @@ namespace UserAreas
             firedLeaveButton.SetActive(true);
             drawMission.removeAllCard();
             drawEntropy.removeAllEntropyCard();
+            turn.playerLeft(PhotonNetwork.LocalPlayer.ActorNumber);
             object[] playerFired = new object[] { PhotonNetwork.LocalPlayer};
             PhotonNetwork.RaiseEvent((byte)PhotonEventCode.sendPlayerFired, playerFired, EventManager.AllOtherThanMePeopleOptions, SendOptions.SendReliable);
         }
@@ -357,6 +363,7 @@ namespace UserAreas
             int playerPosition = findPlayerPosition(whichPlayer);
             users[playerPosition].fired = true;
             users[playerPosition].Nickname = "Player Fired";
+            turn.playerLeft(whichPlayer.ActorNumber);
         }
         public void clickOnLeaveGame()
         {

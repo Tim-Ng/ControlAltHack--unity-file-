@@ -130,6 +130,8 @@ namespace TradeScripts
         {
             object[] player = new object[] { PhotonNetwork.LocalPlayer };
             PhotonNetwork.RaiseEvent((byte)PhotonEventCode.AcceptSomeoneAsk, player, new RaiseEventOptions { TargetActors = new int[] { userControler.users[which + 1].playerPhoton.ActorNumber } }, SendOptions.SendReliable);
+            object[] chatInfo = new object[] { PhotonNetwork.LocalPlayer.NickName +" has traded with "+userControler.users[which+1].Nickname, null, false };
+            PhotonNetwork.RaiseEvent((byte)PhotonEventCode.forChat, chatInfo, EventManger.AllPeople, SendOptions.SendReliable);
             userControler.users[0].missionScript = missionCardDeck.cardDeck[tradeAreaContollers[which].setgetmissionID-1];
             changeMyMissionCardOnPlayArea();
             userControler.addMyMoney(tradeAreaContollers[which].amountBeingBribed);

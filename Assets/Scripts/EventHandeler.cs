@@ -364,6 +364,9 @@ namespace main
                 drawEntropy.startDraw();
                 drawMission.startDraw();
                 drawChar.startDraw();
+                rollingMission.switchStage(0);
+                playEntropy.onPlayRollReset();
+                chatController.onReceiveMessage("The Game has been reset", null, false);
             }
             else if (obj.Code == (byte)PhotonEventCode.forChat)
             {

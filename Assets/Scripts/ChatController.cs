@@ -67,9 +67,20 @@ public class ChatController : MonoBehaviour
         {
             if (whichPlayer == null)
             {
-                scrollText.GetComponent<Text>().text += PhotonNetwork.LocalPlayer.NickName + ":" + messageInput.text + "\n";
-                object[] chatInfo = new object[] { messageInput.text, PhotonNetwork.LocalPlayer, false };
-                PhotonNetwork.RaiseEvent((byte)PhotonEventCode.forChat, chatInfo, eventHandeler.AllOtherThanMePeopleOptions, SendOptions.SendReliable);
+                if (messageInput.text[0] == '/')
+                {
+                    // for easier testing 
+                    if(messageInput.text == "/iquit")
+                    {
+                        userInfos.subMyCred(userInfos.users[0].amountOfCred);
+                    }
+                }
+                else
+                {
+                    scrollText.GetComponent<Text>().text += PhotonNetwork.LocalPlayer.NickName + ":" + messageInput.text + "\n";
+                    object[] chatInfo = new object[] { messageInput.text, PhotonNetwork.LocalPlayer, false };
+                    PhotonNetwork.RaiseEvent((byte)PhotonEventCode.forChat, chatInfo, eventHandeler.AllOtherThanMePeopleOptions, SendOptions.SendReliable);
+                }
             }
             else
             {

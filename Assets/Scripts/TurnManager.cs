@@ -213,14 +213,11 @@ namespace main
             {
                 playerChanged();
             }
-            else
+            if (arrangedActors.Contains(ActorID))
             {
-                if (arrangedActors.Contains(ActorID))
-                {
-                    arrangedActors.Remove(ActorID);
-                }
+                arrangedActors.Remove(ActorID);
             }
-            if (PhotonNetwork.CurrentRoom.PlayerCount == 1)
+            if (arrangedActors.Count <= 1)
             {
                 setWinnerList();
             }

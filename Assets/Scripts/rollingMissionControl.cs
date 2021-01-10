@@ -188,7 +188,7 @@ namespace rollmissions
             object[] chatInfo = new object[] { "It's "+PhotonNetwork.LocalPlayer.NickName+" turn to roll their mission.", null, false };
             PhotonNetwork.RaiseEvent((byte)PhotonEventCode.forChat, chatInfo, EventManger.AllPeople, SendOptions.SendReliable);
         }
-        public void startTimer() => currentTime = 30;
+        public void startTimer() => currentTime = 3;
         public void onReceiveSetOtherPlayerRoll(Player whichPlayer, int MissionCardCode)
         {
             switchStage(1);

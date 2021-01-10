@@ -42,6 +42,8 @@ namespace DrawCards
         private AllJobs skill2;
         private int RoundNumber = 0;
         private CharCardScript whichScript = null;
+        private Dropdown dropdownSkillToSwapOptions = null;
+        private Dropdown dropdownSkillSwapTo = null;
         private void Start()
         {
             userAreaControlers = ScriptsODJ.GetComponent<UserAreaControlers>();
@@ -49,6 +51,8 @@ namespace DrawCards
             EventManager = ScriptsODJ.GetComponent<EventHandeler>();
             turnManager = ScriptsODJ.GetComponent<TurnManager>();
             drawEntropy = ScriptsODJ.GetComponent<drawEntropyCard>();
+            dropdownSkillToSwapOptions = skillToSwapOptions.GetComponent<Dropdown>();
+            dropdownSkillSwapTo = skillSwapToOptions.GetComponent<Dropdown>();
         }
         public void opendCharCard(CharCardScript info)
         {
@@ -185,8 +189,6 @@ namespace DrawCards
         }
         public void setUpSkillToSwap(int Which)
         {
-            var dropdownSkillToSwapOptions = skillToSwapOptions.GetComponent<Dropdown>();
-            var dropdownSkillSwapTo = skillSwapToOptions.GetComponent<Dropdown>();
             List<skillToSwap> JobInfoToSwap = new List<skillToSwap>();
             dropdownSkillToSwapOptions.options.Clear();
             dropdownSkillSwapTo.options.Clear();
@@ -205,6 +207,7 @@ namespace DrawCards
                 {
                     dropdownSkillToSwapOptions.options.Add(new Dropdown.OptionData() { text = "No Skills" });
                     dropdownSkillToSwapOptions.interactable = false;
+                    dropdownSkillSwapTo.interactable = false;
                     swapButton.GetComponent<Button>().interactable = false;
                     statusSwapOBJ.GetComponent<Text>().text = "No skill To swap to";
                     swapButton.GetComponent<Button>().interactable = false;
@@ -214,6 +217,7 @@ namespace DrawCards
                     skill1 = JobInfoToSwap[0];
                     skill2 = SkillsToSwapFor5[0];
                     dropdownSkillToSwapOptions.interactable = true;
+                    dropdownSkillSwapTo.interactable = true;
                     statusSwapOBJ.GetComponent<Text>().text = "Select skills to swap";
                     swapButton.GetComponent<Button>().interactable = false;
                     updateStatus();
@@ -240,6 +244,7 @@ namespace DrawCards
                 {
                     dropdownSkillToSwapOptions.options.Add(new Dropdown.OptionData() { text = "No Skills" });
                     dropdownSkillToSwapOptions.interactable = false;
+                    dropdownSkillSwapTo.interactable = false;
                     swapButton.GetComponent<Button>().interactable = false;
                     statusSwapOBJ.GetComponent<Text>().text = "No skill To swap to";
                     swapButton.GetComponent<Button>().interactable = false;
@@ -249,6 +254,7 @@ namespace DrawCards
                     skill1 = JobInfoToSwap[0];
                     skill2 = AllJobs.HardHack;
                     dropdownSkillToSwapOptions.interactable = true;
+                    dropdownSkillSwapTo.interactable = true;
                     statusSwapOBJ.GetComponent<Text>().text = "Select skills to swap";
                     swapButton.GetComponent<Button>().interactable = false;
                     updateStatus();
@@ -273,6 +279,7 @@ namespace DrawCards
                 {
                     dropdownSkillToSwapOptions.options.Add(new Dropdown.OptionData() { text = "No Skills" });
                     dropdownSkillToSwapOptions.interactable = false;
+                    dropdownSkillSwapTo.interactable = false;
                     swapButton.GetComponent<Button>().interactable = false;
                     statusSwapOBJ.GetComponent<Text>().text = "No skill To swap to";
                     swapButton.GetComponent<Button>().interactable = false;
@@ -282,6 +289,7 @@ namespace DrawCards
                     skill1 = JobInfoToSwap[0];
                     skill2 = SkillSwapToFor13[0];
                     dropdownSkillToSwapOptions.interactable = true;
+                    dropdownSkillSwapTo.interactable = true;
                     statusSwapOBJ.GetComponent<Text>().text = "Select skills to swap";
                     swapButton.GetComponent<Button>().interactable = false;
                     updateStatus();
@@ -309,6 +317,9 @@ namespace DrawCards
         }
         public void onClickOnSwap()
         {
+            dropdownSkillToSwapOptions.interactable = false;
+            dropdownSkillSwapTo.interactable = false;
+            swapButton.GetComponent<Button>().interactable = false;
             missionRollController.swapSkill(skill1, skill2);
             closePopUp();
         }

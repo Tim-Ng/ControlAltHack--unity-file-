@@ -18,18 +18,26 @@ namespace DrawCards {
         private TradeControler tradeController = null;
         private drawMissionCard drawMission = null;
         private EventHandeler EventManger = null;
+        private TurnManager turnManager= null;
         public bool AttendingOrNot = false;
         private MissionCardScript whichScript = null;
+        private missionDisplay whichCard = null;
         private void Start()
         {
             userAreaControlers = ScriptsODJ.GetComponent<UserAreaControlers>();
             EventManger = ScriptsODJ.GetComponent<EventHandeler>();
             drawMission = ScriptsODJ.GetComponent<drawMissionCard>();
             tradeController = ScriptsODJ.GetComponent<TradeControler>();
+            turnManager = ScriptsODJ.GetComponent<TurnManager>();
         }
         public void closePopUp()
         {
             popUp.SetActive(false);
+        }
+        public void clickOnCard(missionDisplay missionDisplay, int whichPerson, bool noExit)
+        {
+            whichCard = missionDisplay;
+            clickOnCard(whichCard.getInfo(), whichPerson, noExit);
         }
         public void clickOnCard(MissionCardScript missionScript,int whichPerson ,bool noExit)
         {
@@ -39,7 +47,7 @@ namespace DrawCards {
             whichScript = missionScript;
             missionCardInpopUp.GetComponent<Image>().sprite = whichScript.artwork_front_info;
             cardCharInpopUp.GetComponent<Image>().sprite = userAreaControlers.users[whichPerson].characterScript.artwork_front_info;
-            if (noExit)
+            if (noExit && whichCard.cardAttendInRound != turnManager.RoundNumber)
             {
                 if (userAreaControlers.users[0].MissionCards >= 2)
                 {
@@ -74,6 +82,7 @@ namespace DrawCards {
         {
             popUp.SetActive(false);
             AttendingOrNot = true;
+            whichCard.cardAttendInRound = turnManager.RoundNumber;
             userAreaControlers.setandsendIfAttending();
             tradeController.setAllAreas();
             object[] chatInfo = new object[] { PhotonNetwork.LocalPlayer.NickName + " is attending this meeting. ", null, false };
@@ -83,6 +92,7 @@ namespace DrawCards {
         {
             popUp.SetActive(false);
             AttendingOrNot = false;
+            whichCard.cardAttendInRound = turnManager.RoundNumber;
             object[] player = new object[] { PhotonNetwork.LocalPlayer.ActorNumber };
             PhotonNetwork.RaiseEvent((byte)PhotonEventCode.setWaiting, player, EventManger.AllPeople, SendOptions.SendReliable);
             object[] chatInfo = new object[] { PhotonNetwork.LocalPlayer.NickName + " is not attending this meeting. ", null, false };

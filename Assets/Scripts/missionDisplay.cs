@@ -11,6 +11,11 @@ namespace DrawCards
     {
         private MissionCardScript infoMission = null;
         [SerializeField] private GameObject BackSide = null, InfoSide = null;
+        private int roundAttend = 0;
+        public int cardAttendInRound
+        {
+            get { return roundAttend; } set { roundAttend = value; }
+        }
         public void setID(int which)
         {
             infoMission = missionCardDeck.cardDeck[which - 1];
@@ -32,9 +37,9 @@ namespace DrawCards
         {
             GameObject popUp = GameObject.Find("/MainGame/Game Interface");
             if (popUp.GetComponent <TurnManager>().TurnNumber %2 == 1)
-                popUp.GetComponent<missionPopup>().clickOnCard(infoMission, 0, true);
+                popUp.GetComponent<missionPopup>().clickOnCard(this, 0, true);
             else
-                popUp.GetComponent<missionPopup>().clickOnCard(infoMission, 0, false);
+                popUp.GetComponent<missionPopup>().clickOnCard(this, 0, false);
         }
         public void setBackSide(bool TorF)
         {

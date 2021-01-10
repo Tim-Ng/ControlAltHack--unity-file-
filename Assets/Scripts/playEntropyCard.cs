@@ -271,6 +271,7 @@ namespace DrawCards
             amountRolled.GetComponent<Text>().text = amountRolledText;
             lightningRollOBJs.SetActive(false);
         }
+        public void onPlayRollReset() => lightningRollOBJs.SetActive(false);
     }
 }
 

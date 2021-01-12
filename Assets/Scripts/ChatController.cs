@@ -117,14 +117,14 @@ public class ChatController : MonoBehaviour
         {
             if (isPrivate)
             {
-                scrollText.GetComponent<Text>().text += "<color=#FF7F00><i><b>(Private</b></i></color>";
+                scrollText.GetComponent<Text>().text += "<color=#E56717><i><b>(Private</b></i></color>";
                 if (sender.IsLocal)
                 {
-                    scrollText.GetComponent<Text>().text += "<color=#FF7F00><i><b> to " + whichPlayer.NickName+")</b></i></color> ";
+                    scrollText.GetComponent<Text>().text += "<color=#E56717><i><b> to " + whichPlayer.NickName+")</b></i></color> ";
                 }
                 else
                 {
-                    scrollText.GetComponent<Text>().text += "<color=#FF7F00><i><b>)</b></i></color> ";
+                    scrollText.GetComponent<Text>().text += "<color=#E56717><i><b>)</b></i></color> ";
                 }
             }
             if (sender.IsLocal)

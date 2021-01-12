@@ -11,9 +11,8 @@ using TMPro;
 
 public class ChatController : MonoBehaviour
 {
-    [SerializeField] private GameObject ScriptOBJ = null, playerDropDownList = null, scrollText = null, buttonForChatPopUp = null, chatPopUp = null, chatButtonText = null;
+    [SerializeField] private GameObject ScriptOBJ = null, playerDropDownList = null, scrollText = null, newMessageSprite = null, chatPopUp = null, chatButtonText = null;
     [SerializeField] private TMP_InputField messageInput = null;
-    [SerializeField] private Sprite noMessage = null, gotMessage = null;
     private UserAreaControlers userInfos = null;
     private EventHandeler eventHandeler = null;
     private List<Player> NickNames = new List<Player>();
@@ -141,12 +140,12 @@ public class ChatController : MonoBehaviour
     {
         if (amountOfNewText != 0)
         {
-            buttonForChatPopUp.GetComponent<Image>().sprite = gotMessage;
+            newMessageSprite.SetActive(true);
             chatButtonText.GetComponent<Text>().text = amountOfNewText.ToString();
         }
         else
         {
-            buttonForChatPopUp.GetComponent<Image>().sprite = noMessage;
+            newMessageSprite.SetActive(false);
             chatButtonText.GetComponent<Text>().text = "";
         }
     }

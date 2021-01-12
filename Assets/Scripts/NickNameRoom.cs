@@ -6,6 +6,7 @@ using System.Threading;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Avertars;
 
 namespace MainMenu
 {
@@ -15,8 +16,9 @@ namespace MainMenu
     public class NickNameRoom : MonoBehaviourPunCallbacks
     {
         [SerializeField] private TMP_InputField join_input = null, host_input = null, nameInputFeild = null;
-        [SerializeField] private GameObject HostJoin=null, Nickname=null, Status = null, message = null,reconnectToInternet = null;
+        [SerializeField] private GameObject HostJoin=null, Nickname=null, Status = null, message = null,reconnectToInternet = null,avertarSelectedOBJ = null,selectPopup = null;
         private bool connected = false;
+        private string currentAvertar = "0";
         public string setStatus
         {
             set { Status.GetComponent<Text>().text = "Status: " + value; }
@@ -34,6 +36,8 @@ namespace MainMenu
             HostJoin.SetActive(false);
             checkInternet();
             SetUpInputFeild();
+            PhotonNetwork.LocalPlayer.CustomProperties.Add("AvertarCode", currentAvertar);
+            setImageCharOBJ();
         }
         public void checkInternet()
         {
@@ -171,5 +175,25 @@ namespace MainMenu
             Nickname.SetActive(true);
             HostJoin.SetActive(false);
         }
+        public void setImageCharOBJ()
+        {
+            avertarSelectedOBJ.GetComponent<Image>().sprite = AvertarList.AvertarLists[int.Parse(currentAvertar)];
+        }
+        public void setCharacter(string which)
+        {
+            currentAvertar = which;
+            PhotonNetwork.LocalPlayer.CustomProperties["AvertarCode"] = which;
+            onClickClosePopup();
+            setImageCharOBJ();
+        }
+        public void onClickPopupSelect()
+        {
+            selectPopup.SetActive(true);
+        }
+        public void onClickClosePopup()
+        {
+            selectPopup.SetActive(false);
+        }
     }
+    
 }

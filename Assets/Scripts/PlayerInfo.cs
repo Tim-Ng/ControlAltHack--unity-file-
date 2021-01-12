@@ -3,13 +3,29 @@ using Photon.Realtime;
 using UnityEngine;
 using UnityEngine.UI;
 using DrawCards;
+using Avertars;
 
 namespace UserAreas
 {
     public class PlayerInfo : MonoBehaviourPunCallbacks
     {
         [SerializeField] private GameObject Avertar = null, AmountOfCardArea = null, Username = null, HackerCred = null, Cash = null,EntorpyTemplate = null;
-        public Player playerPhoton {get; set;}
+        private Player photonPlayerInfo = null;
+        public Player playerPhoton {
+            get {return photonPlayerInfo; }
+            set
+            {
+                photonPlayerInfo = value;
+                if (photonPlayerInfo == null)
+                {
+                    Avertar.GetComponent<Image>().sprite = null;
+                }
+                else
+                {
+                    Avertar.GetComponent<Image>().sprite = AvertarList.AvertarLists[int.Parse((string)photonPlayerInfo.CustomProperties["AvertarCode"])];
+                }
+            }
+        }
         private string nickname;
         public string Nickname
         {
@@ -39,10 +55,6 @@ namespace UserAreas
             set 
             { 
                 CharScript = value;
-                if (CharScript == null)
-                    Avertar.GetComponent<Image>().sprite = null;
-                else
-                    Avertar.GetComponent<Image>().sprite = CharScript.image_Avertar;
                 Avertar.GetComponent<Button>().interactable = (CharScript != null);
             } 
         }

@@ -42,6 +42,35 @@ namespace UserAreas
             drawMission = ScriptsODJ.GetComponent<drawMissionCard>();
             chatController = ScriptsODJ.GetComponent<ChatController>();
             chatController.onReceiveMessage("You have joined the room :"+PhotonNetwork.CurrentRoom.Name, null, false);
+            string holdName;
+            bool sameName;
+            bool ChangedName = false;
+            int howmanySameName = 0;
+            do
+            {
+                sameName = false;
+                holdName = PhotonNetwork.LocalPlayer.NickName;
+                if (howmanySameName != 0)
+                {
+                    holdName += "(" + (char)(64 + howmanySameName) + ")";
+                }
+                for (int i = 0; i < PhotonNetwork.CurrentRoom.PlayerCount - 1; i++)
+                {
+                    if (PhotonNetwork.PlayerListOthers[i].NickName == holdName)
+                    {
+                        howmanySameName += 1;
+                        Debug.Log("SameName");
+                        sameName = true;
+                        ChangedName = true;
+                    }
+                }
+            } while (sameName);
+            if (ChangedName)
+            {
+                PhotonNetwork.NickName += "(" + (char)(64 + howmanySameName) + ")";
+                PhotonNetwork.RaiseEvent((byte)PhotonEventCode.foundSameName, null, EventManager.AllPeople, SendOptions.SendReliable);
+                chatController.onReceiveMessage("Detected someone with the same name changing your name" + PhotonNetwork.CurrentRoom.Name, null, false);
+            }
             startOBJs();
         }
         public void startOBJs()

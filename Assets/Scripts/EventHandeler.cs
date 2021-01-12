@@ -56,6 +56,7 @@ namespace main
         receiveWinner = 42,
         resetGame = 43,
         forChat = 44,
+        foundSameName =45,
     }
     public class EventHandeler : MonoBehaviour
     {
@@ -372,6 +373,10 @@ namespace main
             {
                 object[] chatInfo = (object[])obj.CustomData;
                 chatController.onReceiveMessage((string)chatInfo[0], (Player)chatInfo[1], (bool)chatInfo[2]);
+            }
+            else if (obj.Code == (byte)PhotonEventCode.foundSameName)
+            {
+                userControler.updateNumberOfPlayers();
             }
         }
     }

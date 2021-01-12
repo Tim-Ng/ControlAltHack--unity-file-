@@ -12,6 +12,7 @@ namespace DrawCards {
     public class missionPopup : MonoBehaviour
     {
         [SerializeField] private GameObject popUp = null, missionCardInpopUp = null,cardCharInpopUp = null, exitButton = null,selectButton =null,attendOrNot = null,missionStuffs = null,infoStuffs = null;
+        [SerializeField] private GameObject attendanceInfo = null;
 
         [SerializeField] private GameObject ScriptsODJ = null;
         private UserAreaControlers userAreaControlers = null;
@@ -98,5 +99,6 @@ namespace DrawCards {
             object[] chatInfo = new object[] { PhotonNetwork.LocalPlayer.NickName + " is not attending this meeting. ", null, false };
             PhotonNetwork.RaiseEvent((byte)PhotonEventCode.forChat, chatInfo, EventManger.AllPeople, SendOptions.SendReliable);
         }
+        public void onClickInfoPopUp(bool openOrClose) => attendanceInfo.SetActive(openOrClose);
     }
 }

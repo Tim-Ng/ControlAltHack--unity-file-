@@ -11,12 +11,23 @@ using TMPro;
 
 public class ChatController : MonoBehaviour
 {
-    [SerializeField] private GameObject ScriptOBJ = null, playerDropDownList = null, scrollText = null,buttonForChatPopUp=null,chatPopUp=null;
+    [SerializeField] private GameObject ScriptOBJ = null, playerDropDownList = null, scrollText = null, buttonForChatPopUp = null, chatPopUp = null, chatButtonText = null;
     [SerializeField] private TMP_InputField messageInput = null;
+    [SerializeField] private Sprite noMessage = null, gotMessage = null;
     private UserAreaControlers userInfos = null;
     private EventHandeler eventHandeler = null;
     private List<Player> NickNames = new List<Player>();
     private Player whichPlayer = null;
+
+    public int amountOfNewText=0;
+    private int setamountOfNewText
+    {
+        set { 
+            amountOfNewText = value;
+            setNumberOfNewText();
+        }
+        get { return amountOfNewText; }
+    }
     void Update()
     {
         if (Input.GetKey(KeyCode.KeypadEnter) || Input.GetKey(KeyCode.UpArrow))
@@ -26,6 +37,7 @@ public class ChatController : MonoBehaviour
     }
     private void Awake()
     {
+        setamountOfNewText = 0;
         userInfos = ScriptOBJ.GetComponent<UserAreaControlers>();
         eventHandeler = ScriptOBJ.GetComponent<EventHandeler>();
     }
@@ -77,14 +89,14 @@ public class ChatController : MonoBehaviour
                 }
                 else
                 {
-                    scrollText.GetComponent<Text>().text += PhotonNetwork.LocalPlayer.NickName + ":" + messageInput.text + "\n";
+                    onReceiveMessage(messageInput.text, PhotonNetwork.LocalPlayer, false);
                     object[] chatInfo = new object[] { messageInput.text, PhotonNetwork.LocalPlayer, false };
                     PhotonNetwork.RaiseEvent((byte)PhotonEventCode.forChat, chatInfo, eventHandeler.AllOtherThanMePeopleOptions, SendOptions.SendReliable);
                 }
             }
             else
             {
-                scrollText.GetComponent<Text>().text += "(Private) " + PhotonNetwork.LocalPlayer.NickName + ":" + messageInput.text + "\n";
+                onReceiveMessage(messageInput.text, PhotonNetwork.LocalPlayer, true);
                 object[] chatInfo = new object[] { messageInput.text, PhotonNetwork.LocalPlayer, true };
                 PhotonNetwork.RaiseEvent((byte)PhotonEventCode.forChat, chatInfo, new RaiseEventOptions { TargetActors = new int[] { whichPlayer.ActorNumber } }, SendOptions.SendReliable);
             }
@@ -93,25 +105,54 @@ public class ChatController : MonoBehaviour
     }
     public void onReceiveMessage(string Message,Player sender,bool isPrivate)
     {
+        if (!chatPopUp.activeSelf)
+        {
+            setamountOfNewText += 1;
+        }
         if (sender == null)
         {
-            scrollText.GetComponent<Text>().text += "Server" + ":" + Message + "\n";
+            scrollText.GetComponent<Text>().text +="<color=#BF0000><i> <b>"+"Server" + ":" + Message + "</b></i></color>" +"\n";
         }
         else
         {
-            if (!isPrivate)
+            if (isPrivate)
             {
-                scrollText.GetComponent<Text>().text += sender.NickName + ":" + Message + "\n";
+                scrollText.GetComponent<Text>().text += "<color=#FF7F00><i><b>(Private</b></i></color>";
+                if (sender.IsLocal)
+                {
+                    scrollText.GetComponent<Text>().text += "<color=#FF7F00><i><b> to " + whichPlayer.NickName+")</b></i></color> ";
+                }
+                else
+                {
+                    scrollText.GetComponent<Text>().text += "<color=#FF7F00><i><b>)</b></i></color> ";
+                }
+            }
+            if (sender.IsLocal)
+            {
+                scrollText.GetComponent<Text>().text += "<color=#008000><i><b>" + sender.NickName + "(YOU)</b>: " + Message + "</i></color>\n";
             }
             else
             {
-                scrollText.GetComponent<Text>().text += "(Private) " + sender.NickName + ":" + Message + "\n";
+                scrollText.GetComponent<Text>().text += "<color=#0A1172><i><b>" + sender.NickName + "</b>: "+ Message + "</i></color>\n";
             }
+        }
+    }
+    public void setNumberOfNewText()
+    {
+        if (amountOfNewText != 0)
+        {
+            buttonForChatPopUp.GetComponent<Image>().sprite = gotMessage;
+            chatButtonText.GetComponent<Text>().text = amountOfNewText.ToString();
+        }
+        else
+        {
+            buttonForChatPopUp.GetComponent<Image>().sprite = noMessage;
+            chatButtonText.GetComponent<Text>().text = "";
         }
     }
     public void clickOnMessageButton()
     {
-        //change sprite
+        setamountOfNewText = 0;
         chatPopUp.SetActive(!chatPopUp.activeSelf);
     }
 }

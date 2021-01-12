@@ -11,7 +11,7 @@ using TMPro;
 
 public class ChatController : MonoBehaviour
 {
-    [SerializeField] private GameObject ScriptOBJ = null, playerDropDownList = null, scrollText = null;
+    [SerializeField] private GameObject ScriptOBJ = null, playerDropDownList = null, scrollText = null,buttonForChatPopUp=null,chatPopUp=null;
     [SerializeField] private TMP_InputField messageInput = null;
     private UserAreaControlers userInfos = null;
     private EventHandeler eventHandeler = null;
@@ -109,5 +109,9 @@ public class ChatController : MonoBehaviour
             }
         }
     }
-
+    public void clickOnMessageButton()
+    {
+        //change sprite
+        chatPopUp.SetActive(!chatPopUp.activeSelf);
+    }
 }

@@ -258,6 +258,8 @@ namespace UserAreas
             {
                 AmountOfRounds = int.Parse(numberOfRounds_input.text);
                 numberOfRounds_input.text = AmountOfRounds.ToString();
+                object[] chatInfo = new object[] { "Number of round is changed to :" + AmountOfRounds, null, false };
+                PhotonNetwork.RaiseEvent((byte)PhotonEventCode.forChat, chatInfo, EventManager.AllPeople, SendOptions.SendReliable);
                 object[] round = new object[] { AmountOfRounds };
                 PhotonNetwork.RaiseEvent((byte)PhotonEventCode.upDateOtherOnGameRounds, round, EventManager.AllPeople, SendOptions.SendReliable);
             }
@@ -269,13 +271,8 @@ namespace UserAreas
         }
         public void upDateOtherOnGameRounds(int num_rounds)
         {
-            if (AmountOfRounds != num_rounds)
-            {
-                chatController.onReceiveMessage("Number of rounds is set to " + num_rounds, null, false);
-            }
             AmountOfRounds = num_rounds;
             numberOfRounds_input.text = AmountOfRounds.ToString();
-            
         }
         public void startGame()
         {

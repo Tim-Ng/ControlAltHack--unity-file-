@@ -16,7 +16,8 @@ namespace MainMenu
     public class NickNameRoom : MonoBehaviourPunCallbacks
     {
         [SerializeField] private TMP_InputField join_input = null, host_input = null, nameInputFeild = null;
-        [SerializeField] private GameObject HostJoin=null, Nickname=null, Status = null, message = null,reconnectToInternet = null,avertarSelectedOBJ = null,selectPopup = null;
+        [SerializeField] private GameObject HostJoin = null, Nickname = null, Status = null, message = null, reconnectToInternet = null, avertarSelectedOBJ = null;
+        [SerializeField] private AvertarList avertarList = null;
         private bool connected = false;
         private string currentAvertar = "0";
         public string setStatus
@@ -97,7 +98,6 @@ namespace MainMenu
         public void clickOnHostButton()
         {
             HostJoin.SetActive(false);
-            Thread.Sleep(500);
             CreateRoom(host_input.text);
         }
         public void CreateRoom(string roomName)  // create room 
@@ -116,9 +116,7 @@ namespace MainMenu
         {
             Debug.Log("Created room failed ");
             setStatus = "Room failed to create";
-            Thread.Sleep(500);
             setStatus = "The room name has already exsist or the server has issue please try agian...";
-            Thread.Sleep(500);
             host_input.text = null;
             HostJoin.SetActive(true);
         }
@@ -134,7 +132,6 @@ namespace MainMenu
         {
             Debug.Log("Joining Room...");
             setStatus = "Joining Room Named \"" + join_input.text + "\" ";
-            Thread.Sleep(500);
             PhotonNetwork.JoinRoom(roomName);
         }
         public override void OnJoinedRoom()
@@ -142,7 +139,6 @@ namespace MainMenu
             Debug.Log("Client successfully joined a room");
             int playerCount = PhotonNetwork.CurrentRoom.PlayerCount;
             setStatus = "Joined Room named \"" + PhotonNetwork.CurrentRoom.Name + "\" ";
-            Thread.Sleep(500);
             PhotonNetwork.LoadLevel(1);
             Debug.Log("Client is waiting for an opponent");
             Debug.Log("Matching is ready to begin");
@@ -153,7 +149,6 @@ namespace MainMenu
         {
             Debug.Log("Room is not found");
             setStatus = "There are no room with the name \"" + join_input.text + "\" currently being hosted";
-            Thread.Sleep(500);
             join_input.text = null;
             HostJoin.SetActive(true);
         }
@@ -181,19 +176,13 @@ namespace MainMenu
         }
         public void setCharacter(string which)
         {
+            Debug.Log("Change Avertar");
             currentAvertar = which;
             PhotonNetwork.LocalPlayer.CustomProperties["AvertarCode"] = which;
-            onClickClosePopup();
+            avertarList.onClickClosePopup();
             setImageCharOBJ();
         }
-        public void onClickPopupSelect()
-        {
-            selectPopup.SetActive(true);
-        }
-        public void onClickClosePopup()
-        {
-            selectPopup.SetActive(false);
-        }
+        
     }
     
 }

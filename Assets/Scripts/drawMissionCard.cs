@@ -13,11 +13,16 @@ namespace DrawCards {
     {
         private List<int> missionCardID = new List<int>();
         private List<int> missionCardIDUsed = new List<int>();
-        [SerializeField] private UserAreaControlers userControler = null;
+        private GameObject ScriptOBJ = null;
+        private UserAreaControlers userControler = null;
+        private EventHandeler EventManager = null;
         [SerializeField] private GameObject cardArea = null, cardTemplateMission = null;
-        [SerializeField] private EventHandeler EventManager = null;
+        
         private void Start()
         {
+            ScriptOBJ = gameObject;
+            userControler = ScriptOBJ.GetComponent<UserAreaControlers>();
+            EventManager = ScriptOBJ.GetComponent<EventHandeler>();
             startDraw();
         }
         public void startDraw()

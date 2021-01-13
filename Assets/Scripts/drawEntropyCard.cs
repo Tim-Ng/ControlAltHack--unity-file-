@@ -13,7 +13,7 @@ using System.Linq;
 namespace DrawCards {
     public class drawEntropyCard : MonoBehaviour
     {
-        [SerializeField] private GameObject ScriptsODJ = null;
+        private GameObject ScriptsODJ = null;
         private List<int> entropyCardID = new List<int>();
         private List<int> entropyCardIDUsed = new List<int>();
         [SerializeField] private GameObject cardArea = null, cardTemplate = null;
@@ -23,6 +23,7 @@ namespace DrawCards {
         private rollingMissionControl rollingMission = null;
         private void Start()
         {
+            ScriptsODJ = gameObject;
             userControler = ScriptsODJ.GetComponent<UserAreaControlers>();
             EventManager = ScriptsODJ.GetComponent<EventHandeler>();
             rollingMission = ScriptsODJ.GetComponent<rollingMissionControl>();

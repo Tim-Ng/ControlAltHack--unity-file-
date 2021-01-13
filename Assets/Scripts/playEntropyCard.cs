@@ -14,7 +14,7 @@ namespace DrawCards
 {
     public class playEntropyCard : MonoBehaviour
     {
-        [SerializeField] private GameObject ScriptsODJ = null;
+        private GameObject ScriptsODJ = null;
         private rollingMissionControl rollingControl = null;
         private UserAreaControlers userArea = null;
         private EventHandeler EventManager = null;
@@ -37,6 +37,7 @@ namespace DrawCards
         private readonly List<int> extendSive = new List<int> { 20, 21, 22, 23, 24 };
         private void Start()
         {
+            ScriptsODJ = gameObject;
             userArea = ScriptsODJ.GetComponent<UserAreaControlers>();
             rollingControl = ScriptsODJ.GetComponent<rollingMissionControl>();
             EventManager = ScriptsODJ.GetComponent<EventHandeler>();

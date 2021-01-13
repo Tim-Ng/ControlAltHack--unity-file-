@@ -48,7 +48,7 @@ namespace rollmissions
         [SerializeField] private GameObject MissionCard = null, RollingMissionOBJ = null;
         [SerializeField] private GameObject skillTemplate = null, skillChangerEliment = null;
 
-        [SerializeField] private GameObject ScriptsODJ = null;
+        private GameObject ScriptsODJ = null;
         private missionPopup popup = null;
         private EventHandeler EventManger = null;
         private TurnManager turnManager = null;
@@ -61,6 +61,7 @@ namespace rollmissions
         private bool entopy3 = false;
         private void Start()
         {
+            ScriptsODJ=gameObject;
             tradeControl = ScriptsODJ.GetComponent<TradeControler>();
             popup = ScriptsODJ.GetComponent<missionPopup>();
             EventManger = ScriptsODJ.GetComponent<EventHandeler>();

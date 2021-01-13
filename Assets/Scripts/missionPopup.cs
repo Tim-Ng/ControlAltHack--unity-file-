@@ -14,7 +14,7 @@ namespace DrawCards {
         [SerializeField] private GameObject popUp = null, missionCardInpopUp = null,cardCharInpopUp = null, exitButton = null,selectButton =null,attendOrNot = null,missionStuffs = null,infoStuffs = null;
         [SerializeField] private GameObject attendanceInfo = null;
 
-        [SerializeField] private GameObject ScriptsODJ = null;
+        private GameObject ScriptsODJ = null;
         private UserAreaControlers userAreaControlers = null;
         private TradeControler tradeController = null;
         private drawMissionCard drawMission = null;
@@ -25,6 +25,7 @@ namespace DrawCards {
         private missionDisplay whichCard = null;
         private void Start()
         {
+            ScriptsODJ = gameObject;
             userAreaControlers = ScriptsODJ.GetComponent<UserAreaControlers>();
             EventManger = ScriptsODJ.GetComponent<EventHandeler>();
             drawMission = ScriptsODJ.GetComponent<drawMissionCard>();

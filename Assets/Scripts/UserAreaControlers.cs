@@ -17,7 +17,6 @@ namespace UserAreas
 {
     public class UserAreaControlers : MonoBehaviourPunCallbacks
     {
-        [SerializeField] private GameObject ScriptsODJ = null;
         [SerializeField] private winCanvasController winCanvas = null;
 
         [SerializeField] private PlayerInfo thisUserArea = null, userArea1 = null, userArea2 = null, userArea3 = null, userArea4 = null, userArea5 = null;
@@ -25,6 +24,7 @@ namespace UserAreas
         [SerializeField] private Text numberOfPeople = null;
         [SerializeField] private GameObject startGameItems = null, setRoundsButton = null, startGameButton = null, roomCode = null, firedLeaveButton = null;
 
+        private GameObject ScriptsODJ = null;
         private TurnManager turn = null;
         private EventHandeler EventManager = null;
         private TradeControler tradeControler= null;
@@ -36,6 +36,7 @@ namespace UserAreas
         public List<PlayerInfo> users = new List<PlayerInfo>();
         private void Start()
         {
+            ScriptsODJ = gameObject;
             turn = ScriptsODJ.GetComponent<TurnManager>();
             EventManager = ScriptsODJ.GetComponent<EventHandeler>();
             tradeControler = ScriptsODJ.GetComponent<TradeControler>();

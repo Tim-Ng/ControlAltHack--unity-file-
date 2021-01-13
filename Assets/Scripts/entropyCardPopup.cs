@@ -14,7 +14,7 @@ public class entropyCardPopup : MonoBehaviour
     [SerializeField] private GameObject popUp = null, cardInpopUpEntropy = null,playButton = null;
     [SerializeField] private DuringMissionRollController missionRollController = null;
 
-    [SerializeField] private GameObject ScriptsODJ = null;
+    private GameObject ScriptsODJ = null;
     private drawEntropyCard drawEntro = null;
     private rollingMissionControl rollingContoler = null;
     private UserAreaControlers userArea = null;
@@ -28,6 +28,7 @@ public class entropyCardPopup : MonoBehaviour
     private int[] After = { 3, 10, 14, 15, 20, 2,1, 22, 23, 24 };
     private void Start()
     {
+        ScriptsODJ = gameObject;
         userArea = ScriptsODJ.GetComponent<UserAreaControlers>();
         playEntropy = ScriptsODJ.GetComponent<playEntropyCard>();
         rollingContoler = ScriptsODJ.GetComponent<rollingMissionControl>();

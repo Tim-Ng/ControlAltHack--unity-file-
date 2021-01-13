@@ -60,8 +60,7 @@ namespace main
     }
     public class EventHandeler : MonoBehaviour
     {
-        [SerializeField] private GameObject ScriptsODJ = null;
-
+        private GameObject ScriptsODJ = null;
         private UserAreaControlers userControler = null;
         private drawCharacterCard drawChar = null;
         private TurnManager turnManager= null;
@@ -74,6 +73,7 @@ namespace main
 
         private void Start()
         {
+            ScriptsODJ = gameObject;
             drawChar = ScriptsODJ.GetComponent<drawCharacterCard>();
             turnManager = ScriptsODJ.GetComponent<TurnManager>();
             userControler = ScriptsODJ.GetComponent<UserAreaControlers>();

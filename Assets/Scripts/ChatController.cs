@@ -11,8 +11,9 @@ using TMPro;
 
 public class ChatController : MonoBehaviour
 {
-    [SerializeField] private GameObject ScriptOBJ = null, playerDropDownList = null, scrollText = null, newMessageSprite = null, chatPopUp = null, chatButtonText = null;
+    [SerializeField] private GameObject playerDropDownList = null, scrollText = null, newMessageSprite = null, chatPopUp = null, chatButtonText = null;
     [SerializeField] private TMP_InputField messageInput = null;
+    private GameObject ScriptOBJ = null;
     private UserAreaControlers userInfos = null;
     private EventHandeler eventHandeler = null;
     private List<Player> NickNames = new List<Player>();
@@ -37,6 +38,7 @@ public class ChatController : MonoBehaviour
     private void Awake()
     {
         setamountOfNewText = 0;
+        ScriptOBJ = gameObject;
         userInfos = ScriptOBJ.GetComponent<UserAreaControlers>();
         eventHandeler = ScriptOBJ.GetComponent<EventHandeler>();
     }

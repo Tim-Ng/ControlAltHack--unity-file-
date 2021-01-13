@@ -15,8 +15,7 @@ namespace main
 {
     public class TurnManager : MonoBehaviourPunCallbacks
     {
-        [SerializeField] private GameObject ScriptsODJ = null;
-
+        private GameObject ScriptsODJ = null;
         private drawCharacterCard drawCard = null;
         private drawEntropyCard drawEntro= null;
         private EventHandeler EventManager = null;
@@ -36,6 +35,7 @@ namespace main
         private List<int> actorsDone = new List<int>();
         private void Start()
         {
+            ScriptsODJ = gameObject;
             drawCard = ScriptsODJ.GetComponent<drawCharacterCard>();
             drawEntro = ScriptsODJ.GetComponent<drawEntropyCard>();
             EventManager = ScriptsODJ.GetComponent<EventHandeler>();

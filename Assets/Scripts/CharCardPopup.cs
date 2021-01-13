@@ -28,7 +28,7 @@ namespace DrawCards
 
         [SerializeField] private DuringMissionRollController missionRollItems = null;
 
-        [SerializeField] private GameObject ScriptsODJ = null;
+        private GameObject ScriptsODJ = null;
         private UserAreaControlers userAreaControlers = null;
         private rollingMissionControl missionRollController = null;
         private EventHandeler EventManager = null;
@@ -46,6 +46,7 @@ namespace DrawCards
         private Dropdown dropdownSkillSwapTo = null;
         private void Start()
         {
+            ScriptsODJ = gameObject;
             userAreaControlers = ScriptsODJ.GetComponent<UserAreaControlers>();
             missionRollController = ScriptsODJ.GetComponent<rollingMissionControl>();
             EventManager = ScriptsODJ.GetComponent<EventHandeler>();

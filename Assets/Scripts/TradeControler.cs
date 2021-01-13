@@ -13,7 +13,7 @@ namespace TradeScripts
     {
         [SerializeField] private UserAreaControlers userControler = null;
         [SerializeField] private GameObject missionCardArea = null;
-        [SerializeField] private GameObject ScriptsODJ = null;
+        private GameObject ScriptsODJ = null;
         private EventHandeler EventManger = null;
         private drawEntropyCard drawEntroy = null;
         private missionPopup missionPOPUP = null;
@@ -24,6 +24,7 @@ namespace TradeScripts
         [SerializeField] private GameObject tradePanel = null, MyNickName = null, MyMoney = null, myMissionCard = null;
         private void Start()
         {
+            ScriptsODJ = gameObject;
             EventManger = ScriptsODJ.GetComponent<EventHandeler>();
             missionPOPUP = ScriptsODJ.GetComponent<missionPopup>();
             drawEntroy = ScriptsODJ.GetComponent<drawEntropyCard>();

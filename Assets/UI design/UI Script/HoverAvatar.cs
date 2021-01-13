@@ -5,25 +5,32 @@ using UnityEngine.UI;
 
 public class HoverAvatar : MonoBehaviour
 {
-    [SerializeField]private GameObject avatarprofile = null;
+    private GameObject avatarprofile = null;
     [SerializeField] private bool detectsHaveSprite;
+    public float x = 1.2f,y=1.2f;
     Vector3 unhoverscale;
-
+    private void Start()
+    {
+        avatarprofile =gameObject;
+    }
     public void OnHoverEnter()
     {
         unhoverscale = avatarprofile.transform.localScale;
+        if (!avatarprofile.GetComponent<Button>().interactable)
+        {
+            return;
+        }
         if (detectsHaveSprite)
         {
             if(avatarprofile.GetComponent<Image>().sprite != null)
             {
-                avatarprofile.transform.localScale = new Vector3(1.2f, 1.2f);
+                avatarprofile.transform.localScale = new Vector3(x, y);
             }
         }
         else
         {
-            avatarprofile.transform.localScale = new Vector3(1.2f, 1.2f);
-        }
-            
+            avatarprofile.transform.localScale = new Vector3(x, y);
+        } 
     }
 
     public void OnHoverExit()

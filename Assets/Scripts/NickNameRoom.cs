@@ -19,7 +19,7 @@ namespace MainMenu
         [SerializeField] private GameObject HostJoin = null, Nickname = null, Status = null, message = null, reconnectToInternet = null, avertarSelectedOBJ = null;
         [SerializeField] private AvertarList avertarList = null;
         private bool connected = false;
-        private string currentAvertar = "0";
+        private string currentAvertar = null;
         public string setStatus
         {
             set { Status.GetComponent<Text>().text = "Status: " + value; }
@@ -27,17 +27,28 @@ namespace MainMenu
         [SerializeField] private Button join_button = null, host_button = null, continueButton = null;
         public static byte MinimumPeople = 2, MaximumPeople = 6;
         private const string PlayerPrefsNameKey = "PlayerName";
+        private const string avertarCode = "AvertarCode";
         private const string GameVersion = "0.1";
         /// <summary>
         /// Start set nickname.
         /// </summary>
-        private void Start()
+        void Start()
         {
             Nickname.SetActive(true);
             HostJoin.SetActive(false);
             checkInternet();
             SetUpInputFeild();
-            PhotonNetwork.LocalPlayer.CustomProperties.Add("AvertarCode", currentAvertar);
+            if (!PlayerPrefs.HasKey(avertarCode))
+            {
+                currentAvertar = "0";
+                PlayerPrefs.SetString(avertarCode, currentAvertar);
+            }
+            else
+            {
+                currentAvertar = PlayerPrefs.GetString(avertarCode);
+            }
+            if (!(PhotonNetwork.LocalPlayer.CustomProperties.ContainsKey(avertarCode)))
+                PhotonNetwork.LocalPlayer.CustomProperties.Add(avertarCode, currentAvertar);
             setImageCharOBJ();
         }
         public void checkInternet()
@@ -178,7 +189,8 @@ namespace MainMenu
         {
             Debug.Log("Change Avertar");
             currentAvertar = which;
-            PhotonNetwork.LocalPlayer.CustomProperties["AvertarCode"] = which;
+            PlayerPrefs.SetString(avertarCode, currentAvertar);
+            PhotonNetwork.LocalPlayer.CustomProperties[avertarCode] = which;
             avertarList.onClickClosePopup();
             setImageCharOBJ();
         }

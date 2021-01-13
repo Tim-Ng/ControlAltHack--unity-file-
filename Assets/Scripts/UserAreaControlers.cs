@@ -10,6 +10,7 @@ using ExitGames.Client.Photon;
 using main;
 using DrawCards;
 using TradeScripts;
+using Avertars;
 using System.Threading;
 
 namespace UserAreas
@@ -469,7 +470,7 @@ namespace UserAreas
             }
             else
             {
-                winCanvas.setFirstPlaceAvertar = users[position].characterScript.image_Avertar;
+                winCanvas.setFirstPlaceAvertar = AvertarList.AvertarLists[int.Parse((string)users[position].playerPhoton.CustomProperties["AvertarCode"])];
             }
         }
         public void setWinnerInfo2(int PlayerID)
@@ -483,7 +484,7 @@ namespace UserAreas
             }
             else
             {
-                winCanvas.setSecondPlaceAvertar = users[position].characterScript.image_Avertar;
+                winCanvas.setSecondPlaceAvertar = AvertarList.AvertarLists[int.Parse((string)users[position].playerPhoton.CustomProperties["AvertarCode"])];
             }
         }
         public void setWinnerInfo3(int PlayerID)
@@ -497,7 +498,7 @@ namespace UserAreas
             }
             else
             {
-                winCanvas.setThirdPlaceAvertar = users[position].characterScript.image_Avertar;
+                winCanvas.setThirdPlaceAvertar = AvertarList.AvertarLists[int.Parse((string)users[position].playerPhoton.CustomProperties["AvertarCode"])];
             }
         }
         public void clickOnPlayAgain()

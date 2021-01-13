@@ -190,7 +190,7 @@ namespace main
             else if (obj.Code == (byte)PhotonEventCode.tradeNotAttending)
             {
                 object[] info = (object[])obj.CustomData;
-                userControler.receiveOtherNotAttending((Player)info[0]);
+                userControler.receiveOtherNotAttending((Player)info[0],(bool)info[1]);
             }
             else if (obj.Code == (byte)PhotonEventCode.receiveSomeoneAskToTrade)
             {

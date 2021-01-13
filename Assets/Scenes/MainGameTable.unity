@@ -1480,6 +1480,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.x
       value: 0.000026734
       objectReference: {fileID: 0}
+    - target: {fileID: 2054907592942194811, guid: e210a95c80738e442bd51da9866c6f75, type: 3}
+      propertyPath: userControler
+      value: 
+      objectReference: {fileID: 356750432}
     - target: {fileID: 2054907593615644699, guid: e210a95c80738e442bd51da9866c6f75, type: 3}
       propertyPath: m_Name
       value: opponent4TradeUI
@@ -1607,6 +1611,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 2054907592942194806, guid: e210a95c80738e442bd51da9866c6f75, type: 3}
   m_PrefabInstance: {fileID: 131019518}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &131019520 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2054907592942194811, guid: e210a95c80738e442bd51da9866c6f75, type: 3}
+  m_PrefabInstance: {fileID: 131019518}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2963c54e4017db748b0c257eb9f95969, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &159736534
 GameObject:
   m_ObjectHideFlags: 0
@@ -4394,10 +4409,10 @@ MonoBehaviour:
   missionCardArea: {fileID: 1734377028}
   ScriptsODJ: {fileID: 356750430}
   opponent1: {fileID: 232278746}
-  opponent2: {fileID: 0}
-  opponent3: {fileID: 0}
-  opponent4: {fileID: 0}
-  opponent5: {fileID: 0}
+  opponent2: {fileID: 375090563}
+  opponent3: {fileID: 535111675}
+  opponent4: {fileID: 131019520}
+  opponent5: {fileID: 1094491499}
   HowManyPeople: 0
   tradePanel: {fileID: 974634417}
   MyNickName: {fileID: 1573674534}
@@ -4876,6 +4891,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 121.9
       objectReference: {fileID: 0}
+    - target: {fileID: 2054907592942194811, guid: e210a95c80738e442bd51da9866c6f75, type: 3}
+      propertyPath: userControler
+      value: 
+      objectReference: {fileID: 356750432}
     - target: {fileID: 2054907593615644699, guid: e210a95c80738e442bd51da9866c6f75, type: 3}
       propertyPath: m_Name
       value: opponent2TradeUI
@@ -5007,6 +5026,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 2054907592942194806, guid: e210a95c80738e442bd51da9866c6f75, type: 3}
   m_PrefabInstance: {fileID: 375090561}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &375090563 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2054907592942194811, guid: e210a95c80738e442bd51da9866c6f75, type: 3}
+  m_PrefabInstance: {fileID: 375090561}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2963c54e4017db748b0c257eb9f95969, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &414240593
 GameObject:
   m_ObjectHideFlags: 0
@@ -5209,7 +5239,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -2.2999268, y: -3.0999756}
+  m_AnchoredPosition: {x: -2.3000488, y: -3.0999756}
   m_SizeDelta: {x: 11.8654785, y: 13.50824}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &422734791
@@ -6248,6 +6278,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.x
       value: -1.6999
       objectReference: {fileID: 0}
+    - target: {fileID: 2054907592942194811, guid: e210a95c80738e442bd51da9866c6f75, type: 3}
+      propertyPath: userControler
+      value: 
+      objectReference: {fileID: 356750432}
     - target: {fileID: 2054907593615644699, guid: e210a95c80738e442bd51da9866c6f75, type: 3}
       propertyPath: m_Name
       value: opponent3TradeUI
@@ -6375,6 +6409,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 2054907592942194806, guid: e210a95c80738e442bd51da9866c6f75, type: 3}
   m_PrefabInstance: {fileID: 535111673}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &535111675 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2054907592942194811, guid: e210a95c80738e442bd51da9866c6f75, type: 3}
+  m_PrefabInstance: {fileID: 535111673}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2963c54e4017db748b0c257eb9f95969, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &540567312
 GameObject:
   m_ObjectHideFlags: 0
@@ -9136,7 +9181,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -2.2999268, y: -3.0999756}
+  m_AnchoredPosition: {x: -2.3000488, y: -3.0999756}
   m_SizeDelta: {x: 11.8654785, y: 13.50824}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &802052915
@@ -10379,7 +10424,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -2.2999268, y: -3.0999756}
+  m_AnchoredPosition: {x: -2.3000488, y: -3.0999756}
   m_SizeDelta: {x: 11.8654785, y: 13.50824}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &997271224
@@ -11241,7 +11286,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -2.2999268, y: -3.0999756}
+  m_AnchoredPosition: {x: -2.3000488, y: -3.0999756}
   m_SizeDelta: {x: 11.8654785, y: 13.50824}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1022314252
@@ -11582,6 +11627,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0.0000076294
       objectReference: {fileID: 0}
+    - target: {fileID: 2054907592942194811, guid: e210a95c80738e442bd51da9866c6f75, type: 3}
+      propertyPath: userControler
+      value: 
+      objectReference: {fileID: 356750432}
     - target: {fileID: 2054907593615644699, guid: e210a95c80738e442bd51da9866c6f75, type: 3}
       propertyPath: m_Name
       value: opponent5TradeUI
@@ -11721,6 +11770,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 2054907592942194806, guid: e210a95c80738e442bd51da9866c6f75, type: 3}
   m_PrefabInstance: {fileID: 1094491497}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1094491499 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2054907592942194811, guid: e210a95c80738e442bd51da9866c6f75, type: 3}
+  m_PrefabInstance: {fileID: 1094491497}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2963c54e4017db748b0c257eb9f95969, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1131061105
 GameObject:
   m_ObjectHideFlags: 0
@@ -20462,7 +20522,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -2.2998047, y: 0.7235718}
+  m_AnchoredPosition: {x: -2.2999268, y: 0.7235718}
   m_SizeDelta: {x: 39.620667, y: 12.615906}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2118881959
@@ -21112,6 +21172,10 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 2054907592942194811, guid: e210a95c80738e442bd51da9866c6f75, type: 3}
+      propertyPath: userControler
+      value: 
+      objectReference: {fileID: 356750432}
     - target: {fileID: 2054907593615644699, guid: e210a95c80738e442bd51da9866c6f75, type: 3}
       propertyPath: m_Name
       value: opponent1TradeUI
@@ -21124,6 +21188,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 356750447}
+    - target: {fileID: 2054907594203940119, guid: e210a95c80738e442bd51da9866c6f75, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2054907594301517424, guid: e210a95c80738e442bd51da9866c6f75, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 

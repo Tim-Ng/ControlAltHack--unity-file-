@@ -120,7 +120,7 @@ namespace rollmissions
             missionRollController.setActivetask3 = setGetCurrentCard.hasThirdMission;
             JobInfoList.Clear();
             JobInfoList.Add(new jobInfos(1, setGetCurrentCard.skill_name_1, userArea.users[0].characterScript.find_which(setGetCurrentCard.skill_name_1), false));
-            missionRollController.settask1beforeText = "1] TaskName: " + GetStringOfTask.get_string_of_job(JobInfoList[0].skillName) + "\n   Amonunt: " + JobInfoList[0].amount;
+            missionRollController.settask1beforeText = "1] TaskName: " + GetStringOfTask.get_string_of_job(JobInfoList[0].skillName) + "\nAmonunt: " + JobInfoList[0].amount;
             if (setGetCurrentCard.fist_change_hardnum != 0)
             {
                 if (setGetCurrentCard.fist_change_hardnum > 0)
@@ -133,7 +133,7 @@ namespace rollmissions
             if (setGetCurrentCard.hasSecondMission)
             {
                 JobInfoList.Add(new jobInfos(2, setGetCurrentCard.skill_name_2, userArea.users[0].characterScript.find_which(setGetCurrentCard.skill_name_2), false));
-                missionRollController.settask2beforeText = "2] TaskName: " + GetStringOfTask.get_string_of_job(JobInfoList[1].skillName) + "\n   Amonunt: " + JobInfoList[1].amount;
+                missionRollController.settask2beforeText = "2] TaskName: " + GetStringOfTask.get_string_of_job(JobInfoList[1].skillName) + "\nAmonunt: " + JobInfoList[1].amount;
                 if (setGetCurrentCard.second_change_hardnum != 0)
                 {
                     if (setGetCurrentCard.second_change_hardnum > 0)
@@ -147,7 +147,7 @@ namespace rollmissions
             if (setGetCurrentCard.hasThirdMission)
             {
                 JobInfoList.Add(new jobInfos(3, setGetCurrentCard.skill_name_3, userArea.users[0].characterScript.find_which(setGetCurrentCard.skill_name_3), false));
-                missionRollController.settask3beforeText = "3] TaskName: " + GetStringOfTask.get_string_of_job(JobInfoList[2].skillName) + "\n   Amonunt: " + JobInfoList[2].amount;
+                missionRollController.settask3beforeText = "3] TaskName: " + GetStringOfTask.get_string_of_job(JobInfoList[2].skillName) + "\nAmonunt: " + JobInfoList[2].amount;
                 if (setGetCurrentCard.third_change_hardnum != 0)
                 {
                     if (setGetCurrentCard.third_change_hardnum > 0)

@@ -351,17 +351,17 @@ namespace UserAreas
         {
             users[findPlayerPosition(whichPlayer)].NumberOfCards = amount;
         }
-        public void setandsendIfNotAttending()
+        public void setandsendIfNotAttending(bool DoneTrading)
         {
             users[0].attendingOrNot = false;
-            object[] yesOrNOBool = new object[] { PhotonNetwork.LocalPlayer};
+            object[] yesOrNOBool = new object[] { PhotonNetwork.LocalPlayer, DoneTrading };
             PhotonNetwork.RaiseEvent((byte)PhotonEventCode.tradeNotAttending, yesOrNOBool, EventManager.AllOtherThanMePeopleOptions, SendOptions.SendReliable);
         }
-        public void receiveOtherNotAttending(Player whichPlayer)
+        public void receiveOtherNotAttending(Player whichPlayer,bool clickedOnDoneTrading)
         {
             int PlayerPosition=  findPlayerPosition(whichPlayer);
             users[PlayerPosition].attendingOrNot = false;
-            tradeControler.PlayerAttentingChange(PlayerPosition);
+            tradeControler.PlayerAttentingChange(PlayerPosition, clickedOnDoneTrading);
         }
         public void setandsendIfAttending()
         {

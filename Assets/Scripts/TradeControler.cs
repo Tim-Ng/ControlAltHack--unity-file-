@@ -33,6 +33,7 @@ namespace TradeScripts
             tradeAreaContollers.Add(opponent3);
             tradeAreaContollers.Add(opponent4);
             tradeAreaContollers.Add(opponent5);
+            resetHasAttended();
         }
         public void setAllAreas()
         {
@@ -40,24 +41,46 @@ namespace TradeScripts
             MyMoney.GetComponent<Text>().text = userControler.users[0].amountOfMoney.ToString();
             for (int i = 1; i <6; i++)
             {
-                tradeAreaContollers[i-1].MyMoney = userControler.users[0].amountOfMoney;
-                tradeAreaContollers[i - 1].setBribeInputValue = "0";
-                tradeAreaContollers[i-1].nickName = userControler.users[i].Nickname;
-                tradeAreaContollers[i-1].setAskingText = "You have asked anyone";
-                tradeAreaContollers[i-1].setgettingAskText = "No players have asked you yet";
-                tradeAreaContollers[i-1].attending = userControler.users[i].attendingOrNot;
-                if (tradeAreaContollers[i - 1].attending == true)
+                if (userControler.users[i].playerPhoton != null)
                 {
-                    HowManyPeople = +1;
+                    tradeAreaContollers[i - 1].setBribeInputValue = "0";
+                    tradeAreaContollers[i - 1].nickName = userControler.users[i].Nickname;
+                    tradeAreaContollers[i - 1].setAskingText = "You have asked anyone";
+                    tradeAreaContollers[i - 1].setgettingAskText = "No players have asked you yet";
+                    tradeAreaContollers[i - 1].attending = userControler.users[i].attendingOrNot;
+                    if (tradeAreaContollers[i - 1].attending == true)
+                    {
+                        HowManyPeople = +1;
+                    }
+                    if (!tradeAreaContollers[i - 1].AttendedThisRound)
+                    {
+                        tradeAreaContollers[i - 1].attending_text = "Waiting...";
+                    }
+                    tradeAreaContollers[i - 1].acceptButton = false;
+                    tradeAreaContollers[i - 1].rejectButton = false;
+                    tradeAreaContollers[i - 1].askButton = true;
+                    tradeAreaContollers[i - 1].cancelButton = false;
                 }
-                tradeAreaContollers[i-1].acceptButton = false;
-                tradeAreaContollers[i-1].rejectButton = false;
-                tradeAreaContollers[i-1].askButton = true;
-                tradeAreaContollers[i-1].cancelButton = false;
+                else
+                {
+                    tradeAreaContollers[i - 1].attending_text = "No player";
+                }
+                
             }
             tradePanel.SetActive(true);
         }
-        public void PlayerAttentingChange(int which) => tradeAreaContollers[which - 1].attending = userControler.users[which].attendingOrNot;
+        public void PlayerAttentingChange(int which,bool clickedOnDoneTrading) {
+            tradeAreaContollers[which - 1].attending = userControler.users[which].attendingOrNot;
+            if (clickedOnDoneTrading)
+            {
+                tradeAreaContollers[which - 1].attending_text = "Done Trading";
+            }
+            else
+            {
+                tradeAreaContollers[which - 1].attending_text = "Not Attending";
+            }
+            tradeAreaContollers[which - 1].AttendedThisRound = true;
+        }
         public void PlayerAttentingChange(int which,int cardID)
         {
             tradeAreaContollers[which - 1].attending = userControler.users[which].attendingOrNot;
@@ -74,12 +97,19 @@ namespace TradeScripts
         public void ClickOnDone()
         {
             tradePanel.SetActive(false);
-            userControler.setandsendIfNotAttending();
+            userControler.setandsendIfNotAttending(true);
             drawEntroy.drawEntropyCards(1);
             object[] player = new object[] { PhotonNetwork.LocalPlayer.ActorNumber };
             PhotonNetwork.RaiseEvent((byte)PhotonEventCode.setWaiting, player, EventManger.AllPeople, SendOptions.SendReliable);
             object[] chatInfo = new object[] { PhotonNetwork.LocalPlayer.NickName + " is done trading.", null, false };
             PhotonNetwork.RaiseEvent((byte)PhotonEventCode.forChat, chatInfo, EventManger.AllPeople, SendOptions.SendReliable);
+        }
+        public void resetHasAttended()
+        {
+            for(int i =0; i < 5; i++)
+            {
+                tradeAreaContollers[i].AttendedThisRound = false;
+            }
         }
         public void clickOncard(int which) => missionPOPUP.clickOnCard(missionCardDeck.cardDeck[tradeAreaContollers[which].setgetmissionID - 1], 0, false);
         public void clickOnMycard() => missionPOPUP.clickOnCard(userControler.users[0].missionScript, 0, false);

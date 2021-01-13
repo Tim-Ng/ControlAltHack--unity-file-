@@ -242,6 +242,7 @@ namespace main
             }
             else if (TurnNumber % 2 == 1)
             {
+                tradeController.resetHasAttended();
                 tradeController.HowManyPeople = 0;
                 if (TurnNumber == 1)
                 {

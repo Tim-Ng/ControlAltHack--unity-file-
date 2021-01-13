@@ -94,6 +94,7 @@ namespace DrawCards {
             popUp.SetActive(false);
             AttendingOrNot = false;
             whichCard.cardAttendInRound = turnManager.RoundNumber;
+            userAreaControlers.setandsendIfNotAttending(false);
             object[] player = new object[] { PhotonNetwork.LocalPlayer.ActorNumber };
             PhotonNetwork.RaiseEvent((byte)PhotonEventCode.setWaiting, player, EventManger.AllPeople, SendOptions.SendReliable);
             object[] chatInfo = new object[] { PhotonNetwork.LocalPlayer.NickName + " is not attending this meeting. ", null, false };

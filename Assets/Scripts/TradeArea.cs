@@ -5,12 +5,14 @@ using UnityEngine;
 using UnityEngine.UI;
 using DrawCards;
 using TMPro;
+using UserAreas;
 
 namespace TradeScripts
 {
     public class TradeArea : MonoBehaviour
     {
-        [SerializeField] private GameObject NickName = null, AttendingOrNotPanel = null, AskToTradeButton = null, CancelTrade = null, AcceptTrade = null, rejectTrade = null, askingText = null, beingAskText = null, missionCard = null, inputBribe = null;
+        [SerializeField] private GameObject NickName = null, AttendingOrNotPanel = null,panelText = null, AskToTradeButton = null, CancelTrade = null, AcceptTrade = null, rejectTrade = null, askingText = null, beingAskText = null, missionCard = null, inputBribe = null;
+        [SerializeField] private UserAreaControlers userControler = null ;
         private string nickname;
         public string nickName
         {
@@ -21,7 +23,6 @@ namespace TradeScripts
                 NickName.GetComponent<Text>().text = nickname;
             }
         }
-        public int MyMoney {get; set;}
         private bool Attending;
         public bool attending
         {
@@ -32,6 +33,14 @@ namespace TradeScripts
                 AttendingOrNotPanel.SetActive(!Attending);
             }
         }
+        public string attending_text
+        {
+            set
+            {
+                panelText.GetComponent<Text>().text = value;
+            }
+        }
+
         private bool askingButton;
         public bool askButton
         {
@@ -121,13 +130,14 @@ namespace TradeScripts
         }
         public int amountAskingBribing { get; set; }
         public int amountBeingBribed { get; set; }
+        public bool AttendedThisRound { get; set; }
         public void OnDetectInputchange()
         {
             int convertedToInt;
             bool isNumeric = int.TryParse(inputBribe.GetComponent<TMP_InputField>().text, out convertedToInt);
             if (isNumeric)
             {
-                if (convertedToInt > MyMoney)
+                if (convertedToInt > userControler.users[0].amountOfMoney)
                 {
                     setAskingText = "Error input is more than your amount of money";
                     askButton = false;

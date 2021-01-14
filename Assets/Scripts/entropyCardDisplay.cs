@@ -11,6 +11,28 @@ namespace DrawCards
         private EntropyCardScript infoEntro = null;
         [SerializeField] private GameObject BackSide = null, InfoSide = null, gameInterfaceOBJ = null;
         public int turnPlayed = 0;
+        private bool HasChangePosition= false;
+        private void Update()
+        {
+            float posX=gameObject.GetComponent<RectTransform>().position.x;
+            float posY=gameObject.GetComponent<RectTransform>().position.y;
+            if (gameInterfaceOBJ.GetComponent<entropyCardPopup>().checkIfCanPlay(infoEntro, turnPlayed))
+            {
+                if (!HasChangePosition)
+                {
+                    gameObject.GetComponent<RectTransform>().position = new Vector2(posX, posY+10f);
+                    HasChangePosition = true;
+                }
+            }
+            else
+            {
+                if (HasChangePosition)
+                {
+                    gameObject.GetComponent<RectTransform>().position = new Vector2(posX, posY-10f);
+                    HasChangePosition = false;
+                }
+            }
+        }
         private void Start()
         {
             gameInterfaceOBJ = GameObject.Find("/MainGame/Game Interface");
@@ -42,5 +64,6 @@ namespace DrawCards
         {
             InfoSide.SetActive(TorF);
         }
+        
     }
 }

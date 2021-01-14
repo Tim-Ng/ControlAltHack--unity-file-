@@ -39,7 +39,7 @@ public class entropyCardPopup : MonoBehaviour
     {
         thisEntorpyCardDisplay = EntorpyCardDisplay;
         whichScript = info;
-        playButton.SetActive(checkIfCanPlay(Roundnumber));
+        playButton.SetActive(checkIfCanPlay(whichScript, Roundnumber));
         checkMoney();
         cardInpopUpEntropy.GetComponent<Image>().sprite = whichScript.artwork_info;
         popUp.SetActive(true);
@@ -55,9 +55,9 @@ public class entropyCardPopup : MonoBehaviour
             playButton.GetComponent<Button>().interactable = false;
         }
     }
-    public bool checkIfCanPlay(int Roundnumber)
+    public bool checkIfCanPlay(EntropyCardScript script,int Roundnumber)
     {
-        int checkValue = whichScript.EntropyCardID;
+        int checkValue = script.EntropyCardID;
         if (turnManager.RoundNumber != Roundnumber)
         {
             if (checkValue == 30 || checkValue == 31)

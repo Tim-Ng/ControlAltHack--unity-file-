@@ -462,42 +462,21 @@ namespace UserAreas
             int position = findPlayerPosition(PlayerID);
             winCanvas.setFirstPlaceAmountOfCred = users[position].amountOfCred;
             winCanvas.setFirstPlaceNickName = users[position].Nickname;
-            if (users[position].characterScript == null)
-            {
-                winCanvas.setFirstPlaceAvertar = null;
-            }
-            else
-            {
-                winCanvas.setFirstPlaceAvertar = AvertarList.AvertarLists[int.Parse((string)users[position].playerPhoton.CustomProperties["AvertarCode"])];
-            }
+            winCanvas.setFirstPlaceAvertar = AvertarList.AvertarLists[int.Parse((string)users[position].playerPhoton.CustomProperties["AvertarCode"])];
         }
         public void setWinnerInfo2(int PlayerID)
         {
             int position = findPlayerPosition(PlayerID);
             winCanvas.setSecondPlaceAmountOfCred = users[position].amountOfCred;
             winCanvas.setSecondPlaceNickName = users[position].Nickname;
-            if (users[position].characterScript == null)
-            {
-                winCanvas.setSecondPlaceAvertar = null;
-            }
-            else
-            {
-                winCanvas.setSecondPlaceAvertar = AvertarList.AvertarLists[int.Parse((string)users[position].playerPhoton.CustomProperties["AvertarCode"])];
-            }
+            winCanvas.setSecondPlaceAvertar = AvertarList.AvertarLists[int.Parse((string)users[position].playerPhoton.CustomProperties["AvertarCode"])];
         }
         public void setWinnerInfo3(int PlayerID)
         {
             int position = findPlayerPosition(PlayerID);
             winCanvas.setThirdPlaceAmountOfCred = users[position].amountOfCred;
             winCanvas.setThirdPlaceNickName = users[position].Nickname;
-            if (users[position].characterScript == null)
-            {
-                winCanvas.setThirdPlaceAvertar = null;
-            }
-            else
-            {
-                winCanvas.setThirdPlaceAvertar = AvertarList.AvertarLists[int.Parse((string)users[position].playerPhoton.CustomProperties["AvertarCode"])];
-            }
+            winCanvas.setThirdPlaceAvertar = AvertarList.AvertarLists[int.Parse((string)users[position].playerPhoton.CustomProperties["AvertarCode"])];
         }
         public void clickOnPlayAgain()
         {

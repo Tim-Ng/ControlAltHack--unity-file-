@@ -48,7 +48,6 @@ namespace TradeScripts
                     tradeAreaContollers[i - 1].nickName = userControler.users[i].Nickname;
                     tradeAreaContollers[i - 1].setAskingText = "You have asked anyone";
                     tradeAreaContollers[i - 1].setgettingAskText = "No players have asked you yet";
-                    tradeAreaContollers[i - 1].attending = userControler.users[i].attendingOrNot;
                     if (tradeAreaContollers[i - 1].attending == true)
                     {
                         HowManyPeople = +1;
@@ -66,7 +65,7 @@ namespace TradeScripts
                 {
                     tradeAreaContollers[i - 1].attending_text = "No player";
                 }
-                
+                tradeAreaContollers[i - 1].attending = userControler.users[i].attendingOrNot;
             }
             tradePanel.SetActive(true);
         }

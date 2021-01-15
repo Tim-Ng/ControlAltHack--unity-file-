@@ -1097,6 +1097,34 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 777163525}
     m_Modifications:
+    - target: {fileID: 1607230697958423444, guid: e62d0e2841d90d14d98d667977ef043b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1607230697958423444, guid: e62d0e2841d90d14d98d667977ef043b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: HoverAvatar, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1607230697958423444, guid: e62d0e2841d90d14d98d667977ef043b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1607230697958423444, guid: e62d0e2841d90d14d98d667977ef043b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1607230697958423444, guid: e62d0e2841d90d14d98d667977ef043b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 1543564143}
+    - target: {fileID: 1607230697958423444, guid: e62d0e2841d90d14d98d667977ef043b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: OnHoverExit
+      objectReference: {fileID: 0}
+    - target: {fileID: 1607230697958423444, guid: e62d0e2841d90d14d98d667977ef043b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 2052574818803762715, guid: e62d0e2841d90d14d98d667977ef043b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1184,6 +1212,42 @@ PrefabInstance:
     - target: {fileID: 3596461069902556067, guid: e62d0e2841d90d14d98d667977ef043b, type: 3}
       propertyPath: whichAvertar
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5263938971079714357, guid: e62d0e2841d90d14d98d667977ef043b, type: 3}
+      propertyPath: m_Delegates.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5263938971079714357, guid: e62d0e2841d90d14d98d667977ef043b, type: 3}
+      propertyPath: m_Delegates.Array.data[2].callback.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5263938971079714357, guid: e62d0e2841d90d14d98d667977ef043b, type: 3}
+      propertyPath: m_Delegates.Array.data[2].eventID
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5263938971079714357, guid: e62d0e2841d90d14d98d667977ef043b, type: 3}
+      propertyPath: m_Delegates.Array.data[2].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1543564143}
+    - target: {fileID: 5263938971079714357, guid: e62d0e2841d90d14d98d667977ef043b, type: 3}
+      propertyPath: m_Delegates.Array.data[2].callback.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: HoverAvatar, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 5263938971079714357, guid: e62d0e2841d90d14d98d667977ef043b, type: 3}
+      propertyPath: m_Delegates.Array.data[2].callback.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnHoverExit
+      objectReference: {fileID: 0}
+    - target: {fileID: 5263938971079714357, guid: e62d0e2841d90d14d98d667977ef043b, type: 3}
+      propertyPath: m_Delegates.Array.data[2].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5263938971079714357, guid: e62d0e2841d90d14d98d667977ef043b, type: 3}
+      propertyPath: m_Delegates.Array.data[2].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 5263938971079714357, guid: e62d0e2841d90d14d98d667977ef043b, type: 3}
+      propertyPath: m_Delegates.Array.data[2].callback.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7036203330266825771, guid: e62d0e2841d90d14d98d667977ef043b, type: 3}
       propertyPath: m_Name
@@ -4464,6 +4528,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1507305582}
   m_CullTransparentMesh: 0
+--- !u!114 &1543564143 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4035426106866906517, guid: e62d0e2841d90d14d98d667977ef043b, type: 3}
+  m_PrefabInstance: {fileID: 324792527}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a23a8c521836fd4994a04aba6621a6d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1615836869
 GameObject:
   m_ObjectHideFlags: 0

@@ -260,6 +260,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 4035426106866906517}
+        m_TargetAssemblyTypeName: HoverAvatar, Assembly-CSharp
+        m_MethodName: OnHoverExit
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &4035426106866906517
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -272,8 +284,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a23a8c521836fd4994a04aba6621a6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  avatarprofile: {fileID: 7036203330266825771}
   detectsHaveSprite: 0
+  x: 1.2
+  y: 1.2
 --- !u!114 &5263938971079714357
 MonoBehaviour:
   m_ObjectHideFlags: 0

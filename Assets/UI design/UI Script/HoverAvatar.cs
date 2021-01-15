@@ -12,10 +12,10 @@ public class HoverAvatar : MonoBehaviour
     private void Start()
     {
         avatarprofile =gameObject;
+        unhoverscale = avatarprofile.transform.localScale;
     }
     public void OnHoverEnter()
     {
-        unhoverscale = avatarprofile.transform.localScale;
         if (!avatarprofile.GetComponent<Button>().interactable)
         {
             return;

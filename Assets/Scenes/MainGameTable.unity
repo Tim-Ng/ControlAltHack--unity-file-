@@ -3475,6 +3475,7 @@ GameObject:
   - component: {fileID: 301867968}
   - component: {fileID: 301867967}
   - component: {fileID: 301867965}
+  - component: {fileID: 301867966}
   m_Layer: 0
   m_Name: Button_Select
   m_TagString: Untagged
@@ -3514,7 +3515,54 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Delegates: []
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 301867966}
+          m_TargetAssemblyTypeName: HoverAvatar, Assembly-CSharp
+          m_MethodName: OnHoverEnter
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 301867966}
+          m_TargetAssemblyTypeName: HoverAvatar, Assembly-CSharp
+          m_MethodName: OnHoverExit
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!114 &301867966
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 301867963}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a23a8c521836fd4994a04aba6621a6d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  detectsHaveSprite: 0
+  x: 0.46
+  y: 0.46
 --- !u!114 &301867967
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5293,7 +5341,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -2.3000488, y: -3.0999756}
+  m_AnchoredPosition: {x: -2.3000488, y: -3.0999146}
   m_SizeDelta: {x: 11.8654785, y: 13.50824}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &422734791
@@ -7352,8 +7400,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   detectsHaveSprite: 0
-  x: 1.2
-  y: 1.2
+  x: 0.46
+  y: 0.46
 --- !u!114 &623406091
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8872,7 +8920,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -2.3000488, y: -3.0999756}
+  m_AnchoredPosition: {x: -2.3000488, y: -3.0999146}
   m_SizeDelta: {x: 11.8654785, y: 13.50824}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &802052915
@@ -10073,7 +10121,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.2300415, y: -0.21087646}
+  m_AnchoredPosition: {x: 0.22998047, y: -0.21087646}
   m_SizeDelta: {x: 0.46020508, y: -0.5930481}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &997271224
@@ -10757,7 +10805,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -2.3000488, y: -3.0999756}
+  m_AnchoredPosition: {x: -2.3000488, y: -3.0999146}
   m_SizeDelta: {x: 11.8654785, y: 13.50824}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1022314252
@@ -13659,6 +13707,8 @@ GameObject:
   - component: {fileID: 1326007748}
   - component: {fileID: 1326007747}
   - component: {fileID: 1326007746}
+  - component: {fileID: 1326007745}
+  - component: {fileID: 1326007744}
   m_Layer: 0
   m_Name: Button_Exit
   m_TagString: Untagged
@@ -13686,6 +13736,66 @@ RectTransform:
   m_AnchoredPosition: {x: 59.067, y: -92}
   m_SizeDelta: {x: 200, y: 64}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1326007744
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1326007742}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1326007745}
+          m_TargetAssemblyTypeName: HoverAvatar, Assembly-CSharp
+          m_MethodName: OnHoverEnter
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1326007745}
+          m_TargetAssemblyTypeName: HoverAvatar, Assembly-CSharp
+          m_MethodName: OnHoverExit
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!114 &1326007745
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1326007742}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a23a8c521836fd4994a04aba6621a6d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  detectsHaveSprite: 0
+  x: 0.46
+  y: 0.46
 --- !u!114 &1326007746
 MonoBehaviour:
   m_ObjectHideFlags: 0

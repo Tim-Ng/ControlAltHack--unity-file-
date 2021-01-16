@@ -141,7 +141,7 @@ GameObject:
   - component: {fileID: 8983611}
   - component: {fileID: 8983610}
   m_Layer: 0
-  m_Name: msessage
+  m_Name: message
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -604,8 +604,10 @@ GameObject:
   - component: {fileID: 108119634}
   - component: {fileID: 108119633}
   - component: {fileID: 108119632}
+  - component: {fileID: 108119636}
+  - component: {fileID: 108119635}
   m_Layer: 0
-  m_Name: Button
+  m_Name: Send Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -628,8 +630,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 93.85001, y: -156.99998}
-  m_SizeDelta: {x: 37.333336, y: 30}
+  m_AnchoredPosition: {x: 95.8, y: -157}
+  m_SizeDelta: {x: 52.117073, y: 42.92916}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &108119632
 MonoBehaviour:
@@ -686,6 +688,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 108119636}
+        m_TargetAssemblyTypeName: HoverAvatar, Assembly-CSharp
+        m_MethodName: OnHoverExit
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &108119633
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -699,7 +713,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.15294118, g: 0.23529412, b: 0.45882353, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -724,6 +738,66 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 108119630}
   m_CullTransparentMesh: 0
+--- !u!114 &108119635
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 108119630}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 108119636}
+          m_TargetAssemblyTypeName: HoverAvatar, Assembly-CSharp
+          m_MethodName: OnHoverEnter
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 108119636}
+          m_TargetAssemblyTypeName: HoverAvatar, Assembly-CSharp
+          m_MethodName: OnHoverExit
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!114 &108119636
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 108119630}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a23a8c521836fd4994a04aba6621a6d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  detectsHaveSprite: 0
+  x: 1.2
+  y: 1.2
 --- !u!1 &129418569
 GameObject:
   m_ObjectHideFlags: 0
@@ -1466,8 +1540,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 4.43, y: 2609.6575}
-  m_SizeDelta: {x: -4.430023, y: 2945.7783}
+  m_AnchoredPosition: {x: 4.43, y: 2609.6577}
+  m_SizeDelta: {x: -4.430023, y: 2881.5547}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &182275486
 MonoBehaviour:
@@ -1490,8 +1564,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 12
+    m_Font: {fileID: 12800000, guid: 458e3a565d4581944b673fa284485d6b, type: 3}
+    m_FontSize: 15
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 1
@@ -1502,7 +1576,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: 
+  m_Text: 'Meesage 1 :
+
+    Message 2 :'
 --- !u!222 &182275487
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2136,12 +2212,12 @@ RectTransform:
   m_Children:
   - {fileID: 1368250548}
   m_Father: {fileID: 1305139835}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -7, y: -181.8}
-  m_SizeDelta: {x: 160, y: 88.27185}
+  m_AnchoredPosition: {x: -23, y: -153}
+  m_SizeDelta: {x: 157.73157, y: 54.486076}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &342932691
 MonoBehaviour:
@@ -5464,8 +5540,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.000030517578, y: -0.000030517578}
-  m_SizeDelta: {x: 0, y: -0.000061035156}
+  m_AnchoredPosition: {x: 0, y: -0.000030517578}
+  m_SizeDelta: {x: -0.000061035156, y: -0.000061035156}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &810923728
 MonoBehaviour:
@@ -5640,7 +5716,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_Color: {r: 0.9811321, g: 0.9595348, b: 0.9595348, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -5648,11 +5724,11 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 14
-    m_FontStyle: 0
+    m_Font: {fileID: 12800000, guid: 458e3a565d4581944b673fa284485d6b, type: 3}
+    m_FontSize: 15
+    m_FontStyle: 1
     m_BestFit: 0
-    m_MinSize: 10
+    m_MinSize: 1
     m_MaxSize: 40
     m_Alignment: 4
     m_AlignByGeometry: 0
@@ -6132,8 +6208,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2084334577}
   m_HandleRect: {fileID: 2084334576}
   m_Direction: 2
-  m_Value: -0.000000023388187
-  m_Size: 0.11410258
+  m_Value: -0.00000004677637
+  m_Size: 0.09435777
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -7420,8 +7496,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -389.17, y: -210.12}
-  m_SizeDelta: {x: 44.646667, y: 43.150085}
+  m_AnchoredPosition: {x: -385.8, y: -206.8}
+  m_SizeDelta: {x: 51.322, y: 49.821983}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1239850084 stripped
 GameObject:
@@ -7769,7 +7845,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -18, y: 0}
+  m_SizeDelta: {x: -17, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1300600999
 MonoBehaviour:
@@ -7852,16 +7928,16 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 108119631}
-  - {fileID: 1972406616}
   - {fileID: 342932690}
+  - {fileID: 1972406616}
   - {fileID: 1410591143}
   m_Father: {fileID: 356750431}
   m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -223.19, y: -0.96504}
-  m_SizeDelta: {x: 395.35944, y: 472.95413}
+  m_AnchoredPosition: {x: -218.5, y: 24}
+  m_SizeDelta: {x: 353.63702, y: 391.07718}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1305139836
 MonoBehaviour:
@@ -8680,8 +8756,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 5.3, y: 64.1}
-  m_SizeDelta: {x: 370.59756, y: 336.1209}
+  m_AnchoredPosition: {x: -0, y: 44.3}
+  m_SizeDelta: {x: 332.50394, y: 271.8971}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1410591144
 MonoBehaviour:
@@ -9588,7 +9664,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1999807189}
   m_Direction: 2
   m_Value: 0
-  m_Size: 0.2
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -10919,12 +10995,12 @@ RectTransform:
   - {fileID: 1368499583}
   - {fileID: 1273675815}
   m_Father: {fileID: 1305139835}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 12.206712, y: -126.52098}
-  m_SizeDelta: {x: 200.61984, y: 25.914093}
+  m_AnchoredPosition: {x: -3.9052, y: -104.61}
+  m_SizeDelta: {x: 208.43015, y: 25.914093}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1972406617
 MonoBehaviour:
@@ -11348,7 +11424,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 0.2}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -11888,7 +11964,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 0.11410258}
+  m_AnchorMax: {x: 1, y: 0.09435777}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -12031,7 +12107,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2118881958
 RectTransform:
   m_ObjectHideFlags: 0
@@ -12215,7 +12291,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: gdfgsfg
+  m_Text: 1
 --- !u!222 &2147125160
 CanvasRenderer:
   m_ObjectHideFlags: 0

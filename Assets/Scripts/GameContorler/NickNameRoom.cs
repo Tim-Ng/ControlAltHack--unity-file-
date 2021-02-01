@@ -7,6 +7,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using Avertars;
+using Music;
 
 namespace MainMenu
 {
@@ -50,6 +51,7 @@ namespace MainMenu
             if (!(PhotonNetwork.LocalPlayer.CustomProperties.ContainsKey(avertarCode)))
                 PhotonNetwork.LocalPlayer.CustomProperties.Add(avertarCode, currentAvertar);
             setImageCharOBJ();
+            GlobalMusicContorler.duringStart();
         }
         public void checkInternet()
         {

@@ -7,9 +7,9 @@ using UnityEngine.Audio;
 namespace Music {
     public static class GlobalMusicContorler 
     {
-        private const float defaultMusicVolume = 0;
-        private const float defaultMasterVolume = 0;
-        private const float defaultSoundEffect = 0;
+        public const float defaultMusicVolume = 0;
+        public const float defaultMasterVolume = 0;
+        public const float defaultSoundEffect = 0;
         private const string MusicKey = "MusicKey";
         private const string SoundKey = "SoundKey";
         private const string MasterKey = "MasterKey";

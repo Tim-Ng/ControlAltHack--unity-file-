@@ -12,13 +12,13 @@ public class HoverContinueButton : MonoBehaviour
 
     public void OnHoverEnter()
     {
-        Image image = GameObject.Find("Continue").GetComponent<Image>();
+        Image image = GetComponent<Image>();
         image.sprite = hoverimage;
     }
 
     public void OnHoverExit()
     {
-        Image image = GameObject.Find("Continue").GetComponent<Image>();
+        Image image = GetComponent<Image>();
         image.sprite = unhoverimage;
     }
 }

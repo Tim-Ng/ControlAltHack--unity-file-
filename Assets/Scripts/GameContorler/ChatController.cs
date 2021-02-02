@@ -13,6 +13,7 @@ public class ChatController : MonoBehaviour
 {
     [SerializeField] private GameObject playerDropDownList = null, scrollText = null, newMessageSprite = null, chatPopUp = null, chatButtonText = null;
     [SerializeField] private TMP_InputField messageInput = null;
+    [SerializeField] private AudioSource MessageNotification = null;
     private GameObject ScriptOBJ = null;
     private UserAreaControlers userInfos = null;
     private EventHandeler eventHandeler = null;
@@ -106,6 +107,7 @@ public class ChatController : MonoBehaviour
     }
     public void onReceiveMessage(string Message,Player sender,bool isPrivate)
     {
+        MessageNotification.Play();
         if (!chatPopUp.activeSelf)
         {
             setamountOfNewText += 1;

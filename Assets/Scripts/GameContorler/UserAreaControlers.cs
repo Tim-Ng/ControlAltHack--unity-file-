@@ -12,7 +12,6 @@ using DrawCards;
 using TradeScripts;
 using Avertars;
 using System.Threading;
-using Music;
 
 namespace UserAreas
 {

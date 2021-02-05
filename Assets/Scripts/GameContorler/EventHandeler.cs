@@ -28,7 +28,7 @@ namespace main
         tradeNotAttending = 14,
         tradeAttending = 15,
         receiveSomeoneAskToTrade =16,
-        receiveSoneoneCancelAsk = 17,
+        receiveSomeoneCancelAsk = 17,
         declineSomeoneAsk = 18,
         AcceptSomeoneAsk = 19,
         sendMissionCardChanged = 20,
@@ -198,7 +198,7 @@ namespace main
                 object[] info = (object[])obj.CustomData;
                 tradeControl.receiveAskFromOtherPlayer((int)userControler.findPlayerPosition((Player)info[0]),(int)info[1]);
             }
-            else if (obj.Code == (byte)PhotonEventCode.receiveSoneoneCancelAsk)
+            else if (obj.Code == (byte)PhotonEventCode.receiveSomeoneCancelAsk)
             {
                 Debug.Log("Receive Cancel Trade");
                 object[] info = (object[])obj.CustomData;
@@ -220,7 +220,7 @@ namespace main
             {
                 Debug.Log("Someone change cards");
                 object[] info = (object[])obj.CustomData;
-                tradeControl.onReceiveChangeMissionCard((int)userControler.findPlayerPosition((Player)info[0]),(int)info[1]);
+                tradeControl.onReceiveChangeMissionCard((int)userControler.findPlayerPosition((Player)info[0]),(int)info[1],(Player)info[2]);
             }
             else if (obj.Code == (byte)PhotonEventCode.setTimerForRoll)
             {

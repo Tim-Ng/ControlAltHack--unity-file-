@@ -145,7 +145,7 @@ namespace TradeScripts
         {
             ReceiveDeclineTrade(which+1,"You've cancelled to trade.");
             object[] player = new object[] { PhotonNetwork.LocalPlayer};
-            PhotonNetwork.RaiseEvent((byte)PhotonEventCode.receiveSoneoneCancelAsk, player, new RaiseEventOptions { TargetActors = new int[] { userControler.users[which + 1].playerPhoton.ActorNumber } }, SendOptions.SendReliable);
+            PhotonNetwork.RaiseEvent((byte)PhotonEventCode.receiveSomeoneCancelAsk, player, new RaiseEventOptions { TargetActors = new int[] { userControler.users[which + 1].playerPhoton.ActorNumber } }, SendOptions.SendReliable);
         }
         public void receiveCancelAskFromOtherPlayer(int which)
         {
@@ -162,12 +162,15 @@ namespace TradeScripts
             PhotonNetwork.RaiseEvent((byte)PhotonEventCode.AcceptSomeoneAsk, player, new RaiseEventOptions { TargetActors = new int[] { userControler.users[which + 1].playerPhoton.ActorNumber } }, SendOptions.SendReliable);
             object[] chatInfo = new object[] { PhotonNetwork.LocalPlayer.NickName +" has traded with "+userControler.users[which+1].Nickname, null, false };
             PhotonNetwork.RaiseEvent((byte)PhotonEventCode.forChat, chatInfo, EventManger.AllPeople, SendOptions.SendReliable);
-            userControler.users[0].missionScript = missionCardDeck.cardDeck[tradeAreaContollers[which].setgetmissionID-1];
+            userControler.users[0].missionScript = missionCardDeck.cardDeck[tradeAreaContollers[which].setgetmissionID - 1];
             changeMyMissionCardOnPlayArea();
+            tradeAreaContollers[which].setgettingAskText = "You've accepted this Player's trade";
             userControler.addMyMoney(tradeAreaContollers[which].amountBeingBribed);
             MyMoney.GetComponent<Text>().text = userControler.users[0].amountOfMoney.ToString();
             tradeAreaContollers[which].amountBeingBribed = 0;
-            object[] playerChangedMission = new object[] { PhotonNetwork.LocalPlayer,userControler.users[0].missionScript.Mission_code };
+            tradeAreaContollers[which].acceptButton = false;
+            tradeAreaContollers[which].rejectButton = false;
+            object[] playerChangedMission = new object[] { PhotonNetwork.LocalPlayer,userControler.users[0].missionScript.Mission_code,userControler.users[which+1].playerPhoton };
             PhotonNetwork.RaiseEvent((byte)PhotonEventCode.sendMissionCardChanged, playerChangedMission, EventManger.AllOtherThanMePeopleOptions, SendOptions.SendReliable);
         }
         public void ReceiveOnSomeoneAcceptYourTrade(int which)
@@ -178,7 +181,7 @@ namespace TradeScripts
             MyMoney.GetComponent<Text>().text = userControler.users[0].amountOfMoney.ToString();
             tradeAreaContollers[which-1].amountAskingBribing = 0;
             tradeAreaContollers[which-1].setgettingAskText = "Your trade is accepted";
-            object[] playerChangedMission = new object[] { PhotonNetwork.LocalPlayer, userControler.users[0].missionScript.Mission_code };
+            object[] playerChangedMission = new object[] { PhotonNetwork.LocalPlayer, userControler.users[0].missionScript.Mission_code, userControler.users[which + 1].playerPhoton };
             PhotonNetwork.RaiseEvent((byte)PhotonEventCode.sendMissionCardChanged, playerChangedMission, EventManger.AllOtherThanMePeopleOptions, SendOptions.SendReliable);
         }
         public void changeMyMissionCardOnPlayArea()
@@ -207,10 +210,10 @@ namespace TradeScripts
             tradeAreaContollers[which-1].cancelButton = false;
             tradeAreaContollers[which - 1].setgettingAskText = whatMessage;
         }
-        public void onReceiveChangeMissionCard(int which,int whichCard)
+        public void onReceiveChangeMissionCard(int which,int whichCard,Player WhoTradedWith)
         {
             tradeAreaContollers[which - 1].setgetmissionID = whichCard;
-            if (tradeAreaContollers[which - 1].cancelButton)
+            if (tradeAreaContollers[which - 1].cancelButton && WhoTradedWith!=PhotonNetwork.LocalPlayer)
             {
                 clickOnCancelAskTrade(which - 1);
             }

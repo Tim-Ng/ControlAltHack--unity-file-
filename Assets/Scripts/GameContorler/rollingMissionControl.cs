@@ -519,7 +519,6 @@ namespace rollmissions
                 {
                     entropyRemove = 0;
                 }
-
                 missionRollController.setInteractableendMissionButton = false;
                 setCurrentMissionOutputText("Remove " + entropyRemove + " entropy cards to continue");
             }
@@ -568,15 +567,15 @@ namespace rollmissions
                 }
             }
             if (entropyRemove != 0)
-                entropyRemove -= 1;
-            if (entropyRemove != 0)
             {
+                entropyRemove -= 1;
                 missionRollController.setInteractableendMissionButton = false;
                 setCurrentMissionOutputText("Remove " + entropyRemove + " entropy cards to continue");
             }
             else
             {
                 missionRollController.setInteractableendMissionButton = true;
+                setCurrentMissionOutputText(setGetCurrentCard.iffailText);
             }
             numberOfEntroCardsRemoved += 1;
         }

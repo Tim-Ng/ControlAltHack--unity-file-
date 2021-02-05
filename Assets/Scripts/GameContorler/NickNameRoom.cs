@@ -113,14 +113,14 @@ namespace MainMenu
         public void clickOnHostButton()
         {
             HostJoin.SetActive(false);
-            CreateRoom(host_input.text);
+            CreateRoom(TrimWords(host_input.text));
         }
         public void CreateRoom(string roomName)  // create room 
         {
             RoomOptions roomOptions = new RoomOptions();
             roomOptions.MaxPlayers = MaximumPeople;
             setStatus = "Creating Room Named \"" + host_input.text + "\" ";
-            PhotonNetwork.CreateRoom(host_input.text, roomOptions, null);
+            PhotonNetwork.CreateRoom(roomName, roomOptions, null);
         }
         public override void OnCreatedRoom()
         {
@@ -141,7 +141,7 @@ namespace MainMenu
         public void clickOnJoinButton()
         {
             HostJoin.SetActive(false);
-            JoinRoom(join_input.text);
+            JoinRoom(TrimWords(join_input.text));
         }
         public void JoinRoom(string roomName)
         {
@@ -198,7 +198,24 @@ namespace MainMenu
             avertarList.onClickClosePopup();
             setImageCharOBJ();
         }
-        
+        private string TrimWords(String stringToTrim)
+        {
+            bool HeadCount = false;
+            int Start = 0, End = 0;
+            for (int i = 0; i < stringToTrim.Length; i++)
+            {
+                if (stringToTrim[i]!=' ')
+                {
+                    if (!HeadCount)
+                    {
+                        Start = i;
+                        HeadCount = true;
+                    }
+                    End = i;
+                }
+            }
+            return stringToTrim.Substring(Start, (End==Start ?1:End - Start));
+        }
     }
     
 }

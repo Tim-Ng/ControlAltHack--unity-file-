@@ -200,17 +200,17 @@ namespace DrawCards
             {
                 if (entropyID == 30)
                 {
-                    object[] chatInfo = new object[] { PhotonNetwork.LocalPlayer.NickName + " has played share fate " + whichScript.name + " all people cred +2.", null, false };
+                    object[] chatInfo = new object[] { PhotonNetwork.LocalPlayer.NickName + " has played share fate " + whichScript.Title + " all people cred +2.", null, false };
                     PhotonNetwork.RaiseEvent((byte)PhotonEventCode.forChat, chatInfo, EventManager.AllPeople, SendOptions.SendReliable);
                 }
                 else if (entropyID == 31)
                 {
-                    object[] chatInfo = new object[] { PhotonNetwork.LocalPlayer.NickName + " has played share fate " + whichScript.name + " all people cred -2.", null, false };
+                    object[] chatInfo = new object[] { PhotonNetwork.LocalPlayer.NickName + " has played share fate " + whichScript.Title + " all people cred -2.", null, false };
                     PhotonNetwork.RaiseEvent((byte)PhotonEventCode.forChat, chatInfo, EventManager.AllPeople, SendOptions.SendReliable);
                 }
                 else
                 {
-                    object[] chatInfo = new object[] { PhotonNetwork.LocalPlayer.NickName + " has played attack "+userArea.users[userArea.findPlayerPosition(turnManager.PlayerIdToMakeThisTurn)].Nickname +" with card " + whichScript.name +".", null, false };
+                    object[] chatInfo = new object[] { PhotonNetwork.LocalPlayer.NickName + " has played attack "+userArea.users[userArea.findPlayerPosition(turnManager.PlayerIdToMakeThisTurn)].Nickname +" with card " + whichScript.Title + ".", null, false };
                     PhotonNetwork.RaiseEvent((byte)PhotonEventCode.forChat, chatInfo, EventManager.AllPeople, SendOptions.SendReliable);
                 }
             }

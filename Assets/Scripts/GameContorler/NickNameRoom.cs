@@ -7,6 +7,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using Avertars;
+using Music;
 
 namespace MainMenu
 {
@@ -18,6 +19,7 @@ namespace MainMenu
         [SerializeField] private TMP_InputField join_input = null, host_input = null, nameInputFeild = null;
         [SerializeField] private GameObject HostJoin = null, Nickname = null, Status = null, message = null, reconnectToInternet = null, avertarSelectedOBJ = null;
         [SerializeField] private AvertarList avertarList = null;
+        [SerializeField] private SliderPopUp sliderPopUp = null;
         private bool connected = false;
         private string currentAvertar = null;
         public string setStatus
@@ -34,6 +36,8 @@ namespace MainMenu
         /// </summary>
         void Start()
         {
+            GlobalMusicContorler.duringStart();
+            sliderPopUp.startSlider();
             Nickname.SetActive(true);
             HostJoin.SetActive(false);
             checkInternet();

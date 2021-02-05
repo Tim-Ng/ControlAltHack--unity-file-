@@ -1109,6 +1109,7 @@ MonoBehaviour:
   reconnectToInternet: {fileID: 2141933288}
   avertarSelectedOBJ: {fileID: 509757542}
   avertarList: {fileID: 231495571}
+  sliderPopUp: {fileID: 678563500}
   join_button: {fileID: 1180223374}
   host_button: {fileID: 1370058194}
   continueButton: {fileID: 1882177600}
@@ -7133,7 +7134,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4983130095690415921, guid: 9ed7c78e31e05d843b998ebea00d11dd, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4983130095690415921, guid: 9ed7c78e31e05d843b998ebea00d11dd, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
@@ -7206,6 +7207,14 @@ PrefabInstance:
     - target: {fileID: 4983130095735708838, guid: 9ed7c78e31e05d843b998ebea00d11dd, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 239
+      objectReference: {fileID: 0}
+    - target: {fileID: 4983130095775629408, guid: 9ed7c78e31e05d843b998ebea00d11dd, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -5.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4983130095775629408, guid: 9ed7c78e31e05d843b998ebea00d11dd, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 1922.5143
       objectReference: {fileID: 0}
     - target: {fileID: 4983130095775629409, guid: 9ed7c78e31e05d843b998ebea00d11dd, type: 3}
       propertyPath: m_IsActive

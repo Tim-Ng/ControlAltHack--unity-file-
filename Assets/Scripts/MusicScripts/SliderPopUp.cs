@@ -16,9 +16,12 @@ namespace Music {
         {
             PopUp.SetActive(!PopUp.activeSelf);
         }
-        void Awake()
+        private void Awake()
         {
-            GlobalMusicContorler.duringStart();
+            startSlider();
+        }
+        public void startSlider()
+        {
             Master.value = GlobalMusicContorler.MasterVolume;
             Music.value = GlobalMusicContorler.MusicVolume;
             SoundEffect.value = GlobalMusicContorler.SoundEffect;

@@ -9,7 +9,7 @@ public class HoverAvatar : MonoBehaviour
     [SerializeField] private bool detectsHaveSprite;
     public float x = 1.2f,y=1.2f;
     Vector3 unhoverscale;
-    private void Start()
+    private void Awake()
     {
         avatarprofile =gameObject;
         unhoverscale = avatarprofile.transform.localScale;

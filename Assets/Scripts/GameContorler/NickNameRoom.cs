@@ -8,27 +8,56 @@ using UnityEngine;
 using UnityEngine.UI;
 using Avertars;
 using Music;
+using System.Collections.Generic;
 
 namespace MainMenu
 {
     /// <summary>
     /// This class is to setup photon add your nickname and join or host room
     /// </summary>
+    struct RegionName
+    {
+        public string Name, Key;
+        public RegionName(string Name,string Key)
+        {
+            this.Name = Name;
+            this.Key = Key;
+        }
+    }
     public class NickNameRoom : MonoBehaviourPunCallbacks
     {
         [SerializeField] private TMP_InputField join_input = null, host_input = null, nameInputFeild = null;
         [SerializeField] private GameObject HostJoin = null, Nickname = null, Status = null, message = null, reconnectToInternet = null, avertarSelectedOBJ = null;
+        [SerializeField] private GameObject dropDownForRegion = null;
         [SerializeField] private AvertarList avertarList = null;
         [SerializeField] private SliderPopUp sliderPopUp = null;
         private bool connected = false;
         private string currentAvertar = null;
+        private readonly List<RegionName> regionList = new List<RegionName>() { 
+            new RegionName("Melbourne","au"), 
+            //new RegionName("Montreal","cae"), 
+            //new RegionName("Shanghai","cn"), 
+            //new RegionName("Amsterdam","eu"), 
+            new RegionName("Chennai","in"), 
+            new RegionName("Tokyo","jp"), 
+            //new RegionName("Moscow","ru"), 
+            //new RegionName("Khabarovsk","rue"), 
+            // new RegionName("Johannesburg","za"), 
+            //new RegionName("Sao Paulo","sa"),
+            new RegionName("Singapore","asia"),
+            new RegionName("Seoul","kr"),
+            new RegionName("Washington D.C.","us"),
+            new RegionName("San José","usw")
+        };
         public string setStatus
         {
             set { Status.GetComponent<Text>().text = "Status: " + value; }
         }
         [SerializeField] private Button join_button = null, host_button = null, continueButton = null;
         public static byte MinimumPeople = 2, MaximumPeople = 6;
+        private string regionSelected = "";
         private const string PlayerPrefsNameKey = "PlayerName";
+        private const string regionKey = "regionKey";
         private const string avertarCode = "AvertarCode";
         private const string GameVersion = "0.1";
         /// <summary>
@@ -36,10 +65,12 @@ namespace MainMenu
         /// </summary>
         void Start()
         {
+            PhotonNetwork.Disconnect();
             GlobalMusicContorler.duringStart();
             sliderPopUp.startSlider();
             Nickname.SetActive(true);
             HostJoin.SetActive(false);
+            SetUpRegionSelector();
             checkInternet();
             SetUpInputFeild();
             if (!PlayerPrefs.HasKey(avertarCode))
@@ -63,6 +94,11 @@ namespace MainMenu
                 {
                     Debug.Log("Network Available");
                     reconnectToInternet.SetActive(false);
+                    if (PlayerPrefs.HasKey(regionKey))
+                    {
+                        regionSelected = PlayerPrefs.GetString(regionKey);
+                        PhotonNetwork.PhotonServerSettings.DevRegion = regionSelected;
+                    }
                     PhotonNetwork.ConnectUsingSettings();
                     PhotonNetwork.GameVersion = GameVersion;
                 }
@@ -73,6 +109,28 @@ namespace MainMenu
                     setStatus = "No wifi...Click Button To reconnect";
                 }
             }
+        }
+        public void ConnectToRegion()
+        {
+            if (PhotonNetwork.CloudRegion != regionSelected)
+            {
+                continueButton.interactable = false;
+                PhotonNetwork.Disconnect();
+                PhotonNetwork.ConnectToRegion(regionSelected);
+            }
+        }
+        internal void SetUpRegionSelector()
+        {
+            Debug.Log("Set up Region nnnnn ");
+            Dropdown dropComp = dropDownForRegion.GetComponent<Dropdown>();
+            dropComp.interactable = false;
+            dropComp.options.Clear();
+            for (int i = 0; i < regionList.Count; i++)
+            {
+                dropComp.options.Add(new Dropdown.OptionData() { text = regionList[i].Name });
+            }
+            dropComp.RefreshShownValue();
+            dropComp.onValueChanged.AddListener(delegate { regionSelected = regionList[dropComp.value].Key; ConnectToRegion(); });
         }
         private void SetUpInputFeild()
         {
@@ -100,10 +158,17 @@ namespace MainMenu
         {
             connected = true;
             Debug.Log("We are now connected to " + PhotonNetwork.CloudRegion + "sever!");
+            PlayerPrefs.SetString(regionKey, regionSelected);
             setStatus = " Connected to Server";
+            dropDownForRegion.GetComponent<Dropdown>().interactable = true;
+            continueButton.interactable = true;
             checkInputJoin();
             checkInputHost();
             checkInputNickname();
+            for (int i = 0; i < regionList.Count; i++)
+            {
+                if (regionList[i].Key == PhotonNetwork.CloudRegion) dropDownForRegion.GetComponent<Dropdown>().value = i;
+            }
         }
         public void checkInputNickname() => continueButton.interactable = !string.IsNullOrEmpty(nameInputFeild.text) && connected;
         public void checkInputHost() => host_button.interactable = !string.IsNullOrEmpty(host_input.text) && connected;

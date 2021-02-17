@@ -28,7 +28,7 @@ namespace MainMenu
     {
         [SerializeField] private TMP_InputField join_input = null, host_input = null, nameInputFeild = null;
         [SerializeField] private GameObject HostJoin = null, Nickname = null, Status = null, message = null, reconnectToInternet = null, avertarSelectedOBJ = null;
-        [SerializeField] private GameObject dropDownForRegion = null;
+        [SerializeField] private GameObject dropDownForRegion = null, pingOBJ=null;
         [SerializeField] private AvertarList avertarList = null;
         [SerializeField] private SliderPopUp sliderPopUp = null;
         private bool connected = false;
@@ -53,6 +53,25 @@ namespace MainMenu
         {
             set { Status.GetComponent<Text>().text = "Status: " + value; }
         }
+        public int setPing
+        {
+            set {
+                string colourPing = "";
+                if (value < 100)
+                {
+                    colourPing="<color=#0B6623>" + value.ToString() + "</color>";
+                }
+                else if (value < 300)
+                {
+                    colourPing = "<color=#FFF200>" + value.ToString() + "</color>";
+                }
+                else
+                {
+                    colourPing = "<color=#D30000>" + value.ToString() + "</color>";
+                }
+                pingOBJ.GetComponent<Text>().text = "Current Ping:~" + colourPing + " ms"; 
+            }
+        }
         [SerializeField] private Button join_button = null, host_button = null, continueButton = null;
         public static byte MinimumPeople = 2, MaximumPeople = 6;
         private string regionSelected = "";
@@ -60,6 +79,7 @@ namespace MainMenu
         private const string regionKey = "regionKey";
         private const string avertarCode = "AvertarCode";
         private const string GameVersion = "0.1";
+        private float pingTimer=0.0f;
         /// <summary>
         /// Start set nickname.
         /// </summary>
@@ -85,6 +105,15 @@ namespace MainMenu
             if (!(PhotonNetwork.LocalPlayer.CustomProperties.ContainsKey(avertarCode)))
                 PhotonNetwork.LocalPlayer.CustomProperties.Add(avertarCode, currentAvertar);
             setImageCharOBJ();
+        }
+        void Update()
+        {
+            if (pingTimer > 3 && PhotonNetwork.IsConnectedAndReady)
+            {
+                setPing = PhotonNetwork.GetPing();
+                pingTimer = 0;
+            }
+            pingTimer += Time.deltaTime;
         }
         public void checkInternet()
         {
@@ -169,6 +198,8 @@ namespace MainMenu
             {
                 if (regionList[i].Key == PhotonNetwork.CloudRegion) dropDownForRegion.GetComponent<Dropdown>().value = i;
             }
+            setPing = PhotonNetwork.GetPing();
+            pingTimer = 0;
         }
         public void checkInputNickname() => continueButton.interactable = !string.IsNullOrEmpty(nameInputFeild.text) && connected;
         public void checkInputHost() => host_button.interactable = !string.IsNullOrEmpty(host_input.text) && connected;

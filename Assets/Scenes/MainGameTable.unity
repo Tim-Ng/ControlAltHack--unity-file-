@@ -2850,6 +2850,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3419cadf17756184abfc71481c71b81e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bgmMusic: {fileID: 1554079376}
+  normal: {fileID: 8300000, guid: 65944acc81b7d3943bce8e5e3773475d, type: 3}
+  duringLightning: {fileID: 8300000, guid: 23dff9e0c3699d740abdf0338973fdac, type: 3}
   missionRollController: {fileID: 129418574}
   lightningRollOBJs: {fileID: 2102017823}
   entropyRollCard: {fileID: 26467980}
@@ -10808,7 +10811,7 @@ GameObject:
   m_Layer: 0
   m_Name: Audio Source BGM Game
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1

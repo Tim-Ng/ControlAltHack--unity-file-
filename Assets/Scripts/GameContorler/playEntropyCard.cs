@@ -20,7 +20,8 @@ namespace DrawCards
         private EventHandeler EventManager = null;
         private TurnManager turnManager = null;
         private drawEntropyCard drawEntropy = null;
-
+        [SerializeField] private AudioSource bgmMusic = null;
+        [SerializeField] private AudioClip normal = null, duringLightning = null;
         [SerializeField] private DuringMissionRollController missionRollController = null;
         [SerializeField] private GameObject lightningRollOBJs = null, entropyRollCard = null, whichSkillAgainst = null, amountRolled = null, amountNeeded= null,rollButtonEntropy = null;
         private int amountNeededToRoll = 0;
@@ -221,6 +222,8 @@ namespace DrawCards
         }
         public void lightningRoll(int whichCard)
         {
+            bgmMusic.clip = duringLightning;
+            bgmMusic.Play();
             lightningRollOBJs.SetActive(true);
             entropyRollStrike = entropyCardDeck.cardDeck[whichCard - 1];
             entropyRollCard.GetComponent<Image>().sprite = entropyRollStrike.artwork_info;
@@ -261,6 +264,8 @@ namespace DrawCards
         }
         public void onReceiveSomeoneLightningRoll(int whichCard,string whichSkill, int whichAmount)
         {
+            bgmMusic.clip = duringLightning;
+            bgmMusic.Play();
             lightningRollOBJs.SetActive(true);
             rollButtonEntropy.SetActive(false);
             entropyRollCard.GetComponent<Image>().sprite = entropyCardDeck.cardDeck[whichCard - 1].artwork_info;
@@ -269,6 +274,8 @@ namespace DrawCards
         }
         public void onReceiveRolled(string amountRolledText)
         {
+            bgmMusic.clip = normal;
+            bgmMusic.Play();
             amountRolled.GetComponent<Text>().text = amountRolledText;
             lightningRollOBJs.SetActive(false);
         }

@@ -9,15 +9,46 @@ using System.Threading;
 using UnityEngine;
 using UserAreas;
 namespace DrawCards {
+    /// <summary>
+    /// This is to draw the Mission card
+    /// </summary>
     public class drawMissionCard : MonoBehaviour
     {
+        /// <summary>
+        /// This holds the list of the mission card ID 
+        /// </summary>
         private List<int> missionCardID = new List<int>();
+        /// <summary>
+        /// This is the list of the used mission card ID 
+        /// </summary>
         private List<int> missionCardIDUsed = new List<int>();
+        /// <summary>
+        /// The gameobject this script is attatched to 
+        /// </summary>
         private GameObject ScriptOBJ = null;
+        /// <summary>
+        /// This is to hold the script of UserAreaControlers
+        /// </summary>
         private UserAreaControlers userControler = null;
+        /// <summary>
+        /// This is to hold the script of EventHandeler
+        /// </summary>
         private EventHandeler EventManager = null;
-        [SerializeField] private GameObject cardArea = null, cardTemplateMission = null;
-        
+        /// <summary>
+        /// This is the gameobject of the area the card will be placed/initiated
+        /// </summary>
+        [SerializeField] private GameObject cardArea = null;
+        /// <summary>
+        /// This is the gameobject of the misssion card template
+        /// </summary>
+        [SerializeField] private GameObject cardTemplateMission = null;
+        /// <summary>
+        /// This function will run the this script is rendered.
+        /// </summary>
+        /// <remarks>
+        /// This will also set the varaible of scripts 
+        /// The function startDraw() will also be called.
+        /// </remarks>
         private void Start()
         {
             ScriptOBJ = gameObject;
@@ -25,6 +56,12 @@ namespace DrawCards {
             EventManager = ScriptOBJ.GetComponent<EventHandeler>();
             startDraw();
         }
+        /// <summary>
+        /// This will setup the missionCardID list and clear the missionCardIDUsed list
+        /// </summary>
+        /// <remarks>
+        /// After the list is setup the list will be randomized
+        /// </remarks>
         public void startDraw()
         {
             missionCardIDUsed.Clear();
@@ -68,6 +105,10 @@ namespace DrawCards {
             missionCardID.Add(37);
             missionCardID = missionCardID.OrderBy(i => Guid.NewGuid()).ToList();
         }
+        /// <summary>
+        /// This is the function to draw the mission cards
+        /// </summary>
+        /// <param name="howmuch">The amount of cards to be drawn</param>
         public void drawMissionCards(int howmuch)
         {
             Debug.Log("Drawing Mission cards ");
@@ -91,8 +132,11 @@ namespace DrawCards {
                 missionCardID.Remove(missionCardID[x]);
                 userControler.users[0].MissionCards += 1;
             }
-            userControler.sendAmountOfCards();
         }
+        /// <summary>
+        /// To remove the Card that had been drawn by you or the other player from the list as well as adding it to the used list [which is the function addToPlayedDeck]
+        /// </summary>
+        /// <param name="which">The card ID</param>
         public void removeFormDeck(int which)
         {
             missionCardID.Remove(which);
@@ -103,11 +147,18 @@ namespace DrawCards {
                 Debug.LogWarning("Reimport deck mission");
             }
         }
+        /// <summary>
+        /// To add a card ID into the used mission card deck list
+        /// </summary>
+        /// <param name="which">The card ID to be added</param>
         public void addToPlayedDeck(int which)
         {
             Debug.Log("Added card to the used card : " + which);
             missionCardIDUsed.Add(which);
         }
+        /// <summary>
+        /// This is to remove all misssion cards the player have
+        /// </summary>
         public void removeAllCard()
         {
             foreach (Transform child in cardArea.transform)
@@ -119,6 +170,10 @@ namespace DrawCards {
                 userControler.users[0].MissionCards -= 1;
             }
         }
+        /// <summary>
+        /// This is to remove a misssion cards from the player
+        /// </summary>
+        /// <param name="whichScript">The script to be removed</param>
         public void removeAnMissionCard(MissionCardScript whichScript)
         {
             foreach (Transform child in cardArea.transform)
@@ -133,6 +188,10 @@ namespace DrawCards {
             object[] whichCard = new object[] { whichScript.Mission_code };
             PhotonNetwork.RaiseEvent((byte)PhotonEventCode.drawMissionUsed, whichCard, EventManager.AllPeople, SendOptions.SendReliable);
         }
+        /// <summary>
+        /// This is to remove all mission card but one from the player
+        /// </summary>
+        /// <param name="whichScript">The mission card not to be deleted</param>
         public void removeOtherThanMissionCard(MissionCardScript whichScript)
         {
             foreach (Transform child in cardArea.transform)

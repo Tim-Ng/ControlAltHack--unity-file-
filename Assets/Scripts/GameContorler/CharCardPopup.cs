@@ -10,43 +10,114 @@ using rollmissions;
 
 namespace DrawCards
 {
+    /// <summary>
+    /// This is a user define variable to hold the data of the job to be swapped
+    /// </summary>
     public struct skillToSwap
     {
+        /// <summary>
+        /// The data of the job
+        /// </summary>
         public jobInfos info;
+        /// <summary>
+        /// The text to be displayed on the dropdown list
+        /// </summary>
         public string OnList;
+        /// <summary>
+        /// The constructer to input the infos
+        /// </summary>
+        /// <param name="Info">
+        /// The info of the jobs
+        /// </param>
         public skillToSwap(jobInfos Info)
         {
             info = Info;
             OnList = "Task " + info.position + ":" + GetStringOfTask.get_string_of_job(info.skillName);
         }
     }
+    /// <summary>
+    /// This class control the character popup 
+    /// </summary>
     public class CharCardPopup : MonoBehaviour
     {
+        ///<summary>
+        ///This are the game object that is in the Charater Card Popup area.
+        /// </summary>
         [SerializeField] private GameObject popUp = null, cardInpopUp = null, buttonSelect = null, playingCardArea = null, skillChangerEliment = null, activateSkillButton = null;
         [SerializeField] private GameObject forChar10 = null, rollRollButton = null,rolledValue = null, statusfor10OBJ = null;
         [SerializeField] private GameObject swapSkills = null, swapButton = null, skillToSwapOptions = null, skillSwapToOptions = null, statusSwapOBJ = null;
 
+        /// <summary>
+        /// The script that holds the data to the DuringMissionRollController.s
+        /// </summary>
         [SerializeField] private DuringMissionRollController missionRollItems = null;
-
+        /// <summary>
+        /// Script where this script is attacthed to.
+        /// </summary>
         private GameObject ScriptsODJ = null;
+        /// <summary>
+        /// Refering to the script UserAreaControlers
+        /// </summary>
         private UserAreaControlers userAreaControlers = null;
+        /// <summary>
+        /// Refering to the script rollingMissionControl
+        /// </summary>
         private rollingMissionControl missionRollController = null;
+        /// <summary>
+        /// Refering to the script EventHandeler
+        /// </summary>
         private EventHandeler EventManager = null;
+        /// <summary>
+        /// Refering to the script turnManager
+        /// </summary>
         private TurnManager turnManager = null;
+        /// <summary>
+        /// Refering to the script drawEntropyCard
+        /// </summary>
         private drawEntropyCard drawEntropy = null;
 
+        /// <summary>
+        /// This is a readonly list of the possible job swap that can only be used for character with the code 12 [Miro]
+        /// </summary>
         private readonly List<AllJobs> SkillsToSwapFor12 = new List<AllJobs>() { AllJobs.Crypt, AllJobs.NetNinja, AllJobs.SocialEng, AllJobs.SoftWiz, AllJobs.Kitchen };
+        /// <summary>
+        /// This is a readonly list of the possible job swap that can only be used for character with the code 5 [Deborah]
+        /// </summary>
         private readonly List<AllJobs> SkillsToSwapFor5 = new List<AllJobs>() { AllJobs.HardHack, AllJobs.Crypt, AllJobs.NetNinja, AllJobs.SearchFU, AllJobs.Kitchen, AllJobs.SoftWiz, AllJobs.SocialEng };
+        /// <summary>
+        /// This is a readonly list of the possible job swap that can only be used for character with the code 13 [Roxana]
+        /// </summary>
         private readonly List<AllJobs> SkillSwapToFor13 = new List<AllJobs>() { AllJobs.HardHack, AllJobs.SocialEng };
+        /// <summary>
+        /// Holds the info of the skill to be swap.
+        /// </summary>
         private skillToSwap skill1;
+        /// <summary>
+        /// The job to be swapped with.
+        /// </summary>
         private AllJobs skill2;
+        /// <summary>
+        /// The round number that this Character Card's ability was last used.
+        /// </summary>
         private int RoundNumber = 0;
+        /// <summary>
+        /// The data of the character to be displayed 
+        /// </summary>
         private CharCardScript whichScript = null;
+        /// <summary>
+        /// The dropdown of Jobs that can be swapped
+        /// </summary>
         private Dropdown dropdownSkillToSwapOptions = null;
+        /// <summary>
+        /// The dropdown of all the options to choose
+        /// </summary>
         private Dropdown dropdownSkillSwapTo = null;
+        /// <summary>
+        /// When the script is loaded this function will fill in the data for the scripts that we this class needs
+        /// </summary>
         private void Start()
         {
-            ScriptsODJ = gameObject;
+            ScriptsODJ = gameObject; // this will give out the data of the object that this script is attached to 
             userAreaControlers = ScriptsODJ.GetComponent<UserAreaControlers>();
             missionRollController = ScriptsODJ.GetComponent<rollingMissionControl>();
             EventManager = ScriptsODJ.GetComponent<EventHandeler>();
@@ -55,6 +126,10 @@ namespace DrawCards
             dropdownSkillToSwapOptions = skillToSwapOptions.GetComponent<Dropdown>();
             dropdownSkillSwapTo = skillSwapToOptions.GetComponent<Dropdown>();
         }
+        /// <summary>
+        /// This function is to open the popup as well as setup the data
+        /// </summary>
+        /// <param name="info"> The info of the charater data to be display</param>
         public void opendCharCard(CharCardScript info)
         {
             buttonSelect.SetActive(true);
@@ -63,10 +138,21 @@ namespace DrawCards
             cardInpopUp.GetComponent<Image>().sprite = whichScript.artwork_front_info;
             skillChangerEliment.SetActive(false);
         }
+        /// <summary>
+        /// To close the character card popup
+        /// </summary>
         public void closePopUp()
         {
             popUp.SetActive(false);
         }
+        /// <summary>
+        /// This is to select the character of the user
+        /// </summary>
+        /// <remarks>
+        /// Will send the info to the userAreaControlers.
+        /// Will destory all the character cards on the user area.
+        /// Wll send everyone about the charater that is selected.
+        /// </remarks>
         public void selectThisChar()
         {
             userAreaControlers.setMyCharacter(whichScript);
@@ -80,6 +166,16 @@ namespace DrawCards
             object[] chatInfo = new object[] {PhotonNetwork.LocalPlayer.NickName + " has selected "+whichScript.character_card_name+".", null, false };
             PhotonNetwork.RaiseEvent((byte)PhotonEventCode.forChat, chatInfo, EventManager.AllPeople, SendOptions.SendReliable);
         }
+        /// <summary>
+        /// This is to click on the Avertar images on each player which will display their character info.
+        /// </summary>
+        /// <remarks>
+        /// If the avertar click on is the person him or herself then this function will check whether the special ability can be play.
+        /// Else it will just close off the skill changer element and the special ability button.
+        /// </remarks>
+        /// <param name="which">
+        /// This is the param to tell which person you click on.
+        /// </param>
         public void clickOnAvertar(int which)
         {
             buttonSelect.SetActive(false);
@@ -155,6 +251,9 @@ namespace DrawCards
                 skillChangerEliment.SetActive(false);
             }
         }
+        /// <summary>
+        /// The function to click on When the skill is activated and will act accorrding to your character.
+        /// </summary>
         public void onClickOnActivatedSkill()
         {
             if (whichScript.character_code == 2)
@@ -188,6 +287,10 @@ namespace DrawCards
                 rollRollButton.GetComponent<Button>().interactable = true;
             }
         }
+        /// <summary>
+        /// This is to set up the skill to swap ability and the dropdown list of the skill that can be swapped
+        /// </summary>
+        /// <param name="Which"> The current player's character code</param>
         public void setUpSkillToSwap(int Which)
         {
             List<skillToSwap> JobInfoToSwap = new List<skillToSwap>();
@@ -303,6 +406,9 @@ namespace DrawCards
                 dropdownSkillSwapTo.onValueChanged.AddListener(delegate { skill2 = SkillSwapToFor13[dropdownSkillSwapTo.value]; updateStatus(); });
             }
         }
+        /// <summary>
+        /// This is to update the status to see if the skills can be swapped
+        /// </summary>
         public void updateStatus()
         {
             if (skill1.info.skillName == AllJobs.Null || skill2 == AllJobs.Null || skill1.info.skillName == skill2)
@@ -316,6 +422,12 @@ namespace DrawCards
                 statusSwapOBJ.GetComponent<Text>().text = GetStringOfTask.get_string_of_job(skill1.info.skillName) + " swap to " + GetStringOfTask.get_string_of_job(skill2);
             }
         }
+        /// <summary>
+        /// This is when the button to swap skills is pressed
+        /// </summary>
+        /// <remarks>
+        /// This will send the info to swap to the rollingMissionControl scritp
+        /// </remarks>
         public void onClickOnSwap()
         {
             dropdownSkillToSwapOptions.interactable = false;
@@ -324,6 +436,13 @@ namespace DrawCards
             missionRollController.swapSkill(skill1, skill2);
             closePopUp();
         }
+        /// <summary>
+        /// This is the Roll button for the special skill of character with the code 10 [Mei]
+        /// </summary>
+        /// <remarks>
+        /// If pass then one card is drawn.
+        /// else notthing
+        /// </remarks>
         public void onRollButtonFor10()
         {
             System.Random rand = new System.Random((int)DateTime.Now.Ticks);

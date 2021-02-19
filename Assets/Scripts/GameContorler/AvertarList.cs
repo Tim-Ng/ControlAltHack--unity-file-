@@ -5,9 +5,18 @@ using UnityEngine.UI;
 
 namespace Avertars
 {
+    /// <summary>
+    /// This is a class to hold all the data of the Avertar Images
+    /// </summary>
     public class AvertarList: MonoBehaviour
     {
+        /// <summary>
+        /// The gameobject for the popup to select the Avertar
+        /// </summary>
         [SerializeField] private GameObject selectPopup = null;
+        /// <summary>
+        /// The Sprites for all the character
+        /// </summary>
         [SerializeField] private Sprite
             Avertar1 =null,
             Avertar2 =null,
@@ -19,7 +28,14 @@ namespace Avertars
             Avertar8 =null,
             Avertar9 =null,
             Avertar10 =null;
+        /// <summary>
+        /// Holds the list of the Avertar sprites.
+        /// This is static so this list can be accessed on other scripts.
+        /// </summary>
         public static List<Sprite> AvertarLists = new List<Sprite>();
+        /// <summary>
+        /// Input all the sprites into the list
+        /// </summary>
         void Awake()
         {
             AvertarLists.Add(Avertar1);
@@ -33,10 +49,16 @@ namespace Avertars
             AvertarLists.Add(Avertar9);
             AvertarLists.Add(Avertar10);
         }
+        /// <summary>
+        /// To open the popup to select Avertar.
+        /// </summary>
         public void onClickPopupSelect()
         {
             selectPopup.SetActive(true);
         }
+        /// <summary>
+        /// To close the popup to select Avertar.
+        /// </summary>
         public void onClickClosePopup()
         {
             selectPopup.SetActive(false);

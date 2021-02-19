@@ -156,7 +156,7 @@ namespace MainMenu
             dropComp.options.Clear();
             for (int i = 0; i < regionList.Count; i++)
             {
-                dropComp.options.Add(new Dropdown.OptionData() { text = regionList[i].Name });
+                dropComp.options.Add(new Dropdown.OptionData() { text = regionList[i].Name + " ["+regionList[i].Key+"]" });
             }
             dropComp.RefreshShownValue();
             dropComp.onValueChanged.AddListener(delegate { regionSelected = regionList[dropComp.value].Key; ConnectToRegion(); });

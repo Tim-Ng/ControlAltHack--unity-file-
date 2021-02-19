@@ -8,15 +8,40 @@ using System.Linq;
 
 namespace DrawCards
 {
+    /// <summary>
+    /// This is to draw the character card
+    /// </summary>
     public class drawCharacterCard : MonoBehaviour
     {
+        /// <summary>
+        /// This holds the list of the charater card ID 
+        /// </summary>
         private List<int> characterCardID = new List<int>();
-        [SerializeField] private GameObject cardArea = null, cardTemplate = null;
+        /// <summary>
+        /// This is the gameObject where the character card will be place at.
+        /// </summary>
+        [SerializeField] private GameObject cardArea = null;
+        /// <summary>
+        /// This is the gameObject of the character card template
+        /// </summary>
+        [SerializeField] private GameObject cardTemplate = null;
+        /// <summary>
+        /// This is the script for the EventManager
+        /// </summary>
         [SerializeField] private EventHandeler EventManager = null;
+        /// <summary>
+        /// When the script starts the function startDraw will be called
+        /// </summary>
         private void Start()
         {
             startDraw();
         }
+        /// <summary>
+        /// This will add the all the character card ID into the list 
+        /// </summary>
+        /// <remarks>
+        /// After adding into the list, it will be randomized
+        /// </remarks>
         public void startDraw()
         {
             characterCardID.Clear();
@@ -38,6 +63,10 @@ namespace DrawCards
             characterCardID.Add(16);
             characterCardID = characterCardID.OrderBy(i => Guid.NewGuid()).ToList();
         }
+        /// <summary>
+        /// This function is used to draw cards 
+        /// </summary>
+        /// <param name="howmuch">How much card to be drawn</param>
         public void drawCharCards(int howmuch)
         {
             Debug.Log("Drawing Character cards ");
@@ -55,6 +84,10 @@ namespace DrawCards
                 PhotonNetwork.RaiseEvent((byte)PhotonEventCode.drawCharacterRemove, cardID, EventManager.AllPeople, SendOptions.SendReliable);
             }
         }
+        /// <summary>
+        /// This is to take out the character card from the deck if it is drawn
+        /// </summary>
+        /// <param name="which"> this is the card ID that has been drawn</param>
         public void removeFormDeck(int which)
         {
             characterCardID.Remove(which);

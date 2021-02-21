@@ -52,7 +52,7 @@ namespace DrawCards
             popUp.GetComponent<CharCardPopup>().opendCharCard(infoChar);
         }
         /// <summary>
-        /// To set the back of the card to be shown or not
+        /// To set the back of the card is visible shown or not
         /// </summary>
         /// <param name="TorF"> 
         /// True  = Shown
@@ -63,7 +63,7 @@ namespace DrawCards
             BackSide.SetActive(TorF);
         }
         /// <summary>
-        /// To set the front of the card to be shown or not
+        /// To set the front of the card is visible shown or not
         /// </summary>
         /// <param name="TorF"> 
         /// True  = Shown

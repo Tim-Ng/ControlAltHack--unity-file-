@@ -3,8 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 namespace DrawCards
 {
+    /// <summary>
+    /// This is a class to hold all the data of the entropy cards 
+    /// </summary>
     public class entropyCardDeck : MonoBehaviour
     {
+        /// <summary>
+        /// This is where the entropy card data is placed
+        /// </summary>
         [SerializeField]
         private EntropyCardScript
                 card1 = null,
@@ -38,8 +44,13 @@ namespace DrawCards
                 card29 = null,
                 card30 = null,
                 card31 = null;
-
+        /// <summary>
+        /// This is the list to hold all the entropy data of the deck where it can be accessed anywhere
+        /// </summary>
         public static List<EntropyCardScript> cardDeck = new List<EntropyCardScript>(31);
+        /// <summary>
+        /// This is to input all the entropy data in to the list when the script is loaded
+        /// </summary>
         private void Start()
         {
             cardDeck.Add(card1);

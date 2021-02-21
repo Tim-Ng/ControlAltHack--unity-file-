@@ -9,68 +9,249 @@ using rollmissions;
 
 namespace main
 {
+    /// <summary>
+    /// The enum of all the Photon Events 
+    /// </summary>
     enum PhotonEventCode
     {
+        /// <summary>
+        /// for updating the number of rounds for this current room
+        /// </summary>
         upDateOtherOnGameRounds = 0,
+        /// <summary>
+        /// for when the game has started
+        /// </summary>
         startGame = 1,
+        /// <summary>
+        /// for sending the arrangement of the player turns for this round
+        /// </summary>
         inputArrangement = 2,
+        /// <summary>
+        /// for telling a player has ends thier turn
+        /// </summary>
         playerChanged = 3,
-        drawCharacterRemove= 4,
+        /// <summary>
+        /// for when a character is drawn
+        /// </summary>
+        drawCharacterRemove = 4,
+        /// <summary>
+        /// for when a character choosen by another player 
+        /// </summary>
         setMyChar = 5,
+        /// <summary>
+        /// for when we need eveyone to be done with something [choosing character, done trading and more]
+        /// </summary>
         setWaiting= 6,
+        /// <summary>
+        /// for setting the amount of money of another players when we receive the data
+        /// </summary>
         playerMoney = 7,
-        playerCred  = 8,
+        /// <summary>
+        /// for setting the amount of cred of another players when we receive the data
+        /// </summary>
+        playerCred = 8,
+        /// <summary>
+        /// for when an entorpy card is drawn by another player to be removed from the current deck
+        /// </summary>
         drawEntropyRemove = 9,
+        /// <summary>
+        /// When an entorpy is used an added to the used entropy deck
+        /// </summary>
         drawEntropyUsed = 10,
+        /// <summary>
+        /// for when receiving the amount of entropy card of another player to set the UI
+        /// </summary>
         sendAmountOfEntropy = 11,
+        /// <summary>
+        /// for when an mission card is drawn by another player to be removed from the current deck
+        /// </summary>
         drawMissionRemove = 12,
+        /// <summary>
+        /// When an mission is used an added to the used mission deck
+        /// </summary>
         drawMissionUsed = 13,
+        /// <summary>
+        /// receive when a player is not attending to trade 
+        /// </summary>
         tradeNotAttending = 14,
+        /// <summary>
+        /// receive when a player is attending to trade 
+        /// </summary>
         tradeAttending = 15,
-        receiveSomeoneAskToTrade =16,
+        /// <summary>
+        /// for when someone ask to trade with you.If used to send then is to ask a trade request.
+        /// </summary>
+        receiveSomeoneAskToTrade = 16,
+        /// <summary>
+        /// for when someone cancel their request to trade with you .If used to send then is to cancel a trade request.
+        /// </summary>
         receiveSomeoneCancelAsk = 17,
+        /// <summary>
+        /// for when someone decline your request to trade.If used to send then is to decline the trade request.
+        /// </summary>
         declineSomeoneAsk = 18,
+        /// <summary>
+        /// for when someone accept your request to trade.If used to send then is to accept the trade request.
+        /// </summary>
         AcceptSomeoneAsk = 19,
+        /// <summary>
+        /// for receiving changes in some other player's mission card is changed during trade / telling people you change 
+        /// </summary>
         sendMissionCardChanged = 20,
+        /// <summary>
+        /// to start the timer for the before mission roll
+        /// </summary>
         setTimerForRoll = 21,
+        /// <summary>
+        /// to get who is rolling / send you is rolling
+        /// </summary>
         sendWhoRolling = 22,
+        /// <summary>
+        /// To set the text before roll
+        /// </summary>
         textForTextBeforeRoll = 23,
+        /// <summary>
+        /// To change to during roll scene / send then start during roll
+        /// </summary>
         setToDuringRoll = 24,
+        /// <summary>
+        /// To set during roll text / send during roll text
+        /// </summary>
         setDuringRollText= 25,
+        /// <summary>
+        /// to set the text of the Process / send the text of the Process 
+        /// </summary>
         setProcessText = 26,
+        /// <summary>
+        /// to set the text of the status / send the text of the status
+        /// </summary>
         setStatusText = 27,
+        /// <summary>
+        /// receive value of the dice rolled / send the value of the dice rolled
+        /// </summary>
         rolledNumberMission = 28,
+        /// <summary>
+        /// To set the current mission status / send the current mission status
+        /// </summary>
         setCurrentMissionStatus =29,
+        /// <summary>
+        /// To set the end of the scene to end roll scene / send the its end roll scene
+        /// </summary>
         setEndScene = 30,
+        /// <summary>
+        /// To set the number of roll chances / send the number of roll chances
+        /// </summary>
         setNumberOfChances =31,
+        /// <summary>
+        /// set the current mission status / send the current mission status  
+        /// </summary>
         setStatusOutput = 32,
+        /// <summary>
+        /// To set the scene for a reroll / send to set scene for a reroll
+        /// </summary>
         setSceneForReRoll = 33,
+        /// <summary>
+        /// get entorpy card shareFate have been played / send entorpy card shareFate have been played 
+        /// </summary>
         shareFate = 34,
+        /// <summary>
+        /// Ligthing strike ID 28 that cancels the current player mission / send to current rolling player to cancel mission from entropy card ID [35]
+        /// </summary>
         cancelMissionID28 = 35,
+        /// <summary>
+        /// Ligthing strike ID 28 that debuff skill on current player mission / send to current rolling player to have from debuff with entropy card ID [36]
+        /// </summary>
         skillChangeID26 = 36,
+        /// <summary>
+        /// Ligthing strike ID 28 that remove all money of the current player mission / send to current rolling player to remove all money with entropy card ID [29]
+        /// </summary>
         goZeroMoneyID29 = 37,
+        /// <summary>
+        /// get that its currently a lighting roll / send current lighting roll
+        /// </summary>
         lightningRoll = 38,
+        /// <summary>
+        /// receive that someone strike you with lighting strike / send lighting strike to current player rolling 
+        /// </summary>
         sendLightingStrikeRoll = 39,
+        /// <summary>
+        /// receive rolled value during lighting strike roll / send rolled value during lighting strike roll 
+        /// </summary>
         sendLightingStrikeRolled = 40,
+        /// <summary>
+        /// receive if a player if fired / send player that you are fired
+        /// </summary>
         sendPlayerFired = 41,
+        /// <summary>
+        /// receive who are the top 3 winner / send who are the top 3 winner
+        /// </summary>
         receiveWinner = 42,
+        /// <summary>
+        /// Send/receive reset the game 
+        /// </summary>
         resetGame = 43,
+        /// <summary>
+        /// Receive/send infomation from/to the chat
+        /// </summary>
         forChat = 44,
+        /// <summary>
+        /// receive name update due to that player having same name with another player / send your new name due to having t he same name as another player
+        /// </summary>
         foundSameName =45,
     }
+
+    /// <summary>
+    /// This script is used to handle the events sent through photon event mangaer
+    /// </summary>
     public class EventHandeler : MonoBehaviour
     {
+        /// <summary>
+        /// This holds the game object of the which the this script is attached to 
+        /// </summary>
         private GameObject ScriptsODJ = null;
+        /// <summary>
+        /// This holds the script for UserAreaControlers
+        /// </summary>
         private UserAreaControlers userControler = null;
+        /// <summary>
+        /// This holds the script for drawCharacterCard
+        /// </summary>
         private drawCharacterCard drawChar = null;
+        /// <summary>
+        /// This holds the script for TurnManager
+        /// </summary>
         private TurnManager turnManager= null;
+        /// <summary>
+        /// This holds the script for drawEntropyCard
+        /// </summary>
         private drawEntropyCard drawEntropy = null;
+        /// <summary>
+        /// This holds the script for drawMissionCard
+        /// </summary>
         private drawMissionCard drawMission = null;
+        /// <summary>
+        /// This holds the script for TradeControler
+        /// </summary>
         private TradeControler tradeControl = null;
+        /// <summary>
+        /// This holds the script for rollingMissionControl
+        /// </summary>
         private rollingMissionControl rollingMission = null;
+        /// <summary>
+        /// This holds the script for playEntropyCard
+        /// </summary>
         private playEntropyCard playEntropy= null;
+        /// <summary>
+        /// This holds the script for ChatController
+        /// </summary>
         private ChatController chatController = null;
 
+        /// <summary>
+        /// This function is called when this script is rendered.
+        /// </summary>
+        /// <remarks>
+        /// It will set all the scripts that are needed
+        /// </remarks>
         private void Start()
         {
             ScriptsODJ = gameObject;
@@ -84,30 +265,53 @@ namespace main
             tradeControl = ScriptsODJ.GetComponent<TradeControler>();
             chatController = ScriptsODJ.GetComponent<ChatController>();
         }
-        [SerializeField] private GameObject cardArea= null,roundNumberOBJ = null;
+        /// <summary>
+        /// This holds the game object of the cardArea
+        /// </summary>
+        [SerializeField] private GameObject cardArea = null;
+        /// <summary>
+        /// This holds the game object of the Round number indication
+        /// </summary>
+        [SerializeField] private GameObject roundNumberOBJ = null;
+        /// <summary>
+        /// This is the event option to send data to all other people currently in the room
+        /// </summary>
         public RaiseEventOptions AllOtherThanMePeopleOptions = new RaiseEventOptions()
         {
             CachingOption = EventCaching.DoNotCache,
             Receivers = ReceiverGroup.Others,
         };
+        /// <summary>
+        /// This is the event option to send data to all people currently in the room including the sender 
+        /// </summary>
         public RaiseEventOptions AllPeople = new RaiseEventOptions()
         {
             CachingOption = EventCaching.DoNotCache,
             Receivers = ReceiverGroup.All
         };
+        /// <summary>
+        /// The fuction is called when the object becomes enabled and active.
+        /// </summary>
         private void OnEnable()
         {
             Debug.Log("Listen to event");
             PhotonNetwork.NetworkingClient.EventReceived += NetworkingClient_EventReceived;
             Debug.Log("Event heard");
         }
+        /// <summary>
+        /// The fuction is called when the object becomes disabled and active.
+        /// </summary>
         private void OnDisable()
         {
             PhotonNetwork.NetworkingClient.EventReceived -= NetworkingClient_EventReceived;
             Debug.Log("Event Ended");
         }
-
-
+        /// <summary>
+        /// This function will be called when a new data is receive 
+        /// </summary>
+        /// <param name="obj">
+        /// The object package sent
+        /// </param>
         private void NetworkingClient_EventReceived(EventData obj)
         {
             Debug.Log("Code =" + obj.Code);

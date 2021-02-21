@@ -8,7 +8,7 @@ namespace DrawCards {
     public class charCardDeck : MonoBehaviour
     {
         /// <summary>
-        /// This is where the card data is placed
+        /// This is where the character card data is placed
         /// </summary>
         [SerializeField] private CharCardScript
                 card1 = null,
@@ -28,11 +28,11 @@ namespace DrawCards {
                 card15 = null,
                 card16 = null;
         /// <summary>
-        /// This is the list to hold all the data of the deck where it can be accessed anywhere
+        /// This is the list to hold all the character data of the deck where it can be accessed anywhere
         /// </summary>
         public static List<CharCardScript> cardDeck = new List<CharCardScript>(16);
         /// <summary>
-        /// This is to input all the data in to the list when the script is loaded
+        /// This is to input all the character data in to the list when the script is loaded
         /// </summary>
         private void Start()
         {

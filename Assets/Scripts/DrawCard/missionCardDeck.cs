@@ -3,8 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 namespace DrawCards
 {
+    /// <summary>
+    /// This is a class to hold all the data of the mission cards 
+    /// </summary>
     public class missionCardDeck : MonoBehaviour
     {
+        /// <summary>
+        /// This is where the mission card data is placed
+        /// </summary>
         [SerializeField]
         private MissionCardScript
                 card1 = null,
@@ -44,7 +50,13 @@ namespace DrawCards
                 card35 = null,
                 card36 = null,
                 card37 = null;
+        /// <summary>
+        /// This is the list to hold all the mission data of the deck where it can be accessed anywhere
+        /// </summary>
         public static List<MissionCardScript> cardDeck = new List<MissionCardScript>(37);
+        /// <summary>
+        /// This is to input all the mission data in to the list when the script is loaded
+        /// </summary>
         private void Start()
         {
             cardDeck.Add(card1);

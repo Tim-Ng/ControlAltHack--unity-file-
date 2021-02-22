@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+namespace main
+{
     public class winCanvasController : MonoBehaviour
     {
         [SerializeField]
@@ -69,3 +71,4 @@ using UnityEngine.UI;
             set { PlayAgainButton.GetComponent<Button>().interactable = value; }
         }
     }
+}

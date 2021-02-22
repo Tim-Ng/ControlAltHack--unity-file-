@@ -16,9 +16,14 @@ namespace DrawCards
         /// </summary>
         private EntropyCardScript infoEntro = null;
         /// <summary>
-        /// To hold object of front and the back of the card
+        /// To hold the game object of back of the card
         /// </summary>
-        [SerializeField] private GameObject BackSide = null, InfoSide = null;
+        [SerializeField] private GameObject BackSide = null;
+        /// <summary>
+        /// To hold the game object of front of the card
+        /// </summary>
+        [SerializeField] private GameObject InfoSide = null;
+        
         /// <summary>
         /// Hold the gameObject of gameInterface
         /// </summary>

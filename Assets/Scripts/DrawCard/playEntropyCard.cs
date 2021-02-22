@@ -12,20 +12,76 @@ using UserAreas;
 
 namespace DrawCards
 {
+    /// <summary>
+    /// This class is to control the entropy card when they are played.
+    /// </summary>
     public class playEntropyCard : MonoBehaviour
     {
+        /// <summary>
+        /// This is the game object where this script is attatched to.
+        /// </summary>
         private GameObject ScriptsODJ = null;
+        /// <summary>
+        /// Holds the script rollingMissionControl
+        /// </summary>
         private rollingMissionControl rollingControl = null;
+        /// <summary>
+        /// Holds the script UserAreaControlers
+        /// </summary>
         private UserAreaControlers userArea = null;
+        /// <summary>
+        /// Holds the script EventHandeler
+        /// </summary>
         private EventHandeler EventManager = null;
+        /// <summary>
+        /// Holds the script TurnManager
+        /// </summary>
         private TurnManager turnManager = null;
+        /// <summary>
+        /// Holds the script drawEntropyCard
+        /// </summary>
         private drawEntropyCard drawEntropy = null;
-        [SerializeField] private AudioSource bgmMusic = null;
-        [SerializeField] private AudioClip normal = null, duringLightning = null;
+        /// <summary>
+        /// Holds the script DuringMissionRollController
+        /// </summary>
         [SerializeField] private DuringMissionRollController missionRollController = null;
-        [SerializeField] private GameObject lightningRollOBJs = null, entropyRollCard = null, whichSkillAgainst = null, amountRolled = null, amountNeeded= null,rollButtonEntropy = null;
+        /// <summary>
+        /// This holds the element of that controls the background music 
+        /// </summary>
+        [Header("Audio Clip")]
+        [SerializeField] private AudioSource bgmMusic = null;
+        /// <summary>
+        /// This is the Audio Clip of the normal background music
+        /// </summary>
+        [SerializeField] private AudioClip normal = null;
+        /// <summary>
+        /// This is the Audio Clip of the background music during a lightning roll
+        /// </summary>
+        [SerializeField] private AudioClip duringLightning = null;
+
+        /// <summary>
+        /// The gameobjects that holds all the UI for the lightning roll 
+        /// </summary>
+        [Header("GameObject for this script")]
+        [SerializeField] private GameObject lightningRollOBJs = null;
+        /// <summary>
+        /// These are the gameobjects that are used for the lightning roll
+        /// </summary>
+        [SerializeField] private GameObject entropyRollCard = null, whichSkillAgainst = null, amountRolled = null, amountNeeded= null,rollButtonEntropy = null;
+        /// <summary>
+        /// The variable that holds the amount needed to be rolled during the lightning roll
+        /// </summary>
         private int amountNeededToRoll = 0;
+        /// <summary>
+        /// This hold the data of the entropy card the is being played
+        /// </summary>
         private EntropyCardScript entropyRollStrike = null;
+        /// <summary>
+        /// This is used to set/get the variable amountNeededToRoll 
+        /// </summary>
+        /// <remarks>
+        /// When set the text for the gameobject amountNeeded will also be updated
+        /// </remarks>
         public int setamountNeededToRoll
         {
             get { return amountNeededToRoll; }
@@ -35,7 +91,13 @@ namespace DrawCards
                 amountNeeded.GetComponent<Text>().text = amountNeededToRoll.ToString();
             }
         }
+        /// <summary>
+        /// This is a readonly list of entropy card type Extensive Experience
+        /// </summary>
         private readonly List<int> extendSive = new List<int> { 20, 21, 22, 23, 24 };
+        /// <summary>
+        /// When the script is loaded this function will fill in the data for the scripts that we this class needs
+        /// </summary>
         private void Start()
         {
             ScriptsODJ = gameObject;
@@ -45,6 +107,13 @@ namespace DrawCards
             turnManager = ScriptsODJ.GetComponent<TurnManager>();
             drawEntropy = ScriptsODJ.GetComponent<drawEntropyCard>();
         }
+        /// <summary>
+        /// This is function is called when an entropy card is played 
+        /// </summary>
+        /// <remarks>
+        /// This function will check which entorpy card is this and will act accordingly
+        /// </remarks>
+        /// <param name="whichScript">The entropy card that is being played</param>
         public void onPlayEntropyCard(EntropyCardScript whichScript)
         {
             int entropyID = whichScript.EntropyCardID;
@@ -220,6 +289,10 @@ namespace DrawCards
                 drawEntropy.removeAnEntropyCard(whichScript,false);
             }
         }
+        /// <summary>
+        /// This is when the player received that another player had played a lighting roll on the player
+        /// </summary>
+        /// <param name="whichCard"></param>
         public void lightningRoll(int whichCard)
         {
             bgmMusic.clip = duringLightning;
@@ -241,6 +314,9 @@ namespace DrawCards
             object[] entropyLightningRollJData = new object[] { whichCard, whichSkillAgainst.GetComponent<Text>().text , setamountNeededToRoll };
             PhotonNetwork.RaiseEvent((byte)PhotonEventCode.sendLightingStrikeRoll, entropyLightningRollJData, EventManager.AllOtherThanMePeopleOptions, SendOptions.SendReliable);
         }
+        /// <summary>
+        /// This function is called when the button to roll during a lightning roll
+        /// </summary>
         public void clickOnRollButtonlightningRoll()
         {
             System.Random rand = new System.Random((int)DateTime.Now.Ticks);
@@ -262,6 +338,12 @@ namespace DrawCards
             }
             lightningRollOBJs.SetActive(false);
         }
+        /// <summary>
+        /// This function is called when another player is under a ligthning strike roll
+        /// </summary>
+        /// <param name="whichCard"> Which lighting roll entropy card is currently being played </param>
+        /// <param name="whichSkill"> Which Skill is being rolled against </param>
+        /// <param name="whichAmount"> This is the amount that is needed to be rolled</param>
         public void onReceiveSomeoneLightningRoll(int whichCard,string whichSkill, int whichAmount)
         {
             bgmMusic.clip = duringLightning;
@@ -272,6 +354,10 @@ namespace DrawCards
             setamountNeededToRoll = whichAmount;
             whichSkillAgainst.GetComponent<Text>().text = whichSkill;
         }
+        /// <summary>
+        /// This is when a lighting roll is rolled and ended
+        /// </summary>
+        /// <param name="amountRolledText"> This is the amount roll by the player</param>
         public void onReceiveRolled(string amountRolledText)
         {
             bgmMusic.clip = normal;
@@ -279,6 +365,9 @@ namespace DrawCards
             amountRolled.GetComponent<Text>().text = amountRolledText;
             lightningRollOBJs.SetActive(false);
         }
+        /// <summary>
+        /// This is used to reset the lighting strike roll to be hidden 
+        /// </summary>
         public void onPlayRollReset() => lightningRollOBJs.SetActive(false);
     }
 }

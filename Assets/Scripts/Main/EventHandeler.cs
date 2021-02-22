@@ -329,8 +329,8 @@ namespace main
             else if (obj.Code == (byte)PhotonEventCode.inputArrangement)
             {
                 object[] arragement = (object[])obj.CustomData;
-                Debug.Log("Input Arrangement : " + (int)arragement[0]);
-                turnManager.inputArrangement((int)arragement[0], (bool)arragement[1], (bool)arragement[2]);
+                Debug.Log("Input Arrangement : " + (string)arragement[0]);
+                turnManager.inputArrangement((string)arragement[0]);
             }
             else if (obj.Code == (byte)PhotonEventCode.playerChanged)
             {

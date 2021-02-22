@@ -44,7 +44,13 @@ namespace DrawCards
         ///This are the game object that is in the Charater Card Popup area.
         /// </summary>
         [SerializeField] private GameObject popUp = null, cardInpopUp = null, buttonSelect = null, playingCardArea = null, skillChangerEliment = null, activateSkillButton = null;
+        ///<summary>
+        ///This are the game object that is in the Charater Card Popup area.
+        /// </summary>
         [SerializeField] private GameObject forChar10 = null, rollRollButton = null,rolledValue = null, statusfor10OBJ = null;
+        ///<summary>
+        ///This are the game object that is in the Charater Card Popup area.
+        /// </summary>
         [SerializeField] private GameObject swapSkills = null, swapButton = null, skillToSwapOptions = null, skillSwapToOptions = null, statusSwapOBJ = null;
 
         /// <summary>

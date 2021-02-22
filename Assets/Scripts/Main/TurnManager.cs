@@ -13,26 +13,97 @@ using TradeScripts;
 
 namespace main
 {
+    /// <summary>
+    /// This is used to package List<int> to convert it into json and send it to other other players
+    /// </summary>
+    public struct ListContainer
+    {
+        public List<int> datalist;
+        public ListContainer(List<int> dataList)
+        {
+            datalist = dataList;
+        }
+    }
+    /// <summary>
+    /// This is the script that determines who's turn is next, the current round number, when the game ends and setting the winner popup.
+    /// </summary>
     public class TurnManager : MonoBehaviourPunCallbacks
     {
+        /// <summary>
+        /// This is the game object where this script is attatched to.
+        /// </summary>
         private GameObject ScriptsODJ = null;
+        /// <summary>
+        /// Holds the script drawCharacterCard
+        /// </summary>
         private drawCharacterCard drawCard = null;
+        /// <summary>
+        /// Holds the script drawEntropyCard
+        /// </summary>
         private drawEntropyCard drawEntro= null;
+        /// <summary>
+        /// Holds the script EventHandeler
+        /// </summary>
         private EventHandeler EventManager = null;
+        /// <summary>
+        /// Holds the script drawMissionCard
+        /// </summary>
         private drawMissionCard drawMission = null;
+        /// <summary>
+        /// Holds the script rollingMissionControl
+        /// </summary>
         private rollingMissionControl rollingMission = null;
+        /// <summary>
+        /// Holds the script UserAreaControlers
+        /// </summary>
         private UserAreaControlers userContorlAreas = null;
+        /// <summary>
+        /// Holds the script TradeControler
+        /// </summary>
         private TradeControler tradeController= null;
 
+        /// <summary>
+        /// This is the game object that displays the round number
+        /// </summary>
         [SerializeField] private GameObject roundIndicator = null;
+        /// <summary>
+        /// This the value of the position of who's turn it is in the arrangedActor list
+        /// </summary>
+        [HideInInspector]
         private int CurrentTurn;
+        /// <summary>
+        /// This list is used to hold the arranged player list on who is next 
+        /// </summary>
+        /// <remarks>
+        /// This is determine by the host and share to everyother player in the room
+        /// </remarks>
         private List<int> arrangedActors = new List<int>();
+        /// <summary>
+        /// The Actor number of the current player who has the turn
+        /// </summary>
+        [HideInInspector]
         public int PlayerIdToMakeThisTurn;
-        public int currentPositionInArray;
+        /// <summary>
+        /// This is the turn number which is around 2 times the round number which is used to check what to do 
+        /// </summary>
+        [HideInInspector]
         public int TurnNumber = 0;
+        /// <summary>
+        /// This is the number that hold current RoundNumber 
+        /// </summary>
+        [HideInInspector]
         public int RoundNumber=1;
+        /// <summary>
+        /// This is used to wait till everyone is done and then the game will continue to count the TurnNumber
+        /// </summary>
         private bool waiting= false;
+        /// <summary>
+        /// This is used to check the number of people who are done
+        /// </summary>
         private List<int> actorsDone = new List<int>();
+        /// <summary>
+        /// When the script is loaded this function will fill in the data for the scripts that we this class needs
+        /// </summary>
         private void Start()
         {
             ScriptsODJ = gameObject;
@@ -44,6 +115,14 @@ namespace main
             userContorlAreas = ScriptsODJ.GetComponent<UserAreaControlers>();
             tradeController = ScriptsODJ.GetComponent<TradeControler>();
         }
+        /// <summary>
+        /// This is used to check if it is your turn
+        /// </summary>
+        /// <remarks>
+        /// Will check your ActorNumber with PlayerIdToMakeThisTurn <br/>
+        /// If ActorNumber == PlayerIdToMakeThisTurn the true <br/>
+        /// Else false
+        /// </remarks>
         public bool IsMyTurn
         {
             get
@@ -51,6 +130,15 @@ namespace main
                 return this.PlayerIdToMakeThisTurn == PhotonNetwork.LocalPlayer.ActorNumber;
             }
         }
+        /// <summary>
+        /// This function is only run by the host at the start of every Round.
+        /// </summary>
+        /// <remarks>
+        /// This function will arrage according to the player's cred from the highest to the lowest <br/>
+        /// If the cred of two player is the same that the player with the lowest Actor Number
+        /// will be place before the person with the higher Actor Number. <br/>
+        /// Then this function will send the list to other players in the room.
+        /// </remarks>
         public void setArrangementForTurn()
         {
             List<PlayerInfo> userTemp = new List<PlayerInfo>();
@@ -87,57 +175,46 @@ namespace main
                     }
                 }
                 userTemp.Reverse();
-                for (int i = 0; i < userTemp.Count; i++)
+                List<int> tempActorID = new List<int>();
+                for (int i = 0; i< userTemp.Count; i++)
                 {
-                    if (i == userTemp.Count - 1)
-                    {
-                        object[] arrangement = new object[] { userTemp[i].ActorID, false, true };
-                        PhotonNetwork.RaiseEvent((byte)PhotonEventCode.inputArrangement, arrangement, EventManager.AllPeople, SendOptions.SendReliable);
-                    }
-                    else if (i == 0)
-                    {
-                        object[] arrangement = new object[] { userTemp[i].ActorID, true, false };
-                        PhotonNetwork.RaiseEvent((byte)PhotonEventCode.inputArrangement, arrangement, EventManager.AllPeople, SendOptions.SendReliable);
-                    }
-                    else
-                    {
-                        object[] arrangement = new object[] { userTemp[i].ActorID, false, false };
-                        PhotonNetwork.RaiseEvent((byte)PhotonEventCode.inputArrangement, arrangement, EventManager.AllPeople, SendOptions.SendReliable);
-                    }
+                    tempActorID.Add(userTemp[i].ActorID);
                 }
+                ListContainer container = new ListContainer(tempActorID);
+                object[] arrangement = new object[] { JsonUtility.ToJson(container) };
+                PhotonNetwork.RaiseEvent((byte)PhotonEventCode.inputArrangement, arrangement, EventManager.AllPeople, SendOptions.SendReliable);
             }
             else
             {
                 setWinnerList();
             }
         }
-        public void inputArrangement(int actorID,bool first,bool last)
+        /// <summary>
+        /// This function is to set the arragement of all the players turn.
+        /// </summary>
+        /// <remarks>
+        /// It will then set the player with the current turn to be the first on the list
+        /// </remarks>
+        /// <param name="jsonList"> A json string to convert the data into ListContainer</param>
+        public void inputArrangement(string jsonList)
         {
-            if (first)
+            arrangedActors = JsonUtility.FromJson<ListContainer>(jsonList).datalist;
+            CurrentTurn = 0;
+            PlayerIdToMakeThisTurn = arrangedActors[0];
+            Debug.Log("Set turn to " + CurrentTurn + " actor ID "+PlayerIdToMakeThisTurn);
+            Debug.Log("My ID is" + PhotonNetwork.LocalPlayer.ActorNumber);
+            if (PhotonNetwork.IsMasterClient && RoundNumber > userContorlAreas.AmountOfRounds && (userContorlAreas.users[userContorlAreas.findPlayerPosition(arrangedActors[0])] != userContorlAreas.users[userContorlAreas.findPlayerPosition(arrangedActors[1])]))
             {
-                arrangedActors.Clear();
-                arrangedActors.Add(actorID);
+                setWinnerList();
             }
-            else
+            if (IsMyTurn)
             {
-                arrangedActors.Add(actorID);
-            }
-            if (last)
-            {
-                CurrentTurn = 0;
-                PlayerIdToMakeThisTurn = arrangedActors[0];
-                Debug.Log("Set turn to " + CurrentTurn + " actor ID "+PlayerIdToMakeThisTurn);
-                Debug.Log("My ID is" + PhotonNetwork.LocalPlayer.ActorNumber);
-                if (PhotonNetwork.IsMasterClient && RoundNumber > userContorlAreas.AmountOfRounds && (userContorlAreas.users[userContorlAreas.findPlayerPosition(arrangedActors[0])] != userContorlAreas.users[userContorlAreas.findPlayerPosition(arrangedActors[1])]))
-                {
-                    setWinnerList();
-                }
-                if (IsMyTurn)
-                {
-                    checkTurn();
-                }
+                checkTurn();
             }
         }
+        /// <summary>
+        /// This is to receive then the turn is changed to a next player / the player with the current turn has end his/her turn
+        /// </summary>
         public void playerChanged()
         {
             CurrentTurn += 1;
@@ -164,6 +241,18 @@ namespace main
                 }
             }
         }
+        /// <summary>
+        /// This function is called when a player has left/done in the game.
+        /// </summary>
+        /// <remarks>
+        /// This functino will also check if all the players are done. <br/>
+        /// If they are done then the function setNextRound will be called.
+        /// </remarks>
+        /// <param name="Actorid"></param>
+        /// <param name="left">
+        /// If true the player has left and will be remove form the actorsDone list if he/she was done with their turn<br/>
+        /// Else the player will be added in the actorsDone list if they havent yet.
+        /// </param>
         public void actorsDoneEdit(int Actorid, bool left)
         {
             if (left)
@@ -186,6 +275,14 @@ namespace main
                 setNextRound();
             }
         }
+        /// <summary>
+        /// This function will set next round.
+        /// </summary>
+        /// <remarks>
+        /// TurnNumber plus 1  <br/>
+        /// RoundNumber will be calculated using TurnNumber <br/>
+        /// The TurnNumber will be check and the function will act accordingly
+        /// </remarks>
         public void setNextRound()
         {
             TurnNumber += 1;
@@ -207,6 +304,10 @@ namespace main
                 setArrangementForTurn();
             }
         }
+        /// <summary>
+        /// This function is called when a player is either fired or left the game
+        /// </summary>
+        /// <param name="ActorID"></param>
         public void playerLeft(int ActorID)
         {
             if (PlayerIdToMakeThisTurn == ActorID)
@@ -226,6 +327,9 @@ namespace main
                 actorsDoneEdit(ActorID, true);
             }
         }
+        /// <summary>
+        /// This function is called to check what to do by looking at the TurnNumber and act accordingly
+        /// </summary>
         public void checkTurn()
         {
             if (TurnNumber == 0)
@@ -283,10 +387,16 @@ namespace main
                 rollingMission.setRollTimeIsMyTurn();
             }
         }
+        /// <summary>
+        /// This function is used to end a player's turn
+        /// </summary>
         public void EndTurn()
         {
             PhotonNetwork.RaiseEvent((byte)PhotonEventCode.playerChanged, null, EventManager.AllPeople, SendOptions.SendReliable);
         }
+        /// <summary>
+        /// This function is used to set the winner and display the winner list
+        /// </summary>
         public void setWinnerList()
         {
             if (PhotonNetwork.CurrentRoom.PlayerCount == 1)

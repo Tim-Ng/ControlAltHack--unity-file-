@@ -415,7 +415,7 @@ namespace main
                     object[] winnerData = new object[] { arrangedActors.Count, arrangedActors[0], arrangedActors[1] };
                     PhotonNetwork.RaiseEvent((byte)PhotonEventCode.receiveWinner, winnerData, EventManager.AllPeople, SendOptions.SendReliable);
                 }
-                else if (arrangedActors.Count == 3)
+                else if (arrangedActors.Count >= 3)
                 {
                     object[] winnerData = new object[] { arrangedActors.Count, arrangedActors[0], arrangedActors[1], arrangedActors[2] };
                     PhotonNetwork.RaiseEvent((byte)PhotonEventCode.receiveWinner, winnerData, EventManager.AllPeople, SendOptions.SendReliable);

@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class HoverAvatar : MonoBehaviour
 {
     private GameObject avatarprofile = null;
-    [SerializeField] private bool detectsHaveSprite;
+    [SerializeField] private bool detectsHaveSprite = false;
     public float x = 1.2f,y=1.2f;
     Vector3 unhoverscale;
     private void Awake()

@@ -13,27 +13,29 @@ using TradeScripts;
 
 namespace rollmissions
 {
-    public class jobInfos
-    {
-        public int position; // 1 , 2 or 3
-        public AllJobs skillName;
-        public int amount;
-        public bool passingOrNot { get; set; }
-        public jobInfos(int Position, AllJobs SkillName, int Amount, bool PassingOrNOt)
-        {
-            position = Position;
-            skillName = SkillName;
-            amount = Amount;
-            passingOrNot = PassingOrNOt;
-        }
-        public void addSkillAmount(int howMuch) => amount += howMuch;
-        public void subSkillAmount(int howMuch) => amount -= howMuch;
-    }
+    /// <summary>
+    /// This is a constructor for skill effector that changes the amount of a particular skill which is the variable called skillName
+    /// </summary>
     public struct SkillEffector
     {
+        /// <summary>
+        /// The skillName being effected
+        /// </summary>
         public AllJobs skillName;
+        /// <summary>
+        /// The amount changed
+        /// </summary>
         public int amount;
+        /// <summary>
+        /// Which round this skill is being effected
+        /// </summary>
         public int RoundNumber;
+        /// <summary>
+        /// The constructor to input the value of all the variables
+        /// </summary>
+        /// <param name="SkillName">The enum for the skill being changed</param>
+        /// <param name="Amount">The amount being changed</param>
+        /// <param name="roundNumber"> The round what this will take effect</param>
         public SkillEffector(AllJobs SkillName, int Amount, int roundNumber)
         {
             skillName = SkillName;
@@ -41,24 +43,78 @@ namespace rollmissions
             RoundNumber = roundNumber;
         }
     }
+    /// <summary>
+    /// This class is the controller for the rolling Mission and the display of the skill effectors
+    /// </summary>
     public class rollingMissionControl : MonoBehaviour
     {
-        [SerializeField] private DuringMissionRollController missionRollController = null;
-        [SerializeField] private UserAreaControlers userArea = null;
-        [SerializeField] private GameObject MissionCard = null, RollingMissionOBJ = null;
-        [SerializeField] private GameObject skillTemplate = null, skillChangerEliment = null;
-
-        private GameObject ScriptsODJ = null;
-        private missionPopup popup = null;
-        private EventHandeler EventManger = null;
-        private TurnManager turnManager = null;
-        private drawEntropyCard drawEntropy = null;
-        private TradeControler tradeControl = null;
+        /// <summary>
+        /// The variable that holds the script that hold and controls the element for the rolling mission
+        /// </summary>
+        [SerializeField,Header("rolling mission element scripts")] private DuringMissionRollController missionRollController = null;
+        /// <summary>
+        /// The variable that holds the script for the user infomation which is UserAreaControlers
+        /// </summary>
+        [SerializeField,Header("User info scripts")] private UserAreaControlers userArea = null;
+        /// <summary>
+        /// The card UI game object for the mission card during roll.
+        /// </summary>
+        [SerializeField,Header("Other Mission Objects")] private GameObject MissionCard = null;
+        /// <summary>
+        /// The object that holds the rolling mission elements
+        /// </summary>
+        [SerializeField] private GameObject RollingMissionOBJ = null;
+        /// <summary>
+        /// The game object template for displaying the skill effector 
+        /// </summary>
+        [SerializeField, Header("Skill Effector elements")] private GameObject skillTemplate = null;
+        /// <summary>
+        /// The game object that holds all skill effector UI objects
+        /// </summary>
+        [SerializeField] private GameObject skillChangerEliment = null;
+        /// <summary>
+        /// This list holds all the skill effectors in the form of SkillEffector
+        /// </summary>
         private List<SkillEffector> skillEffectorsList = new List<SkillEffector>();
+
+        /// <summary>
+        /// This holds the game object of the which the this script is attached to 
+        /// </summary>
+        private GameObject ScriptsODJ = null;
+        /// <summary>
+        /// This holds the script for missionPopup
+        /// </summary>
+        private missionPopup popup = null;
+        /// <summary>
+        /// This holds the script for EventHandeler
+        /// </summary>
+        private EventHandeler EventManger = null;
+        /// <summary>
+        /// This holds the script for TurnManager
+        /// </summary>
+        private TurnManager turnManager = null;
+        /// <summary>
+        /// This holds the script for drawEntropyCard
+        /// </summary>
+        private drawEntropyCard drawEntropy = null;
+        /// <summary>
+        /// This holds the script for TradeControler
+        /// </summary>
+        private TradeControler tradeControl = null;
+        /// <summary>
+        /// This list holds all the job/task of this mission in the form of jobInfos
+        /// </summary>
         public List<jobInfos> JobInfoList = new List<jobInfos>();
+        
         private MissionCardScript currentCard = null;
         public bool CurrentMissionStatus = false;
         private bool entopy3 = false;
+        /// <summary>
+        /// This function is called when this script is rendered.
+        /// </summary>
+        /// <remarks>
+        /// It will set all the scripts that are needed
+        /// </remarks>
         private void Start()
         {
             ScriptsODJ=gameObject;
@@ -68,6 +124,9 @@ namespace rollmissions
             turnManager = ScriptsODJ.GetComponent<TurnManager>();
             drawEntropy = ScriptsODJ.GetComponent<drawEntropyCard>();
         }
+        /// <summary>
+        /// This function is to set/get the current card that is being rolled
+        /// </summary>
         private MissionCardScript setGetCurrentCard
         {
             get { return currentCard; }
@@ -77,8 +136,35 @@ namespace rollmissions
                 MissionCard.GetComponent<Image>().sprite = currentCard.artwork_front_info;
             }
         }
-        private int numberOfChances = 0, whoTurn, currentTask = 0, entropyRemove = 0;
+        /// <summary>
+        /// Holds the number of chances
+        /// </summary>
+        private int numberOfChances = 0;
+        /// <summary>
+        /// Hold the poistion of the current player rolling from the UserAreaContol.users
+        /// </summary>
+        private int whoTurn;
+        /// <summary>
+        /// The progression of the current mission <br/>
+        /// 0 = first <br/> 
+        /// 1 = second <br/>
+        /// 2 = third <br/>
+        /// </summary>
+        private int currentTask = 0;
+        /// <summary>
+        /// The amount of entropy card to removed to end your mission roll
+        /// </summary>
+        private int entropyRemove = 0;
+        /// <summary>
+        /// The amount of entropy card discarded during the mission roll
+        /// </summary>
         public int numberOfEntroCardsRemoved = 0;
+        /// <summary>
+        /// To set and get the number of chances left 
+        /// </summary>
+        /// <remarks>
+        /// when set the UI for the number of chances is set as well as ending the data to everone else
+        /// </remarks>
         private int setgetnumberOfChances
         {
             get { return numberOfChances; }
@@ -90,8 +176,17 @@ namespace rollmissions
                 PhotonNetwork.RaiseEvent((byte)PhotonEventCode.setNumberOfChances, numberOfChanceData, EventManger.AllOtherThanMePeopleOptions, SendOptions.SendReliable);
             }
         }
+        /// <summary>
+        /// The variable for the timer
+        /// </summary>
         private float currentTime = 0f;
-
+        /// <summary>
+        /// Function will run for every frame
+        /// </summary>
+        /// <remarks>
+        /// If timer is not 0 then the interatebility of the start mission button is set to false <br/>
+        /// Else its true
+        /// </remarks>
         void Update()
         {
             if (currentTime <= 0)
@@ -109,7 +204,19 @@ namespace rollmissions
                 //PhotonNetwork.RaiseEvent((byte)PhotonEventCode.setTimerForRoll, timer, EventManger.AllOtherThanMePeopleOptions, SendOptions.SendReliable);
             }
         }
+        /// <summary>
+        /// To set the time mer text 
+        /// </summary>
+        /// <param name="time"> The current timer value</param>
         public void setTimer(string time) => missionRollController.setTimerText = time;
+        /// <summary>
+        /// When its your time to run
+        /// </summary>
+        /// <remarks>
+        /// This will reset all the value needed to start roll. <br/>
+        /// Then will add the mission job/task into the JobInfoList and update the text for all the text while sending the text to other people <br/>
+        /// Then setting the number of chances and tell send info to everyone about your mission card as well as telling this current player is rolling now
+        /// </remarks>
         public void setRollTimeIsMyTurn()
         {
             switchStage(1);
@@ -189,7 +296,15 @@ namespace rollmissions
             object[] chatInfo = new object[] { "It's "+PhotonNetwork.LocalPlayer.NickName+" turn to roll their mission.", null, false };
             PhotonNetwork.RaiseEvent((byte)PhotonEventCode.forChat, chatInfo, EventManger.AllPeople, SendOptions.SendReliable);
         }
+        /// <summary>
+        /// This is to set the current timer 
+        /// </summary>
         public void startTimer() => currentTime = 3;
+        /// <summary>
+        /// When receiving the value on who is current rolling and their current mission card
+        /// </summary>
+        /// <param name="whichPlayer">Which player who is playin </param>
+        /// <param name="MissionCardCode">The mission card code being played </param>
         public void onReceiveSetOtherPlayerRoll(Player whichPlayer, int MissionCardCode)
         {
             switchStage(1);
@@ -200,6 +315,14 @@ namespace rollmissions
             missionRollController.setActiveStartMissionButton = false;
             RollingMissionOBJ.SetActive(true);
         }
+        /// <summary>
+        /// To receiving and setting the text for all the text
+        /// </summary>
+        /// <param name="task1">Text for task 1</param>
+        /// <param name="hasTask2">If there is task 2 then true else false</param>
+        /// <param name="task2">Text for task 2</param>
+        /// <param name="hasTask3">If there is task 3 then true else false</param>
+        /// <param name="task3">Text for task 3</param>
         public void onReceiveTextBeforeRollTasks(string task1, bool hasTask2, string task2, bool hasTask3, string task3)
         {
             missionRollController.settask1beforeText = task1;
@@ -210,6 +333,15 @@ namespace rollmissions
             if (hasTask3)
                 missionRollController.settask3beforeText = task3;
         }
+        /// <summary>
+        /// To switch between the stages before roll, during roll and after roll or close
+        /// </summary>
+        /// <param name="whichStage">
+        /// If switchStage = 1 then open before only <br/>
+        /// else If switchStage = 2 then open during only <br/>
+        /// else If switchStage = 3 then open after only <br/>
+        /// else close everything and popup 
+        /// </param>
         public void switchStage(int whichStage)
         {
             if (whichStage == 1)
@@ -238,7 +370,17 @@ namespace rollmissions
                 missionRollController.setAfterMission = false;
             }
         }
+        /// <summary>
+        /// This is to attached to the mission card to open the pop up for the current mission
+        /// </summary>
         public void OnClickOnMissionCard() => popup.clickOnCard(setGetCurrentCard, whoTurn, false);
+        /// <summary>
+        /// This is attached to the start button to start rolling.
+        /// </summary>
+        /// <remarks>
+        /// To set all the text and for missions for during mission <br/>
+        /// and tell that it is rolling time
+        /// </remarks>
         public void onClickOnStartButton()
         {
             switchStage(2);
@@ -257,9 +399,11 @@ namespace rollmissions
             missionRollController.setActiveRollButton = true;
             currentTask = 0;
             setCurrentTask();
-            object[] playerDuringdata = new object[] { };
-            PhotonNetwork.RaiseEvent((byte)PhotonEventCode.setToDuringRoll, playerDuringdata, EventManger.AllOtherThanMePeopleOptions, SendOptions.SendReliable);
+            PhotonNetwork.RaiseEvent((byte)PhotonEventCode.setToDuringRoll, null, EventManger.AllOtherThanMePeopleOptions, SendOptions.SendReliable);
         }
+        /// <summary>
+        /// On receiving that it is during roll
+        /// </summary>
         public void onReceiveChangeToDuringTask()
         {
             switchStage(2);
@@ -268,6 +412,12 @@ namespace rollmissions
             onReceiveDuringTaskProgressText(3, "waiting");
             missionRollController.setActiveRollButton = false;
         }
+        /// <summary>
+        /// This is for characters like iva that can reroll and for some entropy cards
+        /// </summary>
+        /// <remarks>
+        /// To send everyone that you have reroll
+        /// </remarks>
         public void chanceToReroll()
         {
             for (int i =0;i < JobInfoList.Count; i++)
@@ -283,6 +433,13 @@ namespace rollmissions
             switchStage(2);
             PhotonNetwork.RaiseEvent((byte)PhotonEventCode.setSceneForReRoll, null, EventManger.AllOtherThanMePeopleOptions, SendOptions.SendReliable);
         }
+        /// <summary>
+        /// This is to set the current task
+        /// </summary>
+        /// <remarks>
+        /// If passing then will skip to next task if next is not the last task then setCurrentTask will be called again else setEndScene <br/>
+        /// else the current task text will be set 
+        /// </remarks>
         public void setCurrentTask()
         {
             if (JobInfoList[currentTask].passingOrNot)
@@ -309,17 +466,36 @@ namespace rollmissions
                 PhotonNetwork.RaiseEvent((byte)PhotonEventCode.setDuringRollText, playerDuringtextdata, EventManger.AllOtherThanMePeopleOptions, SendOptions.SendReliable);
             }
         }
+        /// <summary>
+        /// This is when receiveing the text for the roll text 
+        /// </summary>
+        /// <param name="currentTaskName">the text of currentTaskName</param>
+        /// <param name="whichIsCurrentTask">the text of whichIsCurrentTask</param>
+        /// <param name="mustbeLessthan">the text of mustbeLessthan</param>
         public void onReceiveControllText(string currentTaskName, string whichIsCurrentTask, string mustbeLessthan)
         {
             missionRollController.setCurrentText = currentTaskName;
             missionRollController.setWhichIsCurrentTask = whichIsCurrentTask;
             missionRollController.setrollGoalText = mustbeLessthan;
-
         }
+        /// <summary>
+        /// When receiving the number of chances for the current roll
+        /// </summary>
+        /// <param name="value">The number of rolls</param>
         public void onReceiveNumberOfChances(string value)
         {
             missionRollController.setNumberOfChances = value;
         }
+        /// <summary>
+        /// To set the UI text for the during roll progress. And sent to everyone else
+        /// </summary>
+        /// <param name="which">
+        /// Which task :<br/>
+        /// 1 = the first task <br/>
+        /// 2 = the second task <br/>
+        /// 3 = the third task <br/>
+        /// </param>
+        /// <param name="text">The text for the task</param>
         public void setDuringProgessText(int which, string text)
         {
             if (which == 1)
@@ -331,6 +507,16 @@ namespace rollmissions
             object[] setProcessTextdata = new object[] { which, text };
             PhotonNetwork.RaiseEvent((byte)PhotonEventCode.setProcessText, setProcessTextdata, EventManger.AllOtherThanMePeopleOptions, SendOptions.SendReliable);
         }
+        /// <summary>
+        /// On receiving the text of the during task roll progress
+        /// </summary>
+        /// <param name="which">
+        /// Which task :<br/>
+        /// 1 = the first task <br/>
+        /// 2 = the second task <br/>
+        /// 3 = the third task <br/>
+        /// </param>
+        /// <param name="text">The text for the task</param>
         public void onReceiveDuringTaskProgressText(int which, string text)
         {
             if (which == 1)
@@ -340,6 +526,16 @@ namespace rollmissions
             else if (which == 3)
                 missionRollController.settask3duringText = text;
         }
+        /// <summary>
+        /// This is to set the status of all the tasks
+        /// </summary>
+        /// <param name="which">
+        /// Which task :<br/>
+        /// 1 = the first task <br/>
+        /// 2 = the second task <br/>
+        /// 3 = the third task <br/>
+        /// </param>
+        /// <param name="text">The text for the status of the roll</param>
         public void setDuringStatusText(int which, string text)
         {
             string tempstring = GetStringOfTask.get_string_of_job(JobInfoList[which - 1].skillName);
@@ -352,6 +548,16 @@ namespace rollmissions
             object[] setStatusTextdata = new object[] { which, tempstring + ":" + text };
             PhotonNetwork.RaiseEvent((byte)PhotonEventCode.setStatusText, setStatusTextdata, EventManger.AllOtherThanMePeopleOptions, SendOptions.SendReliable);
         }
+        /// <summary>
+        /// On receiving to set the status of all the tasks
+        /// </summary>
+        /// <param name="which">
+        /// Which task :<br/>
+        /// 1 = the first task <br/>
+        /// 2 = the second task <br/>
+        /// 3 = the third task <br/>
+        /// </param>
+        /// <param name="text">The text for the status of the roll</param>
         public void onReceiveTaskStatusText(int which, string text)
         {
             if (which == 1)
@@ -361,6 +567,16 @@ namespace rollmissions
             else if (which == 3)
                 missionRollController.setTaskThreeStatusStatus = text;
         }
+        /// <summary>
+        /// This is when there was an update to the skill [ adding skillEffector ]
+        /// </summary>
+        /// <param name="which">
+        /// Which task :<br/>
+        /// 1 = the first task <br/>
+        /// 2 = the second task <br/>
+        /// 3 = the third task <br/>
+        /// </param>
+        /// <param name="amount">The amount changed</param>
         public void upDateSkillAmount(int which, int amount)
         {
             if (which == 1)
@@ -391,6 +607,9 @@ namespace rollmissions
                 JobInfoList[2].addSkillAmount(amount);
             }
         }
+        /// <summary>
+        /// To check if there are any skill effectors for the current tasks
+        /// </summary>
         public void checkSkillEffector()
         {
             foreach (SkillEffector skillEffector in skillEffectorsList)
@@ -409,6 +628,10 @@ namespace rollmissions
                 PhotonNetwork.RaiseEvent((byte)PhotonEventCode.textForTextBeforeRoll, textForBeforeTask, EventManger.AllOtherThanMePeopleOptions, SendOptions.SendReliable);
             }
         }
+        /// <summary>
+        /// This is used to check the skill effector after a swap in skills
+        /// </summary>
+        /// <param name="position">The position of the task being swapped</param>
         public void checkSkillEffector(int position)
         {
             foreach (SkillEffector skillEffector in skillEffectorsList)
@@ -424,6 +647,12 @@ namespace rollmissions
                 PhotonNetwork.RaiseEvent((byte)PhotonEventCode.textForTextBeforeRoll, textForBeforeTask, EventManger.AllOtherThanMePeopleOptions, SendOptions.SendReliable);
             }
         }
+        /// <summary>
+        /// To add new skill effectors
+        /// </summary>
+        /// <param name="whichJob">Which job is being effected</param>
+        /// <param name="whichTurn">On which turn</param>
+        /// <param name="amount">The amount change</param>
         public void addSkillEffector(AllJobs whichJob, int whichTurn, int amount)
         {
             SkillEffector tempEffector= new SkillEffector(whichJob, amount, whichTurn);
@@ -447,6 +676,9 @@ namespace rollmissions
                 PhotonNetwork.RaiseEvent((byte)PhotonEventCode.textForTextBeforeRoll, textForBeforeTask, EventManger.AllOtherThanMePeopleOptions, SendOptions.SendReliable);
             }
         }
+        /// <summary>
+        /// This is when the roll button is pressed that will start the roll and see if the task has passed or failed
+        /// </summary>
         public void clickOnRollButton()
         {
             if (numberOfChances != 0)
@@ -490,7 +722,14 @@ namespace rollmissions
             }
 
         }
+        /// <summary>
+        /// On receiving the amount rolled
+        /// </summary>
+        /// <param name="rolledValue">amount rolled</param>
         public void onReceiveRolledValue(int rolledValue) => missionRollController.setRolledNumber = rolledValue;
+        /// <summary>
+        /// To set the end scene
+        /// </summary>
         public void setEndScene()
         {
             switchStage(3);
@@ -498,6 +737,9 @@ namespace rollmissions
             missionRollController.setActiveendMissionButton = true;
             PhotonNetwork.RaiseEvent((byte)PhotonEventCode.setEndScene, null, EventManger.AllOtherThanMePeopleOptions, SendOptions.SendReliable);
         }
+        /// <summary>
+        /// To check is the current mission is failing or not 
+        /// </summary>
         public void checkCurrentMissionStatus()
         {
             CurrentMissionStatus = true;
@@ -533,6 +775,9 @@ namespace rollmissions
             object[] CurrentMissionStatusData = new object[] { missionRollController.setcurrentMissionStatusText };
             PhotonNetwork.RaiseEvent((byte)PhotonEventCode.setCurrentMissionStatus, CurrentMissionStatusData, EventManger.AllOtherThanMePeopleOptions, SendOptions.SendReliable);
         }
+        /// <summary>
+        /// To set the status text [ reward or penalty] of the curent mission 
+        /// </summary>
         public void setStatusOutputText()
         {
             if (CurrentMissionStatus)
@@ -544,18 +789,32 @@ namespace rollmissions
                 setCurrentMissionOutputText(setGetCurrentCard.iffailText);
             }
         }
+        /// <summary>
+        /// This is to set the current mission status text as well as sending it to other people 
+        /// </summary>
+        /// <param name="text">the text of reward or penalty </param>
         public void setCurrentMissionOutputText(string text)
         {
             missionRollController.setGetMissionStatusOutPut = text;
             object[] CurrentMissionStatusOutputData = new object[] { missionRollController.setGetMissionStatusOutPut };
             PhotonNetwork.RaiseEvent((byte)PhotonEventCode.setStatusOutput, CurrentMissionStatusOutputData, EventManger.AllOtherThanMePeopleOptions, SendOptions.SendReliable);
         }
+        /// <summary>
+        /// On receiving and set the current mission status text
+        /// </summary>
+        /// <param name="text">the text of reward or penalty </param>
         public void onReceiveCurrentMissionOutputText(string text) => missionRollController.setGetMissionStatusOutPut = text;
+        /// <summary>
+        /// On receiving to change to the end scene
+        /// </summary>
         public void onReceiveEndScene()
         {
             switchStage(3);
             missionRollController.setActiveendMissionButton = false;
         }
+        /// <summary>
+        /// When an entropy card is removed this function is called
+        /// </summary>
         public void removedAnEntropy()
         {
             if (userArea.users[0].characterScript.character_code== 8)
@@ -582,7 +841,18 @@ namespace rollmissions
             }
             numberOfEntroCardsRemoved += 1;
         }
+        /// <summary>
+        /// This is to set the text for the current mission status text 
+        /// </summary>
+        /// <param name="text">The text either pass or fail </param>
         public void onReceiveCurrentMissionStatus(string text) => missionRollController.setcurrentMissionStatusText = text;
+        /// <summary>
+        /// This function is called when the button to end roll is clicked
+        /// </summary>
+        /// <remarks>
+        /// Will set the correct reward/penalty as well as taking into account to the mission Id <br/>
+        /// This will also remove all the skill effector with the current round number 
+        /// </remarks>
         public void onClickEndTurnButton()
         { 
             if (CurrentMissionStatus)
@@ -636,8 +906,20 @@ namespace rollmissions
                     GameObject.Destroy(child.gameObject);
                 }
             }
+            for (int i =0; i < skillEffectorsList.Count; i++)
+            {
+                if (turnManager.RoundNumber == skillEffectorsList[i].RoundNumber)
+                {
+                    skillEffectorsList.Remove(skillEffectorsList[i]);
+                }
+            }
             turnManager.EndTurn();
         }
+        /// <summary>
+        /// This function is used to swap askill of a task
+        /// </summary>
+        /// <param name="skill1">The info of which task to swap</param>
+        /// <param name="skill2">The skill to change to</param>
         public void swapSkill(skillToSwap skill1,AllJobs skill2)
         {
             int whichPosition = skill1.info.position;
@@ -687,6 +969,12 @@ namespace rollmissions
             }
             checkSkillEffector(whichPosition);
         }
+        /// <summary>
+        /// Entorpy card to function to convert the task from fail to pass
+        /// </summary>
+        /// <param name="whichTask"> Which kind of task to convert to pass </param>
+        /// <param name="cost">The cost of the card</param>
+        /// <param name="entropyCard"> The entropy card Id</param>
         public void convertFailedToPass(AllJobs whichTask, int cost,EntropyCardScript entropyCard)
         {
             bool ifCanChange = false;
@@ -734,6 +1022,13 @@ namespace rollmissions
                 userArea.addMyMoney(cost);
             }
         }
+        /// <summary>
+        /// To check if the entropy card played can late reroll. <br/>
+        /// If entropy is 3 then the varable entopy3 = to true if the next roll fails entropy card with id 3 will be removed
+        /// </summary>
+        /// <param name="whichTask"> Which task </param>
+        /// <param name="cost">the cost</param>
+        /// <param name="cardID">The entropy card id</param>
         public void checkIfCanReroll(AllJobs whichTask,int cost,int cardID)
         {
             bool CantReroll = true;

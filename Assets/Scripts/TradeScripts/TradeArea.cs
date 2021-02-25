@@ -9,11 +9,30 @@ using UserAreas;
 
 namespace TradeScripts
 {
+    /// <summary> 
+    /// This script is to control all the elements for each trading box [ each player has one ]
+    /// </summary>
     public class TradeArea : MonoBehaviour
     {
-        [SerializeField] private GameObject NickName = null, AttendingOrNotPanel = null,panelText = null, AskToTradeButton = null, CancelTrade = null, AcceptTrade = null, rejectTrade = null, askingText = null, beingAskText = null, missionCard = null, inputBribe = null;
+        /// <summary>
+        /// This is a game object required for each trading box [ each player has one ]
+        /// </summary>
+        [SerializeField,Header("Game objects needed")] private GameObject NickName = null;
+        /// <summary>
+        /// This is a game object required each trading box [ each player has one ]
+        /// </summary>
+        [SerializeField] private GameObject AttendingOrNotPanel = null,panelText = null, AskToTradeButton = null, CancelTrade = null, AcceptTrade = null, rejectTrade = null, askingText = null, beingAskText = null, missionCard = null, inputBribe = null;
+        /// <summary>
+        /// This hold the script for the UserAreaControlers
+        /// </summary>
         [SerializeField] private UserAreaControlers userControler = null ;
+        /// <summary>
+        /// The string for the nickname of the player
+        /// </summary>
         private string nickname;
+        /// <summary>
+        /// To get/set the nickname of the player when set the UI for the nickname will be updated to the new value
+        /// </summary>
         public string nickName
         {
             get { return nickname; }
@@ -23,7 +42,13 @@ namespace TradeScripts
                 NickName.GetComponent<Text>().text = nickname;
             }
         }
+        /// <summary>
+        /// The value if he/she is attending the meeting
+        /// </summary>
         private bool Attending;
+        /// <summary>
+        /// To get/set the attending value when set the UI if person is attending not attending will change accordingly 
+        /// </summary>
         public bool attending
         {
             get { return Attending; }
@@ -33,6 +58,9 @@ namespace TradeScripts
                 AttendingOrNotPanel.SetActive(!Attending);
             }
         }
+        /// <summary>
+        /// This is to set the panelText text 
+        /// </summary>
         public string attending_text
         {
             set
@@ -40,68 +68,79 @@ namespace TradeScripts
                 panelText.GetComponent<Text>().text = value;
             }
         }
-
-        private bool askingButton;
+        /// <summary>
+        /// To get/set if the interactability of the button AskToTradeButton
+        /// </summary>
         public bool askButton
         {
-            get { return askingButton; }
+            get { return AskToTradeButton.GetComponent<Button>().interactable; }
             set
             {
-                askingButton = value;
-                AskToTradeButton.GetComponent<Button>().interactable = askingButton;
+                AskToTradeButton.GetComponent<Button>().interactable = value;
             }
         }
-        private bool cancelAskButton;
+        /// <summary>
+        /// To get/set if the interactability of the button CancelTrade
+        /// </summary>
         public bool cancelButton
         {
-            get { return cancelAskButton; }
+            get { return CancelTrade.GetComponent<Button>().interactable; }
             set
             {
-                cancelAskButton = value;
-                CancelTrade.GetComponent<Button>().interactable = cancelAskButton;
+                CancelTrade.GetComponent<Button>().interactable = value;
             }
         }
-        private bool acceptTradeButton;
+        /// <summary>
+        /// To get/set if the interactability of the button AcceptTrade
+        /// </summary>
         public bool acceptButton
         {
-            get { return acceptTradeButton; }
+            get { return AcceptTrade.GetComponent<Button>().interactable; }
             set
             {
-                acceptTradeButton = value;
-                AcceptTrade.GetComponent<Button>().interactable = acceptTradeButton;
+                AcceptTrade.GetComponent<Button>().interactable = value;
             }
         }
-        private bool rejectTradeButton;
+        /// <summary>
+        /// To get/set if the interactability of the button rejectButton
+        /// </summary>
         public bool rejectButton
         {
-            get { return rejectTradeButton; }
+            get { return GetComponent<Button>().interactable; }
             set
             {
-                rejectTradeButton = value;
-                rejectTrade.GetComponent<Button>().interactable = rejectTradeButton;
+                rejectTrade.GetComponent<Button>().interactable = value;
             }
         }
-        private string asking;
+        /// <summary>
+        /// To get/set the text for the game object askingText
+        /// </summary>
         public string setAskingText
         {
-            get { return asking; }
+            get { return askingText.GetComponent<Text>().text; }
             set 
             { 
-                asking = value;
-                askingText.GetComponent<Text>().text = asking;
+                askingText.GetComponent<Text>().text = value;
             }
         }
-        private string gettingAsk;
+        /// <summary>
+        /// To get/set the text for the game object beingAskText
+        /// </summary>
         public string setgettingAskText
         {
-            get { return gettingAsk; }
+            get { return beingAskText.GetComponent<Text>().text; }
             set
             {
-                gettingAsk = value;
-                beingAskText.GetComponent<Text>().text = gettingAsk;
+                beingAskText.GetComponent<Text>().text = value;
             }
         }
+        /// <summary>
+        /// The ID of their mission card ID 
+        /// </summary>
         private int missionID;
+        /// <summary>
+        /// To get/set the missionID of the player as well as setting the Image of missionCard when set
+        /// </summary>
         public int setgetmissionID
         {
             get { return missionID; }
@@ -111,16 +150,20 @@ namespace TradeScripts
                 missionCard.GetComponent<Image>().sprite = missionCardDeck.cardDeck[missionID - 1].artwork_front_info;
             }
         }
-        private bool bribeInput;
+        /// <summary>
+        /// To get/set if the interactability of the button inputBribe
+        /// </summary>
         public bool BribeInput
         {
-            get { return bribeInput; }
+            get { return inputBribe.GetComponent<TMP_InputField>().interactable; }
             set
             {
-                bribeInput = value;
-                inputBribe.GetComponent<TMP_InputField>().interactable = bribeInput;
+                inputBribe.GetComponent<TMP_InputField>().interactable = value;
             }
         }
+        /// <summary>
+        /// to set the TMP_InputField text 
+        /// </summary>
         public string setBribeInputValue
         {
             set
@@ -128,9 +171,21 @@ namespace TradeScripts
                 inputBribe.GetComponent<TMP_InputField>().text = value;
             }
         }
+        /// <summary>
+        /// To get/set the value of amountAskingBribing
+        /// </summary>
         public int amountAskingBribing { get; set; }
+        /// <summary>
+        /// To get/set the value of amountBeingBribed
+        /// </summary>
         public int amountBeingBribed { get; set; }
+        /// <summary>
+        /// To get/set the value of AttendedThisRound
+        /// </summary>
         public bool AttendedThisRound { get; set; }
+        /// <summary>
+        /// This is to detect if the input of the inputBribe componet has changed
+        /// </summary>
         public void OnDetectInputchange()
         {
             int convertedToInt;
@@ -159,10 +214,13 @@ namespace TradeScripts
                 askButton = false;
             }
         }
+        /// <summary>
+        /// When the ask trade button is clicked 
+        /// </summary>
         public void setAskTrade()
         {
             amountAskingBribing = int.Parse(inputBribe.GetComponent<TMP_InputField>().text);
-            cancelAskButton = true;
+            cancelButton = true;
         }
     }
 }

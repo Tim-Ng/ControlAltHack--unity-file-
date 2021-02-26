@@ -2592,7 +2592,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roundIndicator: {fileID: 781600178}
   PlayerIdToMakeThisTurn: 0
-  currentPositionInArray: 0
   TurnNumber: 0
   RoundNumber: 0
 --- !u!114 &356750439
@@ -2807,18 +2806,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9afab4647b19c6944bb145694e335602, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  userControler: {fileID: 356750432}
-  missionCardArea: {fileID: 1734377028}
   opponent1: {fileID: 232278746}
   opponent2: {fileID: 375090563}
   opponent3: {fileID: 535111675}
   opponent4: {fileID: 131019520}
   opponent5: {fileID: 1094491499}
   HowManyPeople: 0
-  tradePanel: {fileID: 974634417}
+  missionCardArea: {fileID: 1734377028}
   MyNickName: {fileID: 1573674534}
   MyMoney: {fileID: 1644923758}
   myMissionCard: {fileID: 187774237}
+  tradePanel: {fileID: 974634417}
 --- !u!114 &356750448
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2851,10 +2849,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3419cadf17756184abfc71481c71b81e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  missionRollController: {fileID: 129418574}
   bgmMusic: {fileID: 1554079376}
   normal: {fileID: 8300000, guid: 65944acc81b7d3943bce8e5e3773475d, type: 3}
   duringLightning: {fileID: 8300000, guid: 23dff9e0c3699d740abdf0338973fdac, type: 3}
-  missionRollController: {fileID: 129418574}
   lightningRollOBJs: {fileID: 2102017823}
   entropyRollCard: {fileID: 26467980}
   whichSkillAgainst: {fileID: 1892370558}

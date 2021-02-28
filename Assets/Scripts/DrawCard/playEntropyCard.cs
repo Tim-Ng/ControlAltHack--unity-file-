@@ -67,7 +67,7 @@ namespace DrawCards
         /// <summary>
         /// These are the gameobjects that are used for the lightning roll
         /// </summary>
-        [SerializeField] private GameObject entropyRollCard = null, whichSkillAgainst = null, amountRolled = null, amountNeeded= null,rollButtonEntropy = null;
+        [SerializeField] private GameObject entropyRollCard = null, whichSkillAgainst = null, amountRolled = null, amountNeeded= null,rollButtonEntropy = null,continueButton =null ,statusText = null;
         /// <summary>
         /// The variable that holds the amount needed to be rolled during the lightning roll
         /// </summary>
@@ -76,6 +76,21 @@ namespace DrawCards
         /// This hold the data of the entropy card the is being played
         /// </summary>
         private EntropyCardScript entropyRollStrike = null;
+        /// <summary>
+        /// Check if roll Fail 
+        /// </summary>
+        /// <remarks>
+        /// True = pass <br/>
+        /// False= failed 
+        /// </remarks>
+        private bool lightningFailOrNot = false;
+        /// <summary>
+        /// Set status text
+        /// </summary>
+        public string setLightningStatus
+        {
+            set { statusText.GetComponent<Text>().text = "Status :" + value; }
+        }
         /// <summary>
         /// This is used to set/get the variable amountNeededToRoll 
         /// </summary>
@@ -300,7 +315,11 @@ namespace DrawCards
             lightningRollOBJs.SetActive(true);
             entropyRollStrike = entropyCardDeck.cardDeck[whichCard - 1];
             entropyRollCard.GetComponent<Image>().sprite = entropyRollStrike.artwork_info;
+            setLightningStatus = "rolling";
             rollButtonEntropy.SetActive(true);
+            rollButtonEntropy.GetComponent<Button>().interactable = true;
+            continueButton.SetActive(true);
+            continueButton.GetComponent<Button>().interactable = false;
             if (whichCard == 25)
             {
                 whichSkillAgainst.GetComponent<Text>().text = GetStringOfTask.get_string_of_job(AllJobs.SocialEng);
@@ -320,23 +339,40 @@ namespace DrawCards
         public void clickOnRollButtonlightningRoll()
         {
             System.Random rand = new System.Random((int)DateTime.Now.Ticks);
+            rollButtonEntropy.GetComponent<Button>().interactable = false;
+            continueButton.GetComponent<Button>().interactable = true;
             int x = rand.Next(0, 18);
             amountRolled.GetComponent<Text>().text = x.ToString();
-            object[] entropyLightningRolledJData = new object[] { amountRolled.GetComponent<Text>().text };
-            PhotonNetwork.RaiseEvent((byte)PhotonEventCode.sendLightingStrikeRolled, entropyLightningRolledJData, EventManager.AllOtherThanMePeopleOptions, SendOptions.SendReliable);
-            if (x < amountNeededToRoll)
+            if (x >= amountNeededToRoll)
             {
-                if (entropyRollStrike.EntropyCardID == 25)
-                {
-                    userArea.subMyCred(1);
-                    lightningRollOBJs.SetActive(false);
-                }
-                else
-                {
-                    rollingControl.onClickEndTurnButton();
-                }
+                lightningFailOrNot = false;
+                setLightningStatus = "Failed";
+            }
+            else
+            {
+                lightningFailOrNot = true;
+                setLightningStatus = "Passed";
+            }
+            object[] entropyLightningRolledJData = new object[] { amountRolled.GetComponent<Text>().text, lightningFailOrNot };
+            PhotonNetwork.RaiseEvent((byte)PhotonEventCode.sendLightingStrikeRolled, entropyLightningRolledJData, EventManager.AllOtherThanMePeopleOptions, SendOptions.SendReliable);
+        }
+        /// <summary>
+        /// The button to continue the mission
+        /// </summary>
+        public void lightningContinueButton()
+        {
+            if (entropyRollStrike.EntropyCardID == 25)
+            {
+                userArea.subMyCred(1);
+                lightningRollOBJs.SetActive(false);
+            }
+            else
+            {
+                rollingControl.onClickEndTurnButton();
             }
             lightningRollOBJs.SetActive(false);
+            PhotonNetwork.RaiseEvent((byte)PhotonEventCode.LightningDone, null , EventManager.AllOtherThanMePeopleOptions, SendOptions.SendReliable);
+
         }
         /// <summary>
         /// This function is called when another player is under a ligthning strike roll
@@ -350,6 +386,8 @@ namespace DrawCards
             bgmMusic.Play();
             lightningRollOBJs.SetActive(true);
             rollButtonEntropy.SetActive(false);
+            continueButton.SetActive(false);
+            setLightningStatus = "rolling";
             entropyRollCard.GetComponent<Image>().sprite = entropyCardDeck.cardDeck[whichCard - 1].artwork_info;
             setamountNeededToRoll = whichAmount;
             whichSkillAgainst.GetComponent<Text>().text = whichSkill;
@@ -358,11 +396,26 @@ namespace DrawCards
         /// This is when a lighting roll is rolled and ended
         /// </summary>
         /// <param name="amountRolledText"> This is the amount roll by the player</param>
-        public void onReceiveRolled(string amountRolledText)
+        /// <param name="passOrNot"> If the roll passed or not </param>
+        public void onReceiveRolled(string amountRolledText,bool passOrNot)
         {
+            if (!passOrNot)
+            {
+                setLightningStatus = "Failed";
+            }
+            else
+            {
+                setLightningStatus = "Failed";
+            }
             bgmMusic.clip = normal;
             bgmMusic.Play();
             amountRolled.GetComponent<Text>().text = amountRolledText;
+        }
+        /// <summary>
+        /// Lightning done
+        /// </summary>
+        public void onReceiveDone()
+        {
             lightningRollOBJs.SetActive(false);
         }
         /// <summary>

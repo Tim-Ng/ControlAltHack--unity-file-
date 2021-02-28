@@ -838,6 +838,7 @@ namespace rollmissions
             if (userArea.users[0].characterScript.character_code== 8)
             {
                 setgetnumberOfChances += 1;
+                entropyRemove = 0;
                 if (missionRollController.setAfterMission)
                 {
                     chanceToReroll();

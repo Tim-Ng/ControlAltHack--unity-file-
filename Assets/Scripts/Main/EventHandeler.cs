@@ -198,6 +198,10 @@ namespace main
         /// receive name update due to that player having same name with another player / send your new name due to having t he same name as another player
         /// </summary>
         foundSameName =45,
+        /// <summary>
+        /// receive Done with lightning roll / send done with lightning roll
+        /// </summary>
+        LightningDone =46
     }
 
     /// <summary>
@@ -532,7 +536,7 @@ namespace main
             else if (obj.Code == (byte)PhotonEventCode.sendLightingStrikeRolled)
             {
                 object[] entropyLightningRolledJData = (object[])obj.CustomData;
-                playEntropy.onReceiveRolled((string)entropyLightningRolledJData[0]);
+                playEntropy.onReceiveRolled((string)entropyLightningRolledJData[0],(bool)entropyLightningRolledJData[1]);
             }
             else if (obj.Code == (byte)PhotonEventCode.sendPlayerFired)
             {
@@ -581,6 +585,10 @@ namespace main
             else if (obj.Code == (byte)PhotonEventCode.foundSameName)
             {
                 userControler.updateNumberOfPlayers();
+            }
+            else if (obj.Code == (byte)PhotonEventCode.LightningDone)
+            {
+                playEntropy.onReceiveDone();
             }
         }
     }

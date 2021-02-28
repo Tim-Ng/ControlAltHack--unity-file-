@@ -105,9 +105,18 @@ namespace rollmissions
         /// This list holds all the job/task of this mission in the form of jobInfos
         /// </summary>
         public List<jobInfos> JobInfoList = new List<jobInfos>();
-        
+        /// <summary>
+        /// The current mission card data
+        /// </summary>
         private MissionCardScript currentCard = null;
+        /// <summary>
+        /// If mission is failing or not
+        /// </summary>
+        [HideInInspector]
         public bool CurrentMissionStatus = false;
+        /// <summary>
+        /// This is for when entropy card ID 3 is played
+        /// </summary>
         private bool entopy3 = false;
         /// <summary>
         /// This function is called when this script is rendered.
@@ -158,6 +167,7 @@ namespace rollmissions
         /// <summary>
         /// The amount of entropy card discarded during the mission roll
         /// </summary>
+        [HideInInspector]
         public int numberOfEntroCardsRemoved = 0;
         /// <summary>
         /// To set and get the number of chances left 
@@ -459,6 +469,7 @@ namespace rollmissions
             else
             {
                 setDuringProgessText(currentTask + 1, "In progress");
+                missionRollController.setRollOrNextTaskInteractability = true;
                 missionRollController.setCurrentText = GetStringOfTask.get_string_of_job(JobInfoList[currentTask].skillName);
                 missionRollController.setWhichIsCurrentTask = (currentTask + 1).ToString();
                 missionRollController.setrollGoalText = JobInfoList[currentTask].amount.ToString();
@@ -711,16 +722,23 @@ namespace rollmissions
                         entopy3 = false;
                     }
                 }
-                if ((currentTask + 1) <= JobInfoList.Count && numberOfChances != 0)
-                {
-                    setCurrentTask();
-                }
-                else
-                {
-                    setEndScene();
-                }
+                missionRollController.setRollOrNextTaskInteractability = false;
             }
 
+        }
+        /// <summary>
+        /// This function is for the click next button 
+        /// </summary>
+        public void clickOnNextButton()
+        {
+            if ((currentTask + 1) <= JobInfoList.Count && numberOfChances != 0)
+            {
+                setCurrentTask();
+            }
+            else
+            {
+                setEndScene();
+            }
         }
         /// <summary>
         /// On receiving the amount rolled

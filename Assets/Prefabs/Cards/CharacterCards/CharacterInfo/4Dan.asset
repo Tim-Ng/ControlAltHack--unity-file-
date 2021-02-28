@@ -20,7 +20,7 @@ MonoBehaviour:
   input_hardware: 11
   input_cryptanalysis: 10
   input_network: 13
-  input_socal: 11
+  input_social: 11
   input_kitchen: 9
   input_software: 10
   ad_disadvantages: 9999 for lockpicking

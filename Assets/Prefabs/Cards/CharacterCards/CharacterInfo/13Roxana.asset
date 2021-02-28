@@ -20,11 +20,11 @@ MonoBehaviour:
   input_hardware: 11
   input_cryptanalysis: 14
   input_network: 11
-  input_socal: 10
+  input_social: 10
   input_kitchen: 9
   input_software: 11
   ad_disadvantages: sub by discard 2 cards
-  special: 
-  input_special: 0
-  special2: 
+  special1: 0
+  input_special1: 0
+  special2: 0
   input_special2: 0

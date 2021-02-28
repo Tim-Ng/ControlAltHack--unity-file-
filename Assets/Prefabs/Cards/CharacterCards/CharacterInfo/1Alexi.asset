@@ -20,7 +20,7 @@ MonoBehaviour:
   input_hardware: 10
   input_cryptanalysis: 11
   input_network: 9
-  input_socal: 12
+  input_social: 12
   input_kitchen: 19
   input_software: 19
   ad_disadvantages: 1 extra free roll

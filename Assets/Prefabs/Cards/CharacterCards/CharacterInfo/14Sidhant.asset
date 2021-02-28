@@ -20,7 +20,7 @@ MonoBehaviour:
   input_hardware: 12
   input_cryptanalysis: 10
   input_network: 12
-  input_socal: 10
+  input_social: 10
   input_kitchen: 9
   input_software: 11
   ad_disadvantages: +1 cred

@@ -20,11 +20,11 @@ MonoBehaviour:
   input_hardware: 10
   input_cryptanalysis: 10
   input_network: 11
-  input_socal: 10
+  input_social: 10
   input_kitchen: 8
   input_software: 10
   ad_disadvantages: remove entropy for more roll
-  special: 
-  input_special: 0
-  special2: 
+  special1: 0
+  input_special1: 0
+  special2: 0
   input_special2: 0

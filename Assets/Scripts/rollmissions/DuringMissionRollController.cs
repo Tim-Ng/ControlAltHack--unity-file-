@@ -26,7 +26,7 @@ namespace rollmissions
         /// <summary>
         /// These are the game object for the elements of current task mission
         /// </summary>
-        [SerializeField] GameObject currentTaskText = null, rolledNumber = null, task1duringText = null, task2duringText = null, task3duringText = null, rollGoalText = null, chancesLeft = null, whichTask = null,rollButton = null;
+        [SerializeField] GameObject currentTaskText = null, rolledNumber = null, task1duringText = null, task2duringText = null, task3duringText = null, rollGoalText = null, chancesLeft = null, whichTask = null,rollButton = null,nextTask=null;
         /// <summary>
         /// These are the game object for the elements of after task mission
         /// </summary>
@@ -224,7 +224,25 @@ namespace rollmissions
         /// </summary>
         public bool setActiveRollButton
         {
-            set { rollButton.SetActive(value); }
+            set { 
+                rollButton.SetActive(value);
+                nextTask.SetActive(value);
+            }
+        }
+        /// <summary>
+        /// This is used to check set the interactability of roll and next task button
+        /// </summary>
+        /// <remarks>
+        /// True = roll is true next button is false <br/>
+        /// False= roll is false next button is true
+        /// </remarks>
+        public bool setRollOrNextTaskInteractability
+        {
+            set
+            {
+                rollButton.GetComponent<Button>().interactable=value;
+                nextTask.GetComponent<Button>().interactable=!value;
+            }
         }
         /// <summary>
         /// setting and getting the text of the game object currentMissionStatusText

@@ -20,11 +20,11 @@ MonoBehaviour:
   input_hardware: 14
   input_cryptanalysis: 10
   input_network: 12
-  input_socal: 12
+  input_social: 12
   input_kitchen: 10
   input_software: 11
   ad_disadvantages: if fail one -1 extra cred
-  special: 
-  input_special: 0
-  special2: 
+  special1: 0
+  input_special1: 0
+  special2: 0
   input_special2: 0

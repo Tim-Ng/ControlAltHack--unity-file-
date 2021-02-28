@@ -20,7 +20,7 @@ MonoBehaviour:
   input_hardware: 9
   input_cryptanalysis: 11
   input_network: 9
-  input_socal: 14
+  input_social: 14
   input_kitchen: 10
   input_software: 10
   ad_disadvantages: 1k or 2k for entropy

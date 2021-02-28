@@ -20,7 +20,7 @@ MonoBehaviour:
   input_hardware: 13
   input_cryptanalysis: 8
   input_network: 10
-  input_socal: 8
+  input_social: 8
   input_kitchen: 8
   input_software: 10
   ad_disadvantages: two mission cards

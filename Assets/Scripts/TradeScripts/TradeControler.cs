@@ -286,6 +286,8 @@ namespace TradeScripts
             MyMoney.GetComponent<Text>().text = userControler.users[0].amountOfMoney.ToString();
             tradeAreaContollers[which-1].amountAskingBribing = 0;
             tradeAreaContollers[which-1].setgettingAskText = "Your trade is accepted";
+            tradeAreaContollers[which - 1].askButton = true;
+            tradeAreaContollers[which - 1].cancelButton = false;
             object[] playerChangedMission = new object[] { PhotonNetwork.LocalPlayer, userControler.users[0].missionScript.Mission_code, userControler.users[which + 1].playerPhoton };
             PhotonNetwork.RaiseEvent((byte)PhotonEventCode.sendMissionCardChanged, playerChangedMission, EventManger.AllOtherThanMePeopleOptions, SendOptions.SendReliable);
         }

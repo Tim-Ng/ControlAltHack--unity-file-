@@ -41,18 +41,34 @@ namespace DrawCards
     public class CharCardPopup : MonoBehaviour
     {
         ///<summary>
-        ///This are the game object that is in the Charater Card Popup area.
+        ///This are the game object that is in the character skill abilities 
         /// </summary>
-        [SerializeField] private GameObject popUp = null, cardInpopUp = null, buttonSelect = null, playingCardArea = null, skillChangerEliment = null, activateSkillButton = null;
+        [SerializeField, Header("Character Ability ")] private GameObject forChar10 = null;
         ///<summary>
-        ///This are the game object that is in the Charater Card Popup area.
+        ///This are the game object that is in the character skill abilities 
         /// </summary>
-        [SerializeField] private GameObject forChar10 = null, rollRollButton = null,rolledValue = null, statusfor10OBJ = null;
+        [SerializeField] private GameObject rollRollButton = null, rolledValue = null, statusfor10OBJ = null;
+        /// <summary>
+        /// This is the game object for the skill activation button
+        /// </summary>
+        [SerializeField] private GameObject activateSkillButton = null;
         ///<summary>
         ///This are the game object that is in the Charater Card Popup area.
         /// </summary>
         [SerializeField] private GameObject swapSkills = null, swapButton = null, skillToSwapOptions = null, skillSwapToOptions = null, statusSwapOBJ = null;
 
+        ///<summary>
+        ///This are the game object for the popup
+        /// </summary>
+        [SerializeField, Space(20)] private GameObject popUp = null;
+        /// <summary>
+        /// This is the game object for skill effector displays 
+        /// </summary>
+        [SerializeField] private GameObject skillChangerEliment = null;
+        ///<summary>
+        ///This are the game object that is in the Charater Card Popup area.
+        /// </summary>
+        [SerializeField] private GameObject cardInpopUp = null, buttonSelect = null, playingCardArea = null;
         /// <summary>
         /// The script that holds the data to the DuringMissionRollController.s
         /// </summary>
@@ -138,6 +154,9 @@ namespace DrawCards
         /// <param name="info"> The info of the charater data to be display</param>
         public void opendCharCard(CharCardScript info)
         {
+            activateSkillButton.SetActive(false);
+            swapSkills.SetActive(false);
+            forChar10.SetActive(false);
             buttonSelect.SetActive(true);
             popUp.SetActive(true);
             whichScript = info;
@@ -190,6 +209,8 @@ namespace DrawCards
             cardInpopUp.GetComponent<Image>().sprite = whichScript.artwork_front_info;
             if (which == 0)
             {
+                activateSkillButton.SetActive(false);
+                skillChangerEliment.SetActive(false);
                 skillChangerEliment.SetActive(true);
                 if (whichScript.character_code == 2 && turnManager.TurnNumber != 0)
                 {
@@ -250,11 +271,6 @@ namespace DrawCards
                     forChar10.SetActive(false);
                 }
 
-            }
-            else
-            {
-                activateSkillButton.SetActive(false);
-                skillChangerEliment.SetActive(false);
             }
         }
         /// <summary>

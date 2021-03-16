@@ -6267,6 +6267,21 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1619019786534004080, guid: bbc2eb2597b21f048bf497fc4a2ac36e, type: 3}
   m_PrefabInstance: {fileID: 1619019785728640539}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &807363436
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 807363435}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a23a8c521836fd4994a04aba6621a6d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  detectsHaveSprite: 0
+  x: 0.5
+  y: 0.5
 --- !u!1 &810923726
 GameObject:
   m_ObjectHideFlags: 0
@@ -11723,6 +11738,21 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1619019785168233635, guid: bbc2eb2597b21f048bf497fc4a2ac36e, type: 3}
   m_PrefabInstance: {fileID: 1619019785728640539}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1743217337
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1743217336}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a23a8c521836fd4994a04aba6621a6d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  detectsHaveSprite: 0
+  x: 0.5
+  y: 0.5
 --- !u!1 &1782681663
 GameObject:
   m_ObjectHideFlags: 0
@@ -13757,6 +13787,21 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1619019785284376899, guid: bbc2eb2597b21f048bf497fc4a2ac36e, type: 3}
   m_PrefabInstance: {fileID: 1619019785728640539}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2124095321
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2124095320}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a23a8c521836fd4994a04aba6621a6d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  detectsHaveSprite: 0
+  x: 0.5
+  y: 0.5
 --- !u!1 &2147125157
 GameObject:
   m_ObjectHideFlags: 0
@@ -14239,6 +14284,22 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1619019785168233633, guid: bbc2eb2597b21f048bf497fc4a2ac36e, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1743217337}
+    - target: {fileID: 1619019785168233633, guid: bbc2eb2597b21f048bf497fc4a2ac36e, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Avertars.HoverAvatar, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1619019785168233633, guid: bbc2eb2597b21f048bf497fc4a2ac36e, type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1743217337}
+    - target: {fileID: 1619019785168233633, guid: bbc2eb2597b21f048bf497fc4a2ac36e, type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Avertars.HoverAvatar, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 1619019785168233639, guid: bbc2eb2597b21f048bf497fc4a2ac36e, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 2
@@ -14275,9 +14336,65 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.AudioClip, UnityEngine
       objectReference: {fileID: 0}
-    - target: {fileID: 1619019785284376899, guid: bbc2eb2597b21f048bf497fc4a2ac36e, type: 3}
+    - target: {fileID: 1619019785171601048, guid: bbc2eb2597b21f048bf497fc4a2ac36e, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1619019785171601048, guid: bbc2eb2597b21f048bf497fc4a2ac36e, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1619019785171601048, guid: bbc2eb2597b21f048bf497fc4a2ac36e, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: -17
+      objectReference: {fileID: 0}
+    - target: {fileID: 1619019785250849174, guid: bbc2eb2597b21f048bf497fc4a2ac36e, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1619019785284376897, guid: bbc2eb2597b21f048bf497fc4a2ac36e, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1619019785284376897, guid: bbc2eb2597b21f048bf497fc4a2ac36e, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: HoverHostJoin, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1619019785284376897, guid: bbc2eb2597b21f048bf497fc4a2ac36e, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1619019785284376897, guid: bbc2eb2597b21f048bf497fc4a2ac36e, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1619019785284376897, guid: bbc2eb2597b21f048bf497fc4a2ac36e, type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2124095321}
+    - target: {fileID: 1619019785284376897, guid: bbc2eb2597b21f048bf497fc4a2ac36e, type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Avertars.HoverAvatar, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1619019785284376897, guid: bbc2eb2597b21f048bf497fc4a2ac36e, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2124095321}
+    - target: {fileID: 1619019785284376897, guid: bbc2eb2597b21f048bf497fc4a2ac36e, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnHoverEnter
+      objectReference: {fileID: 0}
+    - target: {fileID: 1619019785284376897, guid: bbc2eb2597b21f048bf497fc4a2ac36e, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 1619019785284376897, guid: bbc2eb2597b21f048bf497fc4a2ac36e, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Avertars.HoverAvatar, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1619019785284376899, guid: bbc2eb2597b21f048bf497fc4a2ac36e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1619019785284376903, guid: bbc2eb2597b21f048bf497fc4a2ac36e, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
@@ -14318,6 +14435,14 @@ PrefabInstance:
     - target: {fileID: 1619019785475412475, guid: bbc2eb2597b21f048bf497fc4a2ac36e, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1619019785764330889, guid: bbc2eb2597b21f048bf497fc4a2ac36e, type: 3}
+      propertyPath: m_FontData.m_FontSize
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 1619019785764330889, guid: bbc2eb2597b21f048bf497fc4a2ac36e, type: 3}
+      propertyPath: m_FontData.m_MinSize
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1619019785853438281, guid: bbc2eb2597b21f048bf497fc4a2ac36e, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -14479,6 +14604,14 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1619019786411037621, guid: bbc2eb2597b21f048bf497fc4a2ac36e, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1619019786411037621, guid: bbc2eb2597b21f048bf497fc4a2ac36e, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1619019786427213431, guid: bbc2eb2597b21f048bf497fc4a2ac36e, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -14526,6 +14659,30 @@ PrefabInstance:
     - target: {fileID: 1619019786534004084, guid: bbc2eb2597b21f048bf497fc4a2ac36e, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.AudioClip, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 1619019786534004086, guid: bbc2eb2597b21f048bf497fc4a2ac36e, type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 807363436}
+    - target: {fileID: 1619019786534004086, guid: bbc2eb2597b21f048bf497fc4a2ac36e, type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Avertars.HoverAvatar, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1619019786534004086, guid: bbc2eb2597b21f048bf497fc4a2ac36e, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 807363436}
+    - target: {fileID: 1619019786534004086, guid: bbc2eb2597b21f048bf497fc4a2ac36e, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Avertars.HoverAvatar, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1619019786578409629, guid: bbc2eb2597b21f048bf497fc4a2ac36e, type: 3}
+      propertyPath: m_FontData.m_FontSize
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 1619019786578409629, guid: bbc2eb2597b21f048bf497fc4a2ac36e, type: 3}
+      propertyPath: m_FontData.m_MinSize
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3383963711551858705, guid: bbc2eb2597b21f048bf497fc4a2ac36e, type: 3}
       propertyPath: m_AnchoredPosition.x

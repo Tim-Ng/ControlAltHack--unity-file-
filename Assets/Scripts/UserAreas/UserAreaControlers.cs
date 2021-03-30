@@ -129,7 +129,7 @@ namespace UserAreas
             drawEntropy = ScriptsODJ.GetComponent<drawEntropyCard>();
             drawMission = ScriptsODJ.GetComponent<drawMissionCard>();
             chatController = ScriptsODJ.GetComponent<ChatController>();
-            chatController.onReceiveMessage("You have joined the room :"+PhotonNetwork.CurrentRoom.Name, null, false);
+            chatController.onReceiveMessage("You have joined the room :\""+PhotonNetwork.CurrentRoom.Name+"\"", null, false);
             string holdName;
             bool sameName;
             bool ChangedName = false;
@@ -173,7 +173,7 @@ namespace UserAreas
             startGameItems.SetActive(true);
             firedLeaveButton.SetActive(false);
             winCanvas.setWinCanvas = false;
-            roomCode.GetComponent<Text>().text = PhotonNetwork.CurrentRoom.Name;
+            roomCode.GetComponent<Text>().text = "\""+PhotonNetwork.CurrentRoom.Name+ "\"" ;
             users.Clear();
             users.Add(thisUserArea);
             users.Add(userArea1);

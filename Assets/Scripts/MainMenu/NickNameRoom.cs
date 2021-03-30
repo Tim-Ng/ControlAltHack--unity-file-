@@ -312,18 +312,18 @@ namespace MainMenu
         /// </summary>
         public void SavePlayerName()
         {
-            string playerName = nameInputFeild.text;
+            string playerName = nameInputFeild.text.Trim();
             PhotonNetwork.NickName = playerName;
             PlayerPrefs.SetString(PlayerPrefsNameKey, playerName);
             PhotonNetwork.GameVersion = GameVersion;
             HostJoin.SetActive(true);
             Nickname.SetActive(false);
-            if (string.IsNullOrEmpty(PhotonNetwork.NickName))
+            if (IfAllSpaceOrEmpty(PhotonNetwork.NickName))
             {
                 Debug.Log("Name is null... loading main screen");
                 PhotonNetwork.LoadLevel(0);
             }
-            message.GetComponent<Text>().text = "Hi " + PhotonNetwork.NickName;
+            message.GetComponent<Text>().text = "Hi \"" + PhotonNetwork.NickName+"\"";
         }
         /// <summary>
         /// This function is called when we connected to the master server
@@ -353,7 +353,7 @@ namespace MainMenu
         /// If nameInputFeild != null then continueButton.interactable = true && connected <br/>
         /// If nameInputFeild == null then continueButton.interactable = false && connected <br/>
         /// </remarks>
-        public void checkInputNickname() => continueButton.interactable = !string.IsNullOrEmpty(nameInputFeild.text) && connected;
+        public void checkInputNickname() => continueButton.interactable = !IfAllSpaceOrEmpty(nameInputFeild.text) && connected;
         /// <summary>
         /// When there is a change with the input of host_input
         /// </summary>
@@ -361,7 +361,7 @@ namespace MainMenu
         /// If host_input != null then host_button.interactable = true && connected <br/>
         /// If host_input == null then host_button.interactable = false && connected <br/>
         /// </remarks>
-        public void checkInputHost() => host_button.interactable = !string.IsNullOrEmpty(host_input.text) && connected;
+        public void checkInputHost() => host_button.interactable = !IfAllSpaceOrEmpty(host_input.text) && connected;
         /// <summary>
         /// When there is a change with the input of join_input
         /// </summary>
@@ -369,7 +369,7 @@ namespace MainMenu
         /// If join_input != null then join_button.interactable = true && connected <br/>
         /// If join_input == null then join_button.interactable = false && connected <br/>
         /// </remarks>
-        public void checkInputJoin() => join_button.interactable = !string.IsNullOrEmpty(join_input.text) && connected;
+        public void checkInputJoin() => join_button.interactable = !IfAllSpaceOrEmpty(join_input.text) && connected;
 
         /// <summary>
         /// This is when the host button is clicked on
@@ -377,7 +377,7 @@ namespace MainMenu
         public void clickOnHostButton()
         {
             HostJoin.SetActive(false);
-            CreateRoom(TrimWords(host_input.text));
+            CreateRoom(host_input.text.Trim());
         }
         //start of Hosting room functions 
         /// <summary>
@@ -419,7 +419,7 @@ namespace MainMenu
         public void clickOnJoinButton()
         {
             HostJoin.SetActive(false);
-            JoinRoom(TrimWords(join_input.text));
+            JoinRoom(join_input.text.Trim());
         }
         /// <summary>
         /// This function is used to join the room
@@ -505,28 +505,27 @@ namespace MainMenu
             setImageCharOBJ();
         }
         /// <summary>
-        /// This is used to make sure that there are no empty spaces infront or behind a string
+        /// This function is used to check if the input is empty or only contains space
         /// </summary>
-        /// <param name="stringToTrim"> The string to be checked</param>
-        /// <returns>The string after the check </returns>
-        private string TrimWords(String stringToTrim)
+        /// <param name="stringToCheck">The sting to check</param>
+        /// <returns>Returns true if empty or only contains space </returns>
+        internal bool IfAllSpaceOrEmpty(string stringToCheck)
         {
-            bool HeadCount = false;
-            int Start = 0, End = 0;
-            for (int i = 0; i < stringToTrim.Length; i++)
+            if (string.IsNullOrEmpty(stringToCheck))
             {
-                if (stringToTrim[i] != ' ')
-                {
-                    if (!HeadCount)
-                    {
-                        Start = i;
-                        HeadCount = true;
-                    }
-                    End = i;
-                }
+                return true;
             }
-            return stringToTrim.Substring(Start, (End == Start ? 1 : End - Start));
+            else
+            {
+                for(int i = 0; i < stringToCheck.Length; i++)
+                {
+                    if (stringToCheck[i] != ' ')
+                        return false;
+                }
+                return true;
+            }
         }
+
     }
 
 }

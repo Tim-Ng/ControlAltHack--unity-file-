@@ -6,7 +6,7 @@ using System.Threading;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using Avertars;
+using Avatars;
 using Music;
 using System.Collections.Generic;
 
@@ -93,7 +93,7 @@ namespace MainMenu
         /// <summary>
         /// The current avertar that the player has chosed 
         /// </summary>
-        private string currentAvertar = null;
+        private string currentAvatar = null;
         /// <summary>
         /// This is the list of the regions that can be connected to 
         /// </summary>
@@ -160,9 +160,9 @@ namespace MainMenu
         /// </summary>
         [SerializeField] private GameObject reconnectToInternet = null;
         /// <summary>
-        /// The script for the AvertarList
+        /// The script for the avartarList
         /// </summary>
-        [SerializeField,Header("Scripts")] private AvertarList avertarList = null;
+        [SerializeField,Header("Scripts")] private AvatarList avartarList = null;
         /// <summary>
         /// The script for the SliderPopUp 
         /// </summary>
@@ -188,9 +188,9 @@ namespace MainMenu
         /// </summary>
         private const string regionKey = "regionKey";
         /// <summary>
-        /// The key for the AvertarCode preference
+        /// The key for the avatarCode preference
         /// </summary>
-        private const string avertarCode = "AvertarCode";
+        private const string avatarCode = "AvatarCode";
         /// <summary>
         /// The GameVersion control
         /// </summary>
@@ -212,17 +212,17 @@ namespace MainMenu
             SetUpRegionSelector();
             checkInternet();
             SetUpInputFeild();
-            if (!PlayerPrefs.HasKey(avertarCode))
+            if (!PlayerPrefs.HasKey(avatarCode))
             {
-                currentAvertar = "0";
-                PlayerPrefs.SetString(avertarCode, currentAvertar);
+                currentAvatar = "0";
+                PlayerPrefs.SetString(avatarCode, currentAvatar);
             }
             else
             {
-                currentAvertar = PlayerPrefs.GetString(avertarCode);
+                currentAvatar = PlayerPrefs.GetString(avatarCode);
             }
-            if (!(PhotonNetwork.LocalPlayer.CustomProperties.ContainsKey(avertarCode)))
-                PhotonNetwork.LocalPlayer.CustomProperties.Add(avertarCode, currentAvertar);
+            if (!(PhotonNetwork.LocalPlayer.CustomProperties.ContainsKey(avatarCode)))
+                PhotonNetwork.LocalPlayer.CustomProperties.Add(avatarCode, currentAvatar);
             setImageCharOBJ();
         }
         /// <summary>
@@ -489,7 +489,7 @@ namespace MainMenu
         /// </summary>
         public void setImageCharOBJ()
         {
-            avertarSelectedOBJ.GetComponent<Image>().sprite = AvertarList.AvertarLists[int.Parse(currentAvertar)];
+            avertarSelectedOBJ.GetComponent<Image>().sprite = AvatarList.AvatarLists[int.Parse(currentAvatar)];
         }
         /// <summary>
         /// This is used to change to a new avertar 
@@ -498,10 +498,10 @@ namespace MainMenu
         public void setCharacter(string which)
         {
             Debug.Log("Change Avertar");
-            currentAvertar = which;
-            PlayerPrefs.SetString(avertarCode, currentAvertar);
-            PhotonNetwork.LocalPlayer.CustomProperties[avertarCode] = which;
-            avertarList.onClickClosePopup();
+            currentAvatar = which;
+            PlayerPrefs.SetString(avatarCode, currentAvatar);
+            PhotonNetwork.LocalPlayer.CustomProperties[avatarCode] = which;
+            avartarList.onClickClosePopup();
             setImageCharOBJ();
         }
         /// <summary>

@@ -2,12 +2,12 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Avertars
+namespace Avatars
 {
     /// <summary>
-    /// For displaying the Avertar on an Object by inputing the Avertar code.
+    /// For displaying the Avatar on an Object by inputting the Avatar code.
     /// </summary>
-    public class AvertarItems : MonoBehaviour
+    public class AvatarItems : MonoBehaviour
     {
         [Header("Game object of the Avertar Image")]
         ///<summary>To hold the gameobject that would hold the Image</summary>
@@ -19,7 +19,7 @@ namespace Avertars
         /// <summary> To load the image to the object as soon as the object is loaded </summary>
         private void Start()
         {
-            ImageAvertar.GetComponent<Image>().sprite = AvertarList.AvertarLists[int.Parse(whichAvertar)];
+            ImageAvertar.GetComponent<Image>().sprite = AvatarList.AvatarLists[int.Parse(whichAvertar)];
             NickNameScriptOBJ = GameObject.Find("JoinHost");
         }
         /// <summary> This is for choosing your character </summary>

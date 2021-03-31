@@ -3,7 +3,7 @@ using Photon.Realtime;
 using UnityEngine;
 using UnityEngine.UI;
 using DrawCards;
-using Avertars;
+using Avatars;
 
 namespace UserAreas
 {
@@ -41,7 +41,7 @@ namespace UserAreas
                 }
                 else
                 {
-                    Avertar.GetComponent<Image>().sprite = AvertarList.AvertarLists[int.Parse((string)photonPlayerInfo.CustomProperties["AvertarCode"])];
+                    Avertar.GetComponent<Image>().sprite = AvatarList.AvatarLists[int.Parse((string)photonPlayerInfo.CustomProperties["AvatarCode"])];
                 }
             }
         }

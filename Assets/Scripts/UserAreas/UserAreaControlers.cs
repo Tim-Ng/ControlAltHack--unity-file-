@@ -10,7 +10,7 @@ using ExitGames.Client.Photon;
 using main;
 using DrawCards;
 using TradeScripts;
-using Avertars;
+using Avatars;
 using System.Threading;
 
 namespace UserAreas
@@ -703,7 +703,7 @@ namespace UserAreas
             int position = findPlayerPosition(PlayerID);
             winCanvas.setFirstPlaceAmountOfCred = users[position].amountOfCred;
             winCanvas.setFirstPlaceNickName = users[position].Nickname;
-            winCanvas.setFirstPlaceAvertar = AvertarList.AvertarLists[int.Parse((string)users[position].playerPhoton.CustomProperties["AvertarCode"])];
+            winCanvas.setFirstPlaceAvertar = AvatarList.AvatarLists[int.Parse((string)users[position].playerPhoton.CustomProperties["AvertarCode"])];
         }
         /// <summary>
         /// Setting the UI and infomation of the 2nd place area
@@ -714,7 +714,7 @@ namespace UserAreas
             int position = findPlayerPosition(PlayerID);
             winCanvas.setSecondPlaceAmountOfCred = users[position].amountOfCred;
             winCanvas.setSecondPlaceNickName = users[position].Nickname;
-            winCanvas.setSecondPlaceAvertar = AvertarList.AvertarLists[int.Parse((string)users[position].playerPhoton.CustomProperties["AvertarCode"])];
+            winCanvas.setSecondPlaceAvertar = AvatarList.AvatarLists[int.Parse((string)users[position].playerPhoton.CustomProperties["AvertarCode"])];
         }
         /// <summary>
         /// Setting the UI and infomation of the 3rd place area
@@ -725,7 +725,7 @@ namespace UserAreas
             int position = findPlayerPosition(PlayerID);
             winCanvas.setThirdPlaceAmountOfCred = users[position].amountOfCred;
             winCanvas.setThirdPlaceNickName = users[position].Nickname;
-            winCanvas.setThirdPlaceAvertar = AvertarList.AvertarLists[int.Parse((string)users[position].playerPhoton.CustomProperties["AvertarCode"])];
+            winCanvas.setThirdPlaceAvertar = AvatarList.AvatarLists[int.Parse((string)users[position].playerPhoton.CustomProperties["AvatarCode"])];
         }
         /// <summary>
         /// This button is called when the player again button is clicked on 

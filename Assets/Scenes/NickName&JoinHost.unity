@@ -470,7 +470,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 231495571}
-        m_TargetAssemblyTypeName: Avertars.AvertarList, Assembly-CSharp
+        m_TargetAssemblyTypeName: Avatars.AvatarList, Assembly-CSharp
         m_MethodName: onClickPopupSelect
         m_Mode: 1
         m_Arguments:
@@ -835,7 +835,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 231495571}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Avertars.AvertarList, Assembly-CSharp
         m_MethodName: onClickClosePopup
         m_Mode: 1
@@ -1270,7 +1270,7 @@ MonoBehaviour:
   host_button: {fileID: 1370058194}
   continueButton: {fileID: 1882177600}
   reconnectToInternet: {fileID: 2141933288}
-  avertarList: {fileID: 231495571}
+  avartarList: {fileID: 231495571}
   sliderPopUp: {fileID: 678563500}
 --- !u!114 &231495571
 MonoBehaviour:
@@ -1281,20 +1281,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 231495568}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 131eebe4c0445ce4999b342e7b16ed12, type: 3}
+  m_Script: {fileID: 11500000, guid: 8bcb676b398bc204093ecef667bede2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   selectPopup: {fileID: 568069837}
-  Avertar1: {fileID: 21300000, guid: 85b638579d8960542901bfe5b6da9924, type: 3}
-  Avertar2: {fileID: 21300000, guid: 4849d76046b5b3a489555707cd238db0, type: 3}
-  Avertar3: {fileID: 21300000, guid: 21c94acc600ba5a44acba635f309fd3f, type: 3}
-  Avertar4: {fileID: 21300000, guid: a8b589a7a50c622439ed9f975335f7b0, type: 3}
-  Avertar5: {fileID: 21300000, guid: 3eab4e06e891f6b4d8c5c3373248671b, type: 3}
-  Avertar6: {fileID: 21300000, guid: f614518485b223e4aaf04a28008f20de, type: 3}
-  Avertar7: {fileID: 21300000, guid: f590c9900d74e7043964e6ea1e319ba9, type: 3}
-  Avertar8: {fileID: 21300000, guid: 1ed29210df428534ea9fead0f6162c90, type: 3}
-  Avertar9: {fileID: 21300000, guid: 6306b571fe83a8341b3d537ed3cc9653, type: 3}
-  Avertar10: {fileID: 21300000, guid: 9ecfec8ca10bca44ea0eebc4462a53c1, type: 3}
+  Avatar1: {fileID: 21300000, guid: 85b638579d8960542901bfe5b6da9924, type: 3}
+  Avatar2: {fileID: 21300000, guid: 4849d76046b5b3a489555707cd238db0, type: 3}
+  Avatar3: {fileID: 21300000, guid: 21c94acc600ba5a44acba635f309fd3f, type: 3}
+  Avatar4: {fileID: 21300000, guid: a8b589a7a50c622439ed9f975335f7b0, type: 3}
+  Avatar5: {fileID: 21300000, guid: 3eab4e06e891f6b4d8c5c3373248671b, type: 3}
+  Avatar6: {fileID: 21300000, guid: f614518485b223e4aaf04a28008f20de, type: 3}
+  Avatar7: {fileID: 21300000, guid: f590c9900d74e7043964e6ea1e319ba9, type: 3}
+  Avatar8: {fileID: 21300000, guid: 1ed29210df428534ea9fead0f6162c90, type: 3}
+  Avatar9: {fileID: 21300000, guid: 6306b571fe83a8341b3d537ed3cc9653, type: 3}
+  Avatar10: {fileID: 21300000, guid: 9ecfec8ca10bca44ea0eebc4462a53c1, type: 3}
 --- !u!1 &238533486
 GameObject:
   m_ObjectHideFlags: 0
@@ -4862,7 +4862,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 231495571}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Avertars.AvertarList, Assembly-CSharp
         m_MethodName: onClickPopupSelect
         m_Mode: 1

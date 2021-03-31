@@ -184,7 +184,7 @@ namespace DrawCards
         }
     }
     /// <summary>
-    /// The class to hold the data of a charater
+    /// This class to hold the data of a charater
     /// </summary>
     [CreateAssetMenu(fileName = "New Card", menuName = "CharacterCard")]
     public class CharCardScript : ScriptableObject

@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Avertars {
+namespace Avatars{
     /// <summary>
-    /// This script is to allow there to be a pop up when an avertar is hovered over
+    /// This script is to allow there to be a pop up when an Avatar is hovered over
     /// </summary>
     public class HoverAvatar : MonoBehaviour
     {
         /// <summary>
-        /// The game object of the avertar profile
+        /// The game object of the avatar profile
         /// </summary>
         private GameObject avatarprofile = null;
         /// <summary>

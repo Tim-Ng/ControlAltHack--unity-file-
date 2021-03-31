@@ -9,7 +9,9 @@ using System.Linq;
 namespace DrawCards
 {
     /// <summary>
-    /// This is to draw the character card
+    /// This script is used to draw character cards. It also receives updates on which cards were drawn/used by other players. So that the 
+    /// player wont draw the same cards as other players. Furthermore, with the data of the used cards they can 
+    /// reshuffle the deck when all the cards in the deck are used.
     /// </summary>
     public class drawCharacterCard : MonoBehaviour
     {

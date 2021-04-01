@@ -37,7 +37,9 @@ namespace MainMenu
         }
     }
     /// <summary>
-    /// This is the class to control the NickName&JoinHost scene 
+    /// This function is set up and controls the NickName&JoinHost scene which is the main menu of the game.
+    /// For setting the player’s name, server region and avatar as well as hosting or joining a room. 
+    /// Music and sound effect can also be controlled here.
     /// </summary>
     public class NickNameRoom : MonoBehaviourPunCallbacks
     {

@@ -7,7 +7,7 @@ using UnityEngine.UI;
 namespace rollmissions
 {
     /// <summary>
-    /// A class to display that skill effectors / the template
+    /// This class is to hold the data of a skill effector
     /// </summary>
     public class skillEffectDisplay : MonoBehaviour
     {

@@ -6,7 +6,7 @@ using UnityEngine;
 namespace rollmissions
 {
     /// <summary>
-    /// This is a class to hold the infomations of each task/job
+    /// This is a class that holds the information of a task/job.
     /// </summary>
     /// <remarks>
     /// With variables position to mark first, second or third. <br/>

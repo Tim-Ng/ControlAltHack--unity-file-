@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 namespace Music {
     /// <summary>
-    /// This script controls the pop up setting for the sounds 
+    /// This script controls UI and function of the pop up setting for the music and sound effects.
     /// </summary>
     public class SliderPopUp : MonoBehaviour
     {

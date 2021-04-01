@@ -7,7 +7,7 @@ using UnityEngine.UI;
 namespace DrawCards
 {
     /// <summary>
-    /// To render the image and function of the Entropy Cards.
+    /// To render the image and function of an Entropy Cards.
     /// </summary>
     public class entropyCardDisplay : MonoBehaviour
     {

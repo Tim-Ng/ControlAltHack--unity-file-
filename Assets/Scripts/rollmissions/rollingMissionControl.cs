@@ -14,7 +14,8 @@ using TradeScripts;
 namespace rollmissions
 {
     /// <summary>
-    /// This is a constructor for skill effector that changes the amount of a particular skill which is the variable called skillName
+    /// This class is the controller for the rolling Mission and the display of the skill effectors. It is used to set up/receive the current roller’s state.
+    /// Like how much they had rolled, if they failed this mission or not as well as the progression of the current roll (Before, during and after).
     /// </summary>
     public struct SkillEffector
     {

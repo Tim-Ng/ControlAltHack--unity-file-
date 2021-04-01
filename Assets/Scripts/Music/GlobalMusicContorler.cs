@@ -6,7 +6,7 @@ using UnityEngine.Audio;
 
 namespace Music {
     /// <summary>
-    /// This is the class that holds and contorl the values of the master, music and sound effect of the whole game
+    /// This is the class that holds and control the values of the master, music and sound effect of the entire game
     /// </summary>
     public static class GlobalMusicContorler 
     {

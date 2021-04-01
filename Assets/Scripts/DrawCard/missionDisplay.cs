@@ -5,7 +5,7 @@ using UnityEngine.UI;
 namespace DrawCards
 {
     /// <summary>
-    /// To render the image and function of the Mission Cards.
+    /// To render the image of the Mission Cards as well as opening the popup.
     /// </summary>
     public class missionDisplay : MonoBehaviour
     {

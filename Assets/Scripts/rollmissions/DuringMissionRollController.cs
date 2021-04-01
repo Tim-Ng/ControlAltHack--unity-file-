@@ -7,7 +7,7 @@ using UnityEngine.UI;
 namespace rollmissions
 {
     /// <summary>
-    /// The class script is to holds the objects for the mission roll
+    /// The class script is to holds and controls the objects for the mission roll.
     /// </summary>
     public class DuringMissionRollController : MonoBehaviour
     {

@@ -4,7 +4,7 @@ using UnityEngine;
 namespace DrawCards
 {
     /// <summary>
-    /// This is a class to hold all the data of the entropy cards 
+    /// This is a class to hold all the data for all the entropy cards.
     /// </summary>
     public class entropyCardDeck : MonoBehaviour
     {

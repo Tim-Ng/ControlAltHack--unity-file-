@@ -56,7 +56,7 @@ namespace main
         /// <summary>
         /// Holds the script UserAreaControlers
         /// </summary>
-        private UserAreaControlers userContorlAreas = null;
+        private UserAreaControlers userControlAreas = null;
         /// <summary>
         /// Holds the script TradeControler
         /// </summary>
@@ -112,7 +112,7 @@ namespace main
             EventManager = ScriptsODJ.GetComponent<EventHandeler>();
             drawMission = ScriptsODJ.GetComponent<drawMissionCard>();
             rollingMission = ScriptsODJ.GetComponent<rollingMissionControl>();
-            userContorlAreas = ScriptsODJ.GetComponent<UserAreaControlers>();
+            userControlAreas = ScriptsODJ.GetComponent<UserAreaControlers>();
             tradeController = ScriptsODJ.GetComponent<TradeControler>();
         }
         /// <summary>
@@ -142,11 +142,11 @@ namespace main
         public void setArrangementForTurn()
         {
             List<PlayerInfo> userTemp = new List<PlayerInfo>();
-            for (int i = 0; i< userContorlAreas.users.Count; i++)
+            for (int i = 0; i< userControlAreas.users.Count; i++)
             {
-                if (userContorlAreas.users[i].filled && !userContorlAreas.users[i].fired)
+                if (userControlAreas.users[i].filled && !userControlAreas.users[i].fired)
                 {
-                    userTemp.Add(userContorlAreas.users[i]);
+                    userTemp.Add(userControlAreas.users[i]);
                 }
             }
             Debug.LogWarning(userTemp.Count);
@@ -203,7 +203,7 @@ namespace main
             PlayerIdToMakeThisTurn = arrangedActors[0];
             Debug.Log("Set turn to " + CurrentTurn + " actor ID "+PlayerIdToMakeThisTurn);
             Debug.Log("My ID is" + PhotonNetwork.LocalPlayer.ActorNumber);
-            if (PhotonNetwork.IsMasterClient && RoundNumber > userContorlAreas.AmountOfRounds && (userContorlAreas.users[userContorlAreas.findPlayerPosition(arrangedActors[0])] != userContorlAreas.users[userContorlAreas.findPlayerPosition(arrangedActors[1])]))
+            if (PhotonNetwork.IsMasterClient && RoundNumber > userControlAreas.AmountOfRounds && (userControlAreas.users[userControlAreas.findPlayerPosition(arrangedActors[0])] != userControlAreas.users[userControlAreas.findPlayerPosition(arrangedActors[1])]))
             {
                 setWinnerList();
             }
@@ -291,7 +291,7 @@ namespace main
             {
                 rollingMission.switchStage(4);
                 roundIndicator.SetActive(true);
-                if (RoundNumber > userContorlAreas.AmountOfRounds)
+                if (RoundNumber > userControlAreas.AmountOfRounds)
                     roundIndicator.GetComponent<Text>().text = "Tie Breaker Round";
                 else
                     roundIndicator.GetComponent<Text>().text = "Round " + RoundNumber;
@@ -350,7 +350,7 @@ namespace main
                 tradeController.HowManyPeople = 0;
                 if (TurnNumber == 1)
                 {
-                    userContorlAreas.addMyCred(6);
+                    userControlAreas.addMyCred(6);
                     drawEntro.drawEntropyCards(5);
                 }
                 else
@@ -358,14 +358,14 @@ namespace main
                     drawEntro.drawEntropyCards(1);
                     if (arrangedActors[0] == PhotonNetwork.LocalPlayer.ActorNumber)
                     {
-                        if (userContorlAreas.users[0].amountOfCred > userContorlAreas.users[userContorlAreas.findPlayerPosition(arrangedActors[1])].amountOfCred)
+                        if (userControlAreas.users[0].amountOfCred > userControlAreas.users[userControlAreas.findPlayerPosition(arrangedActors[1])].amountOfCred)
                         {
-                            userContorlAreas.addMyMoney(1000);
+                            userControlAreas.addMyMoney(1000);
                         }
                     }
                 }
                 drawMission.removeAllCard();
-                if (userContorlAreas.users[0].characterScript.character_code == 7)
+                if (userControlAreas.users[0].characterScript.character_code == 7)
                 {
                     drawMission.drawMissionCards(2);
                 }
@@ -373,12 +373,12 @@ namespace main
                 {
                     drawMission.drawMissionCards(1);
                 }
-                if (userContorlAreas.users[0].characterScript.character_code == 3)
-                    userContorlAreas.addMyMoney(1000);
-                else if (userContorlAreas.users[0].characterScript.character_code == 16)
-                    userContorlAreas.addMyMoney(3000);
+                if (userControlAreas.users[0].characterScript.character_code == 3)
+                    userControlAreas.addMyMoney(1000);
+                else if (userControlAreas.users[0].characterScript.character_code == 16)
+                    userControlAreas.addMyMoney(3000);
                 else
-                    userContorlAreas.addMyMoney(2000);
+                    userControlAreas.addMyMoney(2000);
 
                 EndTurn();
             }
@@ -401,7 +401,7 @@ namespace main
         {
             if (PhotonNetwork.CurrentRoom.PlayerCount == 1)
             {
-                userContorlAreas.onReceiveWinner1(PhotonNetwork.LocalPlayer.ActorNumber);
+                userControlAreas.onReceiveWinner1(PhotonNetwork.LocalPlayer.ActorNumber);
             }
             else
             {

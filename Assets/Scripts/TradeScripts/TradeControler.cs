@@ -95,13 +95,13 @@ namespace TradeScripts
         public void setAllAreas()
         {
             myMissionCard.GetComponent<Image>().sprite = userControler.users[0].missionScript.artwork_front_info;
-            MyMoney.GetComponent<Text>().text = userControler.users[0].amountOfMoney.ToString();
+            MyMoney.GetComponent<Text>().text = userControler.users[0].amountOfMoney.ToString()+"\n"+ userControler.users[0].amountOfCred + " Creds";
             for (int i = 1; i <6; i++)
             {
                 if (userControler.users[i].playerPhoton != null)
                 {
                     tradeAreaContollers[i - 1].setBribeInputValue = "0";
-                    tradeAreaContollers[i - 1].nickName = userControler.users[i].Nickname;
+                    tradeAreaContollers[i - 1].nickName = userControler.users[i].Nickname+"\n"+ userControler.users[i].amountOfCred + " Creds";
                     tradeAreaContollers[i - 1].setAskingText = "You have asked anyone";
                     tradeAreaContollers[i - 1].setgettingAskText = "No players have asked you yet";
                     if (tradeAreaContollers[i - 1].attending == true)
@@ -263,7 +263,7 @@ namespace TradeScripts
             changeMyMissionCardOnPlayArea();
             tradeAreaContollers[which].setgettingAskText = "You've accepted this Player's trade";
             userControler.addMyMoney(tradeAreaContollers[which].amountBeingBribed);
-            MyMoney.GetComponent<Text>().text = userControler.users[0].amountOfMoney.ToString();
+            MyMoney.GetComponent<Text>().text = userControler.users[0].amountOfMoney.ToString() + "\n" + userControler.users[0].amountOfCred + " Creds";
             tradeAreaContollers[which].amountBeingBribed = 0;
             tradeAreaContollers[which].acceptButton = false;
             tradeAreaContollers[which].rejectButton = false;
@@ -283,7 +283,7 @@ namespace TradeScripts
             userControler.users[0].missionScript = missionCardDeck.cardDeck[tradeAreaContollers[which-1].setgetmissionID - 1];
             changeMyMissionCardOnPlayArea();
             userControler.subMyMoney(tradeAreaContollers[which-1].amountAskingBribing);
-            MyMoney.GetComponent<Text>().text = userControler.users[0].amountOfMoney.ToString();
+            MyMoney.GetComponent<Text>().text = userControler.users[0].amountOfMoney.ToString() + "\n" + userControler.users[0].amountOfCred + " Creds";
             tradeAreaContollers[which-1].amountAskingBribing = 0;
             tradeAreaContollers[which-1].setgettingAskText = "Your trade is accepted";
             tradeAreaContollers[which - 1].askButton = true;

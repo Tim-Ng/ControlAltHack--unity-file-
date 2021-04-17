@@ -144,6 +144,7 @@ namespace main
             {
                 if (whichPlayer == null)
                 {
+                    Debug.Log(messageInput.text);
                     if (messageInput.text[0] == '/')
                     {
                         // for easier testing 
@@ -151,6 +152,19 @@ namespace main
                         {
                             userInfos.subMyCred(userInfos.users[0].amountOfCred);
                         }
+                        else if (messageInput.text.Substring(0, 8) == "/setCred") 
+                        {
+                            Debug.Log("/setCred is working" );
+                            try
+                            {
+                                userInfos.subMyCred(userInfos.users[0].amountOfCred - int.Parse(messageInput.text.Substring(8)));
+                            }
+                            catch
+                            {
+                                Debug.Log("/setCred Error");
+                            }
+                        }
+
                     }
                     else
                     {

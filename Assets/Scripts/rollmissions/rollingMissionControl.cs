@@ -845,18 +845,21 @@ namespace rollmissions
                     chanceToReroll();
                 }
             }
-            if (missionRollController.setAfterMission)
+            else
             {
-                if (entropyRemove != 0)
+                if (missionRollController.setAfterMission && setGetCurrentCard.Mission_code == 2 && CurrentMissionStatus==false)
                 {
-                    entropyRemove -= 1;
-                    missionRollController.setInteractableendMissionButton = false;
-                    setCurrentMissionOutputText("Remove " + entropyRemove + " entropy cards to continue");
-                }
-                else
-                {
-                    missionRollController.setInteractableendMissionButton = true;
-                    setCurrentMissionOutputText(setGetCurrentCard.iffailText);
+                    if (entropyRemove != 0)
+                    {
+                        entropyRemove -= 1;
+                        missionRollController.setInteractableendMissionButton = false;
+                        setCurrentMissionOutputText("Remove " + entropyRemove + " entropy cards to continue");
+                    }
+                    else
+                    {
+                        missionRollController.setInteractableendMissionButton = true;
+                        setCurrentMissionOutputText(setGetCurrentCard.iffailText);
+                    }
                 }
             }
             numberOfEntroCardsRemoved += 1;

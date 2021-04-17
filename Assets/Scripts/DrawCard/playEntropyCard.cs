@@ -295,7 +295,7 @@ namespace DrawCards
                 }
                 else
                 {
-                    object[] chatInfo = new object[] { PhotonNetwork.LocalPlayer.NickName + " has played attack "+userArea.users[userArea.findPlayerPosition(turnManager.PlayerIdToMakeThisTurn)].Nickname +" with card " + whichScript.Title + ".", null, false };
+                    object[] chatInfo = new object[] { PhotonNetwork.LocalPlayer.NickName + " has attack "+userArea.users[userArea.findPlayerPosition(turnManager.PlayerIdToMakeThisTurn)].Nickname +" with the card " + whichScript.Title + ".", null, false };
                     PhotonNetwork.RaiseEvent((byte)PhotonEventCode.forChat, chatInfo, EventManager.AllPeople, SendOptions.SendReliable);
                 }
             }

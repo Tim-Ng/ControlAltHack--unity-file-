@@ -167,7 +167,7 @@ namespace UserAreas
         public void startOBJs()
         {
             GameHasStarted = false;
-            AmountOfRounds = 6;
+            AmountOfRounds = 1;
             chatController.onReceiveMessage("Number of rounds is " + AmountOfRounds, null, false);
             PhotonNetwork.CurrentRoom.IsOpen = true;
             startGameItems.SetActive(true);
@@ -701,9 +701,10 @@ namespace UserAreas
         public void setWinnerInfo1(int PlayerID)
         {
             int position = findPlayerPosition(PlayerID);
+            Debug.Log("Winner 1:" + position);
             winCanvas.setFirstPlaceAmountOfCred = users[position].amountOfCred;
             winCanvas.setFirstPlaceNickName = users[position].Nickname;
-            winCanvas.setFirstPlaceAvertar = AvatarList.AvatarLists[int.Parse((string)users[position].playerPhoton.CustomProperties["AvertarCode"])];
+            winCanvas.setFirstPlaceAvertar = users[position].GetAvertarSprite;
         }
         /// <summary>
         /// Setting the UI and infomation of the 2nd place area
@@ -712,9 +713,10 @@ namespace UserAreas
         public void setWinnerInfo2(int PlayerID)
         {
             int position = findPlayerPosition(PlayerID);
+            Debug.Log("Winner 2:" + position);
             winCanvas.setSecondPlaceAmountOfCred = users[position].amountOfCred;
             winCanvas.setSecondPlaceNickName = users[position].Nickname;
-            winCanvas.setSecondPlaceAvertar = AvatarList.AvatarLists[int.Parse((string)users[position].playerPhoton.CustomProperties["AvertarCode"])];
+            winCanvas.setSecondPlaceAvertar = users[position].GetAvertarSprite;
         }
         /// <summary>
         /// Setting the UI and infomation of the 3rd place area
@@ -723,9 +725,10 @@ namespace UserAreas
         public void setWinnerInfo3(int PlayerID)
         {
             int position = findPlayerPosition(PlayerID);
+            Debug.Log("Winner 3:"+ position);
             winCanvas.setThirdPlaceAmountOfCred = users[position].amountOfCred;
             winCanvas.setThirdPlaceNickName = users[position].Nickname;
-            winCanvas.setThirdPlaceAvertar = AvatarList.AvatarLists[int.Parse((string)users[position].playerPhoton.CustomProperties["AvatarCode"])];
+            winCanvas.setThirdPlaceAvertar = users[position].GetAvertarSprite;
         }
         /// <summary>
         /// This button is called when the player again button is clicked on 

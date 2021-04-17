@@ -149,7 +149,6 @@ namespace main
                     userTemp.Add(userControlAreas.users[i]);
                 }
             }
-            Debug.LogWarning(userTemp.Count);
             if (userTemp.Count != 1)
             {
                 PlayerInfo holdInfo;
@@ -203,7 +202,7 @@ namespace main
             PlayerIdToMakeThisTurn = arrangedActors[0];
             Debug.Log("Set turn to " + CurrentTurn + " actor ID "+PlayerIdToMakeThisTurn);
             Debug.Log("My ID is" + PhotonNetwork.LocalPlayer.ActorNumber);
-            if (PhotonNetwork.IsMasterClient && RoundNumber > userControlAreas.AmountOfRounds && (userControlAreas.users[userControlAreas.findPlayerPosition(arrangedActors[0])] != userControlAreas.users[userControlAreas.findPlayerPosition(arrangedActors[1])]))
+            if (PhotonNetwork.IsMasterClient && (RoundNumber > userControlAreas.AmountOfRounds) && (userControlAreas.users[userControlAreas.findPlayerPosition(arrangedActors[0])] != userControlAreas.users[userControlAreas.findPlayerPosition(arrangedActors[1])]))
             {
                 setWinnerList();
             }
@@ -407,17 +406,17 @@ namespace main
             {
                 if (arrangedActors.Count == 1)
                 {
-                    object[] winnerData = new object[] { arrangedActors.Count, arrangedActors[0] };
+                    object[] winnerData = new object[] { 1, arrangedActors[0] };
                     PhotonNetwork.RaiseEvent((byte)PhotonEventCode.receiveWinner, winnerData, EventManager.AllPeople, SendOptions.SendReliable);
                 }
                 else if (arrangedActors.Count == 2)
                 {
-                    object[] winnerData = new object[] { arrangedActors.Count, arrangedActors[0], arrangedActors[1] };
+                    object[] winnerData = new object[] { 2, arrangedActors[0], arrangedActors[1] };
                     PhotonNetwork.RaiseEvent((byte)PhotonEventCode.receiveWinner, winnerData, EventManager.AllPeople, SendOptions.SendReliable);
                 }
                 else if (arrangedActors.Count >= 3)
                 {
-                    object[] winnerData = new object[] { arrangedActors.Count, arrangedActors[0], arrangedActors[1], arrangedActors[2] };
+                    object[] winnerData = new object[] { 3, arrangedActors[0], arrangedActors[1], arrangedActors[2] };
                     PhotonNetwork.RaiseEvent((byte)PhotonEventCode.receiveWinner, winnerData, EventManager.AllPeople, SendOptions.SendReliable);
                 }
             }

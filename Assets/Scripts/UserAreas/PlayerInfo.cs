@@ -46,6 +46,13 @@ namespace UserAreas
             }
         }
         /// <summary>
+        /// This is to get the sprite of this player's avertar
+        /// </summary>
+        public Sprite GetAvertarSprite
+        {
+            get { return Avertar.GetComponent<Image>().sprite; }
+        }
+        /// <summary>
         /// This is to set/get the value text UI of the Nickname of the current player 
         /// </summary>
         public string Nickname

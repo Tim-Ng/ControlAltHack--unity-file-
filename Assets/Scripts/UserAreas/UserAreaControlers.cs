@@ -360,19 +360,14 @@ namespace UserAreas
         {
             if (!(string.IsNullOrEmpty(numberOfRounds_input.text)))
             {
-                if ((numberOfRounds_input.text).All(char.IsDigit))
+                if (int.Parse(numberOfRounds_input.text) < 6)
                 {
-                    if (int.Parse(numberOfRounds_input.text) < 6)
-                    {
-                        return false;
-                    }
-                    else
-                    {
-                        return true;
-                    }
+                    return false;
                 }
                 else
-                    return false;
+                {
+                    return true;
+                }
             }
             else
                 return false;

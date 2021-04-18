@@ -188,30 +188,20 @@ namespace TradeScripts
         /// </summary>
         public void OnDetectInputchange()
         {
-            int convertedToInt;
-            bool isNumeric = int.TryParse(inputBribe.GetComponent<TMP_InputField>().text, out convertedToInt);
-            if (isNumeric)
+            if (int.Parse(inputBribe.GetComponent<TMP_InputField>().text) > userControler.users[0].amountOfMoney)
             {
-                if (convertedToInt > userControler.users[0].amountOfMoney)
-                {
-                    setAskingText = "Error input is more than your amount of money";
-                    askButton = false;
-                }
-                else if (convertedToInt < 0)
-                {
-                    setAskingText = "Error input is lesser than 0";
-                    askButton = false;
-                }
-                else
-                {
-                    setAskingText = "Money Bribe " + convertedToInt ;
-                    askButton = true;
-                }
+                setAskingText = "Error input too much";
+                askButton = false;
+            }
+            else if (int.Parse(inputBribe.GetComponent<TMP_InputField>().text) < 0)
+            {
+                setAskingText = "Error input is -ve";
+                askButton = false;
             }
             else
             {
-                setAskingText = "Error input is string";
-                askButton = false;
+                setAskingText = "Money Bribe " + inputBribe.GetComponent<TMP_InputField>().text;
+                askButton = true;
             }
         }
         /// <summary>

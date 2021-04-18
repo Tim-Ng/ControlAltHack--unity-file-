@@ -307,8 +307,8 @@ namespace TradeScripts
         public void clickOnDeclineTrade(int which)
         {
             tradeAreaContollers[which].amountBeingBribed = 0;
+            tradeAreaContollers[which].acceptButton = false;
             tradeAreaContollers[which].rejectButton = false;
-            tradeAreaContollers[which].acceptButton= false;
             tradeAreaContollers[which].setgettingAskText= "Rejected Player";
             object[] player = new object[] { PhotonNetwork.LocalPlayer };
             PhotonNetwork.RaiseEvent((byte)PhotonEventCode.declineSomeoneAsk, player, new RaiseEventOptions { TargetActors = new int[] { userControler.users[which + 1].playerPhoton.ActorNumber } }, SendOptions.SendReliable);

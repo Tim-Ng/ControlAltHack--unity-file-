@@ -1120,7 +1120,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2054907593751928339, guid: e210a95c80738e442bd51da9866c6f75, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: clickOnCancelAskTrade
+      value: clickOnDeclineTrade
       objectReference: {fileID: 0}
     - target: {fileID: 2054907593751928339, guid: e210a95c80738e442bd51da9866c6f75, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
@@ -3451,7 +3451,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2054907593751928339, guid: e210a95c80738e442bd51da9866c6f75, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: clickOnCancelAskTrade
+      value: clickOnDeclineTrade
       objectReference: {fileID: 0}
     - target: {fileID: 2054907593751928339, guid: e210a95c80738e442bd51da9866c6f75, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
@@ -4635,7 +4635,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2054907593751928339, guid: e210a95c80738e442bd51da9866c6f75, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: clickOnCancelAskTrade
+      value: clickOnDeclineTrade
       objectReference: {fileID: 0}
     - target: {fileID: 2054907593751928339, guid: e210a95c80738e442bd51da9866c6f75, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
@@ -7852,7 +7852,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2054907593751928339, guid: e210a95c80738e442bd51da9866c6f75, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: clickOnCancelAskTrade
+      value: clickOnDeclineTrade
       objectReference: {fileID: 0}
     - target: {fileID: 2054907593751928339, guid: e210a95c80738e442bd51da9866c6f75, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
@@ -15237,7 +15237,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2054907593751928339, guid: e210a95c80738e442bd51da9866c6f75, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: clickOnCancelAskTrade
+      value: clickOnDeclineTrade
       objectReference: {fileID: 0}
     - target: {fileID: 2054907593751928339, guid: e210a95c80738e442bd51da9866c6f75, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName

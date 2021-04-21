@@ -202,7 +202,7 @@ namespace main
             PlayerIdToMakeThisTurn = arrangedActors[0];
             Debug.Log("Set turn to " + CurrentTurn + " actor ID "+PlayerIdToMakeThisTurn);
             Debug.Log("My ID is" + PhotonNetwork.LocalPlayer.ActorNumber);
-            if (PhotonNetwork.IsMasterClient && (RoundNumber > userControlAreas.AmountOfRounds) && (userControlAreas.users[userControlAreas.findPlayerPosition(arrangedActors[0])] != userControlAreas.users[userControlAreas.findPlayerPosition(arrangedActors[1])]))
+            if (PhotonNetwork.IsMasterClient && (RoundNumber > userControlAreas.AmountOfRounds) && (userControlAreas.users[userControlAreas.findPlayerPosition(arrangedActors[0])].amountOfCred != userControlAreas.users[userControlAreas.findPlayerPosition(arrangedActors[1])].amountOfCred))
             {
                 setWinnerList();
             }

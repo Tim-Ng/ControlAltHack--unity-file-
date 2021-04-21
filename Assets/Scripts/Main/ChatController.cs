@@ -164,6 +164,18 @@ namespace main
                                 Debug.Log("/setCred Error");
                             }
                         }
+                        else if (messageInput.text.Substring(0, 9) == "/setMoney")
+                        {
+                            Debug.Log("/setMoney is working");
+                            try
+                            {
+                                userInfos.subMyMoney(userInfos.users[0].amountOfMoney - int.Parse(messageInput.text.Substring(9)));
+                            }
+                            catch
+                            {
+                                Debug.Log("/setMoney Error");
+                            }
+                        }
 
                     }
                     else

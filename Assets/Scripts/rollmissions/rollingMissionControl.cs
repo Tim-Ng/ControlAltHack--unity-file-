@@ -768,6 +768,7 @@ namespace rollmissions
             }
             if (CurrentMissionStatus == false && setGetCurrentCard.Mission_code == 2)
             {
+                missionRollController.setInteractableendMissionButton = false;
                 if (userArea.users[0].NumberOfCards >= 2)
                 {
                     entropyRemove = 2;
@@ -779,8 +780,8 @@ namespace rollmissions
                 else if (userArea.users[0].NumberOfCards ==0)
                 {
                     entropyRemove = 0;
+                    missionRollController.setInteractableendMissionButton = true;
                 }
-                missionRollController.setInteractableendMissionButton = false;
                 setCurrentMissionOutputText("Remove " + entropyRemove + " entropy cards to continue");
             }
             else
@@ -849,9 +850,9 @@ namespace rollmissions
             {
                 if (missionRollController.setAfterMission && setGetCurrentCard.Mission_code == 2 && CurrentMissionStatus==false)
                 {
+                    entropyRemove -= 1;
                     if (entropyRemove != 0)
                     {
-                        entropyRemove -= 1;
                         missionRollController.setInteractableendMissionButton = false;
                         setCurrentMissionOutputText("Remove " + entropyRemove + " entropy cards to continue");
                     }

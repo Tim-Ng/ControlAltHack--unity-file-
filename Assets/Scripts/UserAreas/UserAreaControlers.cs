@@ -167,7 +167,7 @@ namespace UserAreas
         public void startOBJs()
         {
             GameHasStarted = false;
-            AmountOfRounds = 1;
+            AmountOfRounds = 6;
             chatController.onReceiveMessage("Number of rounds is " + AmountOfRounds, null, false);
             PhotonNetwork.CurrentRoom.IsOpen = true;
             startGameItems.SetActive(true);

@@ -1,0 +1,1243 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &1
+MonoBehaviour:
+  m_ObjectHideFlags: 61
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ffe70aba2e7074048aca5de573b64a59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SimpleSelectedItems:
+    m_Keys:
+    - .collabignore
+    - Assets/Assets.index
+    - Assets/Assets.index.meta
+    - Assets/Photon.meta
+    - Assets/Photon/PhotonChat.meta
+    - Assets/Photon/PhotonChat/Code.meta
+    - Assets/Photon/PhotonChat/Code/ChannelCreationOptions.cs
+    - Assets/Photon/PhotonChat/Code/ChannelCreationOptions.cs.meta
+    - Assets/Photon/PhotonChat/Code/ChannelWellKnownProperties.cs
+    - Assets/Photon/PhotonChat/Code/ChannelWellKnownProperties.cs.meta
+    - Assets/Photon/PhotonChat/Code/ChatAppSettings.cs
+    - Assets/Photon/PhotonChat/Code/ChatAppSettings.cs.meta
+    - Assets/Photon/PhotonChat/Code/ChatChannel.cs
+    - Assets/Photon/PhotonChat/Code/ChatChannel.cs.meta
+    - Assets/Photon/PhotonChat/Code/ChatClient.cs
+    - Assets/Photon/PhotonChat/Code/ChatClient.cs.meta
+    - Assets/Photon/PhotonChat/Code/ChatDisconnectCause.cs
+    - Assets/Photon/PhotonChat/Code/ChatDisconnectCause.cs.meta
+    - Assets/Photon/PhotonChat/Code/ChatEventCode.cs
+    - Assets/Photon/PhotonChat/Code/ChatEventCode.cs.meta
+    - Assets/Photon/PhotonChat/Code/ChatOperationCode.cs
+    - Assets/Photon/PhotonChat/Code/ChatOperationCode.cs.meta
+    - Assets/Photon/PhotonChat/Code/ChatParameterCode.cs
+    - Assets/Photon/PhotonChat/Code/ChatParameterCode.cs.meta
+    - Assets/Photon/PhotonChat/Code/ChatPeer.cs
+    - Assets/Photon/PhotonChat/Code/ChatPeer.cs.meta
+    - Assets/Photon/PhotonChat/Code/ChatState.cs
+    - Assets/Photon/PhotonChat/Code/ChatState.cs.meta
+    - Assets/Photon/PhotonChat/Code/ChatUserStatus.cs
+    - Assets/Photon/PhotonChat/Code/ChatUserStatus.cs.meta
+    - Assets/Photon/PhotonChat/Code/IChatClientListener.cs
+    - Assets/Photon/PhotonChat/Code/IChatClientListener.cs.meta
+    - Assets/Photon/PhotonChat/Code/PhotonChat.asmdef
+    - Assets/Photon/PhotonChat/Code/PhotonChat.asmdef.meta
+    - Assets/Photon/PhotonChat/Code/changes-chat.txt
+    - Assets/Photon/PhotonChat/Code/changes-chat.txt.meta
+    - Assets/Photon/PhotonLibs.meta
+    - Assets/Photon/PhotonLibs/Metro.meta
+    - Assets/Photon/PhotonLibs/Metro/Photon3Unity3D.dll
+    - Assets/Photon/PhotonLibs/Metro/Photon3Unity3D.dll.meta
+    - Assets/Photon/PhotonLibs/Metro/Photon3Unity3D.pdb
+    - Assets/Photon/PhotonLibs/Metro/Photon3Unity3D.pdb.meta
+    - Assets/Photon/PhotonLibs/Metro/Photon3Unity3D.pri
+    - Assets/Photon/PhotonLibs/Metro/Photon3Unity3D.pri.meta
+    - Assets/Photon/PhotonLibs/Photon3Unity3D.dll
+    - Assets/Photon/PhotonLibs/Photon3Unity3D.dll.meta
+    - Assets/Photon/PhotonLibs/Photon3Unity3D.pdb
+    - Assets/Photon/PhotonLibs/Photon3Unity3D.pdb.meta
+    - Assets/Photon/PhotonLibs/Photon3Unity3D.xml
+    - Assets/Photon/PhotonLibs/Photon3Unity3D.xml.meta
+    - Assets/Photon/PhotonLibs/WebSocket.meta
+    - Assets/Photon/PhotonLibs/WebSocket/PhotonWebSocket.asmdef
+    - Assets/Photon/PhotonLibs/WebSocket/PhotonWebSocket.asmdef.meta
+    - Assets/Photon/PhotonLibs/WebSocket/SocketWebTcp.cs
+    - Assets/Photon/PhotonLibs/WebSocket/SocketWebTcp.cs.meta
+    - Assets/Photon/PhotonLibs/WebSocket/WebSocket.cs
+    - Assets/Photon/PhotonLibs/WebSocket/WebSocket.cs.meta
+    - Assets/Photon/PhotonLibs/WebSocket/WebSocket.jslib
+    - Assets/Photon/PhotonLibs/WebSocket/WebSocket.jslib.meta
+    - Assets/Photon/PhotonLibs/WebSocket/websocket-sharp.README
+    - Assets/Photon/PhotonLibs/WebSocket/websocket-sharp.README.meta
+    - Assets/Photon/PhotonLibs/WebSocket/websocket-sharp.dll
+    - Assets/Photon/PhotonLibs/WebSocket/websocket-sharp.dll.meta
+    - Assets/Photon/PhotonLibs/changes-library.txt
+    - Assets/Photon/PhotonLibs/changes-library.txt.meta
+    - Assets/Photon/PhotonLibs/netstandard2.0.meta
+    - Assets/Photon/PhotonLibs/netstandard2.0/Photon3Unity3D.deps.json
+    - Assets/Photon/PhotonLibs/netstandard2.0/Photon3Unity3D.deps.json.meta
+    - Assets/Photon/PhotonLibs/netstandard2.0/Photon3Unity3D.dll
+    - Assets/Photon/PhotonLibs/netstandard2.0/Photon3Unity3D.dll.meta
+    - Assets/Photon/PhotonLibs/netstandard2.0/Photon3Unity3D.pdb
+    - Assets/Photon/PhotonLibs/netstandard2.0/Photon3Unity3D.pdb.meta
+    - Assets/Photon/PhotonLibs/netstandard2.0/Photon3Unity3D.xml
+    - Assets/Photon/PhotonLibs/netstandard2.0/Photon3Unity3D.xml.meta
+    - Assets/Photon/PhotonNetworking-Documentation.chm
+    - Assets/Photon/PhotonNetworking-Documentation.chm.meta
+    - Assets/Photon/PhotonNetworking-Documentation.pdf
+    - Assets/Photon/PhotonNetworking-Documentation.pdf.meta
+    - Assets/Photon/PhotonRealtime.meta
+    - Assets/Photon/PhotonRealtime/Code.meta
+    - Assets/Photon/PhotonRealtime/Code/AppSettings.cs
+    - Assets/Photon/PhotonRealtime/Code/AppSettings.cs.meta
+    - Assets/Photon/PhotonRealtime/Code/ConnectionHandler.cs
+    - Assets/Photon/PhotonRealtime/Code/ConnectionHandler.cs.meta
+    - Assets/Photon/PhotonRealtime/Code/Extensions.cs
+    - Assets/Photon/PhotonRealtime/Code/Extensions.cs.meta
+    - Assets/Photon/PhotonRealtime/Code/FriendInfo.cs
+    - Assets/Photon/PhotonRealtime/Code/FriendInfo.cs.meta
+    - Assets/Photon/PhotonRealtime/Code/LoadBalancingClient.cs
+    - Assets/Photon/PhotonRealtime/Code/LoadBalancingClient.cs.meta
+    - Assets/Photon/PhotonRealtime/Code/LoadbalancingPeer.cs
+    - Assets/Photon/PhotonRealtime/Code/LoadbalancingPeer.cs.meta
+    - Assets/Photon/PhotonRealtime/Code/PhotonPing.cs
+    - Assets/Photon/PhotonRealtime/Code/PhotonPing.cs.meta
+    - Assets/Photon/PhotonRealtime/Code/PhotonPingClasses.cs
+    - Assets/Photon/PhotonRealtime/Code/PhotonPingClasses.cs.meta
+    - Assets/Photon/PhotonRealtime/Code/PhotonRealtime.asmdef
+    - Assets/Photon/PhotonRealtime/Code/PhotonRealtime.asmdef.meta
+    - Assets/Photon/PhotonRealtime/Code/Player.cs
+    - Assets/Photon/PhotonRealtime/Code/Player.cs.meta
+    - Assets/Photon/PhotonRealtime/Code/Region.cs
+    - Assets/Photon/PhotonRealtime/Code/Region.cs.meta
+    - Assets/Photon/PhotonRealtime/Code/RegionHandler.cs
+    - Assets/Photon/PhotonRealtime/Code/RegionHandler.cs.meta
+    - Assets/Photon/PhotonRealtime/Code/Room.cs
+    - Assets/Photon/PhotonRealtime/Code/Room.cs.meta
+    - Assets/Photon/PhotonRealtime/Code/RoomInfo.cs
+    - Assets/Photon/PhotonRealtime/Code/RoomInfo.cs.meta
+    - Assets/Photon/PhotonRealtime/Code/SupportLogger.cs
+    - Assets/Photon/PhotonRealtime/Code/SupportLogger.cs.meta
+    - Assets/Photon/PhotonRealtime/Code/WebRpc.cs
+    - Assets/Photon/PhotonRealtime/Code/WebRpc.cs.meta
+    - Assets/Photon/PhotonRealtime/Code/changes-realtime.txt
+    - Assets/Photon/PhotonRealtime/Code/changes-realtime.txt.meta
+    - Assets/Photon/PhotonUnityNetworking.meta
+    - Assets/Photon/PhotonUnityNetworking/Code.meta
+    - Assets/Photon/PhotonUnityNetworking/Code/CustomTypes.cs
+    - Assets/Photon/PhotonUnityNetworking/Code/CustomTypes.cs.meta
+    - Assets/Photon/PhotonUnityNetworking/Code/Editor.meta
+    - Assets/Photon/PhotonUnityNetworking/Code/Editor/AccountService.cs
+    - Assets/Photon/PhotonUnityNetworking/Code/Editor/AccountService.cs.meta
+    - Assets/Photon/PhotonUnityNetworking/Code/Editor/CopyIcon.png
+    - Assets/Photon/PhotonUnityNetworking/Code/Editor/CopyIcon.png.meta
+    - Assets/Photon/PhotonUnityNetworking/Code/Editor/CopyIconPro.png
+    - Assets/Photon/PhotonUnityNetworking/Code/Editor/CopyIconPro.png.meta
+    - Assets/Photon/PhotonUnityNetworking/Code/Editor/PhotonEditor.cs
+    - Assets/Photon/PhotonUnityNetworking/Code/Editor/PhotonEditor.cs.meta
+    - Assets/Photon/PhotonUnityNetworking/Code/Editor/PhotonEditorUtils.cs
+    - Assets/Photon/PhotonUnityNetworking/Code/Editor/PhotonEditorUtils.cs.meta
+    - Assets/Photon/PhotonUnityNetworking/Code/Editor/PhotonGUI.cs
+    - Assets/Photon/PhotonUnityNetworking/Code/Editor/PhotonGUI.cs.meta
+    - Assets/Photon/PhotonUnityNetworking/Code/Editor/PhotonUnityNetworking.Editor.asmdef
+    - Assets/Photon/PhotonUnityNetworking/Code/Editor/PhotonUnityNetworking.Editor.asmdef.meta
+    - Assets/Photon/PhotonUnityNetworking/Code/Editor/PhotonViewHandler.cs
+    - Assets/Photon/PhotonUnityNetworking/Code/Editor/PhotonViewHandler.cs.meta
+    - Assets/Photon/PhotonUnityNetworking/Code/Editor/PhotonViewInspector.cs
+    - Assets/Photon/PhotonUnityNetworking/Code/Editor/PhotonViewInspector.cs.meta
+    - Assets/Photon/PhotonUnityNetworking/Code/Editor/PunGradient.png
+    - Assets/Photon/PhotonUnityNetworking/Code/Editor/PunGradient.png.meta
+    - Assets/Photon/PhotonUnityNetworking/Code/Editor/PunSceneSettings.cs
+    - Assets/Photon/PhotonUnityNetworking/Code/Editor/PunSceneSettings.cs.meta
+    - Assets/Photon/PhotonUnityNetworking/Code/Editor/PunSceneSettingsFile.asset
+    - Assets/Photon/PhotonUnityNetworking/Code/Editor/PunSceneSettingsFile.asset.meta
+    - Assets/Photon/PhotonUnityNetworking/Code/Editor/PunSceneSettingsInspector.cs
+    - Assets/Photon/PhotonUnityNetworking/Code/Editor/PunSceneSettingsInspector.cs.meta
+    - Assets/Photon/PhotonUnityNetworking/Code/Editor/ReordableList.meta
+    - Assets/Photon/PhotonUnityNetworking/Code/Editor/ReordableList/LICENSE.txt
+    - Assets/Photon/PhotonUnityNetworking/Code/Editor/ReordableList/LICENSE.txt.meta
+    - Assets/Photon/PhotonUnityNetworking/Code/Editor/ReordableList/ReorderableListResources.cs
+    - Assets/Photon/PhotonUnityNetworking/Code/Editor/ReordableList/ReorderableListResources.cs.meta
+    - Assets/Photon/PhotonUnityNetworking/Code/Editor/ServerSettingsInspector.cs
+    - Assets/Photon/PhotonUnityNetworking/Code/Editor/ServerSettingsInspector.cs.meta
+    - Assets/Photon/PhotonUnityNetworking/Code/Editor/Views.meta
+    - Assets/Photon/PhotonUnityNetworking/Code/Editor/Views/MonoBehaviourPunEditor.cs
+    - Assets/Photon/PhotonUnityNetworking/Code/Editor/Views/MonoBehaviourPunEditor.cs.meta
+    - Assets/Photon/PhotonUnityNetworking/Code/Editor/Views/PhotonAnimatorViewEditor.cs
+    - Assets/Photon/PhotonUnityNetworking/Code/Editor/Views/PhotonAnimatorViewEditor.cs.meta
+    - Assets/Photon/PhotonUnityNetworking/Code/Editor/Views/PhotonRigidbody2DViewEditor.cs
+    - Assets/Photon/PhotonUnityNetworking/Code/Editor/Views/PhotonRigidbody2DViewEditor.cs.meta
+    - Assets/Photon/PhotonUnityNetworking/Code/Editor/Views/PhotonRigidbodyViewEditor.cs
+    - Assets/Photon/PhotonUnityNetworking/Code/Editor/Views/PhotonRigidbodyViewEditor.cs.meta
+    - Assets/Photon/PhotonUnityNetworking/Code/Editor/Views/PhotonTransformViewClassicEditor.cs
+    - Assets/Photon/PhotonUnityNetworking/Code/Editor/Views/PhotonTransformViewClassicEditor.cs.meta
+    - Assets/Photon/PhotonUnityNetworking/Code/Editor/Views/PhotonTransformViewEditor.cs
+    - Assets/Photon/PhotonUnityNetworking/Code/Editor/Views/PhotonTransformViewEditor.cs.meta
+    - Assets/Photon/PhotonUnityNetworking/Code/Editor/help.png
+    - Assets/Photon/PhotonUnityNetworking/Code/Editor/help.png.meta
+    - Assets/Photon/PhotonUnityNetworking/Code/Enums.cs
+    - Assets/Photon/PhotonUnityNetworking/Code/Enums.cs.meta
+    - Assets/Photon/PhotonUnityNetworking/Code/Interfaces.meta
+    - Assets/Photon/PhotonUnityNetworking/Code/Interfaces/IPhotonViewCallbacks.cs
+    - Assets/Photon/PhotonUnityNetworking/Code/Interfaces/IPhotonViewCallbacks.cs.meta
+    - Assets/Photon/PhotonUnityNetworking/Code/Interfaces/IPunCallbacks.cs
+    - Assets/Photon/PhotonUnityNetworking/Code/Interfaces/IPunCallbacks.cs.meta
+    - Assets/Photon/PhotonUnityNetworking/Code/PhotonHandler.cs
+    - Assets/Photon/PhotonUnityNetworking/Code/PhotonHandler.cs.meta
+    - Assets/Photon/PhotonUnityNetworking/Code/PhotonNetwork.cs
+    - Assets/Photon/PhotonUnityNetworking/Code/PhotonNetwork.cs.meta
+    - Assets/Photon/PhotonUnityNetworking/Code/PhotonNetworkPart.cs
+    - Assets/Photon/PhotonUnityNetworking/Code/PhotonNetworkPart.cs.meta
+    - Assets/Photon/PhotonUnityNetworking/Code/PhotonStreamQueue.cs
+    - Assets/Photon/PhotonUnityNetworking/Code/PhotonStreamQueue.cs.meta
+    - Assets/Photon/PhotonUnityNetworking/Code/PhotonUnityNetworking.asmdef
+    - Assets/Photon/PhotonUnityNetworking/Code/PhotonUnityNetworking.asmdef.meta
+    - Assets/Photon/PhotonUnityNetworking/Code/PhotonView.cs
+    - Assets/Photon/PhotonUnityNetworking/Code/PhotonView.cs.meta
+    - Assets/Photon/PhotonUnityNetworking/Code/PunClasses.cs
+    - Assets/Photon/PhotonUnityNetworking/Code/PunClasses.cs.meta
+    - Assets/Photon/PhotonUnityNetworking/Code/ServerSettings.cs
+    - Assets/Photon/PhotonUnityNetworking/Code/ServerSettings.cs.meta
+    - Assets/Photon/PhotonUnityNetworking/Code/Utilities.meta
+    - Assets/Photon/PhotonUnityNetworking/Code/Utilities/NestedComponentUtilities.cs
+    - Assets/Photon/PhotonUnityNetworking/Code/Utilities/NestedComponentUtilities.cs.meta
+    - Assets/Photon/PhotonUnityNetworking/Code/Views.meta
+    - Assets/Photon/PhotonUnityNetworking/Code/Views/PhotonAnimatorView.cs
+    - Assets/Photon/PhotonUnityNetworking/Code/Views/PhotonAnimatorView.cs.meta
+    - Assets/Photon/PhotonUnityNetworking/Code/Views/PhotonRigidbody2DView.cs
+    - Assets/Photon/PhotonUnityNetworking/Code/Views/PhotonRigidbody2DView.cs.meta
+    - Assets/Photon/PhotonUnityNetworking/Code/Views/PhotonRigidbodyView.cs
+    - Assets/Photon/PhotonUnityNetworking/Code/Views/PhotonRigidbodyView.cs.meta
+    - Assets/Photon/PhotonUnityNetworking/Code/Views/PhotonTransformView.cs
+    - Assets/Photon/PhotonUnityNetworking/Code/Views/PhotonTransformView.cs.meta
+    - Assets/Photon/PhotonUnityNetworking/Code/Views/PhotonTransformViewClassic.cs
+    - Assets/Photon/PhotonUnityNetworking/Code/Views/PhotonTransformViewClassic.cs.meta
+    - Assets/Photon/PhotonUnityNetworking/Icons.meta
+    - Assets/Photon/PhotonUnityNetworking/Icons/PunIcon-128.png
+    - Assets/Photon/PhotonUnityNetworking/Icons/PunIcon-128.png.meta
+    - Assets/Photon/PhotonUnityNetworking/Icons/PunIconApp128.png
+    - Assets/Photon/PhotonUnityNetworking/Icons/PunIconApp128.png.meta
+    - Assets/Photon/PhotonUnityNetworking/Icons/PunIconApp32.png
+    - Assets/Photon/PhotonUnityNetworking/Icons/PunIconApp32.png.meta
+    - Assets/Photon/PhotonUnityNetworking/Icons/PunIconApp48.png
+    - Assets/Photon/PhotonUnityNetworking/Icons/PunIconApp48.png.meta
+    - Assets/Photon/PhotonUnityNetworking/Icons/PunIconApp512.png
+    - Assets/Photon/PhotonUnityNetworking/Icons/PunIconApp512.png.meta
+    - Assets/Photon/PhotonUnityNetworking/Resources.meta
+    - Assets/Photon/PhotonUnityNetworking/Resources/PhotonServerSettings.asset
+    - Assets/Photon/PhotonUnityNetworking/Resources/PhotonServerSettings.asset.meta
+    - Assets/Photon/PhotonUnityNetworking/UtilityScripts.meta
+    - Assets/Photon/PhotonUnityNetworking/UtilityScripts/Culling.meta
+    - Assets/Photon/PhotonUnityNetworking/UtilityScripts/Culling/CullArea.cs
+    - Assets/Photon/PhotonUnityNetworking/UtilityScripts/Culling/CullArea.cs.meta
+    - Assets/Photon/PhotonUnityNetworking/UtilityScripts/Culling/CullingHandler.cs
+    - Assets/Photon/PhotonUnityNetworking/UtilityScripts/Culling/CullingHandler.cs.meta
+    - Assets/Photon/PhotonUnityNetworking/UtilityScripts/Culling/Editor.meta
+    - Assets/Photon/PhotonUnityNetworking/UtilityScripts/Culling/Editor/CullAreaEditor.cs
+    - Assets/Photon/PhotonUnityNetworking/UtilityScripts/Culling/Editor/CullAreaEditor.cs.meta
+    - Assets/Photon/PhotonUnityNetworking/UtilityScripts/Culling/Editor/PhotonUnityNetworking.Utilities.Culling.Editor.asmdef
+    - Assets/Photon/PhotonUnityNetworking/UtilityScripts/Culling/Editor/PhotonUnityNetworking.Utilities.Culling.Editor.asmdef.meta
+    - Assets/Photon/PhotonUnityNetworking/UtilityScripts/Debugging.meta
+    - Assets/Photon/PhotonUnityNetworking/UtilityScripts/Debugging/PhotonLagSimulationGui.cs
+    - Assets/Photon/PhotonUnityNetworking/UtilityScripts/Debugging/PhotonLagSimulationGui.cs.meta
+    - Assets/Photon/PhotonUnityNetworking/UtilityScripts/Debugging/PhotonStatsGui.cs
+    - Assets/Photon/PhotonUnityNetworking/UtilityScripts/Debugging/PhotonStatsGui.cs.meta
+    - Assets/Photon/PhotonUnityNetworking/UtilityScripts/Debugging/PointedAtGameObjectInfo.cs
+    - Assets/Photon/PhotonUnityNetworking/UtilityScripts/Debugging/PointedAtGameObjectInfo.cs.meta
+    - Assets/Photon/PhotonUnityNetworking/UtilityScripts/Debugging/StatesGui.cs
+    - Assets/Photon/PhotonUnityNetworking/UtilityScripts/Debugging/StatesGui.cs.meta
+    - Assets/Photon/PhotonUnityNetworking/UtilityScripts/PhotonPlayer.meta
+    - Assets/Photon/PhotonUnityNetworking/UtilityScripts/PhotonPlayer/Editor.meta
+    - Assets/Photon/PhotonUnityNetworking/UtilityScripts/PhotonPlayer/Editor/PhotonTeamsManagerInspector.cs
+    - Assets/Photon/PhotonUnityNetworking/UtilityScripts/PhotonPlayer/Editor/PhotonTeamsManagerInspector.cs.meta
+    - Assets/Photon/PhotonUnityNetworking/UtilityScripts/PhotonPlayer/Editor/PhotonUnityNetworking.Utilities.PhotonPlayer.Editor.asmdef
+    - Assets/Photon/PhotonUnityNetworking/UtilityScripts/PhotonPlayer/Editor/PhotonUnityNetworking.Utilities.PhotonPlayer.Editor.asmdef.meta
+    - Assets/Photon/PhotonUnityNetworking/UtilityScripts/PhotonPlayer/Editor/PlayerNumberingInspector.cs
+    - Assets/Photon/PhotonUnityNetworking/UtilityScripts/PhotonPlayer/Editor/PlayerNumberingInspector.cs.meta
+    - Assets/Photon/PhotonUnityNetworking/UtilityScripts/PhotonPlayer/Editor/PunTeamsInspector.cs
+    - Assets/Photon/PhotonUnityNetworking/UtilityScripts/PhotonPlayer/Editor/PunTeamsInspector.cs.meta
+    - Assets/Photon/PhotonUnityNetworking/UtilityScripts/PhotonPlayer/PhotonTeamsManager.cs
+    - Assets/Photon/PhotonUnityNetworking/UtilityScripts/PhotonPlayer/PhotonTeamsManager.cs.meta
+    - Assets/Photon/PhotonUnityNetworking/UtilityScripts/PhotonPlayer/PlayerNumbering.cs
+    - Assets/Photon/PhotonUnityNetworking/UtilityScripts/PhotonPlayer/PlayerNumbering.cs.meta
+    - Assets/Photon/PhotonUnityNetworking/UtilityScripts/PhotonPlayer/PunPlayerScores.cs
+    - Assets/Photon/PhotonUnityNetworking/UtilityScripts/PhotonPlayer/PunPlayerScores.cs.meta
+    - Assets/Photon/PhotonUnityNetworking/UtilityScripts/PhotonPlayer/PunTeams.cs
+    - Assets/Photon/PhotonUnityNetworking/UtilityScripts/PhotonPlayer/PunTeams.cs.meta
+    - Assets/Photon/PhotonUnityNetworking/UtilityScripts/PhotonUnityNetworking.Utilities.asmdef
+    - Assets/Photon/PhotonUnityNetworking/UtilityScripts/PhotonUnityNetworking.Utilities.asmdef.meta
+    - Assets/Photon/PhotonUnityNetworking/UtilityScripts/PhotonView.meta
+    - Assets/Photon/PhotonUnityNetworking/UtilityScripts/PhotonView/SmoothSyncMovement.cs
+    - Assets/Photon/PhotonUnityNetworking/UtilityScripts/PhotonView/SmoothSyncMovement.cs.meta
+    - Assets/Photon/PhotonUnityNetworking/UtilityScripts/Prototyping.meta
+    - Assets/Photon/PhotonUnityNetworking/UtilityScripts/Prototyping/ConnectAndJoinRandom.cs
+    - Assets/Photon/PhotonUnityNetworking/UtilityScripts/Prototyping/ConnectAndJoinRandom.cs.meta
+    - Assets/Photon/PhotonUnityNetworking/UtilityScripts/Prototyping/MoveByKeys.cs
+    - Assets/Photon/PhotonUnityNetworking/UtilityScripts/Prototyping/MoveByKeys.cs.meta
+    - Assets/Photon/PhotonUnityNetworking/UtilityScripts/Prototyping/OnClickDestroy.cs
+    - Assets/Photon/PhotonUnityNetworking/UtilityScripts/Prototyping/OnClickDestroy.cs.meta
+    - Assets/Photon/PhotonUnityNetworking/UtilityScripts/Prototyping/OnClickInstantiate.cs
+    - Assets/Photon/PhotonUnityNetworking/UtilityScripts/Prototyping/OnClickInstantiate.cs.meta
+    - Assets/Photon/PhotonUnityNetworking/UtilityScripts/Prototyping/OnClickRpc.cs
+    - Assets/Photon/PhotonUnityNetworking/UtilityScripts/Prototyping/OnClickRpc.cs.meta
+    - Assets/Photon/PhotonUnityNetworking/UtilityScripts/Prototyping/OnEscapeQuit.cs
+    - Assets/Photon/PhotonUnityNetworking/UtilityScripts/Prototyping/OnEscapeQuit.cs.meta
+    - Assets/Photon/PhotonUnityNetworking/UtilityScripts/Prototyping/OnJoinedInstantiate.cs
+    - Assets/Photon/PhotonUnityNetworking/UtilityScripts/Prototyping/OnJoinedInstantiate.cs.meta
+    - Assets/Photon/PhotonUnityNetworking/UtilityScripts/Prototyping/OnStartDelete.cs
+    - Assets/Photon/PhotonUnityNetworking/UtilityScripts/Prototyping/OnStartDelete.cs.meta
+    - Assets/Photon/PhotonUnityNetworking/UtilityScripts/Room.meta
+    - Assets/Photon/PhotonUnityNetworking/UtilityScripts/Room/CountdownTimer.cs
+    - Assets/Photon/PhotonUnityNetworking/UtilityScripts/Room/CountdownTimer.cs.meta
+    - Assets/Photon/PhotonUnityNetworking/UtilityScripts/TurnBased.meta
+    - Assets/Photon/PhotonUnityNetworking/UtilityScripts/TurnBased/PunTurnManager.cs
+    - Assets/Photon/PhotonUnityNetworking/UtilityScripts/TurnBased/PunTurnManager.cs.meta
+    - Assets/Photon/PhotonUnityNetworking/UtilityScripts/UI.meta
+    - Assets/Photon/PhotonUnityNetworking/UtilityScripts/UI/ButtonInsideScrollList.cs
+    - Assets/Photon/PhotonUnityNetworking/UtilityScripts/UI/ButtonInsideScrollList.cs.meta
+    - Assets/Photon/PhotonUnityNetworking/UtilityScripts/UI/EventSystemSpawner.cs
+    - Assets/Photon/PhotonUnityNetworking/UtilityScripts/UI/EventSystemSpawner.cs.meta
+    - Assets/Photon/PhotonUnityNetworking/UtilityScripts/UI/GraphicToggleIsOnTransition.cs
+    - Assets/Photon/PhotonUnityNetworking/UtilityScripts/UI/GraphicToggleIsOnTransition.cs.meta
+    - Assets/Photon/PhotonUnityNetworking/UtilityScripts/UI/OnPointerOverTooltip.cs
+    - Assets/Photon/PhotonUnityNetworking/UtilityScripts/UI/OnPointerOverTooltip.cs.meta
+    - Assets/Photon/PhotonUnityNetworking/UtilityScripts/UI/TabViewManager.cs
+    - Assets/Photon/PhotonUnityNetworking/UtilityScripts/UI/TabViewManager.cs.meta
+    - Assets/Photon/PhotonUnityNetworking/UtilityScripts/UI/TextButtonTransition.cs
+    - Assets/Photon/PhotonUnityNetworking/UtilityScripts/UI/TextButtonTransition.cs.meta
+    - Assets/Photon/PhotonUnityNetworking/UtilityScripts/UI/TextToggleIsOnTransition.cs
+    - Assets/Photon/PhotonUnityNetworking/UtilityScripts/UI/TextToggleIsOnTransition.cs.meta
+    - Assets/Photon/PhotonUnityNetworking/changelog.txt
+    - Assets/Photon/PhotonUnityNetworking/changelog.txt.meta
+    - Assets/Photon/PhotonUnityNetworking/link.xml
+    - Assets/Photon/PhotonUnityNetworking/link.xml.meta
+    - Assets/Photon/PhotonUnityNetworking/readme.txt
+    - Assets/Photon/PhotonUnityNetworking/readme.txt.meta
+    - Assets/Plugins.meta
+    - Assets/Plugins/GitHub.meta
+    - Assets/Plugins/GitHub/Editor.meta
+    - Assets/Plugins/GitHub/Editor/AsyncBridge.Net35.dll
+    - Assets/Plugins/GitHub/Editor/AsyncBridge.Net35.dll.meta
+    - Assets/Plugins/GitHub/Editor/ExtensionLoader.cs
+    - Assets/Plugins/GitHub/Editor/ExtensionLoader.cs.meta
+    - Assets/Plugins/GitHub/Editor/GitHub.Api.45.dll
+    - Assets/Plugins/GitHub/Editor/GitHub.Api.45.dll.mdb
+    - Assets/Plugins/GitHub/Editor/GitHub.Api.45.dll.mdb.meta
+    - Assets/Plugins/GitHub/Editor/GitHub.Api.45.dll.meta
+    - Assets/Plugins/GitHub/Editor/GitHub.Api.45.pdb
+    - Assets/Plugins/GitHub/Editor/GitHub.Api.45.pdb.meta
+    - Assets/Plugins/GitHub/Editor/GitHub.Api.dll
+    - Assets/Plugins/GitHub/Editor/GitHub.Api.dll.mdb
+    - Assets/Plugins/GitHub/Editor/GitHub.Api.dll.mdb.meta
+    - Assets/Plugins/GitHub/Editor/GitHub.Api.dll.meta
+    - Assets/Plugins/GitHub/Editor/GitHub.Api.pdb
+    - Assets/Plugins/GitHub/Editor/GitHub.Api.pdb.meta
+    - Assets/Plugins/GitHub/Editor/GitHub.Logging.dll
+    - Assets/Plugins/GitHub/Editor/GitHub.Logging.dll.mdb
+    - Assets/Plugins/GitHub/Editor/GitHub.Logging.dll.mdb.meta
+    - Assets/Plugins/GitHub/Editor/GitHub.Logging.dll.meta
+    - Assets/Plugins/GitHub/Editor/GitHub.Logging.pdb
+    - Assets/Plugins/GitHub/Editor/GitHub.Logging.pdb.meta
+    - Assets/Plugins/GitHub/Editor/GitHub.Unity.45.dll
+    - Assets/Plugins/GitHub/Editor/GitHub.Unity.45.dll.mdb
+    - Assets/Plugins/GitHub/Editor/GitHub.Unity.45.dll.mdb.meta
+    - Assets/Plugins/GitHub/Editor/GitHub.Unity.45.dll.meta
+    - Assets/Plugins/GitHub/Editor/GitHub.Unity.45.pdb
+    - Assets/Plugins/GitHub/Editor/GitHub.Unity.45.pdb.meta
+    - Assets/Plugins/GitHub/Editor/GitHub.Unity.dll
+    - Assets/Plugins/GitHub/Editor/GitHub.Unity.dll.mdb
+    - Assets/Plugins/GitHub/Editor/GitHub.Unity.dll.mdb.meta
+    - Assets/Plugins/GitHub/Editor/GitHub.Unity.dll.meta
+    - Assets/Plugins/GitHub/Editor/GitHub.Unity.pdb
+    - Assets/Plugins/GitHub/Editor/GitHub.Unity.pdb.meta
+    - Assets/Plugins/GitHub/Editor/GitHub.UnityShim.dll
+    - Assets/Plugins/GitHub/Editor/GitHub.UnityShim.dll.mdb
+    - Assets/Plugins/GitHub/Editor/GitHub.UnityShim.dll.mdb.meta
+    - Assets/Plugins/GitHub/Editor/GitHub.UnityShim.dll.meta
+    - Assets/Plugins/GitHub/Editor/GitHub.UnityShim.pdb
+    - Assets/Plugins/GitHub/Editor/GitHub.UnityShim.pdb.meta
+    - Assets/Plugins/GitHub/Editor/Mono.Posix.dll
+    - Assets/Plugins/GitHub/Editor/Mono.Posix.dll.meta
+    - Assets/Plugins/GitHub/Editor/QuickGuide.pdf
+    - Assets/Plugins/GitHub/Editor/QuickGuide.pdf.meta
+    - Assets/Plugins/GitHub/Editor/ReadOnlyCollectionsInterfaces.dll
+    - Assets/Plugins/GitHub/Editor/ReadOnlyCollectionsInterfaces.dll.meta
+    - Assets/Plugins/GitHub/Editor/System.Threading.dll
+    - Assets/Plugins/GitHub/Editor/System.Threading.dll.meta
+    - Assets/Plugins/GitHub/Editor/UnityAPIWrapper.cs
+    - Assets/Plugins/GitHub/Editor/UnityAPIWrapper.cs.meta
+    - Assets/Plugins/GitHub/Editor/big-logo@2x.png
+    - Assets/Plugins/GitHub/Editor/big-logo@2x.png.meta
+    - Assets/Plugins/GitHub/Editor/credits.txt
+    - Assets/Plugins/GitHub/Editor/credits.txt.meta
+    - Assets/Plugins/GitHub/Editor/eula.txt
+    - Assets/Plugins/GitHub/Editor/eula.txt.meta
+    - Assets/Plugins/GitHub/Editor/libsfw.bundle
+    - Assets/Plugins/GitHub/Editor/libsfw.bundle.meta
+    - Assets/Plugins/GitHub/Editor/libsfw.so
+    - Assets/Plugins/GitHub/Editor/libsfw.so.meta
+    - Assets/Plugins/GitHub/Editor/sfw.net.dll
+    - Assets/Plugins/GitHub/Editor/sfw.net.dll.meta
+    - Assets/Plugins/GitHub/Editor/x64.meta
+    - Assets/Plugins/GitHub/Editor/x64/pthreadVC2.dll
+    - Assets/Plugins/GitHub/Editor/x64/pthreadVC2.dll.meta
+    - Assets/Plugins/GitHub/Editor/x64/sfw_x64.dll
+    - Assets/Plugins/GitHub/Editor/x64/sfw_x64.dll.meta
+    - Assets/Plugins/GitHub/Editor/x86.meta
+    - Assets/Plugins/GitHub/Editor/x86/pthreadVC2.dll
+    - Assets/Plugins/GitHub/Editor/x86/pthreadVC2.dll.meta
+    - Assets/Plugins/GitHub/Editor/x86/sfw_x86.dll
+    - Assets/Plugins/GitHub/Editor/x86/sfw_x86.dll.meta
+    - Assets/Prefabs.meta
+    - Assets/Prefabs/Avetar.prefab
+    - Assets/Prefabs/Avetar.prefab.meta
+    - Assets/Prefabs/CAH MP.prefab
+    - Assets/Prefabs/CAH MP.prefab.meta
+    - Assets/Prefabs/Cards.meta
+    - Assets/Prefabs/Cards/CharacterCards.meta
+    - Assets/Prefabs/Cards/CharacterCards/CharacterCards.meta
+    - Assets/Prefabs/Cards/CharacterCards/CharacterCards/CharcterCardTemplate.prefab
+    - Assets/Prefabs/Cards/CharacterCards/CharacterCards/CharcterCardTemplate.prefab.meta
+    - Assets/Prefabs/Cards/CharacterCards/CharacterInfo.meta
+    - Assets/Prefabs/Cards/CharacterCards/CharacterInfo/10Mei.asset
+    - Assets/Prefabs/Cards/CharacterCards/CharacterInfo/10Mei.asset.meta
+    - Assets/Prefabs/Cards/CharacterCards/CharacterInfo/11Mike.asset
+    - Assets/Prefabs/Cards/CharacterCards/CharacterInfo/11Mike.asset.meta
+    - Assets/Prefabs/Cards/CharacterCards/CharacterInfo/12Miro.asset
+    - Assets/Prefabs/Cards/CharacterCards/CharacterInfo/12Miro.asset.meta
+    - Assets/Prefabs/Cards/CharacterCards/CharacterInfo/13Roxana.asset
+    - Assets/Prefabs/Cards/CharacterCards/CharacterInfo/13Roxana.asset.meta
+    - Assets/Prefabs/Cards/CharacterCards/CharacterInfo/14Sidhant.asset
+    - Assets/Prefabs/Cards/CharacterCards/CharacterInfo/14Sidhant.asset.meta
+    - Assets/Prefabs/Cards/CharacterCards/CharacterInfo/15Tammy.asset
+    - Assets/Prefabs/Cards/CharacterCards/CharacterInfo/15Tammy.asset.meta
+    - Assets/Prefabs/Cards/CharacterCards/CharacterInfo/16Tope.asset
+    - Assets/Prefabs/Cards/CharacterCards/CharacterInfo/16Tope.asset.meta
+    - Assets/Prefabs/Cards/CharacterCards/CharacterInfo/1Alexi.asset
+    - Assets/Prefabs/Cards/CharacterCards/CharacterInfo/1Alexi.asset.meta
+    - Assets/Prefabs/Cards/CharacterCards/CharacterInfo/2Anya.asset
+    - Assets/Prefabs/Cards/CharacterCards/CharacterInfo/2Anya.asset.meta
+    - Assets/Prefabs/Cards/CharacterCards/CharacterInfo/3Cynthia.asset
+    - Assets/Prefabs/Cards/CharacterCards/CharacterInfo/3Cynthia.asset.meta
+    - Assets/Prefabs/Cards/CharacterCards/CharacterInfo/4Dan.asset
+    - Assets/Prefabs/Cards/CharacterCards/CharacterInfo/4Dan.asset.meta
+    - Assets/Prefabs/Cards/CharacterCards/CharacterInfo/5Deborah.asset
+    - Assets/Prefabs/Cards/CharacterCards/CharacterInfo/5Deborah.asset.meta
+    - Assets/Prefabs/Cards/CharacterCards/CharacterInfo/6Franzi.asset
+    - Assets/Prefabs/Cards/CharacterCards/CharacterInfo/6Franzi.asset.meta
+    - Assets/Prefabs/Cards/CharacterCards/CharacterInfo/7Gabriel.asset
+    - Assets/Prefabs/Cards/CharacterCards/CharacterInfo/7Gabriel.asset.meta
+    - Assets/Prefabs/Cards/CharacterCards/CharacterInfo/8Iva.asset
+    - Assets/Prefabs/Cards/CharacterCards/CharacterInfo/8Iva.asset.meta
+    - Assets/Prefabs/Cards/CharacterCards/CharacterInfo/9Karl.asset
+    - Assets/Prefabs/Cards/CharacterCards/CharacterInfo/9Karl.asset.meta
+    - Assets/Prefabs/Cards/Entropy cards.meta
+    - Assets/Prefabs/Cards/Entropy cards/EntropyCards.meta
+    - Assets/Prefabs/Cards/Entropy cards/EntropyCards/EntropyCardTemplate.prefab
+    - Assets/Prefabs/Cards/Entropy cards/EntropyCards/EntropyCardTemplate.prefab.meta
+    - Assets/Prefabs/Cards/Entropy cards/EntropyCards/PopUpBackGroundEntropy.prefab
+    - Assets/Prefabs/Cards/Entropy cards/EntropyCards/PopUpBackGroundEntropy.prefab.meta
+    - Assets/Prefabs/Cards/Entropy cards/EntropyInfo.meta
+    - Assets/Prefabs/Cards/Entropy cards/EntropyInfo/BagOfTricks.meta
+    - Assets/Prefabs/Cards/Entropy cards/EntropyInfo/BagOfTricks/10Lockpicking Toolchest.asset
+    - Assets/Prefabs/Cards/Entropy cards/EntropyInfo/BagOfTricks/10Lockpicking Toolchest.asset.meta
+    - Assets/Prefabs/Cards/Entropy cards/EntropyInfo/BagOfTricks/11More Monitors.asset
+    - Assets/Prefabs/Cards/Entropy cards/EntropyInfo/BagOfTricks/11More Monitors.asset.meta
+    - Assets/Prefabs/Cards/Entropy cards/EntropyInfo/BagOfTricks/12Oscilloscope.asset
+    - Assets/Prefabs/Cards/Entropy cards/EntropyInfo/BagOfTricks/12Oscilloscope.asset.meta
+    - Assets/Prefabs/Cards/Entropy cards/EntropyInfo/BagOfTricks/13Outstanding Oscilloscope.asset
+    - Assets/Prefabs/Cards/Entropy cards/EntropyInfo/BagOfTricks/13Outstanding Oscilloscope.asset.meta
+    - Assets/Prefabs/Cards/Entropy cards/EntropyInfo/BagOfTricks/14Party of the Year.asset
+    - Assets/Prefabs/Cards/Entropy cards/EntropyInfo/BagOfTricks/14Party of the Year.asset.meta
+    - Assets/Prefabs/Cards/Entropy cards/EntropyInfo/BagOfTricks/15Proprietary Documentation
+      Available.asset
+    - Assets/Prefabs/Cards/Entropy cards/EntropyInfo/BagOfTricks/15Proprietary Documentation
+      Available.asset.meta
+    - Assets/Prefabs/Cards/Entropy cards/EntropyInfo/BagOfTricks/16Psychology Course.asset
+    - Assets/Prefabs/Cards/Entropy cards/EntropyInfo/BagOfTricks/16Psychology Course.asset.meta
+    - Assets/Prefabs/Cards/Entropy cards/EntropyInfo/BagOfTricks/17ShmooCon.asset
+    - Assets/Prefabs/Cards/Entropy cards/EntropyInfo/BagOfTricks/17ShmooCon.asset.meta
+    - Assets/Prefabs/Cards/Entropy cards/EntropyInfo/BagOfTricks/18Software Libraries.asset
+    - Assets/Prefabs/Cards/Entropy cards/EntropyInfo/BagOfTricks/18Software Libraries.asset.meta
+    - Assets/Prefabs/Cards/Entropy cards/EntropyInfo/BagOfTricks/19Visualization
+      Software.asset
+    - Assets/Prefabs/Cards/Entropy cards/EntropyInfo/BagOfTricks/19Visualization
+      Software.asset.meta
+    - Assets/Prefabs/Cards/Entropy cards/EntropyInfo/BagOfTricks/1ActingClass.asset
+    - Assets/Prefabs/Cards/Entropy cards/EntropyInfo/BagOfTricks/1ActingClass.asset.meta
+    - Assets/Prefabs/Cards/Entropy cards/EntropyInfo/BagOfTricks/2Auction Expertise.asset
+    - Assets/Prefabs/Cards/Entropy cards/EntropyInfo/BagOfTricks/2Auction Expertise.asset.meta
+    - Assets/Prefabs/Cards/Entropy cards/EntropyInfo/BagOfTricks/3Awesome Antenna.asset
+    - Assets/Prefabs/Cards/Entropy cards/EntropyInfo/BagOfTricks/3Awesome Antenna.asset.meta
+    - Assets/Prefabs/Cards/Entropy cards/EntropyInfo/BagOfTricks/4DEFCON.asset
+    - Assets/Prefabs/Cards/Entropy cards/EntropyInfo/BagOfTricks/4DEFCON.asset.meta
+    - Assets/Prefabs/Cards/Entropy cards/EntropyInfo/BagOfTricks/5Dumpster Diving.asset
+    - Assets/Prefabs/Cards/Entropy cards/EntropyInfo/BagOfTricks/5Dumpster Diving.asset.meta
+    - Assets/Prefabs/Cards/Entropy cards/EntropyInfo/BagOfTricks/6Espresson Machine.asset
+    - Assets/Prefabs/Cards/Entropy cards/EntropyInfo/BagOfTricks/6Espresson Machine.asset.meta
+    - Assets/Prefabs/Cards/Entropy cards/EntropyInfo/BagOfTricks/7Graphics Hardware.asset
+    - Assets/Prefabs/Cards/Entropy cards/EntropyInfo/BagOfTricks/7Graphics Hardware.asset.meta
+    - Assets/Prefabs/Cards/Entropy cards/EntropyInfo/BagOfTricks/8Health Club Membership.asset
+    - Assets/Prefabs/Cards/Entropy cards/EntropyInfo/BagOfTricks/8Health Club Membership.asset.meta
+    - Assets/Prefabs/Cards/Entropy cards/EntropyInfo/BagOfTricks/9Learn from Your
+      Elders.asset
+    - Assets/Prefabs/Cards/Entropy cards/EntropyInfo/BagOfTricks/9Learn from Your
+      Elders.asset.meta
+    - Assets/Prefabs/Cards/Entropy cards/EntropyInfo/Extensive Experience.meta
+    - Assets/Prefabs/Cards/Entropy cards/EntropyInfo/Extensive Experience/20Cryptanalysis.asset
+    - Assets/Prefabs/Cards/Entropy cards/EntropyInfo/Extensive Experience/20Cryptanalysis.asset.meta
+    - Assets/Prefabs/Cards/Entropy cards/EntropyInfo/Extensive Experience/21Hardware
+      Hacking.asset
+    - Assets/Prefabs/Cards/Entropy cards/EntropyInfo/Extensive Experience/21Hardware
+      Hacking.asset.meta
+    - Assets/Prefabs/Cards/Entropy cards/EntropyInfo/Extensive Experience/22Network
+      Ninja.asset
+    - Assets/Prefabs/Cards/Entropy cards/EntropyInfo/Extensive Experience/22Network
+      Ninja.asset.meta
+    - Assets/Prefabs/Cards/Entropy cards/EntropyInfo/Extensive Experience/23Social
+      Engineering.asset
+    - Assets/Prefabs/Cards/Entropy cards/EntropyInfo/Extensive Experience/23Social
+      Engineering.asset.meta
+    - Assets/Prefabs/Cards/Entropy cards/EntropyInfo/Extensive Experience/24Software
+      Wizardry.asset
+    - Assets/Prefabs/Cards/Entropy cards/EntropyInfo/Extensive Experience/24Software
+      Wizardry.asset.meta
+    - Assets/Prefabs/Cards/Entropy cards/EntropyInfo/Lightning Strikes.meta
+    - Assets/Prefabs/Cards/Entropy cards/EntropyInfo/Lightning Strikes/25Got a Date.asset
+    - Assets/Prefabs/Cards/Entropy cards/EntropyInfo/Lightning Strikes/25Got a Date.asset.meta
+    - Assets/Prefabs/Cards/Entropy cards/EntropyInfo/Lightning Strikes/26Hungover.asset
+    - Assets/Prefabs/Cards/Entropy cards/EntropyInfo/Lightning Strikes/26Hungover.asset.meta
+    - Assets/Prefabs/Cards/Entropy cards/EntropyInfo/Lightning Strikes/27Inspecting
+      Gadgets.asset
+    - Assets/Prefabs/Cards/Entropy cards/EntropyInfo/Lightning Strikes/27Inspecting
+      Gadgets.asset.meta
+    - Assets/Prefabs/Cards/Entropy cards/EntropyInfo/Lightning Strikes/28Trip to
+      the OR.asset
+    - Assets/Prefabs/Cards/Entropy cards/EntropyInfo/Lightning Strikes/28Trip to
+      the OR.asset.meta
+    - Assets/Prefabs/Cards/Entropy cards/EntropyInfo/Lightning Strikes/29Wayward
+      Trees.asset
+    - Assets/Prefabs/Cards/Entropy cards/EntropyInfo/Lightning Strikes/29Wayward
+      Trees.asset.meta
+    - Assets/Prefabs/Cards/Entropy cards/EntropyInfo/Shared Fate.meta
+    - Assets/Prefabs/Cards/Entropy cards/EntropyInfo/Shared Fate/30Congressional
+      Testimony.asset
+    - Assets/Prefabs/Cards/Entropy cards/EntropyInfo/Shared Fate/30Congressional
+      Testimony.asset.meta
+    - Assets/Prefabs/Cards/Entropy cards/EntropyInfo/Shared Fate/31Guilt by Association.asset
+    - Assets/Prefabs/Cards/Entropy cards/EntropyInfo/Shared Fate/31Guilt by Association.asset.meta
+    - Assets/Prefabs/Cards/MissionCards.meta
+    - Assets/Prefabs/Cards/MissionCards/MissionCards.meta
+    - Assets/Prefabs/Cards/MissionCards/MissionCards/MissionCardTemplete.prefab
+    - Assets/Prefabs/Cards/MissionCards/MissionCards/MissionCardTemplete.prefab.meta
+    - Assets/Prefabs/Cards/MissionCards/MissionCards/SkippedImage.prefab
+    - Assets/Prefabs/Cards/MissionCards/MissionCards/SkippedImage.prefab.meta
+    - Assets/Prefabs/Cards/MissionCards/MissionInfo.meta
+    - Assets/Prefabs/Cards/MissionCards/MissionInfo/1 9 6 31 25 26 27 28 6 1 7 13.asset
+    - Assets/Prefabs/Cards/MissionCards/MissionInfo/1 9 6 31 25 26 27 28 6 1 7 13.asset.meta
+    - Assets/Prefabs/Cards/MissionCards/MissionInfo/10 eTextiles.asset
+    - Assets/Prefabs/Cards/MissionCards/MissionInfo/10 eTextiles.asset.meta
+    - Assets/Prefabs/Cards/MissionCards/MissionInfo/11 Front Door Waltz.asset
+    - Assets/Prefabs/Cards/MissionCards/MissionInfo/11 Front Door Waltz.asset.meta
+    - Assets/Prefabs/Cards/MissionCards/MissionInfo/12 Going All the Way.asset
+    - Assets/Prefabs/Cards/MissionCards/MissionInfo/12 Going All the Way.asset.meta
+    - Assets/Prefabs/Cards/MissionCards/MissionInfo/13 Hands in the Air!.asset
+    - Assets/Prefabs/Cards/MissionCards/MissionInfo/13 Hands in the Air!.asset.meta
+    - Assets/Prefabs/Cards/MissionCards/MissionInfo/14 Hay Baby,Hay Baby,Hay.asset
+    - Assets/Prefabs/Cards/MissionCards/MissionInfo/14 Hay Baby,Hay Baby,Hay.asset.meta
+    - Assets/Prefabs/Cards/MissionCards/MissionInfo/15 Here's Looking at You, Kid.asset
+    - Assets/Prefabs/Cards/MissionCards/MissionInfo/15 Here's Looking at You, Kid.asset.meta
+    - Assets/Prefabs/Cards/MissionCards/MissionInfo/16 I Can Haz Sweater.asset
+    - Assets/Prefabs/Cards/MissionCards/MissionInfo/16 I Can Haz Sweater.asset.meta
+    - Assets/Prefabs/Cards/MissionCards/MissionInfo/17 Inside Job.asset
+    - Assets/Prefabs/Cards/MissionCards/MissionInfo/17 Inside Job.asset.meta
+    - Assets/Prefabs/Cards/MissionCards/MissionInfo/18 Knock Knock.asset
+    - Assets/Prefabs/Cards/MissionCards/MissionInfo/18 Knock Knock.asset.meta
+    - Assets/Prefabs/Cards/MissionCards/MissionInfo/19 LEER0000000Y!!.asset
+    - Assets/Prefabs/Cards/MissionCards/MissionInfo/19 LEER0000000Y!!.asset.meta
+    - Assets/Prefabs/Cards/MissionCards/MissionInfo/20 Lights, Camera, Hack!.asset
+    - Assets/Prefabs/Cards/MissionCards/MissionInfo/20 Lights, Camera, Hack!.asset.meta
+    - Assets/Prefabs/Cards/MissionCards/MissionInfo/21 Love Is In The Air.asset
+    - Assets/Prefabs/Cards/MissionCards/MissionInfo/21 Love Is In The Air.asset.meta
+    - Assets/Prefabs/Cards/MissionCards/MissionInfo/22 Magstripe Mischief.asset
+    - Assets/Prefabs/Cards/MissionCards/MissionInfo/22 Magstripe Mischief.asset.meta
+    - Assets/Prefabs/Cards/MissionCards/MissionInfo/23 Minibar, Mini Bill.asset
+    - Assets/Prefabs/Cards/MissionCards/MissionInfo/23 Minibar, Mini Bill.asset.meta
+    - Assets/Prefabs/Cards/MissionCards/MissionInfo/24 Mix and Mingle.asset
+    - Assets/Prefabs/Cards/MissionCards/MissionInfo/24 Mix and Mingle.asset.meta
+    - Assets/Prefabs/Cards/MissionCards/MissionInfo/25 Mr Botneto.asset
+    - Assets/Prefabs/Cards/MissionCards/MissionInfo/25 Mr Botneto.asset.meta
+    - Assets/Prefabs/Cards/MissionCards/MissionInfo/26 Network Triage.asset
+    - Assets/Prefabs/Cards/MissionCards/MissionInfo/26 Network Triage.asset.meta
+    - Assets/Prefabs/Cards/MissionCards/MissionInfo/27 Om Nom Credit Cards.asset
+    - Assets/Prefabs/Cards/MissionCards/MissionInfo/27 Om Nom Credit Cards.asset.meta
+    - Assets/Prefabs/Cards/MissionCards/MissionInfo/28 Order in the Court.asset
+    - Assets/Prefabs/Cards/MissionCards/MissionInfo/28 Order in the Court.asset.meta
+    - Assets/Prefabs/Cards/MissionCards/MissionInfo/29 Playing with Trains.asset
+    - Assets/Prefabs/Cards/MissionCards/MissionInfo/29 Playing with Trains.asset.meta
+    - Assets/Prefabs/Cards/MissionCards/MissionInfo/2[CENSORED].asset
+    - Assets/Prefabs/Cards/MissionCards/MissionInfo/2[CENSORED].asset.meta
+    - Assets/Prefabs/Cards/MissionCards/MissionInfo/3 A Healthy Dose of Security.asset
+    - Assets/Prefabs/Cards/MissionCards/MissionInfo/3 A Healthy Dose of Security.asset.meta
+    - Assets/Prefabs/Cards/MissionCards/MissionInfo/30 Security du Jour.asset
+    - Assets/Prefabs/Cards/MissionCards/MissionInfo/30 Security du Jour.asset.meta
+    - Assets/Prefabs/Cards/MissionCards/MissionInfo/31 Seen, Not Heard.asset
+    - Assets/Prefabs/Cards/MissionCards/MissionInfo/31 Seen, Not Heard.asset.meta
+    - Assets/Prefabs/Cards/MissionCards/MissionInfo/32 Shock Value.asset
+    - Assets/Prefabs/Cards/MissionCards/MissionInfo/32 Shock Value.asset.meta
+    - Assets/Prefabs/Cards/MissionCards/MissionInfo/33 Tech or Treat.asset
+    - Assets/Prefabs/Cards/MissionCards/MissionInfo/33 Tech or Treat.asset.meta
+    - Assets/Prefabs/Cards/MissionCards/MissionInfo/34 The Future is Now.asset
+    - Assets/Prefabs/Cards/MissionCards/MissionInfo/34 The Future is Now.asset.meta
+    - Assets/Prefabs/Cards/MissionCards/MissionInfo/35 Trojan Protection.asset
+    - Assets/Prefabs/Cards/MissionCards/MissionInfo/35 Trojan Protection.asset.meta
+    - Assets/Prefabs/Cards/MissionCards/MissionInfo/36 You Don't Know Where That's
+      Been!.asset
+    - Assets/Prefabs/Cards/MissionCards/MissionInfo/36 You Don't Know Where That's
+      Been!.asset.meta
+    - Assets/Prefabs/Cards/MissionCards/MissionInfo/37 You Walk Among Them.asset
+    - Assets/Prefabs/Cards/MissionCards/MissionInfo/37 You Walk Among Them.asset.meta
+    - Assets/Prefabs/Cards/MissionCards/MissionInfo/4 A Riddle, Wrapped in a Mystery
+      1.asset
+    - Assets/Prefabs/Cards/MissionCards/MissionInfo/4 A Riddle, Wrapped in a Mystery
+      1.asset.meta
+    - Assets/Prefabs/Cards/MissionCards/MissionInfo/5 Baby, You Can Fly My Plane.asset
+    - Assets/Prefabs/Cards/MissionCards/MissionInfo/5 Baby, You Can Fly My Plane.asset.meta
+    - Assets/Prefabs/Cards/MissionCards/MissionInfo/6 Blind Trust.asset
+    - Assets/Prefabs/Cards/MissionCards/MissionInfo/6 Blind Trust.asset.meta
+    - Assets/Prefabs/Cards/MissionCards/MissionInfo/7 Disinformation Debacle.asset
+    - Assets/Prefabs/Cards/MissionCards/MissionInfo/7 Disinformation Debacle.asset.meta
+    - Assets/Prefabs/Cards/MissionCards/MissionInfo/8 Dog's Best Friend.asset
+    - Assets/Prefabs/Cards/MissionCards/MissionInfo/8 Dog's Best Friend.asset.meta
+    - Assets/Prefabs/Cards/MissionCards/MissionInfo/9 E.coli Cryptography.asset
+    - Assets/Prefabs/Cards/MissionCards/MissionInfo/9 E.coli Cryptography.asset.meta
+    - Assets/Prefabs/EntropyICON.prefab
+    - Assets/Prefabs/EntropyICON.prefab.meta
+    - Assets/Prefabs/EventSystem.prefab
+    - Assets/Prefabs/EventSystem.prefab.meta
+    - Assets/Prefabs/GameInterface.meta
+    - Assets/Prefabs/GameInterface/MissionRollArea.meta
+    - Assets/Prefabs/GameInterface/MissionRollArea/During Roll.prefab
+    - Assets/Prefabs/GameInterface/MissionRollArea/During Roll.prefab.meta
+    - Assets/Prefabs/GameInterface/MissionRollArea/EndOfRoll.prefab
+    - Assets/Prefabs/GameInterface/MissionRollArea/EndOfRoll.prefab.meta
+    - Assets/Prefabs/GameInterface/MissionRollArea/StartOfRoll.prefab
+    - Assets/Prefabs/GameInterface/MissionRollArea/StartOfRoll.prefab.meta
+    - Assets/Prefabs/GameInterface/PlayerCharacter.meta
+    - Assets/Prefabs/GameInterface/PlayerCharacter/Oponent 1.prefab
+    - Assets/Prefabs/GameInterface/PlayerCharacter/Oponent 1.prefab.meta
+    - Assets/Prefabs/GameInterface/PlayerCharacter/Oponent 2.prefab
+    - Assets/Prefabs/GameInterface/PlayerCharacter/Oponent 2.prefab.meta
+    - Assets/Prefabs/GameInterface/PlayerCharacter/Oponent 3.prefab
+    - Assets/Prefabs/GameInterface/PlayerCharacter/Oponent 3.prefab.meta
+    - Assets/Prefabs/GameInterface/PlayerCharacter/Oponent 4.prefab
+    - Assets/Prefabs/GameInterface/PlayerCharacter/Oponent 4.prefab.meta
+    - Assets/Prefabs/GameInterface/PlayerCharacter/Oponent 5.prefab
+    - Assets/Prefabs/GameInterface/PlayerCharacter/Oponent 5.prefab.meta
+    - Assets/Prefabs/GameInterface/PlayerCharacter/User .prefab
+    - Assets/Prefabs/GameInterface/PlayerCharacter/User .prefab.meta
+    - Assets/Prefabs/GameInterface/TradingArea.meta
+    - Assets/Prefabs/GameInterface/TradingArea/DoneTrading Button.prefab
+    - Assets/Prefabs/GameInterface/TradingArea/DoneTrading Button.prefab.meta
+    - Assets/Prefabs/GameInterface/TradingArea/DoneTrading.prefab
+    - Assets/Prefabs/GameInterface/TradingArea/DoneTrading.prefab.meta
+    - Assets/Prefabs/GameInterface/TradingArea/UserTradeUI.prefab
+    - Assets/Prefabs/GameInterface/TradingArea/UserTradeUI.prefab.meta
+    - Assets/Prefabs/GameInterface/TradingArea/opponent1TradeUI.prefab
+    - Assets/Prefabs/GameInterface/TradingArea/opponent1TradeUI.prefab.meta
+    - Assets/Prefabs/GameInterface/Winner.meta
+    - Assets/Prefabs/GameInterface/Winner/1stPlaceHolder.prefab
+    - Assets/Prefabs/GameInterface/Winner/1stPlaceHolder.prefab.meta
+    - Assets/Prefabs/GameInterface/characterCardPopup.prefab
+    - Assets/Prefabs/GameInterface/characterCardPopup.prefab.meta
+    - Assets/Prefabs/GameInterface/entropyCardPopup .prefab
+    - Assets/Prefabs/GameInterface/entropyCardPopup .prefab.meta
+    - Assets/Prefabs/GameInterface/missionCardPopup .prefab
+    - Assets/Prefabs/GameInterface/missionCardPopup .prefab.meta
+    - Assets/Prefabs/HostJoinUsername Interface.meta
+    - Assets/Prefabs/HostJoinUsername Interface/Button_HostRoom.prefab
+    - Assets/Prefabs/HostJoinUsername Interface/Button_HostRoom.prefab.meta
+    - Assets/Prefabs/HostJoinUsername Interface/Button_JoinRoom 1.prefab
+    - Assets/Prefabs/HostJoinUsername Interface/Button_JoinRoom 1.prefab.meta
+    - Assets/Prefabs/HostJoinUsername Interface/Continue.prefab
+    - Assets/Prefabs/HostJoinUsername Interface/Continue.prefab.meta
+    - Assets/Prefabs/MusicItems.prefab
+    - Assets/Prefabs/MusicItems.prefab.meta
+    - Assets/Prefabs/PlayerHadLeft.prefab
+    - Assets/Prefabs/PlayerHadLeft.prefab.meta
+    - Assets/Prefabs/SkillChangerInfoTemplate.prefab
+    - Assets/Prefabs/SkillChangerInfoTemplate.prefab.meta
+    - Assets/Scenes.meta
+    - Assets/Scenes/MainGameTable.unity
+    - Assets/Scenes/MainGameTable.unity.meta
+    - Assets/Scenes/NickName&JoinHost.unity
+    - Assets/Scenes/NickName&JoinHost.unity.meta
+    - Assets/Scripts.meta
+    - Assets/Scripts/Avatars.meta
+    - Assets/Scripts/Avatars/AvatarItems.cs
+    - Assets/Scripts/Avatars/AvatarItems.cs.meta
+    - Assets/Scripts/Avatars/AvatarList.cs
+    - Assets/Scripts/Avatars/AvatarList.cs.meta
+    - Assets/Scripts/Avatars/HoverAvatar.cs
+    - Assets/Scripts/Avatars/HoverAvatar.cs.meta
+    - Assets/Scripts/DrawCard.meta
+    - Assets/Scripts/DrawCard/CharCardPopup.cs
+    - Assets/Scripts/DrawCard/CharCardPopup.cs.meta
+    - Assets/Scripts/DrawCard/CharCardScript.cs
+    - Assets/Scripts/DrawCard/CharCardScript.cs.meta
+    - Assets/Scripts/DrawCard/EntropyCardScript.cs
+    - Assets/Scripts/DrawCard/EntropyCardScript.cs.meta
+    - Assets/Scripts/DrawCard/MissionCardScript.cs
+    - Assets/Scripts/DrawCard/MissionCardScript.cs.meta
+    - Assets/Scripts/DrawCard/charCardDeck.cs
+    - Assets/Scripts/DrawCard/charCardDeck.cs.meta
+    - Assets/Scripts/DrawCard/characterCardDisplay.cs
+    - Assets/Scripts/DrawCard/characterCardDisplay.cs.meta
+    - Assets/Scripts/DrawCard/drawCharacterCard.cs
+    - Assets/Scripts/DrawCard/drawCharacterCard.cs.meta
+    - Assets/Scripts/DrawCard/drawEntropyCard.cs
+    - Assets/Scripts/DrawCard/drawEntropyCard.cs.meta
+    - Assets/Scripts/DrawCard/drawMissionCard.cs
+    - Assets/Scripts/DrawCard/drawMissionCard.cs.meta
+    - Assets/Scripts/DrawCard/entropyCardDeck.cs
+    - Assets/Scripts/DrawCard/entropyCardDeck.cs.meta
+    - Assets/Scripts/DrawCard/entropyCardDisplay.cs
+    - Assets/Scripts/DrawCard/entropyCardDisplay.cs.meta
+    - Assets/Scripts/DrawCard/entropyCardPopup.cs
+    - Assets/Scripts/DrawCard/entropyCardPopup.cs.meta
+    - Assets/Scripts/DrawCard/missionCardDeck.cs
+    - Assets/Scripts/DrawCard/missionCardDeck.cs.meta
+    - Assets/Scripts/DrawCard/missionDisplay.cs
+    - Assets/Scripts/DrawCard/missionDisplay.cs.meta
+    - Assets/Scripts/DrawCard/missionPopup.cs
+    - Assets/Scripts/DrawCard/missionPopup.cs.meta
+    - Assets/Scripts/DrawCard/playEntropyCard.cs
+    - Assets/Scripts/DrawCard/playEntropyCard.cs.meta
+    - Assets/Scripts/Main.meta
+    - Assets/Scripts/Main/ChatController.cs
+    - Assets/Scripts/Main/ChatController.cs.meta
+    - Assets/Scripts/Main/EventHandeler.cs
+    - Assets/Scripts/Main/EventHandeler.cs.meta
+    - Assets/Scripts/Main/TurnManager.cs
+    - Assets/Scripts/Main/TurnManager.cs.meta
+    - Assets/Scripts/Main/winCanvasController.cs
+    - Assets/Scripts/Main/winCanvasController.cs.meta
+    - Assets/Scripts/MainMenu.meta
+    - Assets/Scripts/MainMenu/NickNameRoom.cs
+    - Assets/Scripts/MainMenu/NickNameRoom.cs.meta
+    - Assets/Scripts/Music.meta
+    - Assets/Scripts/Music/GlobalMusicContorler.cs
+    - Assets/Scripts/Music/GlobalMusicContorler.cs.meta
+    - Assets/Scripts/Music/SliderPopUp.cs
+    - Assets/Scripts/Music/SliderPopUp.cs.meta
+    - Assets/Scripts/TradeScripts.meta
+    - Assets/Scripts/TradeScripts/TradeArea.cs
+    - Assets/Scripts/TradeScripts/TradeArea.cs.meta
+    - Assets/Scripts/TradeScripts/TradeControler.cs
+    - Assets/Scripts/TradeScripts/TradeControler.cs.meta
+    - Assets/Scripts/UI Script.meta
+    - Assets/Scripts/UI Script/HoverContinueButton.cs
+    - Assets/Scripts/UI Script/HoverContinueButton.cs.meta
+    - Assets/Scripts/UI Script/HoverHostJoin.cs
+    - Assets/Scripts/UI Script/HoverHostJoin.cs.meta
+    - Assets/Scripts/UserAreas.meta
+    - Assets/Scripts/UserAreas/PlayerInfo.cs
+    - Assets/Scripts/UserAreas/PlayerInfo.cs.meta
+    - Assets/Scripts/UserAreas/UserAreaControlers.cs
+    - Assets/Scripts/UserAreas/UserAreaControlers.cs.meta
+    - Assets/Scripts/rollmissions.meta
+    - Assets/Scripts/rollmissions/DuringMissionRollController.cs
+    - Assets/Scripts/rollmissions/DuringMissionRollController.cs.meta
+    - Assets/Scripts/rollmissions/jobInfos.cs
+    - Assets/Scripts/rollmissions/jobInfos.cs.meta
+    - Assets/Scripts/rollmissions/rollingMissionControl.cs
+    - Assets/Scripts/rollmissions/rollingMissionControl.cs.meta
+    - Assets/Scripts/rollmissions/skillEffectDisplay.cs
+    - Assets/Scripts/rollmissions/skillEffectDisplay.cs.meta
+    - Assets/Sounds.meta
+    - Assets/Sounds/All.mixer
+    - Assets/Sounds/All.mixer.meta
+    - Assets/Sounds/EntropyStrike.mp3
+    - Assets/Sounds/EntropyStrike.mp3.meta
+    - Assets/Sounds/GamePlay.mp3
+    - Assets/Sounds/GamePlay.mp3.meta
+    - Assets/Sounds/StartScene.mp3
+    - Assets/Sounds/StartScene.mp3.meta
+    - Assets/Sounds/buttonclick.mp3
+    - Assets/Sounds/buttonclick.mp3.meta
+    - Assets/Sounds/chatboxnotif.mp3
+    - Assets/Sounds/chatboxnotif.mp3.meta
+    - Assets/Sounds/selectavatar.mp3
+    - Assets/Sounds/selectavatar.mp3.meta
+    - Assets/TextMesh Pro.meta
+    - Assets/TextMesh Pro/Documentation.meta
+    - Assets/TextMesh Pro/Documentation/TextMesh Pro User Guide 2016.pdf
+    - Assets/TextMesh Pro/Documentation/TextMesh Pro User Guide 2016.pdf.meta
+    - Assets/TextMesh Pro/Fonts.meta
+    - Assets/TextMesh Pro/Fonts/LiberationSans - OFL.txt
+    - Assets/TextMesh Pro/Fonts/LiberationSans - OFL.txt.meta
+    - Assets/TextMesh Pro/Fonts/LiberationSans.ttf
+    - Assets/TextMesh Pro/Fonts/LiberationSans.ttf.meta
+    - Assets/TextMesh Pro/Resources.meta
+    - Assets/TextMesh Pro/Resources/Fonts & Materials.meta
+    - Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Drop Shadow.mat
+    - Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Drop Shadow.mat.meta
+    - Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
+    - Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset.meta
+    - Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Outline.mat
+    - Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Outline.mat.meta
+    - Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF.asset
+    - Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF.asset.meta
+    - Assets/TextMesh Pro/Resources/LineBreaking Following Characters.txt
+    - Assets/TextMesh Pro/Resources/LineBreaking Following Characters.txt.meta
+    - Assets/TextMesh Pro/Resources/LineBreaking Leading Characters.txt
+    - Assets/TextMesh Pro/Resources/LineBreaking Leading Characters.txt.meta
+    - Assets/TextMesh Pro/Resources/Sprite Assets.meta
+    - Assets/TextMesh Pro/Resources/Sprite Assets/EmojiOne.asset
+    - Assets/TextMesh Pro/Resources/Sprite Assets/EmojiOne.asset.meta
+    - Assets/TextMesh Pro/Resources/Style Sheets.meta
+    - Assets/TextMesh Pro/Resources/Style Sheets/Default Style Sheet.asset
+    - Assets/TextMesh Pro/Resources/Style Sheets/Default Style Sheet.asset.meta
+    - Assets/TextMesh Pro/Resources/TMP Settings.asset
+    - Assets/TextMesh Pro/Resources/TMP Settings.asset.meta
+    - Assets/TextMesh Pro/Shaders.meta
+    - Assets/TextMesh Pro/Shaders/TMP_Bitmap-Custom-Atlas.shader
+    - Assets/TextMesh Pro/Shaders/TMP_Bitmap-Custom-Atlas.shader.meta
+    - Assets/TextMesh Pro/Shaders/TMP_Bitmap-Mobile.shader
+    - Assets/TextMesh Pro/Shaders/TMP_Bitmap-Mobile.shader.meta
+    - Assets/TextMesh Pro/Shaders/TMP_Bitmap.shader
+    - Assets/TextMesh Pro/Shaders/TMP_Bitmap.shader.meta
+    - Assets/TextMesh Pro/Shaders/TMP_SDF Overlay.shader
+    - Assets/TextMesh Pro/Shaders/TMP_SDF Overlay.shader.meta
+    - Assets/TextMesh Pro/Shaders/TMP_SDF SSD.shader
+    - Assets/TextMesh Pro/Shaders/TMP_SDF SSD.shader.meta
+    - Assets/TextMesh Pro/Shaders/TMP_SDF-Mobile Masking.shader
+    - Assets/TextMesh Pro/Shaders/TMP_SDF-Mobile Masking.shader.meta
+    - Assets/TextMesh Pro/Shaders/TMP_SDF-Mobile Overlay.shader
+    - Assets/TextMesh Pro/Shaders/TMP_SDF-Mobile Overlay.shader.meta
+    - Assets/TextMesh Pro/Shaders/TMP_SDF-Mobile SSD.shader
+    - Assets/TextMesh Pro/Shaders/TMP_SDF-Mobile SSD.shader.meta
+    - Assets/TextMesh Pro/Shaders/TMP_SDF-Mobile.shader
+    - Assets/TextMesh Pro/Shaders/TMP_SDF-Mobile.shader.meta
+    - Assets/TextMesh Pro/Shaders/TMP_SDF-Surface-Mobile.shader
+    - Assets/TextMesh Pro/Shaders/TMP_SDF-Surface-Mobile.shader.meta
+    - Assets/TextMesh Pro/Shaders/TMP_SDF-Surface.shader
+    - Assets/TextMesh Pro/Shaders/TMP_SDF-Surface.shader.meta
+    - Assets/TextMesh Pro/Shaders/TMP_SDF.shader
+    - Assets/TextMesh Pro/Shaders/TMP_SDF.shader.meta
+    - Assets/TextMesh Pro/Shaders/TMP_Sprite.shader
+    - Assets/TextMesh Pro/Shaders/TMP_Sprite.shader.meta
+    - Assets/TextMesh Pro/Shaders/TMPro.cginc
+    - Assets/TextMesh Pro/Shaders/TMPro.cginc.meta
+    - Assets/TextMesh Pro/Shaders/TMPro_Mobile.cginc
+    - Assets/TextMesh Pro/Shaders/TMPro_Mobile.cginc.meta
+    - Assets/TextMesh Pro/Shaders/TMPro_Properties.cginc
+    - Assets/TextMesh Pro/Shaders/TMPro_Properties.cginc.meta
+    - Assets/TextMesh Pro/Shaders/TMPro_Surface.cginc
+    - Assets/TextMesh Pro/Shaders/TMPro_Surface.cginc.meta
+    - Assets/TextMesh Pro/Sprites.meta
+    - Assets/TextMesh Pro/Sprites/EmojiOne Attribution.txt
+    - Assets/TextMesh Pro/Sprites/EmojiOne Attribution.txt.meta
+    - Assets/TextMesh Pro/Sprites/EmojiOne.json
+    - Assets/TextMesh Pro/Sprites/EmojiOne.json.meta
+    - Assets/TextMesh Pro/Sprites/EmojiOne.png
+    - Assets/TextMesh Pro/Sprites/EmojiOne.png.meta
+    - Assets/UI design.meta
+    - Assets/UI design/Animations.meta
+    - Assets/UI design/Animations/1stPlace Panel.controller
+    - Assets/UI design/Animations/1stPlace Panel.controller.meta
+    - Assets/UI design/Animations/BribeText.controller
+    - Assets/UI design/Animations/BribeText.controller.meta
+    - Assets/UI design/Animations/Glow.controller
+    - Assets/UI design/Animations/Glow.controller.meta
+    - Assets/UI design/Animations/Notification.controller
+    - Assets/UI design/Animations/Notification.controller.meta
+    - Assets/UI design/Animations/PlayArea.controller
+    - Assets/UI design/Animations/PlayArea.controller.meta
+    - Assets/UI design/Animations/arrow.controller
+    - Assets/UI design/Animations/arrow.controller.meta
+    - Assets/UI design/Animations/arrowblink.anim
+    - Assets/UI design/Animations/arrowblink.anim.meta
+    - Assets/UI design/Animations/bribe text bounce.anim
+    - Assets/UI design/Animations/bribe text bounce.anim.meta
+    - Assets/UI design/Animations/messageNotif bounce.anim
+    - Assets/UI design/Animations/messageNotif bounce.anim.meta
+    - Assets/UI design/Animations/playcardarea.anim
+    - Assets/UI design/Animations/playcardarea.anim.meta
+    - Assets/UI design/Animations/setrounds panel glow.anim
+    - Assets/UI design/Animations/setrounds panel glow.anim.meta
+    - Assets/UI design/Animations/winpanelglow.anim
+    - Assets/UI design/Animations/winpanelglow.anim.meta
+    - Assets/UI design/Fonts.meta
+    - Assets/UI design/Fonts/ChickenPie.ttf
+    - Assets/UI design/Fonts/ChickenPie.ttf.meta
+    - Assets/UI design/Fonts/Createland.otf
+    - Assets/UI design/Fonts/Createland.otf.meta
+    - Assets/UI design/Fonts/Phosb___.ttf
+    - Assets/UI design/Fonts/Phosb___.ttf.meta
+    - Assets/UI design/Image.meta
+    - Assets/UI design/Image/AttendingImage.meta
+    - Assets/UI design/Image/AttendingImage/Attending Card.jpg
+    - Assets/UI design/Image/AttendingImage/Attending Card.jpg.meta
+    - Assets/UI design/Image/AttendingImage/Not Attending Card.jpg
+    - Assets/UI design/Image/AttendingImage/Not Attending Card.jpg.meta
+    - Assets/UI design/Image/AvertarImage.meta
+    - Assets/UI design/Image/AvertarImage/player1.png
+    - Assets/UI design/Image/AvertarImage/player1.png.meta
+    - Assets/UI design/Image/AvertarImage/player10.png
+    - Assets/UI design/Image/AvertarImage/player10.png.meta
+    - Assets/UI design/Image/AvertarImage/player2.png
+    - Assets/UI design/Image/AvertarImage/player2.png.meta
+    - Assets/UI design/Image/AvertarImage/player3.png
+    - Assets/UI design/Image/AvertarImage/player3.png.meta
+    - Assets/UI design/Image/AvertarImage/player4.png
+    - Assets/UI design/Image/AvertarImage/player4.png.meta
+    - Assets/UI design/Image/AvertarImage/player5.png
+    - Assets/UI design/Image/AvertarImage/player5.png.meta
+    - Assets/UI design/Image/AvertarImage/player6.png
+    - Assets/UI design/Image/AvertarImage/player6.png.meta
+    - Assets/UI design/Image/AvertarImage/player7.png
+    - Assets/UI design/Image/AvertarImage/player7.png.meta
+    - Assets/UI design/Image/AvertarImage/player8.png
+    - Assets/UI design/Image/AvertarImage/player8.png.meta
+    - Assets/UI design/Image/AvertarImage/player9.png
+    - Assets/UI design/Image/AvertarImage/player9.png.meta
+    - Assets/UI design/Image/Border.png
+    - Assets/UI design/Image/Border.png.meta
+    - Assets/UI design/Image/Cash.png
+    - Assets/UI design/Image/Cash.png.meta
+    - Assets/UI design/Image/CharacterImage.meta
+    - Assets/UI design/Image/CharacterImage/ALEXI Avertar.jpg
+    - Assets/UI design/Image/CharacterImage/ALEXI Avertar.jpg.meta
+    - Assets/UI design/Image/CharacterImage/ALEXI Back.jpg
+    - Assets/UI design/Image/CharacterImage/ALEXI Back.jpg.meta
+    - Assets/UI design/Image/CharacterImage/ALEXI Front.jpg
+    - Assets/UI design/Image/CharacterImage/ALEXI Front.jpg.meta
+    - Assets/UI design/Image/CharacterImage/ANYA Avertar.jpg
+    - Assets/UI design/Image/CharacterImage/ANYA Avertar.jpg.meta
+    - Assets/UI design/Image/CharacterImage/ANYA Back.jpg
+    - Assets/UI design/Image/CharacterImage/ANYA Back.jpg.meta
+    - Assets/UI design/Image/CharacterImage/ANYA Front.jpg
+    - Assets/UI design/Image/CharacterImage/ANYA Front.jpg.meta
+    - Assets/UI design/Image/CharacterImage/CYNTHIA Avertar.jpg
+    - Assets/UI design/Image/CharacterImage/CYNTHIA Avertar.jpg.meta
+    - Assets/UI design/Image/CharacterImage/CYNTHIA Back.jpg
+    - Assets/UI design/Image/CharacterImage/CYNTHIA Back.jpg.meta
+    - Assets/UI design/Image/CharacterImage/CYNTHIA Front.jpg
+    - Assets/UI design/Image/CharacterImage/CYNTHIA Front.jpg.meta
+    - Assets/UI design/Image/CharacterImage/DAN Avertar.jpg
+    - Assets/UI design/Image/CharacterImage/DAN Avertar.jpg.meta
+    - Assets/UI design/Image/CharacterImage/DAN Back.jpg
+    - Assets/UI design/Image/CharacterImage/DAN Back.jpg.meta
+    - Assets/UI design/Image/CharacterImage/DAN Front.jpg
+    - Assets/UI design/Image/CharacterImage/DAN Front.jpg.meta
+    - Assets/UI design/Image/CharacterImage/DEBORAH Avertar.jpg
+    - Assets/UI design/Image/CharacterImage/DEBORAH Avertar.jpg.meta
+    - Assets/UI design/Image/CharacterImage/DEBORAH Back.jpg
+    - Assets/UI design/Image/CharacterImage/DEBORAH Back.jpg.meta
+    - Assets/UI design/Image/CharacterImage/DEBORAH Front.jpg
+    - Assets/UI design/Image/CharacterImage/DEBORAH Front.jpg.meta
+    - Assets/UI design/Image/CharacterImage/FRANZI Avertar.jpg
+    - Assets/UI design/Image/CharacterImage/FRANZI Avertar.jpg.meta
+    - Assets/UI design/Image/CharacterImage/FRANZI Back.jpg
+    - Assets/UI design/Image/CharacterImage/FRANZI Back.jpg.meta
+    - Assets/UI design/Image/CharacterImage/FRANZI Front.jpg
+    - Assets/UI design/Image/CharacterImage/FRANZI Front.jpg.meta
+    - Assets/UI design/Image/CharacterImage/GABRIEL Avertar.jpg
+    - Assets/UI design/Image/CharacterImage/GABRIEL Avertar.jpg.meta
+    - Assets/UI design/Image/CharacterImage/GABRIEL Back.jpg
+    - Assets/UI design/Image/CharacterImage/GABRIEL Back.jpg.meta
+    - Assets/UI design/Image/CharacterImage/GABRIEL Front.jpg
+    - Assets/UI design/Image/CharacterImage/GABRIEL Front.jpg.meta
+    - Assets/UI design/Image/CharacterImage/IVA Avertar.jpg
+    - Assets/UI design/Image/CharacterImage/IVA Avertar.jpg.meta
+    - Assets/UI design/Image/CharacterImage/IVA Back.jpg
+    - Assets/UI design/Image/CharacterImage/IVA Back.jpg.meta
+    - Assets/UI design/Image/CharacterImage/IVA Front.jpg
+    - Assets/UI design/Image/CharacterImage/IVA Front.jpg.meta
+    - Assets/UI design/Image/CharacterImage/KARL Avertar.jpg
+    - Assets/UI design/Image/CharacterImage/KARL Avertar.jpg.meta
+    - Assets/UI design/Image/CharacterImage/KARL Back.jpg
+    - Assets/UI design/Image/CharacterImage/KARL Back.jpg.meta
+    - Assets/UI design/Image/CharacterImage/KARL Front.jpg
+    - Assets/UI design/Image/CharacterImage/KARL Front.jpg.meta
+    - Assets/UI design/Image/CharacterImage/MEI Avertar.jpg
+    - Assets/UI design/Image/CharacterImage/MEI Avertar.jpg.meta
+    - Assets/UI design/Image/CharacterImage/MEI Back.jpg
+    - Assets/UI design/Image/CharacterImage/MEI Back.jpg.meta
+    - Assets/UI design/Image/CharacterImage/MEI Front.jpg
+    - Assets/UI design/Image/CharacterImage/MEI Front.jpg.meta
+    - Assets/UI design/Image/CharacterImage/MIKE Avertar.jpg
+    - Assets/UI design/Image/CharacterImage/MIKE Avertar.jpg.meta
+    - Assets/UI design/Image/CharacterImage/MIKE Back.jpg
+    - Assets/UI design/Image/CharacterImage/MIKE Back.jpg.meta
+    - Assets/UI design/Image/CharacterImage/MIKE Front.jpg
+    - Assets/UI design/Image/CharacterImage/MIKE Front.jpg.meta
+    - Assets/UI design/Image/CharacterImage/MIRO Avertar.jpg
+    - Assets/UI design/Image/CharacterImage/MIRO Avertar.jpg.meta
+    - Assets/UI design/Image/CharacterImage/MIRO Back.jpg
+    - Assets/UI design/Image/CharacterImage/MIRO Back.jpg.meta
+    - Assets/UI design/Image/CharacterImage/MIRO Front.jpg
+    - Assets/UI design/Image/CharacterImage/MIRO Front.jpg.meta
+    - Assets/UI design/Image/CharacterImage/ROXANA Avertar.jpg
+    - Assets/UI design/Image/CharacterImage/ROXANA Avertar.jpg.meta
+    - Assets/UI design/Image/CharacterImage/ROXANA Back.jpg
+    - Assets/UI design/Image/CharacterImage/ROXANA Back.jpg.meta
+    - Assets/UI design/Image/CharacterImage/ROXANA Front.jpg
+    - Assets/UI design/Image/CharacterImage/ROXANA Front.jpg.meta
+    - Assets/UI design/Image/CharacterImage/SIDHANT Avertar.jpg
+    - Assets/UI design/Image/CharacterImage/SIDHANT Avertar.jpg.meta
+    - Assets/UI design/Image/CharacterImage/SIDHANT Back.jpg
+    - Assets/UI design/Image/CharacterImage/SIDHANT Back.jpg.meta
+    - Assets/UI design/Image/CharacterImage/SIDHANT Front.jpg
+    - Assets/UI design/Image/CharacterImage/SIDHANT Front.jpg.meta
+    - Assets/UI design/Image/CharacterImage/TAMMY Avertar.jpg
+    - Assets/UI design/Image/CharacterImage/TAMMY Avertar.jpg.meta
+    - Assets/UI design/Image/CharacterImage/TAMMY Back.jpg
+    - Assets/UI design/Image/CharacterImage/TAMMY Back.jpg.meta
+    - Assets/UI design/Image/CharacterImage/TAMMY Front.jpg
+    - Assets/UI design/Image/CharacterImage/TAMMY Front.jpg.meta
+    - Assets/UI design/Image/CharacterImage/TOPE Avertar.jpg
+    - Assets/UI design/Image/CharacterImage/TOPE Avertar.jpg.meta
+    - Assets/UI design/Image/CharacterImage/TOPE Back.jpg
+    - Assets/UI design/Image/CharacterImage/TOPE Back.jpg.meta
+    - Assets/UI design/Image/CharacterImage/TOPE Front.jpg
+    - Assets/UI design/Image/CharacterImage/TOPE Front.jpg.meta
+    - Assets/UI design/Image/CrossForSound.png
+    - Assets/UI design/Image/CrossForSound.png.meta
+    - Assets/UI design/Image/Entropy User.png
+    - Assets/UI design/Image/Entropy User.png.meta
+    - Assets/UI design/Image/EntropyImage.meta
+    - Assets/UI design/Image/EntropyImage/Acting Class.jpg
+    - Assets/UI design/Image/EntropyImage/Acting Class.jpg.meta
+    - Assets/UI design/Image/EntropyImage/Antenna.jpg
+    - Assets/UI design/Image/EntropyImage/Antenna.jpg.meta
+    - Assets/UI design/Image/EntropyImage/Auction.jpg
+    - Assets/UI design/Image/EntropyImage/Auction.jpg.meta
+    - Assets/UI design/Image/EntropyImage/Congressional.jpg
+    - Assets/UI design/Image/EntropyImage/Congressional.jpg.meta
+    - Assets/UI design/Image/EntropyImage/Corrupted Files.jpg
+    - Assets/UI design/Image/EntropyImage/Corrupted Files.jpg.meta
+    - Assets/UI design/Image/EntropyImage/Cryptanalysis.jpg
+    - Assets/UI design/Image/EntropyImage/Cryptanalysis.jpg.meta
+    - Assets/UI design/Image/EntropyImage/DEFCON.jpg
+    - Assets/UI design/Image/EntropyImage/DEFCON.jpg.meta
+    - Assets/UI design/Image/EntropyImage/Dumpster diving.jpg
+    - Assets/UI design/Image/EntropyImage/Dumpster diving.jpg.meta
+    - Assets/UI design/Image/EntropyImage/Entropy Back.jpg
+    - Assets/UI design/Image/EntropyImage/Entropy Back.jpg.meta
+    - Assets/UI design/Image/EntropyImage/Espresso Machine.jpg
+    - Assets/UI design/Image/EntropyImage/Espresso Machine.jpg.meta
+    - Assets/UI design/Image/EntropyImage/Got a Date.jpg
+    - Assets/UI design/Image/EntropyImage/Got a Date.jpg.meta
+    - Assets/UI design/Image/EntropyImage/Graphics Hardware.jpg
+    - Assets/UI design/Image/EntropyImage/Graphics Hardware.jpg.meta
+    - Assets/UI design/Image/EntropyImage/Guilt by Asso.jpg
+    - Assets/UI design/Image/EntropyImage/Guilt by Asso.jpg.meta
+    - Assets/UI design/Image/EntropyImage/Hardware Hacking.jpg
+    - Assets/UI design/Image/EntropyImage/Hardware Hacking.jpg.meta
+    - Assets/UI design/Image/EntropyImage/Health Club Membership.jpg
+    - Assets/UI design/Image/EntropyImage/Health Club Membership.jpg.meta
+    - Assets/UI design/Image/EntropyImage/Hungover.jpg
+    - Assets/UI design/Image/EntropyImage/Hungover.jpg.meta
+    - Assets/UI design/Image/EntropyImage/Inspecting Gadgets.jpg
+    - Assets/UI design/Image/EntropyImage/Inspecting Gadgets.jpg.meta
+    - Assets/UI design/Image/EntropyImage/Learn from your Elders.jpg
+    - Assets/UI design/Image/EntropyImage/Learn from your Elders.jpg.meta
+    - Assets/UI design/Image/EntropyImage/Locked Yourself Out.jpg
+    - Assets/UI design/Image/EntropyImage/Locked Yourself Out.jpg.meta
+    - Assets/UI design/Image/EntropyImage/Lockpicking Toolchest.jpg
+    - Assets/UI design/Image/EntropyImage/Lockpicking Toolchest.jpg.meta
+    - Assets/UI design/Image/EntropyImage/More Monitors.jpg
+    - Assets/UI design/Image/EntropyImage/More Monitors.jpg.meta
+    - Assets/UI design/Image/EntropyImage/Network Ninja.jpg
+    - Assets/UI design/Image/EntropyImage/Network Ninja.jpg.meta
+    - Assets/UI design/Image/EntropyImage/Osc.jpg
+    - Assets/UI design/Image/EntropyImage/Osc.jpg.meta
+    - Assets/UI design/Image/EntropyImage/Outstandinfg Oscillioscope.jpg
+    - Assets/UI design/Image/EntropyImage/Outstandinfg Oscillioscope.jpg.meta
+    - Assets/UI design/Image/EntropyImage/Party of the Year.jpg
+    - Assets/UI design/Image/EntropyImage/Party of the Year.jpg.meta
+    - Assets/UI design/Image/EntropyImage/Psychology Course.jpg
+    - Assets/UI design/Image/EntropyImage/Psychology Course.jpg.meta
+    - Assets/UI design/Image/EntropyImage/Screenshot (18).png
+    - Assets/UI design/Image/EntropyImage/Screenshot (18).png.meta
+    - Assets/UI design/Image/EntropyImage/ShmooCon.jpg
+    - Assets/UI design/Image/EntropyImage/ShmooCon.jpg.meta
+    - Assets/UI design/Image/EntropyImage/Social Engineerin.jpg
+    - Assets/UI design/Image/EntropyImage/Social Engineerin.jpg.meta
+    - Assets/UI design/Image/EntropyImage/Software Lib.jpg
+    - Assets/UI design/Image/EntropyImage/Software Lib.jpg.meta
+    - Assets/UI design/Image/EntropyImage/Software Wizardry.jpg
+    - Assets/UI design/Image/EntropyImage/Software Wizardry.jpg.meta
+    - Assets/UI design/Image/EntropyImage/Too Much Work.jpg
+    - Assets/UI design/Image/EntropyImage/Too Much Work.jpg.meta
+    - Assets/UI design/Image/EntropyImage/Trip to the OR.jpg
+    - Assets/UI design/Image/EntropyImage/Trip to the OR.jpg.meta
+    - Assets/UI design/Image/EntropyImage/Visualization Software.jpg
+    - Assets/UI design/Image/EntropyImage/Visualization Software.jpg.meta
+    - Assets/UI design/Image/EntropyImage/Wayward Tree.jpg
+    - Assets/UI design/Image/EntropyImage/Wayward Tree.jpg.meta
+    - Assets/UI design/Image/EntropyImage/documentation.jpg
+    - Assets/UI design/Image/EntropyImage/documentation.jpg.meta
+    - Assets/UI design/Image/Game Interface Background 1.jpg
+    - Assets/UI design/Image/Game Interface Background 1.jpg.meta
+    - Assets/UI design/Image/Hacker Credit.png
+    - Assets/UI design/Image/Hacker Credit.png.meta
+    - Assets/UI design/Image/Mission User.png
+    - Assets/UI design/Image/Mission User.png.meta
+    - Assets/UI design/Image/MissionImage.meta
+    - Assets/UI design/Image/MissionImage/9 6 12.jpg
+    - Assets/UI design/Image/MissionImage/9 6 12.jpg.meta
+    - Assets/UI design/Image/MissionImage/A Healthy Dose of Security.jpg
+    - Assets/UI design/Image/MissionImage/A Healthy Dose of Security.jpg.meta
+    - Assets/UI design/Image/MissionImage/A Riddle, Wrapped in a Mystery.jpg
+    - Assets/UI design/Image/MissionImage/A Riddle, Wrapped in a Mystery.jpg.meta
+    - Assets/UI design/Image/MissionImage/Baby, You can Fly my Plane.jpg
+    - Assets/UI design/Image/MissionImage/Baby, You can Fly my Plane.jpg.meta
+    - Assets/UI design/Image/MissionImage/Blind Trust.jpg
+    - Assets/UI design/Image/MissionImage/Blind Trust.jpg.meta
+    - Assets/UI design/Image/MissionImage/Disinformation Debacle.jpg
+    - Assets/UI design/Image/MissionImage/Disinformation Debacle.jpg.meta
+    - Assets/UI design/Image/MissionImage/Dog's Best Friend.jpg
+    - Assets/UI design/Image/MissionImage/Dog's Best Friend.jpg.meta
+    - Assets/UI design/Image/MissionImage/E Coli.jpg
+    - Assets/UI design/Image/MissionImage/E Coli.jpg.meta
+    - Assets/UI design/Image/MissionImage/Front Door Waltz.jpg
+    - Assets/UI design/Image/MissionImage/Front Door Waltz.jpg.meta
+    - Assets/UI design/Image/MissionImage/Going All The Way.jpg
+    - Assets/UI design/Image/MissionImage/Going All The Way.jpg.meta
+    - Assets/UI design/Image/MissionImage/Hands in the Air!.jpg
+    - Assets/UI design/Image/MissionImage/Hands in the Air!.jpg.meta
+    - Assets/UI design/Image/MissionImage/Hay Baby.jpg
+    - Assets/UI design/Image/MissionImage/Hay Baby.jpg.meta
+    - Assets/UI design/Image/MissionImage/Here's Looking At You, Kid.jpg
+    - Assets/UI design/Image/MissionImage/Here's Looking At You, Kid.jpg.meta
+    - Assets/UI design/Image/MissionImage/I Can Haz Sweater.jpg
+    - Assets/UI design/Image/MissionImage/I Can Haz Sweater.jpg.meta
+    - Assets/UI design/Image/MissionImage/Inside Job.jpg
+    - Assets/UI design/Image/MissionImage/Inside Job.jpg.meta
+    - Assets/UI design/Image/MissionImage/Knock Knock.jpg
+    - Assets/UI design/Image/MissionImage/Knock Knock.jpg.meta
+    - Assets/UI design/Image/MissionImage/LEEROY!.jpg
+    - Assets/UI design/Image/MissionImage/LEEROY!.jpg.meta
+    - Assets/UI design/Image/MissionImage/Light, Camera, Hack.jpg
+    - Assets/UI design/Image/MissionImage/Light, Camera, Hack.jpg.meta
+    - Assets/UI design/Image/MissionImage/Love is in the Air.jpg
+    - Assets/UI design/Image/MissionImage/Love is in the Air.jpg.meta
+    - Assets/UI design/Image/MissionImage/Magstrip Mischief.jpg
+    - Assets/UI design/Image/MissionImage/Magstrip Mischief.jpg.meta
+    - Assets/UI design/Image/MissionImage/Minibar, Mini Bill.jpg
+    - Assets/UI design/Image/MissionImage/Minibar, Mini Bill.jpg.meta
+    - Assets/UI design/Image/MissionImage/Mission Back.jpg
+    - Assets/UI design/Image/MissionImage/Mission Back.jpg.meta
+    - Assets/UI design/Image/MissionImage/Mix and Mingle.jpg
+    - Assets/UI design/Image/MissionImage/Mix and Mingle.jpg.meta
+    - Assets/UI design/Image/MissionImage/Mr. Botneto.jpg
+    - Assets/UI design/Image/MissionImage/Mr. Botneto.jpg.meta
+    - Assets/UI design/Image/MissionImage/Network Triage.jpg
+    - Assets/UI design/Image/MissionImage/Network Triage.jpg.meta
+    - Assets/UI design/Image/MissionImage/On Nom Credit Cards.jpg
+    - Assets/UI design/Image/MissionImage/On Nom Credit Cards.jpg.meta
+    - Assets/UI design/Image/MissionImage/Order in the Court.jpg
+    - Assets/UI design/Image/MissionImage/Order in the Court.jpg.meta
+    - Assets/UI design/Image/MissionImage/Playing with Trains.jpg
+    - Assets/UI design/Image/MissionImage/Playing with Trains.jpg.meta
+    - Assets/UI design/Image/MissionImage/Security du Jour.jpg
+    - Assets/UI design/Image/MissionImage/Security du Jour.jpg.meta
+    - Assets/UI design/Image/MissionImage/Seen, Not Heard.jpg
+    - Assets/UI design/Image/MissionImage/Seen, Not Heard.jpg.meta
+    - Assets/UI design/Image/MissionImage/Shock Value.jpg
+    - Assets/UI design/Image/MissionImage/Shock Value.jpg.meta
+    - Assets/UI design/Image/MissionImage/Tech or Treat.jpg
+    - Assets/UI design/Image/MissionImage/Tech or Treat.jpg.meta
+    - Assets/UI design/Image/MissionImage/The Future is Now.jpg
+    - Assets/UI design/Image/MissionImage/The Future is Now.jpg.meta
+    - Assets/UI design/Image/MissionImage/Trojan Protection.jpg
+    - Assets/UI design/Image/MissionImage/Trojan Protection.jpg.meta
+    - Assets/UI design/Image/MissionImage/You Don't Know Where That's Been.jpg
+    - Assets/UI design/Image/MissionImage/You Don't Know Where That's Been.jpg.meta
+    - Assets/UI design/Image/MissionImage/You Walk Among Them.jpg
+    - Assets/UI design/Image/MissionImage/You Walk Among Them.jpg.meta
+    - Assets/UI design/Image/MissionImage/[CENSORED].jpg
+    - Assets/UI design/Image/MissionImage/[CENSORED].jpg.meta
+    - Assets/UI design/Image/MissionImage/eTextiles.jpg
+    - Assets/UI design/Image/MissionImage/eTextiles.jpg.meta
+    - Assets/UI design/Image/MusicImage.meta
+    - Assets/UI design/Image/MusicImage/GreenSound.png
+    - Assets/UI design/Image/MusicImage/GreenSound.png.meta
+    - Assets/UI design/Image/MusicImage/MusicSettingIcon.png
+    - Assets/UI design/Image/MusicImage/MusicSettingIcon.png.meta
+    - Assets/UI design/Image/MusicImage/RedSound.png
+    - Assets/UI design/Image/MusicImage/RedSound.png.meta
+    - Assets/UI design/Image/MusicImage/YellowSound.png
+    - Assets/UI design/Image/MusicImage/YellowSound.png.meta
+    - Assets/UI design/Image/MusicImage/chat.png
+    - Assets/UI design/Image/MusicImage/chat.png.meta
+    - Assets/UI design/Image/MusicImage/panel.png
+    - Assets/UI design/Image/MusicImage/panel.png.meta
+    - Assets/UI design/Image/MusicImage/withNotification.png
+    - Assets/UI design/Image/MusicImage/withNotification.png.meta
+    - Assets/UI design/Image/MusicImage/withoutNotification.png
+    - Assets/UI design/Image/MusicImage/withoutNotification.png.meta
+    - Assets/UI design/Image/Play Card Area 1.png
+    - Assets/UI design/Image/Play Card Area 1.png.meta
+    - Assets/UI design/Image/PlayCardArea.png
+    - Assets/UI design/Image/PlayCardArea.png.meta
+    - Assets/UI design/Image/Room Input.png
+    - Assets/UI design/Image/Room Input.png.meta
+    - Assets/UI design/Image/Username Input.png
+    - Assets/UI design/Image/Username Input.png.meta
+    - Assets/UI design/Image/arrow.png
+    - Assets/UI design/Image/arrow.png.meta
+    - Assets/UI design/Image/avatar profile panel (turn).png
+    - Assets/UI design/Image/avatar profile panel (turn).png.meta
+    - Assets/UI design/Image/avatar profile panel.png
+    - Assets/UI design/Image/avatar profile panel.png.meta
+    - Assets/UI design/Image/background.jpg
+    - Assets/UI design/Image/background.jpg.meta
+    - Assets/UI design/Image/hover continue.png
+    - Assets/UI design/Image/hover continue.png.meta
+    - Assets/UI design/Image/hover hostjoin.png
+    - Assets/UI design/Image/hover hostjoin.png.meta
+    - Assets/UI design/Image/splash.png
+    - Assets/UI design/Image/splash.png.meta
+    - Assets/UI design/Image/unhover continue.png
+    - Assets/UI design/Image/unhover continue.png.meta
+    - Assets/UI design/Image/unhover hostjoin.png
+    - Assets/UI design/Image/unhover hostjoin.png.meta
+    - Assets/UI design/UI color palette.colors
+    - Assets/UI design/UI color palette.colors.meta
+    - Packages/manifest.json
+    - Packages/packages-lock.json
+    - ProjectSettings/AudioManager.asset
+    - ProjectSettings/ClusterInputManager.asset
+    - ProjectSettings/DynamicsManager.asset
+    - ProjectSettings/EditorBuildSettings.asset
+    - ProjectSettings/EditorSettings.asset
+    - ProjectSettings/GraphicsSettings.asset
+    - ProjectSettings/InputManager.asset
+    - ProjectSettings/NavMeshAreas.asset
+    - ProjectSettings/Physics2DSettings.asset
+    - ProjectSettings/PresetManager.asset
+    - ProjectSettings/ProjectSettings.asset
+    - ProjectSettings/ProjectVersion.txt
+    - ProjectSettings/QualitySettings.asset
+    - ProjectSettings/TagManager.asset
+    - ProjectSettings/TimeManager.asset
+    - ProjectSettings/UnityConnectSettings.asset
+    - ProjectSettings/VFXManager.asset
+    - ProjectSettings/VersionControlSettings.asset
+    - 
+    m_Values: 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+  RevisionSummary: 
+  ChangesSearchValue: 
+  SelectedHistoryRevision: 
+  HistoryPageNumber: 0
+  TabIndex: 0

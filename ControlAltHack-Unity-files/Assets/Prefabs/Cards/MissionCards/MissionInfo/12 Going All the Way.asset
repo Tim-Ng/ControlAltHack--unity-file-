@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f0b0947859b34c43aedd4b25aaae3d3, type: 3}
+  m_Name: 12 Going All the Way
+  m_EditorClassIdentifier: 
+  Mission_code: 12
+  MissonTitle: Going All the Way
+  Newb_job: 0
+  skill_name_1: 6
+  fist_change_hardnum: 0
+  hasSecondMission: 1
+  skill_name_2: 6
+  second_change_hardnum: -1
+  hasThirdMission: 1
+  skill_name_3: 6
+  third_change_hardnum: -2
+  success_amount_hacker_cread: 2
+  other_success_things: 
+  other_success_how_much: 0
+  failure_amount_hacker_cread: 1
+  other_failure_things: 
+  other_failure_how_much: 0
+  artwork_back: {fileID: 21300000, guid: 9c71e06e254806a4481fb78c07c9c1fc, type: 3}
+  artwork_front_info: {fileID: 21300000, guid: 7eed2118bfd1ea24197ab875d868b7f5, type: 3}
+  ifpassText: Plus 2 creds.
+  iffailText: Minus 1 creds.
